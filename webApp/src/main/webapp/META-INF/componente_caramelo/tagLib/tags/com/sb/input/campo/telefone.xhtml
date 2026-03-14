@@ -1,0 +1,55 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
+    xmlns:p="http://primefaces.org/ui"
+
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:decorate template="#{layout.xhtmlJsfCaminhoRelativo}">
+        <ui:define name="input">
+
+
+            <h:panelGroup layout="block" >
+                <p:inputText
+                    rendered="#{!desabilitarEdicao}"
+                    value="#{registro.valor}"
+                    styleClass="mask-telefone-br-valor invisivel "
+                    converter="conversorTelefoneGenerico"
+                    id="telefoneValor"
+                    >
+                    <f:passThroughAttribute name="caminhoCampo" value="#{registro.nomeCompostoIdentificador}" />
+                    <f:passThroughAttribute name="dominio" value="#{registro.nomeClasseAtributoDeclarado}" />
+                    <f:passThroughAttribute name="campoInstanciado" value="#{registro}" />
+                    <f:passThroughAttribute name="idOnchange" value="#{idAtualizarOnChange}"  rendered="#{possuiIDOnChange}" />
+                </p:inputText>
+
+                <p:inputMask
+                    rendered="#{!desabilitarEdicao}"
+                    id="telefonebrInput"
+                    mask="+55 (99) 99999-9999"
+                    styleClass="mask-telefone-br TexAlCenter campoResponsivo campoResponsivoTelefone #{componente.classeCSS} #{registro.nomeClasseAtributoDeclarado}_#{registro.nome}"
+                    widgetVar="#{registro.nomeClasseAtributoDeclarado}_#{registro.nome}"
+                    autoClear="false"
+                    validator="org.super_bits.view.validadores.generico"
+                    converterMessage="Impossível converter o valor de em um tipo válido "
+                    style="width:100%"
+
+                    >
+                    <f:passThroughAttribute name="caminhoCampo" value="#{registro.nomeCompostoIdentificador}" />
+                    <f:passThroughAttribute name="dominio" value="#{registro.nomeClasseAtributoDeclarado}" />
+                    <f:passThroughAttribute name="campoInstanciado" value="#{registro}" />
+                    <p:tooltip
+                        for="@parent"
+                        value="Para números internacionais, digite +, para voltar ao modo brasileiro, digite 55"
+                        position="top"
+                        />
+                </p:inputMask>
+                <p:outputLabel value="#{valor}" rendered="#{desabilitarEdicao}"/>
+            </h:panelGroup>
+            <h:outputScript library="SBComp" target="body" name="recursos/js/telefoneGenerico.js"  />
+        </ui:define>
+    </ui:decorate>
+</ui:composition>

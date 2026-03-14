@@ -1,0 +1,33 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
+ */
+package br.org.carameloCode.erp.modulo.projeto.acoes.console.projeto;
+
+/**
+ *
+ * @author salvio
+ */
+public enum FabAcaoProjetoCRCProjetoCaramelo {
+
+    PROJETO_MB_GESTAO,
+    PROJETO_FRM_LISTAR,
+    PROJETO_FRM_NOVO,
+    PROJETO_FRM_EDITAR,
+    PROJETO_CTR_SALVAR_MERGE,
+    PROJETO_CTR_PUBLICAR,
+    PROJETO_CONSOLE_MB_GESTAO,
+    PROJETO_CONSOLE_CTR_SALVAR,
+    PROJETO_CONSOLE_FRM_LISTAR_ACAO,
+    PROJETO_CONSOLE_FRM_CRIAR_ACAO,
+    PROJETO_CONSOLE_FRM_EDITAR_ACAO,
+    PROJETO_CONSOLE_CTR_SALVAR_ACAO,
+    PROJETO_CONSOLE_FRM_LISTAR_ENTIDADE,
+    PROJETO_CONSOLE_FRM_NOVO_ENTIDADE,
+    PROJETO_CONSOLE_FRM_EDITAR_ENTIDADE,
+    PROJETO_CONSOLE_FRM_ATRIBUTO_ENTIDADE_NOVO,
+    PROJETO_CONSOLE_FRM_ATRIBUTO_ENTIDADE_EDITAR,
+    PROJETO_CONSOLE_CTR_SALVAR_ATRIBUTO_ENTIDADE,
+    PROJETO_CONSOLE_CTR_SALVAR_ENTIDADE;
+
+}

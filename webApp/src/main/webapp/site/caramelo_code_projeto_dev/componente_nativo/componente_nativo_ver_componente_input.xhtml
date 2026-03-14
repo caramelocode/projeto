@@ -1,0 +1,35 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:CRCComp="http://xmlns.jcp.org/jsf/composite/SBComp"
+    xmlns:CRCInput="http://xmlns.jcp.org/jsf/composite/SBComp/composite/input"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="#{layoutsPaginas.conteudoEmBranco.xhtmlVinculado}"
+    xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <h:form>
+
+            <p:fieldset legend="DAdos do Campo Instanciado"  styleClass="Container3" >
+            </p:fieldset>
+
+            <p:fieldset legend="Edição e validação"  styleClass="Container3"  >
+                <p:fragment>
+                    <CRCInput:input registro="#{pgComponentesJsf.entidadeSelecionada.comoInput.comoCampoInstanciado}"
+                                    metodoOnChange="#{pgUtil.atualizaTelaPorID('exibicaoValor')}"
+                                    idAtualizarOnChange="exibicaoValor"
+                                    />
+                    #{pgComponentesJsf.entidadeSelecionada.comoInput.comoCampoInstanciado.valor}
+                    <p:commandButton value="Atualizar" update="exibicaoValor" process="@this" />
+                </p:fragment>
+            </p:fieldset>
+
+
+            <p:fieldset legend="Exibição" id="exibicaoValor" >
+                <CRCInput:input registro="#{pgComponentesJsf.entidadeSelecionada.comoInput.comoCampoInstanciado}" desabilitarEdicao="true" />
+            </p:fieldset>
+
+            <p:separator styleClass="quebraBlocoComEspacoVertical70"/>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
