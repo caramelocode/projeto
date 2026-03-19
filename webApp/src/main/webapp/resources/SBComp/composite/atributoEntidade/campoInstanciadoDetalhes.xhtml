@@ -1,0 +1,107 @@
+<ui:component
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:cc="http://java.sun.com/jsf/composite"
+    xmlns:sb="http://superbitsframework/ui"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+
+    xmlns:p="http://primefaces.org/ui">
+    <!-- INTERFACE -->
+    <cc:interface componentType="inputGenerico"
+                  shortDescription="Exibe um atributo para edição ou visualizção do usuário"
+                  >
+        <cc:attribute name="campoInstanciado"
+                      required="true"
+                      type="com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado"
+                      default="#{pgUtil.campoNaoImplementado}"
+                      shortDescription="Exibe um atributo de um Objeto para insersão de dados do usuário (Ou Visualização)"
+                      />
+
+
+    </cc:interface>
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+
+        <h:panelGroup>
+
+            <c:catch var ="catchException">
+                <h:outputStylesheet>
+                    .detalhesCampo{
+                    padding:10px;
+                    }
+
+                    .detalheItem{
+                    margin-bottom:12px;
+                    }
+
+                    .detalheLabel{
+                    font-size:12px;
+                    color:#6c757d;
+                    text-transform:uppercase;
+                    }
+
+                    .detalheValor{
+                    font-size:16px;
+                    font-weight:500;
+                    }
+
+                    .destaqueValor{
+                    font-size:18px;
+                    font-weight:600;
+                    }
+                </h:outputStylesheet>
+                <p:fieldset  styleClass="detalhesCampo">
+
+                    <div class="grid">
+
+                        <div class="col-6 detalheItem">
+                            <span class="detalheLabel">Label</span>
+                            <div class="detalheValor">#{cc.attrs.campoInstanciado.label}</div>
+                        </div>
+
+                        <div class="col-6 detalheItem">
+                            <span class="detalheLabel">Entidade Principal</span>
+                            <div class="detalheValor">#{cc.attrs.campoInstanciado.objetoDoAtributo}</div>
+                        </div>
+
+                        <div class="col-6 detalheItem">
+                            <span class="detalheLabel">Atributo</span>
+                            <div class="detalheValor">#{cc.attrs.campoInstanciado.nomeCamponaClasse}</div>
+                        </div>
+
+                        <div class="col-6 detalheItem">
+                            <span class="detalheLabel">Identificador</span>
+                            <div class="detalheValor">#{cc.attrs.campoInstanciado.nomeCompostoIdentificador}</div>
+                        </div>
+
+                        <div class="col-12 detalheItem">
+                            <span class="detalheLabel">Valor</span>
+                            <div class="detalheValor destaqueValor">
+                                #{cc.attrs.campoInstanciado.valor}
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </p:fieldset>
+
+            </c:catch>
+            <c:if test = "${catchException != null}">
+                É POSSÍVEL QUE ESTE ERRO POSSA SER CONTORNADO CHAMANDO O nameSpace sb:input Direto
+                Ou que este componente esteja em desenvolvimento
+
+                <p>Erro reindeizando componente: ${catchException} <br />
+                    There is an exception: ${catchException.message}</p>
+                <br/>
+                #{cc.attrs.registro.tipoCampoSTR}
+            </c:if>
+
+        </h:panelGroup>
+
+    </cc:implementation>
+
+</ui:component>

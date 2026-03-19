@@ -14,33 +14,67 @@ function autoSubmitTelefone(input) {
     const campoInstanciado = $inputMascara.attr('campoinstanciado');
 
     const $inputValor = $('input[campoinstanciado="' + campoInstanciado + '"].mask-telefone-br-valor');
+    $inputValor.val(input.value);
 
     const idValor = $inputValor.attr('id');
+    const idMaskara = $inputMascara.attr('id');
+    const idatualizacao = $inputValor.closest('[id$="InputFormPadrao"]').attr('id');
+    const areaExternaAtualizacao = $inputValor.attr('idOnchange');
+    if (areaExternaAtualizacao) {
+        PrimeFaces.ab({
+            s: idMaskara,
+            p: idValor,
+            u: areaExternaAtualizacao,
 
+            oncomplete: function () {
+                console.log("Ajax terminou e DOM já foi atualizado");
+
+                // aqui você pode reaplicar máscara, reposicionar cursor, etc
+
+            }
+        });
+    }
 
     PrimeFaces.ab({
-        s: idValor,
+        s: idMaskara,
         p: idValor,
-        u: '@parent'
+        u: idatualizacao,
+
+        oncomplete: function () {
+            console.log("Ajax terminou e DOM já foi atualizado");
+
+            // aqui você pode reaplicar máscara, reposicionar cursor, etc
+
+        }
     });
-    if ($inputValor.length) {
-        $inputMascara.val($inputValor.val());
-    }
+    PrimeFaces.ab({
+        s: idMaskara,
+        p: idValor,
+        u: idatualizacao,
+        oncomplete: function () {
+            console.log("Ajax terminou e DOM já foi atualizado");
+
+            // aqui você pode reaplicar máscara, reposicionar cursor, etc
+
+        }
+    });
+
+}
+function getInputTelefoneValorPorElementoMascara(pElemento) {
+    const $inputMascara = $(pElemento);
+    const campoInstanciado = $inputMascara.attr('campoinstanciado');
+    const $inputValor = $('input[campoinstanciado="' + campoInstanciado + '"].mask-telefone-br-valor');
+    return  $inputValor;
 }
 
 
 function definirMascaraTelefoneGenerico(pElemento, teclaRetorno) {
 
     const $inputMascara = $(pElemento);
-
     const campoInstanciado = $inputMascara.attr('campoinstanciado');
-
     const $inputValor = $('input[campoinstanciado="' + campoInstanciado + '"].mask-telefone-br-valor');
-
     let mask = $inputMascara[0].inputmask?.maskset?.mask || '+55 (99) 99999-9999';
-
     let valor = $inputMascara.val().trim();
-
     let apenasDigitos = valor.replace(/\D/g, '');
 
 
@@ -124,10 +158,7 @@ function definirMascaraTelefoneGenerico(pElemento, teclaRetorno) {
         showMaskOnHover: false
     });
 
-// restaura valor corretamente
-    if (valorAtual) {
-        $inputMascara[0].inputmask.setValue(valorAtual);
-    }
+
 
     // =============================================
     // ATUALIZA CAMPO DE VALOR RELACIONADO
@@ -183,6 +214,17 @@ function definirMascaraTelefoneGenerico(pElemento, teclaRetorno) {
 
 
 function inicializarMascarasTelefone() {
+    $(document).off('pfAjaxComplete.telefone');
+    $(document).on('pfAjaxComplete.telefone', function () {
+
+        $('.campoResponsivoTelefone').each(function () {
+            const   valor = getInputTelefoneValorPorElementoMascara(this);
+
+            $(this).val(valor.val());
+            definirMascaraTelefoneGenerico(this, false);
+        });
+
+    });
 
     $(document)
 
@@ -224,9 +266,7 @@ function inicializarMascarasTelefone() {
                         greedy: false,
                         clearMaskOnLostFocus: false
                     });
-
                     setTimeout(() => $inputMascara[0].setSelectionRange(1, 1), 0);
-
                     return;
                 }
 
@@ -235,12 +275,8 @@ function inicializarMascarasTelefone() {
                 const valor = $(this).val();
 
                 if (e.key === 'Backspace' && (valor === '+55 ' || valor === '+55' || valor === '+')) {
-
                     e.preventDefault();
-
                     $(this).val('+');
-
-
                     setTimeout(() => this.setSelectionRange(1, 1), 0);
                 }
 
@@ -249,17 +285,13 @@ function inicializarMascarasTelefone() {
 
 
             .on('keyup.masktel input.masktel paste.masktel', '.campoResponsivoTelefone', function () {
-
                 definirMascaraTelefoneGenerico(this, false);
-
             })
 
 
 
             .on('blur.masktel', '.campoResponsivoTelefone', function () {
-
                 autoSubmitTelefone(this);
-
             });
 }
 

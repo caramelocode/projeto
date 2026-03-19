@@ -13,11 +13,13 @@
 
 
             <h:panelGroup layout="block" >
+
                 <p:inputText
                     rendered="#{!desabilitarEdicao}"
                     value="#{registro.valor}"
                     styleClass="mask-telefone-br-valor invisivel "
-                    converter="conversorTelefoneGenerico"
+                    validator="org.super_bits.view.validadores.telefone"
+
                     id="telefoneValor"
                     >
                     <f:passThroughAttribute name="caminhoCampo" value="#{registro.nomeCompostoIdentificador}" />
@@ -27,14 +29,14 @@
                 </p:inputText>
 
                 <p:inputMask
+                    transient="true"
                     rendered="#{!desabilitarEdicao}"
                     id="telefonebrInput"
                     mask="+55 (99) 99999-9999"
                     styleClass="mask-telefone-br TexAlCenter campoResponsivo campoResponsivoTelefone #{componente.classeCSS} #{registro.nomeClasseAtributoDeclarado}_#{registro.nome}"
                     widgetVar="#{registro.nomeClasseAtributoDeclarado}_#{registro.nome}"
                     autoClear="false"
-                    validator="org.super_bits.view.validadores.generico"
-                    converterMessage="Impossível converter o valor de em um tipo válido "
+
                     style="width:100%"
 
                     >
@@ -48,7 +50,9 @@
                         />
                 </p:inputMask>
                 <p:outputLabel value="#{valor}" rendered="#{desabilitarEdicao}"/>
+
             </h:panelGroup>
+
             <h:outputScript library="SBComp" target="body" name="recursos/js/telefoneGenerico.js"  />
         </ui:define>
     </ui:decorate>

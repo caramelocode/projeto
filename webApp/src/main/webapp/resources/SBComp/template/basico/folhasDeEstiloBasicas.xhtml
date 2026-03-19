@@ -19,8 +19,10 @@
     <h:outputScript  name = "recursos/bootstrap/js/bootstrap.js"  library="SBComp" />
     <h:outputStylesheet  name="recursos/w3/w3.css" library="SBComp"  />
 
+    <h:outputStylesheet  name="recursos/css/SBAcaoNavegacao.css" library="SBComp"  />
+    <h:outputStylesheet  name="recursos/css/primeflex.css"   library="SBComp" />
 
     <h:outputScript target="head"  library="SBComp" name="template/esqueleto/ativarGridsResp.js"/>
     <h:outputScript      name="aplicacao.js" library="js"  target="head"  />
-
+    <ui:include src="/site/modelo/folhasDeEstiloAplicacao.xhtml" />
 </ui:composition>

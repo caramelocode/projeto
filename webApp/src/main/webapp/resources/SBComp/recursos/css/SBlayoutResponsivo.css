@@ -118,6 +118,7 @@ h1, h2, h3, h4, h5, h6{
 }
 
 
+
 .Linha-separacao{
     height:1px;
     background:#717171;
@@ -1209,4 +1210,8 @@ ui-message-warn-summary{
 
 .ui-message-warn-summary {
     font-size: large;
+}
+
+.MargemTopo30{
+    margin-top: 30px;
 }

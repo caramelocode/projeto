@@ -1,35 +1,141 @@
 <ui:composition
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:CRCComp="http://xmlns.jcp.org/jsf/composite/SBComp"
+    xmlns:CRCCpInst="http://xmlns.jcp.org/jsf/composite/SBComp/composite/atributoEntidade"
     xmlns:CRCInput="http://xmlns.jcp.org/jsf/composite/SBComp/composite/input"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:pe="http://primefaces.org/ui/extensions"
     template="#{layoutsPaginas.conteudoEmBranco.xhtmlVinculado}"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="conteudo">
+
+
+
+        <p:panelGrid columns="2">
+
+            <p:panel header="Propriedades do componente">
+
+                <p:panelGrid columns="2" styleClass="ui-fluid">
+
+                    <h:outputText value="Tipo de visualização"/>
+                    <h:form >
+
+
+                        <p:selectOneButton value="#{pgComponentesJsf.tipoVisualizacaoSelecionada}"
+                                           converter="conversorGenerico"
+                                           >
+                            <f:selectItems value="#{pgComponentesJsf.tiposVisualizacaoDisponivel}"
+                                           var="tipo"
+                                           itemLabel="#{tipo.nome}"
+                                           itemValue="#{tipo}"/>
+
+                            <p:ajax event="change"
+                                    process="@this"
+                                    update="editorCampoInstanciado exibicaoValor"/>
+                        </p:selectOneButton>
+                    </h:form>
+                    <h:outputText value="Atualizar área identificada como editorCampoInstanciado? "/>
+                    <h:form >
+                        <p:toggleSwitch />
+                    </h:form>
+                </p:panelGrid>
+
+            </p:panel>
+            <p:fieldset   id="detalhesCpInst">
+                <h:form >
+                    <CRCCpInst:campoInstanciadoDetalhes
+                        campoInstanciado="#{pgComponentesJsf.entidadeSelecionada.comoInput.comoCampoInstanciado}"
+
+                        />
+                </h:form>
+
+            </p:fieldset>
+
+        </p:panelGrid>
+
+
+
+
+
+        <p:fieldset legend="TestDrive:"  styleClass="Container3" id="editorCampoInstanciado"  >
+            <h:form >
+                <p:fragment>
+                    <CRCInput:input
+                        registro="#{pgComponentesJsf.entidadeSelecionada.comoInput.comoCampoInstanciado}"
+                        layout="#{layoutsComponenteSB.layoutCampo.esquerda}"
+                        idAtualizarOnChange="exibicaoValor detalhesCpInst"
+                        />
+
+
+                </p:fragment>
+            </h:form>
+        </p:fieldset>
+
+        <p:tabView id="exibicaoValor" >
+            <p:tab title="Exibição" >
+
+                <p:fieldset  >
+                    <h:form>
+
+
+
+
+                        <CRCInput:input registro="#{pgComponentesJsf.entidadeSelecionada.comoInput.comoCampoInstanciado}"
+
+                                        desabilitarEdicao="true" layout="#{pgComponentesJsf.tipoVisualizacaoSelecionada}" />
+
+                    </h:form>
+                </p:fieldset>
+            </p:tab>
+
+            <p:tab title="Informações técnicas" >
+                <p:fieldset   id="detalhesInputCRC">
+                    <h:form >
+                        <CRCInput:input registro="#{pgComponentesJsf.entidadeSelecionada.comoInput.comoCampoInstanciado}"
+
+                                        desabilitarEdicao="true" layout="#{layoutsComponenteSB.layoutCampo.debugCampo}" />
+                    </h:form>
+
+                </p:fieldset>
+            </p:tab>
+
+        </p:tabView>
+
+
+
+        <p:separator styleClass="quebraBlocoComEspacoVertical70"/>
         <h:form>
 
-            <p:fieldset legend="DAdos do Campo Instanciado"  styleClass="Container3" >
-            </p:fieldset>
 
-            <p:fieldset legend="Edição e validação"  styleClass="Container3"  >
-                <p:fragment>
-                    <CRCInput:input registro="#{pgComponentesJsf.entidadeSelecionada.comoInput.comoCampoInstanciado}"
-                                    metodoOnChange="#{pgUtil.atualizaTelaPorID('exibicaoValor')}"
-                                    idAtualizarOnChange="exibicaoValor"
-                                    />
-                    #{pgComponentesJsf.entidadeSelecionada.comoInput.comoCampoInstanciado.valor}
-                    <p:commandButton value="Atualizar" update="exibicaoValor" process="@this" />
-                </p:fragment>
-            </p:fieldset>
+            <p:tabView >
+                <p:tab title="Como usar este componente?" >
+                    <h:panelGroup layout="block" styleClass="Container12" >
+                        <pe:codeMirror
+                            value="#{pgComponentesJsf.codigoExemplo}"
+                            mode="xml"
+                            theme="default"
+                            readonly="true"
+                            lineNumbers="true"
+                            />
+                    </h:panelGroup>
+                </p:tab>
+                <p:tab title="Como personalizar validadores lógicos?" >
 
 
-            <p:fieldset legend="Exibição" id="exibicaoValor" >
-                <CRCInput:input registro="#{pgComponentesJsf.entidadeSelecionada.comoInput.comoCampoInstanciado}" desabilitarEdicao="true" />
-            </p:fieldset>
+                </p:tab>
+                <p:tab title="Como definir um valor lógico para o atributo?" >
 
-            <p:separator styleClass="quebraBlocoComEspacoVertical70"/>
+
+                </p:tab>
+
+
+            </p:tabView>
+
+
+
 
         </h:form>
+
     </ui:define>
 </ui:composition>

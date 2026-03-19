@@ -9,3 +9,4 @@ function abrirURLComLoad(idComponente, url) {
     bloquearArea(idComponente);
     location.replace(url);
 }
+

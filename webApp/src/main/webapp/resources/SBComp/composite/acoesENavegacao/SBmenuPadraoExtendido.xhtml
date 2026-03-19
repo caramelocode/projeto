@@ -1,7 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:cc="http://java.sun.com/jsf/composite"
                 xmlns:sb="http://superbitsframework/ui"
-
+                xmlns:pm="http://primefaces.org/adamantium"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
@@ -19,7 +19,7 @@
 
         <div class="layout-menu-cover-top  Animated05 ManterNoTopo" id="layout-menu-cover">
             <h:form>
-                <p:menu  >
+                <pm:menu  >
                     <c:forEach items="#{sessaoAtualSBWP.menusDaSessao.menuAvancado.sessoes}" var="sessao" >
 
 
@@ -57,7 +57,7 @@
                         </p:submenu>
 
                     </c:forEach>
-                </p:menu>
+                </pm:menu>
             </h:form>
 
 

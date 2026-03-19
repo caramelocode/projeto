@@ -749,3 +749,64 @@ function copiarTexto(btn) {
 
     }
 }
+
+
+function aplicarLinkify(nodes) {
+
+    console.log("____________aplicando_______");
+    console.log(nodes);
+    console.log("____________aplicando_______");
+    nodes.forEach(node => {
+        if (node.dataset.linkified === "true")
+            return;
+
+        node.innerHTML = node.innerHTML.replace(
+                /(https?:\/\/[^\s<]+)/g,
+                '<a href="$1" target="_blank">$1</a>'
+                );
+
+        node.dataset.linkified = "true";
+    });
+}
+
+function registrarLinkifyAjax() {
+
+    // garante que jQuery e PrimeFaces já carregaram
+    if (!window.jQuery || !window.PrimeFaces) {
+        console.warn("[Linkify] jQuery/PrimeFaces ainda não disponíveis");
+        return;
+    }
+
+    // evita múltiplos binds
+    if (window._linkifyAjaxHookInstalled) {
+        console.log("[Linkify] já registrado");
+        return;
+    }
+
+    window._linkifyAjaxHookInstalled = true;
+
+    console.log("[Linkify] registrando hook pfAjaxComplete");
+
+    $(document).on('pfAjaxComplete.linkify', function (e, xhr, settings) {
+
+        console.log("[Linkify] pfAjaxComplete disparado");
+
+        const mensagens = document.querySelectorAll(
+                '.ui-message-error-detail'
+                );
+
+        aplicarLinkify(mensagens);
+    });
+}
+
+function initLinkifyQuandoPronto() {
+
+    if (!window.jQuery || !window.PrimeFaces) {
+        setTimeout(initLinkifyQuandoPronto, 500);
+        return;
+    }
+
+    registrarLinkifyAjax();
+}
+
+initLinkifyQuandoPronto();

@@ -1,11 +1,11 @@
-VERSAO=1.1-SNAPSHOT
-NOME_PROJETO=modelRegras
-NOME_SOCIAL="ModelRegras Projeto Caramelo Code"
-TIPO_PROJETO=jar
+VERSAO=1.0-SNAPSHOT
+NOME_PROJETO=webApp
+NOME_SOCIAL="Caramelo Projetos"
+TIPO_PROJETO=war
 NOME_CLIENTE=carameloCode
 GRUPO_PROJETO=projeto
 NOME_BANCO=projetoCaramelo
 DIRETORIO_BASE=
-ENDERECO_WEB=app.caramelocode.com.br
-GROUP_ID_MAVEN=br.org.carameloCode.erp.projeto
+ENDERECO_WEB=meucrm.caramelocode.com.br
+GROUP_ID_MAVEN=br.org.carameloCode.erp.crm
 ENDERECO_WEB_REQUISITO=requisito.caramelocode.com.br

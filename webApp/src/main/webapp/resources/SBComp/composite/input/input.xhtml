@@ -10,15 +10,21 @@
     <cc:interface componentType="inputGenerico"
                   shortDescription="Exibe um atributo para edição ou visualizção do usuário"
                   >
-        <cc:attribute name="registro"
-                      required="true"
-                      type="com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado"
-                      default="#{pgUtil.campoNaoImplementado}"
-                      shortDescription="Exibe um atributo de um Objeto para insersão de dados do usuário (Ou Visualização)"
-                      />
+
         <cc:attribute name="campoLocalizacaoCEP" default="#{null}"  />
         <cc:attribute name="desabilitarEdicao" type="java.lang.Boolean" default="#{false}" />
         <cc:attribute name="idAtualizarOnChange"
+                      />
+        <cc:attribute name="campoInstanciado"
+                      type="com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado"
+                      default="#{cc.attrs.registro}"
+                      shortDescription="Exibe um atributo de um Objeto para insersão de dados do usuário (Ou Visualização)"
+                      />
+
+        <cc:attribute name="registro"
+                      type="com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado"
+                      default="#{pgUtil.campoNaoImplementado}"
+                      shortDescription="Exibe um atributo de um Objeto para insersão de dados do usuário (Ou Visualização) "
                       />
 
         <cc:attribute name="atualizarFormOnChange" type="java.lang.Boolean" default="#{false}" />
@@ -58,7 +64,7 @@
             <c:catch var ="catchException">
 
                 <sb:inputSB
-                    registro="#{cc.attrs.registro}"
+                    registro="#{cc.attrs.campoInstanciado}"
                     desabilitarEdicao="#{cc.attrs.desabilitarEdicao}"
                     layoutCampo="#{cc.attrs.layout}"
                     possuiIDOnChange="#{!pgUtil.isNuloOuEmbranco(cc.attrs.idAtualizarOnChange)}"

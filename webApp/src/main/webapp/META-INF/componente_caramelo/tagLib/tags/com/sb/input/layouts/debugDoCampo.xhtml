@@ -5,21 +5,28 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:p="http://primefaces.org/ui">
 
-    <h:panelGroup styleClass="inputCampo" style="position: absolute;right: 0px; top: 0px"
-                  rendered="#{infoWebApp.emModoDesenvolvimentoHomologacao}">
+    <h:panelGroup  class="inputCampo inputCampoResumido" style="max-width: 400px" layout="block" >
+        <p:panelGrid columns="2" layout="flex">
+            <h:outputText value="Xhtml:" /><p:outputLabel value="/webapp/META-INF/ componente_caramelo/ tagLib/tags/ com/sb/input/layouts #{xhtmlINPUT}" />
+            <h:outputText value="layoutCampo" /><p:outputLabel value="#{layoutCampo} #{layoutCampo.xhtmlJSF} "/>
+            <h:outputText value="Desativar Edição" /><p:outputLabel value="#{desabilitarEdicao}" />
+            <h:outputText value="Obrigatório" /><p:outputLabel value="#{obrigatorio}" />
+            <h:outputText value="Valor" /><p:outputLabel value="#{valor}" />
+            <h:outputText value="Label" /><p:outputLabel value="#{label}" />
+            <h:outputText value="regex" /><p:outputLabel value="#{regex}" />
+            <h:outputText value="valorMaximo" /><p:outputLabel value="#{valorMaximo}" />
+            <h:outputText value="valorMinimo" /><p:outputLabel value="#{valorMinimo}" />
 
 
-        <p:outputLabel styleClass="" >
-            <i class="fa fa-info"> </i>
-            <p:tooltip for="@parent" value="#{xhtmlINPUT}"  trackMouse="true" >
-                #{xhtmlINPUT} <br/>
-                #{regex} #{valorMaximo} #{valorMinimo}
-                #{label} <br/>
-                #{layoutCampo} <br/>
-            </p:tooltip>
-        </p:outputLabel>
+            <h:outputText value="Id Atualizacao" /><p:outputLabel value="#{idAtualizarOnChange}" />
+            <h:outputText value="Metodo onFocus" /><p:outputLabel value="#{metodoJSOnfocus}" />
+            <h:outputText value="atualizarGrupoOnChange" /><p:outputLabel value="#{atualizarGrupoOnChange}" />
+            <h:outputText value="atualizarFormOnChange" /><p:outputLabel value="#{atualizarFormOnChange}" />
+            <h:outputText value="possuiMetodoOnChange" /><p:outputLabel value="#{possuiMetodoOnChange}" />
+            <h:outputText value="prMetodo" /><p:outputLabel value="#{prMetodo}" />
+        </p:panelGrid>
+
 
 
     </h:panelGroup>
 </ui:composition>
-

@@ -1570,3 +1570,13 @@ li {
     -ms-transform: none !important;
     transform: none !important;
 }
+
+
+
+
+body{
+    margin:0;
+    font-family:system-ui,Arial;
+    background:#0f172a;
+    color:white;
+}
