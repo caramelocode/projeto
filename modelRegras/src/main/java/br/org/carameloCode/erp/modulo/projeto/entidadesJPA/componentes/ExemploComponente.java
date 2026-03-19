@@ -11,6 +11,8 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.Info
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfAtributoObjetoEditavel;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
  *
@@ -21,6 +23,7 @@ import javax.persistence.Entity;
 public class ExemploComponente extends TipoDadoDinamico implements ItfAtributoObjetoEditavel {
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.ENUM_FABRICA)
+    @Enumerated(EnumType.STRING)
     private FabExemploComponenteNativo tipoExemplo;
 
     @Override

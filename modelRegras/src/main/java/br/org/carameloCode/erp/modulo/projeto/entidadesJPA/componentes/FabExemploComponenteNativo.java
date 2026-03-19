@@ -20,9 +20,10 @@ public enum FabExemploComponenteNativo
     @InfoObjetoDaFabrica(classeObjeto = ExemploComponenteInput.class, id = 2l, nomeObjeto = "WHATSAPP")
     TELEFONE_WHATSAPPP,
     @InfoObjetoDaFabrica(classeObjeto = ExemploComponenteInput.class, id = 3l, nomeObjeto = "TELGENERICO")
-    TELEFONE_GENERICO;
+    TELEFONE_GENERICO,
+    @InfoObjetoDaFabrica(classeObjeto = ExemploComponenteInput.class, id = 4l, nomeObjeto = "CNPJ")
+    CNPJ;
 
-    @Override
     public ExemploComponente getRegistro() {
         ExemploComponente novoExemplo = (ExemploComponente) ComoFabricaComPersistencia.super.getRegistro(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
 
@@ -39,6 +40,11 @@ public enum FabExemploComponenteNativo
             case TELEFONE_GENERICO:
                 novoExemplo.setLabel("Telefone Generico");
                 novoExemplo.setFabricaTipoAtributo(FabTipoAtributoObjeto.TELEFONE_GENERICO);
+                break;
+            case CNPJ:
+                novoExemplo.setLabel("Cnpj");
+                novoExemplo.setFabricaTipoAtributo(FabTipoAtributoObjeto.CNPJ);
+
                 break;
             default:
                 throw new AssertionError();

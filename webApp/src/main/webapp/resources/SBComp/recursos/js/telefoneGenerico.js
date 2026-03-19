@@ -221,7 +221,11 @@ function inicializarMascarasTelefone() {
             const   valor = getInputTelefoneValorPorElementoMascara(this);
 
             $(this).val(valor.val());
-            definirMascaraTelefoneGenerico(this, false);
+            try {
+                definirMascaraTelefoneGenerico(this, false);
+            } catch (e) {
+                console.log(e);
+            }
         });
 
     });
