@@ -33,12 +33,12 @@
                                 <h:panelGroup layout="">
                                     <c:forEach items="#{comunicacao.repostasPossiveis}" var="resp" >
                                         <h:panelGroup layout="block" >
-                                            <i  onclick="responderConversaRespostaRapida(#{comunicacao.codigoSelo}, #{resp.tipoResposta.id})" class="w3-btn   #{resp.tipoResposta.icone} Fs20 Blue Fright" style="margin: 10px; background-color: white; color: #0074c7" >
+                                            <i  onclick="responderConversaRespostaRapida('#{comunicacao.codigoSelo}', #{resp.tipoResposta.id})" class="w3-btn   #{resp.tipoResposta.icone} Fs20 Blue Fright" style="margin: 10px; background-color: white; color: #0074c7" >
                                             </i>
                                         </h:panelGroup>
 
                                     </c:forEach>
-                                    <p:commandLink  onclick="responderConversa(#{comunicacao.codigoSelo})">
+                                    <p:commandLink  onclick="responderConversa('#{comunicacao.codigoSelo}')">
                                         <i class="#{comunicacao.tipoComunicacao.icone} Fs20 Blue Fleft" style="margin: 5px; position: absolute"> </i>
                                         <span class="FontAdamantiumBold Blue"> <h:outputLabel escape="false" style="margin-left: 28px" value="#{comunicacao.assunto}" /> </span><br />
                                         <span class="Fs12"><h:outputLabel escape="false" value="#{comunicacao.mensagem}" /></span>

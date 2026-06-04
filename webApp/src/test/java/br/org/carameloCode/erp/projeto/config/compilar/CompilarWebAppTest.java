@@ -4,7 +4,8 @@
  */
 package br.org.carameloCode.erp.projeto.config.compilar;
 
-import br.org.carameloCode.erp.crm.config.InicioFimContextoWebPagina;
+import br.org.caramelo.web.testesFW.webApp.testes.UtilTestePagina;
+import br.org.carameloCode.erp.projeto.config.InicioFimContextoWebPagina;
 import br.org.carameloCode.erp.projeto.config.TesteWPProjetoCarameloCode;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCShellBasico;
@@ -35,7 +36,6 @@ public class CompilarWebAppTest extends TesteWPProjetoCarameloCode {
             Assert.fail("Script devOpsTaglib/compilar.shnão encontrado no resources.");
 
         }
-
         String diretorioExecuca = SBCore.getCaminhoDesenvolvimento();
         String nomeArquivo = "compilarTaglib.sh";
         File destino = new File(SBCore.getCaminhoDesenvolvimento() + nomeArquivo);

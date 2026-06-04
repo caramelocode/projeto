@@ -32,7 +32,7 @@
     </context-param>
     <context-param>
         <param-name>facelets.REFRESH_PERIOD</param-name>
-        <param-value>0</param-value>
+        <param-value>1</param-value>
     </context-param>
     <servlet>
         <servlet-name>notionWidget</servlet-name>
@@ -256,5 +256,13 @@
     <mime-mapping>
         <extension>js</extension>
         <mime-type>text/javascript</mime-type>
+    </mime-mapping>
+    <context-param>
+        <param-name>javax.faces.CONFIG_FILES</param-name>
+        <param-value>/META-INF/faces-config.xml</param-value>
+    </context-param>
+    <mime-mapping>
+        <extension>css</extension>
+        <mime-type>text/css</mime-type>
     </mime-mapping>
 </web-app>

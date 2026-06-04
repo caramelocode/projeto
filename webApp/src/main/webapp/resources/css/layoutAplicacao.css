@@ -1580,3 +1580,8 @@ body{
     background:#0f172a;
     color:white;
 }
+
+
+.CRCConsole input{
+    font-size:40px !important;
+}

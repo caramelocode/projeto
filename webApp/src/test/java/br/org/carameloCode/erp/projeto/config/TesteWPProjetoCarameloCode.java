@@ -5,8 +5,6 @@
  */
 package br.org.carameloCode.erp.projeto.config;
 
-import br.org.carameloCode.erp.crm.config.ConfigCoreWebAppProjetosCaramelo;
-import br.org.carameloCode.erp.crm.config.ConfigWP_CRM_CarameloCode;
 import br.org.carameloCode.erp.modulo.projeto.config.ConfigPersistenciaProjetoCaramelo;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 
@@ -28,7 +26,7 @@ public class TesteWPProjetoCarameloCode extends TesteJunitSBPersistencia {
         SBCore.configurar(new ConfigCoreWebAppProjetosCaramelo(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         SBPersistencia.configuraJPA(new ConfigPersistenciaProjetoCaramelo(), true, false);
         try {
-            SBWebPaginas.configurar(new ConfigWP_CRM_CarameloCode());
+            SBWebPaginas.configurar(new ConfigWP_PROJETO_CarameloCode());
         } catch (IOException ex) {
             Logger.getLogger(TesteWPProjetoCarameloCode.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -6,12 +6,10 @@
 package com.super_bits.Casa_Nova.Intranet_Marketing_Digital.configAppp;
 
 import br.org.carameloCode.erp.modulo.projeto.config.ConfigPersistenciaProjetoCaramelo;
+import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorCoreModelSemPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import org.junit.Test;
 import testesFW.TesteJunitJPAModuloERP;
-import testesFW.TesteJunitSBPersistencia;
 
 /**
  *
@@ -52,6 +50,7 @@ public abstract class TesteProjetoCaramelo extends TesteJunitJPAModuloERP {
 
     @Override
     protected void configAmbienteDesevolvimento() {
+
         //Nas classes de ambiente padrão do sistema  modo desenvolvimento significa execuções via JUNIT, HOmologação Jetty na sua maquina, e Produção na Web
         SBCore.configurar(new ConfigCoreProjetoCRC(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         SBPersistencia.configuraJPA(new ConfigPersistenciaProjetoCaramelo());

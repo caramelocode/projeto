@@ -1,0 +1,55 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:SBAcaoNav="http://xmlns.jcp.org/jsf/composite/SBComp/composite/acoesENavegacao"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="#{layoutsPaginas.modeloGeral.xhtmlVinculado}"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="divConteudo">
+        <h:panelGroup id="#{paginaAtual.infoPagina.idAreaExbicaoAcaoSelecionada}">
+            <h:form >
+                <SBAcaoNav:seletorDeAcoes metodo="#{pgProjetoSBVisaoGeral.executarAcaoSelecionada()}"
+                                          opcaoSelecionada="#{pgProjetoSBVisaoGeral.acaoSelecionada}"
+                                          opcoes="#{pgProjetoSBVisaoGeral.tiposVisualizacao}"
+                                          visualizacaoBotao="#{layoutsComponenteSB.layoutBotoes.iconeENome}"
+                                          update="#{layoutIdsAreasConhecidas.AREA_CONTEUDO}"
+                                          />
+            </h:form>
+
+            <ui:include src="#{paginaAtual.infoPagina.xhtmlAcaoAtual}" />
+            <h:form>
+                <p:card styleClass="Container12 OrganizadorContainer" >
+                    <p:autoComplete id="itemTip" value="#{CRCProj.textoDefinido}"
+                                    completeMethod="#{CRCProj.autocompletProjeto}"
+                                    var="opcao" itemLabel="#{opcao}" itemValue="#{opcao}"
+                                    styleClass="CRCConsole"
+                                    converter="#{countryConverter}" scrollHeight="250">
+                        <f:facet name="itemtip">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <f:facet name="header">
+                                    <span class="flag flag-#{country.code}" style="width: 30px; height: 20px"/>
+                                </f:facet>
+
+                                <h:outputText value="Name"/>
+                                <h:outputText value="#{country.name}"/>
+
+                                <h:outputText value="Code"/>
+                                <h:outputText value="#{country.code}"/>
+                            </h:panelGrid>
+                        </f:facet>
+
+                        <f:facet name="footer">
+                            <div class="ui-fluid" style="padding:0.5rem 1rem 1rem 1rem">
+                                <p:staticMessage severity="info" summary="#{CRCProj.textoDica}" />
+                                <p:button value="Criar novo (Ctr+1)" onclick="alert('This could open a dialog')"/>
+                                <p:button value="Editar -Ação, Entidade, Atributo Entidade (Ctr+1)" onclick="alert('This could open a dialog')"/>
+                            </div>
+                        </f:facet>
+                    </p:autoComplete>
+
+                </p:card>
+            </h:form>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>

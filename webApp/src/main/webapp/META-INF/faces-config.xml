@@ -32,7 +32,7 @@
             org.primefaces.application.DialogViewHandler
         </view-handler>
     </application>
-   
+
 
     <application>
         <el-resolver>
@@ -46,35 +46,50 @@
     </factory>
 
 
-
-
-
     <lifecycle>
         <phase-listener>org.primefaces.component.lifecycle.LifecyclePhaseListener</phase-listener>
     </lifecycle>
 
+    <application>
+        <resource-handler>com.super_bits.modulosSB.webPaginas.recursosJSF.RecursosJSF</resource-handler>
+    </application>
 
 
 
+    <component>
+        <component-type>org.primefaces.component.AdamantiumMenu</component-type>
+        <component-class>br.org.caramelocode.webapp.taglib.menu.AdamantiumMenu</component-class>
+    </component>
 
     <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.AdamantiumMenuRenderer</renderer-type>
+            <renderer-class>br.org.caramelocode.webapp.taglib.menu.AdamantiumMenuRenderer</renderer-class>
+        </renderer>
+    </render-kit>
 
+    <render-kit>
         <renderer>
             <component-family>br.org.superbits.tags</component-family>
             <renderer-type>br.org.superbits.tags.BotaoGenericoRender</renderer-type>
-            <renderer-class>org.super_bits.tags.botao.generico.TagBotaoGenericoRender</renderer-class>
+            <renderer-class>br.org.caramelocode.webapp.taglib.botao.generico.TagBotaoGenericoRender</renderer-class>
         </renderer>
     </render-kit>
 
     <component>
         <component-type>br.org.superbits.tags.BotaoGenerico</component-type>
-        <component-class>org.super_bits.tags.botao.generico.TagBotaoGenerico</component-class>
+        <component-class>br.org.caramelocode.webapp.taglib.botao.generico.TagBotaoGenerico</component-class>
     </component>
 
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.StepsRenderer</renderer-type>
+            <renderer-class>br.org.caramelocode.webapp.taglib.steps.EtapasPrimefaces</renderer-class>
+        </renderer>
+    </render-kit>
 
-    <application>
-        <resource-handler>com.super_bits.modulosSB.webPaginas.recursosJSF.RecursosJSF</resource-handler>
-    </application>
 
 
 </faces-config>

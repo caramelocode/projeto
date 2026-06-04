@@ -5,8 +5,6 @@
  */
 package br.org.carameloCode.erp.projeto.config;
 
-import br.org.carameloCode.erp.crm.config.ConfigCoreWebAppProjetosCaramelo;
-import br.org.carameloCode.erp.crm.config.ConfigWP_CRM_CarameloCode;
 import br.org.carameloCode.erp.modulo.projeto.config.ConfigPersistenciaProjetoCaramelo;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
@@ -17,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
 import com.super_bits.modulos.SBAcessosModel.view.FabAcaoPaginasDoSistema;
-import com.super_bits.modulosSB.webPaginas.controller.servlets.WebPaginasServlet;
 
 /**
  *
@@ -42,7 +39,7 @@ public class TesteConformidadeTest extends RelatorioTesteWebPaginas {
         SBCore.configurar(new ConfigCoreWebAppProjetosCaramelo(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         SBPersistencia.configuraJPA(new ConfigPersistenciaProjetoCaramelo(), true, true);
         try {
-            SBWebPaginas.configurar(new ConfigWP_CRM_CarameloCode());
+            SBWebPaginas.configurar(new ConfigWP_PROJETO_CarameloCode());
         } catch (IOException ex) {
             Logger.getLogger(TesteConformidadeTest.class.getName()).log(Level.SEVERE, null, ex);
         }

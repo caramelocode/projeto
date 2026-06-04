@@ -18,30 +18,49 @@
     <cc:implementation>
 
         <h:panelGroup layout="block"
-                      styleClass="status-container" rendered="#{servicoVisualizacaoComponente.visualizarEstiloStatus(valor)}"
+                      styleClass="status-container" rendered="#{servicoVisualizacaoComponente.visualizarEstiloStatus(cc.attrs.objetoSimples)}"
                       >
-            <h:panelGroup styleClass="status-icon #{servicoVisualizacaoComponente.getIcone(valor)} Fs24" style="color: #{servicoVisualizacaoComponente.getCor(valor)}"  />
+            <h:panelGroup styleClass="status-icon #{servicoVisualizacaoComponente.getIcone(valor)} Fs24" style="color: #{servicoVisualizacaoComponente.getCor(cc.attrs.objetoSimples)}"  />
             <h:panelGroup styleClass="statusText Fs16"  >
-                #{valor.nome}
+                #{cc.attrs.objetoSimples.nome}
             </h:panelGroup>
+
         </h:panelGroup>
 
 
         <h:panelGroup layout="block"
-                      rendered="#{servicoVisualizacaoComponente.visualizarEstiloIcone(valor)}"
-                      styleClass="Container12 OrganizadorContainer"
+                      style="padding-left: 18px;padding-top: 21px;"
+                      rendered="#{servicoVisualizacaoComponente.visualizarEstiloIcone(cc.attrs.objetoSimples)}"
+                      styleClass="Container12 OrganizadorContainerEsquerda"
                       >
-            <h:panelGroup styleClass="#{servicoVisualizacaoComponente.getIcone(valor)} Fs40" style="color: #{servicoVisualizacaoComponente.getCor(valor)}"  />
+
+            <p:panelGrid columns="1">
+                <h:panelGroup styleClass="#{servicoVisualizacaoComponente.getIcone(cc.attrs.objetoSimples)} Fs40" style="color: #{servicoVisualizacaoComponente.getCor(cc.attrs.objetoSimples)}"  >
+
+                </h:panelGroup>
+
+                <h:panelGroup styleClass="statusText Fs16" rendered="#{servicoVisualizacaoComponente.getIcone(cc.attrs.objetoSimples) == null}"  >
+                    #{cc.attrs.objetoSimples.nome}
+
+                </h:panelGroup>
+            </p:panelGrid>
         </h:panelGroup>
 
 
-        <h:panelGroup rendered="#{servicoVisualizacaoComponente.visualizarEstiloNomeImagem(valor)}" >
-            #{servicoVisualizacaoComponente.getImagemURl(valor)}
+        <h:panelGroup
+            layout="block"
+            style="padding-left: 3px;padding-top: 3px;padding-bottom: 6px;"
+            styleClass="Container12 OrganizadorContainer"
+            rendered="#{servicoVisualizacaoComponente.visualizarEstiloNomeImagem(cc.attrs.objetoSimples)}" >
+            <img src="#{sessaoAtualSBWP.urlHostDaSessao}/proxyImagem/#{servicoVisualizacaoComponente.getImagemURl(cc.attrs.objetoSimples)}"
+                 style="max-width: 120px;max-height: 60px;"/>
         </h:panelGroup>
 
-        <h:panelGroup rendered="#{servicoVisualizacaoComponente.visualizarEstiloNomeSimples(valor)}" styleClass="statusText Fs16">
-            #{servicoVisualizacaoComponente.getEntidadeSimplesNome(valor)}
+        <h:panelGroup rendered="#{servicoVisualizacaoComponente.visualizarEstiloNomeSimples(cc.attrs.objetoSimples)}" styleClass="statusText Fs16"  >
+            #{servicoVisualizacaoComponente.getEntidadeSimplesNome(cc.attrs.objetoSimples)}
         </h:panelGroup>
+
+
 
     </cc:implementation>
 </ui:composition>

@@ -19,6 +19,7 @@
                           timeInput="true"
                           showTime="true"
                           showButtonBar="true"
+
                           timeOnly="true"
                           converter="conversorHora"
                           hourFormat="24"
@@ -32,7 +33,28 @@
                 <f:passThroughAttribute name="campoInstanciado" value="#{registro}" />
 
                 <p:clientValidator/>
+                <p:clientValidator/>
 
+                <c:if test="#{possuiMetodoOnChange}">
+                    <p:ajax rendered="#{possuiMetodoOnChange}"
+                            global="true"
+                            event="dateSelect"
+                            listener="#{prMetodo}"/>
+                </c:if>
+
+                <c:if test="#{possuiIDOnChange}" >
+                    <p:ajax
+
+                        onstart="bloquearArea('#{idAtualizarOnChange}')"
+                        oncomplete="desbloquearArea('#{idAtualizarOnChange}')"
+                        rendered="#{possuiIDOnChange}"
+                        global="true"
+                        event="dateSelect"
+                        update="#{idAtualizarOnChange}" >
+
+
+                    </p:ajax>
+                </c:if>
 
             </p:datePicker>
 

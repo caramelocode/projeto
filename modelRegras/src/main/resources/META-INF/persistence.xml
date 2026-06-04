@@ -33,12 +33,25 @@
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.ExemploComponente</class>
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.ExemploComponenteInput</class>
         <class>com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.dinamico.OpcaoDadoDinamico</class>
+        <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.itensExemplo.ExemploOpcaoComIcone</class>
+        <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.itensExemplo.ExemploOpcaoComIconeCor</class>
+        <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.itensExemplo.ExemploOpcaocomImagem</class>
+        <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.itensExemplo.ExemploOpcaocomStatus</class>
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.familia.FamiliaComponenteProjetoCaramelo</class>
         <class>br.org.carameloCode.erp.modulo.projeto.ModuloProjetoCaramelo</class>
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projeto.ProjetoCRC</class>
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.usuario.UsuarioDevProjCRC></class>
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projeto.ProjetoCRC</class>
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.solicitacaoCandidado.SolicitacaoCadastro</class>
+
+        <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.notificacao.NotificacaoSB</class>
+        <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.recibos.entrega.ReciboEntrega</class>
+        <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.recibos.leitura.ReciboLeitura</class>
+        <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.tipoNotificacao.TipoNotificacao</class>
+        <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.statusNotificacao.StatusNotificacao</class>
+        <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.transporte.LogDisparoNotificacao</class>
+
+
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>

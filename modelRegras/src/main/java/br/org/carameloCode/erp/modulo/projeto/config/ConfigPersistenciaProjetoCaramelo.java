@@ -6,6 +6,7 @@
 package br.org.carameloCode.erp.modulo.projeto.config;
 
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.FabExemploComponenteNativo;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.FabExemplosOpcoesItensSelecao;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCDataHora;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabrica;
@@ -49,6 +50,7 @@ public class ConfigPersistenciaProjetoCaramelo implements ItfConfigSBPersistenci
     @Override
     public Class<? extends ComoFabrica>[] fabricasRegistrosIniciais() {
         return new Class[]{ //    FabAtividadeCRMAutoexecucao.class
+            FabExemplosOpcoesItensSelecao.class,
             FabExemploComponenteNativo.class
         };
     }

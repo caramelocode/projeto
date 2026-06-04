@@ -18,7 +18,7 @@ import javax.persistence.Id;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(plural = "Planos Serviço de Hospedágem", tags = "Plano de serviço de hospedagem")
+@InfoObjetoSB(plural = "Planos Serviço de Hospedágem ", tags = "Plano de serviço de hospedagem")
 public class PlanoFabricaSoftware extends EntidadeSimples {
 
     @Id

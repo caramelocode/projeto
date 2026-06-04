@@ -10,7 +10,7 @@
 
     <packaging>pom</packaging>
 
-    <name>Crm Caramelo Code</name>
+    <name>Projetos Caramelo Code</name>
 
     <modules>
         <module>apiJava</module>

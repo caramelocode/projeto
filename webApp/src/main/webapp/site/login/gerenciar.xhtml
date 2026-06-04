@@ -6,14 +6,14 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       >
 
-    <ui:composition template="#{layoutsPaginas.modeloGeral.xhtmlVinculado}">
+    <ui:composition template="#{layoutsPaginas.modeloGeralAnonimo.xhtmlVinculado}">
 
         <ui:define name="divConteudo">
 
             <h:panelGroup id="#{paginaAtual.infoPagina.idAreaExbicaoAcaoSelecionada}">
 
-                <ui:include src="#{paginaAtual.infoPagina.xhtmlAcaoAtual}" />
 
+                #{paginaAtual.infoPagina.xhtmlAcaoAtual}
             </h:panelGroup>
 
         </ui:define>

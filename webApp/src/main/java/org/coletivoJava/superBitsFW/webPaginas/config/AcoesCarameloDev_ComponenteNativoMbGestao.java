@@ -6,6 +6,7 @@ import java.io.Serializable;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoControllerEntidade;
 
 @Named
 @ApplicationScoped
@@ -21,8 +22,13 @@ public class AcoesCarameloDev_ComponenteNativoMbGestao implements Serializable {
 				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCComponenteNativo.COMPONENTE_NATIVO_FRM_LISTAR");
 	}
 
-	public ItfAcaoFormularioEntidade getComponenteNativoFrmVerComponente() {
+	public ItfAcaoFormularioEntidade getComponenteNativoFrmVerComponenteInput() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCComponenteNativo.COMPONENTE_NATIVO_FRM_VER_COMPONENTE");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCComponenteNativo.COMPONENTE_NATIVO_FRM_VER_COMPONENTE_INPUT");
+	}
+
+	public ComoAcaoControllerEntidade getComponenteNativoCtrCompilarTagLibPadrao() {
+		return (ComoAcaoControllerEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCComponenteNativo.COMPONENTE_NATIVO_CTR_COMPILAR_TAG_LIB_PADRAO");
 	}
 }

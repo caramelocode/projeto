@@ -20,14 +20,7 @@
     <cc:implementation >
 
         <h:form>
-
-
-
-
             <div class="TexAlCenter" >
-
-
-
                 <div class="quebraBlocoComEspacoVertical3"></div>
                 <div class="Card SoftGrayBack">
 
@@ -41,8 +34,15 @@
 
                     <p:message for="emaillogin" />
                     <div class="quebraBlocoComEspacoVertical10"></div>
-                    <p:inputText type="password" id="senha" placeholder="Senha" requiredMessage="A Senha é Obrigatória" required="true" value="#{controleDeSessaoWeb.senhaLogar}" styleClass="Wid100 TexAlCenter"/>
-                    <p:message for="senha" />
+
+                    <p:password id="senha" placeholder="Sua Senha"
+                                required="true"
+                                validatorMessage="A Senha é obrigatória, se perdeu a senha, preencha seu e-mail, e clique em 'Esqueci minha Senha'"
+                                requiredMessage="A senha é obrigatória"
+                                value="#{controleDeSessaoWeb.senhaLogar}"
+
+                                styleClass="Wid100 TexAlCenter" toggleMask="true"/><br/>
+                    <p:message for="senha" styleClass="Wid100" style="width:83%" />
                     <div class="quebraBlocoComEspacoVertical4"></div>
 
                     <div class="quebraBlocoComEspacoVertical4"></div>
@@ -59,7 +59,7 @@
                     <p:commandButton value="Entrar" icon="fa fa-sign-in"
                                      id="botaoEntrarSec"
                                      actionListener="#{controleDeSessaoWeb.efetuarLogIn()}"
-                                     update="emaillogin" />
+                                     update="@form" />
                     <p:defaultCommand target="botaoEntrarSec"  />
                     <p:captcha language="pt-BR" required="true" requiredMessage="Validação Captcha nescessária"
                                rendered="false"
@@ -73,13 +73,3 @@
 
     </cc:implementation>
 </ui:composition>
-
-
-
-
-
-
-
-
-
-
