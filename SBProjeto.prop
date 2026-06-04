@@ -1,11 +1,11 @@
 VERSAO=1.0-SNAPSHOT
 NOME_PROJETO=webApp
-NOME_SOCIAL="Caramelo Notificacoes Web Lab"
+NOME_SOCIAL="Caramelo Projetos"
 TIPO_PROJETO=war
 NOME_CLIENTE=carameloCode
 GRUPO_PROJETO=projeto
-NOME_BANCO=notificacoesWebView
+NOME_BANCO=projetoCaramelo
 DIRETORIO_BASE=
 ENDERECO_WEB=meucrm.caramelocode.com.br
-GROUP_ID_MAVEN=br.org.carameloCode.erp.notificacao
+GROUP_ID_MAVEN=br.org.carameloCode.erp.projeto
 ENDERECO_WEB_REQUISITO=requisito.caramelocode.com.br

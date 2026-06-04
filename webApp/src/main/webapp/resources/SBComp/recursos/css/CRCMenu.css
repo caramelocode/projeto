@@ -1,0 +1,762 @@
+body {
+    margin: 0;
+    background: #f4f6f9;
+}
+
+.crc-topbar {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 0 12px;
+    position: relative;
+    z-index: 1100;           /* AUMENTADO - Agora fica acima do sidebar */
+}
+
+.crc-hamburger {
+    border: none;
+    background: none;
+    font-size: 24px;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.crc-logo-mobile {
+    display: none;
+}
+
+/* ==================== MENU SUPERIOR ==================== */
+.crc-topmenu {
+    display: flex;
+    margin-left: 20px;
+    gap: 8px;
+}
+
+.crc-menu-link {
+    color: #555;
+    text-decoration: none;
+    padding: 24px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+}
+
+.crc-menu-link:hover,
+.crc-menu-link.crc-active-parent {
+    background: #f8f9fa;
+    color: #2c3e50;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    min-width: 180px;
+    z-index: 1110;
+    padding: 8px 0;
+    margin-top: 4px;
+}
+
+.dropdown.show .dropdown-menu {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 10px 16px;
+    color: #555;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dropdown-item:hover {
+    background: #f8f9fa;
+    color: #20c997;
+}
+
+/* ==================== SIDEBAR ==================== */
+.crc-sidebar {
+    position: fixed;
+    top: 72px;
+    left: -280px;
+    width: 280px;
+    height: calc(100vh - 72px);
+    background: #2c3e50;
+    transition: left .3s ease;
+    overflow-y: auto;
+    z-index: 1050;           /* Reduzido - Agora fica abaixo da topbar */
+}
+
+.crc-sidebar-open {
+    left: 0;
+}
+
+.crc-sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.crc-sidebar-header {
+    padding: 14px 20px;
+    margin-top: 8px;
+    color: #bbb;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.crc-sidebar-parent {
+    display: block;
+    padding: 14px 20px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.crc-sidebar li ul {
+    display: none;
+}
+
+.crc-sidebar li.crc-expanded > ul {
+    display: block;
+}
+
+.crc-sidebar li ul a {
+    display: block;
+    padding: 11px 45px;
+    color: #ddd;
+    text-decoration: none;
+}
+
+/* Estados Ativos */
+.crc-active {
+    background: #20c997 !important;
+    color: #fff !important;
+    font-weight: 600;
+}
+
+.crc-active-parent > a,
+.crc-menu-link.crc-active-parent {
+    background: #223446;
+    color: #fff !important;
+}
+
+/* Hover */
+.crc-sidebar li ul a:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+/* ==================== ÁREA DIREITA ==================== */
+.crc-top-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ==================== ÁREA DIREITA - CONTROLE DESKTOP/MOBILE ==================== */
+.crc-desktop-only {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ==================== MELHORIA NO TOGGLE DO USUÁRIO ==================== */
+.crc-user-toggle {
+    position: relative; /* importante para o badge */
+}
+
+
+.crc-icon-btn {
+    position: relative;
+    color: #555;
+    font-size: 24px;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+/* Badges arredondadas (pill) para contadores */
+.crc-icon-btn .badge,
+.crc-user-toggle .badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    font-size: 0.7rem;
+    line-height: 18px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    border: 2px solid #fff;
+}
+
+/* Badge sobre o avatar: visível APENAS no mobile */
+.crc-user-toggle .badge {
+    display: none;
+}
+
+.crc-icon-btn:hover {
+    background: #f8f9fa;
+}
+
+/* ==================== MENU DO USUÁRIO ==================== */
+.crc-user-dropdown {
+    position: relative;
+    margin-left: 8px;
+}
+
+.crc-user-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px 6px 6px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    max-width: 190px;
+    overflow: hidden;
+}
+
+.crc-user-toggle:hover {
+    background: #f8f9fa;
+}
+
+.crc-user-toggle img {
+    width: 34px;
+    height: 34px;
+    max-width: 34px;
+    max-height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+}
+
+.crc-user-toggle span {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.crc-user-toggle i {
+    font-size: 13px;
+    color: #888;
+    margin-left: 4px;
+    transition: transform 0.3s;
+}
+
+.crc-user-dropdown.show .crc-user-toggle i {
+    transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.crc-user-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    width: 320px;
+    margin-top: 6px;
+    z-index: 1120;           /* Maior que a topbar */
+    overflow: hidden;
+}
+
+.crc-user-dropdown.show .crc-user-menu {
+    display: block;
+}
+
+/* Cabeçalho do dropdown */
+.crc-user-header {
+    background: linear-gradient(135deg, #20c997, #17a38d);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.crc-user-avatar-large {
+    width: 88px;
+    height: 88px;
+    max-width: 88px;
+    max-height: 88px;
+    border-radius: 50%;
+    border: 4px solid rgba(255,255,255,0.9);
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    margin-bottom: 12px;
+}
+
+.crc-user-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.crc-user-role {
+    margin: 4px 0;
+    opacity: 0.9;
+}
+
+.crc-user-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 16px 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+}
+
+.crc-user-stats div {
+    text-align: center;
+}
+
+.crc-user-stats strong {
+    display: block;
+    font-size: 1.3rem;
+    color: #2c3e50;
+}
+
+.crc-user-actions {
+    padding: 16px 20px;
+    display: flex;
+    gap: 12px;
+}
+
+.crc-user-actions .btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* Responsivo */
+@media (max-width: 992px) {
+    .crc-logo-desktop {
+        display: none;
+    }
+    .crc-logo-mobile {
+        display: block;
+    }
+
+    .crc-topmenu span {
+        display: none;
+    }
+    .crc-menu-link {
+        padding: 24px 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .crc-topmenu {
+        gap: 4px;
+    }
+
+    .crc-user-toggle span {
+        display: none;
+    }
+}
+
+/* ==================== DROPDOWN DE NOTIFICAÇÕES ==================== */
+.crc-notification-dropdown {
+    position: relative;
+}
+
+.crc-notification-toggle {
+    position: relative;
+}
+
+.crc-notification-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    width: 380px;
+    max-height: 520px;
+    overflow: hidden;
+    z-index: 1120;
+    margin-top: 6px;
+}
+
+.crc-notification-dropdown.show .crc-notification-menu {
+    display: block;
+}
+
+/* Cabeçalho */
+.crc-notification-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+}
+
+.crc-notification-header strong {
+    font-size: 1.05rem;
+}
+
+.crc-mark-all {
+    font-size: 0.85rem;
+    color: #20c997;
+}
+
+/* Lista de notificações */
+.crc-notification-list {
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+.crc-notification-item {
+    padding: 14px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    gap: 12px;
+    transition: background 0.2s;
+}
+
+.crc-notification-item:hover {
+    background: #f8f9fa;
+}
+
+.crc-notification-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.crc-notification-title {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.crc-notification-desc {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.crc-notification-time {
+    color: #888;
+    font-size: 0.8rem;
+    margin-top: 6px;
+    display: block;
+}
+
+/* Botões de ação */
+.crc-notification-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.crc-notification-actions button {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.crc-notification-actions button:hover {
+    transform: scale(1.1);
+}
+
+.crc-action-like:hover {
+    background-color: #d4edda !important;
+    color: #28a745;
+}
+
+.crc-action-dislike:hover {
+    background-color: #f8d7da !important;
+    color: #dc3545;
+}
+
+
+/* ==================== DROPDOWN DE MENSAGENS ==================== */
+.crc-messages-dropdown {
+    position: relative;
+}
+
+.crc-messages-toggle {
+    position: relative;
+}
+
+.crc-messages-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    width: 380px;
+    max-height: 520px;
+    overflow: hidden;
+    z-index: 1120;
+    margin-top: 6px;
+}
+
+.crc-messages-dropdown.show .crc-messages-menu {
+    display: block;
+}
+
+/* Cabeçalho */
+.crc-messages-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+}
+
+.crc-messages-header strong {
+    font-size: 1.05rem;
+}
+
+.crc-messages-header i {
+    color: #888;
+    cursor: pointer;
+}
+
+/* Lista de Mensagens */
+.crc-messages-list {
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+.crc-message-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.2s;
+}
+
+.crc-message-item:hover {
+    background: #f8f9fa;
+}
+
+.crc-message-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.crc-message-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.crc-message-name {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 2px;
+}
+
+.crc-message-text {
+    color: #555;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.crc-message-time {
+    color: #888;
+    font-size: 0.8rem;
+}
+
+.crc-message-star {
+    font-size: 1.1rem;
+    margin-left: 8px;
+    align-self: center;
+}
+
+/* Rodapé */
+.crc-messages-footer {
+    padding: 12px;
+    text-align: center;
+    border-top: 1px solid #eee;
+    background: #f8f9fa;
+}
+
+.crc-view-all-messages {
+    color: #20c997;
+    font-weight: 500;
+}
+
+
+/* ==================== SIDEBAR HEADER COM LOGO ==================== */
+.crc-sidebar-header {
+    padding: 16px 20px;
+    margin-top: 8px;
+    background: rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.crc-sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.crc-sidebar-logo-img {
+    max-height: 38px;
+    width: auto;
+}
+
+.crc-sidebar-title {
+    color: #bbb;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* ==================== RESPONSIVIDADE MOBILE ==================== */
+@media (max-width: 768px) {
+
+    .crc-desktop-only {
+        display: none !important;
+    }
+
+    /* No mobile, mostra a badge de total sobre o avatar */
+    .crc-user-toggle .badge {
+        display: flex;
+    }
+
+    /* Avatar do usuário maior e mais amigável no mobile */
+    .crc-user-toggle {
+        padding: 8px 12px;
+        max-width: none;
+        gap: 8px;
+    }
+
+    .crc-user-toggle img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .crc-user-name {
+        display: none;
+    }
+
+    /* Dropdowns ocupam tela inteira no mobile */
+    .crc-user-menu,
+    .crc-notification-menu,
+    .crc-messages-menu {
+        width: 100vw !important;
+        right: 0 !important;
+        right: 0 !important;
+        border-radius: 0 0 12px 12px;
+        margin-top: 4px;
+        max-height: 75vh;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Melhora itens internos */
+    .crc-notification-item,
+    .crc-message-item {
+        padding: 16px 14px;
+    }
+
+    .crc-icon-btn {
+        padding: 10px;
+    }
+}
+/* ==================== MENU DO USUÁRIO MOBILE ==================== */
+
+/* Cabeçalho de seção dentro do user-menu (mensagens/notificações mobile) */
+.crc-user-menu-section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+    color: #2c3e50;
+}
+
+.crc-user-menu-section-header .badge {
+    margin-left: auto;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Rodapé de notificações dentro do user-menu */
+.crc-notification-footer {
+    padding: 12px;
+    text-align: center;
+    border-top: 1px solid #eee;
+    background: #f8f9fa;
+}
+
+.crc-notification-footer a,
+.crc-view-all {
+    color: #20c997;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+
+    /* Menu do usuário: altura controlada com scroll interno */
+    .crc-user-menu {
+        max-height: 82vh !important;
+        overflow-y: auto !important;
+        overflow-x: hidden;
+    }
+
+    /* Header fixo no topo, não rola com o conteúdo */
+    .crc-user-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+}

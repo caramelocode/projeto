@@ -144,8 +144,11 @@
             <artifactId>commons-email</artifactId>
             <version>1.6.0</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>br.org.carameloCode.erp.notificacao</groupId>
+            <artifactId>SbErpNotificacoes</artifactId>
+            <version>1.0.0-RC-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>br.org.coletivoJava.utilitarios</groupId>
             <artifactId>editorArquivos</artifactId>
@@ -167,11 +170,7 @@
 
 
 
-        <dependency>
-            <groupId>br.org.coletivoJava.fw.api.erp.notificacoes</groupId>
-            <artifactId>SbErpNotificacoes</artifactId>
-            <version>1.0.0-RC-SNAPSHOT</version>
-        </dependency>
+
 
         <dependency>
             <groupId>br.org.coletivoJava.fw</groupId>

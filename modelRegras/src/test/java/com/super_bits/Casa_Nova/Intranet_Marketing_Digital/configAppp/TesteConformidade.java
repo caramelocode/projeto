@@ -19,6 +19,7 @@ public class TesteConformidade extends TesteProjetoCaramelo {
     @Test
     public void gerarCodigo() {
         try {
+
             gerarCodigoModelProjeto();
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha gerando Model", t);
