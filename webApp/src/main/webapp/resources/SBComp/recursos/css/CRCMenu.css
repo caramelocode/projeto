@@ -57,12 +57,12 @@ body {
     left: 0;
     background: #fff;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 0 0 4px 4px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     min-width: 180px;
     z-index: 1110;
     padding: 8px 0;
-    margin-top: 4px;
+    margin-top: 0;
 }
 
 .dropdown.show .dropdown-menu {
@@ -115,19 +115,48 @@ body {
 }
 
 .crc-sidebar-parent {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding: 14px 20px;
     color: #fff;
     text-decoration: none;
     font-weight: 500;
+    transition: background 0.2s;
+    position: relative;
 }
 
+/* Seta: oculta por padrao, aparece apenas quando expandido */
+.crc-sidebar-parent::after {
+    content: "\f077"; /* fa-chevron-up */
+    font-family: "FontAwesome";
+    font-size: 11px;
+    color: #20c997;
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+/* Quando expandido, seta para cima aparece */
+.crc-sidebar li.crc-expanded > .crc-sidebar-parent::after {
+    opacity: 1;
+}
+
+/* Submenu: transição suave com max-height */
 .crc-sidebar li ul {
-    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .crc-sidebar li.crc-expanded > ul {
-    display: block;
+    max-height: 600px;
 }
 
 .crc-sidebar li ul a {
@@ -344,6 +373,26 @@ body {
     padding: 10px;
     border-radius: 8px;
     font-weight: 500;
+    text-align: center;
+}
+
+/* Form que envolve a ação de Sair: mantém o botão alinhado no layout flex */
+.crc-user-actions .crc-user-action-form {
+    flex: 1;
+    display: flex;
+}
+
+.crc-user-actions .crc-user-action-form .btn {
+    flex: 1;
+    text-decoration: none;
+}
+
+/* Botão vermelho de Sair: texto branco para contraste (commandLink renderiza <a> azul) */
+.crc-user-actions .crc-user-action-form .btn.btn-danger,
+.crc-user-actions .crc-user-action-form .btn.btn-danger:hover,
+.crc-user-actions .crc-user-action-form .btn.btn-danger:focus,
+.crc-user-actions .crc-user-action-form .btn.btn-danger:active {
+    color: #fff !important;
 }
 
 /* Responsivo */
@@ -501,6 +550,27 @@ body {
 .crc-action-dislike:hover {
     background-color: #f8d7da !important;
     color: #dc3545;
+}
+
+/* Link que envolve o conteúdo da notificação (p:commandLink) */
+.crc-notification-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.crc-notification-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Botões de resposta rápida da notificação (gerados dinamicamente) */
+.crc-notification-actions button {
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #555;
+    cursor: pointer;
 }
 
 
@@ -759,4 +829,152 @@ body {
         top: 0;
         z-index: 10;
     }
+}
+
+/* ==================== HEADER COMPACTO MOBILE ==================== */
+@media (max-width: 768px) {
+    .crc-user-header {
+        padding: 12px 16px;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .crc-user-avatar-large {
+        width: 46px;
+        height: 46px;
+        max-width: 46px;
+        max-height: 46px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .crc-user-header-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .crc-user-header h4 {
+        font-size: 0.95rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .crc-user-role {
+        font-size: 0.8rem;
+        margin: 2px 0;
+    }
+
+    .crc-user-header small {
+        font-size: 0.75rem;
+        opacity: 0.8;
+    }
+}
+
+/* ==================== SEÇÕES RETRÁTEIS ==================== */
+.crc-collapsible-header {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+    color: #2c3e50;
+    transition: background 0.2s;
+}
+
+.crc-collapsible-header:hover {
+    background: #eef0f2;
+}
+
+.crc-collapsible-header .badge {
+    margin-left: auto;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.crc-collapsible-chevron {
+    font-size: 11px;
+    color: #888;
+    transition: transform 0.25s ease;
+    margin-left: 4px;
+}
+
+.crc-collapsible-header.crc-section-open .crc-collapsible-chevron {
+    transform: rotate(180deg);
+}
+
+.crc-collapsible-body {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+}
+
+.crc-collapsible-body.crc-section-open {
+    max-height: 600px;
+}
+
+/* ==================== HAMBURGER → X ANIMADO ==================== */
+.crc-hamburger {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.crc-hamburger:hover {
+    background: #f0f0f0;
+}
+
+.crc-hb-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #444;
+    border-radius: 2px;
+    transform-origin: center;
+    transition:
+        transform 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+        opacity   0.25s ease,
+        width     0.3s ease;
+}
+
+/* === Estado ABERTO (X) === */
+.crc-hamburger.crc-is-open .crc-hb-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.crc-hamburger.crc-is-open .crc-hb-bar:nth-child(2) {
+    opacity: 0;
+    width: 0;
+}
+
+.crc-hamburger.crc-is-open .crc-hb-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }

@@ -5,13 +5,20 @@
 package br.org.carameloCode.erp.projeto.config;
 
 import br.org.carameloCode.erp.modulo.notificacao.controller.ServicoNotificacaoComPersistencia;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.CentralComunicacaoDesktop;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoTransient;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ERPTipoCanalComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfDialogo;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfTipoCanalComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItffabricaCanalComunicacao;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioAplicacaoEmExecucao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ComoServicoComunicacao;
+import javax.swing.JOptionPane;
+import org.coletivojava.fw.api.tratamentoErros.FabErro;
 
 /**
  *
@@ -29,7 +36,30 @@ public class ServicoComunicacaoWebAppPadrao extends
 
     @Override
     public FabTipoRespostaComunicacao aguardarRespostaComunicacao(ItfTipoCanalComunicacao pCanal, ItfDialogo pComunicacao, int pTempoAguardar, FabTipoRespostaComunicacao pTipoRespostaTempoFinal) {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        if (SBCore.isEmModoDesenvolvimento()) {
+            try {
+                int dialogResult
+                        = JOptionPane.showConfirmDialog(null, pComunicacao.getMensagem(),
+                                "Deseja continuar?", JOptionPane.YES_OPTION);
+                if (dialogResult
+                        == JOptionPane.YES_OPTION) {
+                    return FabTipoRespostaComunicacao.SIM;
+                } else {
+                    System.out.println("não");
+                    return FabTipoRespostaComunicacao.NAO;
+                }
+
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro gerando comunicação entre usuários", t);
+                return null;
+            }
+        } else {
+            notificadorJsf.notificarViaBloqueioTEla(pComunicacao);
+            throw new UnsupportedOperationException("MEtodo aguardar resposta moodo web não implementado ainda");
+
+        }
+
     }
 
     @Override

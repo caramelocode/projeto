@@ -1,0 +1,370 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <!-- INTERFACE -->
+    <cc:interface shortDescription="Exibe a topbar do menu CRC (menu superior + área do usuário/notificações)">
+        <cc:attribute name="menu" type="com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoMenuSB" required="true" />
+        <cc:attribute name="temMenuAvancado" type="java.lang.Boolean" default="false" />
+    </cc:interface>
+
+    <cc:implementation>
+
+        <header class="crc-topbar">
+
+            <!-- Botão Sidebar (somente quando há menu avançado/extendido) -->
+            <h:panelGroup rendered="#{cc.attrs.temMenuAvancado}">
+                <button id="crcSidebarToggle" class="crc-hamburger" aria-label="Menu" type="button">
+                    <span class="crc-hb-bar"></span>
+                    <span class="crc-hb-bar"></span>
+                    <span class="crc-hb-bar"></span>
+                </button>
+            </h:panelGroup>
+
+            <!-- Logo -->
+            <div class="crc-logo-area">
+                <a href="#{sessaoAtualSBWP.urlHostDaSessao}">
+                    <h:graphicImage
+                        name="logoHorizontal.png"
+                        library="img"
+                        styleClass="crc-logo-desktop"
+                        style="max-height:55px;width:auto;" />
+                </a>
+            </div>
+
+            <!-- ====================== MENU SUPERIOR (menu básico) ====================== -->
+            <nav class="crc-topmenu">
+
+                <c:forEach items="#{cc.attrs.menu.sessoes}" var="sessao">
+
+                    <div class="dropdown">
+
+                        <a href="#" class="crc-menu-link dropdown-toggle">
+                            <i class="#{sessao.iconeAcao}"></i>
+                            <span>#{sessao.nome}</span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <c:forEach items="#{sessao.acoes}" var="acaoSessao">
+                                <li>
+                                    <a href="#{infoWebApp.getUrlDaAcao(acaoSessao)}" class="dropdown-item">
+                                        <i class="#{acaoSessao.iconeAcao}"></i>
+                                        #{acaoSessao.nome}
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+
+                    </div>
+
+                </c:forEach>
+
+            </nav>
+
+            <!-- ====================== ÁREA DIREITA ====================== -->
+            <div class="crc-top-actions">
+
+                <!-- Ícones visíveis apenas em Desktop -->
+                <div class="crc-desktop-only">
+
+                    <!-- ===== MENSAGENS (estático - a implementar) ===== -->
+                    <div class="crc-messages-dropdown">
+                        <a href="#" class="crc-icon-btn crc-messages-toggle">
+                            <i class="fa fa-envelope"></i>
+                            <span class="badge bg-danger message-count">3</span>
+                        </a>
+
+                        <div class="crc-messages-menu">
+                            <div class="crc-messages-header">
+                                <strong>Mensagens</strong>
+                                <i class="fa fa-search"></i>
+                            </div>
+
+                            <div class="crc-messages-list">
+                                <div class="crc-message-item">
+                                    <img src="https://i.pravatar.cc/40?u=brad" alt="Brad Diesel" class="crc-message-avatar" />
+                                    <div class="crc-message-content">
+                                        <div class="crc-message-name">Brad Diesel</div>
+                                        <div class="crc-message-text">Call me whenever you can...</div>
+                                        <small class="crc-message-time">4 Hours Ago</small>
+                                    </div>
+                                    <i class="fa fa-star crc-message-star" style="color:#ffc107;"></i>
+                                </div>
+
+                                <div class="crc-message-item">
+                                    <img src="https://i.pravatar.cc/40?u=john" alt="John Pierce" class="crc-message-avatar" />
+                                    <div class="crc-message-content">
+                                        <div class="crc-message-name">John Pierce</div>
+                                        <div class="crc-message-text">I got your message bro</div>
+                                        <small class="crc-message-time">4 Hours Ago</small>
+                                    </div>
+                                    <i class="fa fa-star crc-message-star" style="color:#6c757d;"></i>
+                                </div>
+
+                                <div class="crc-message-item">
+                                    <img src="https://i.pravatar.cc/40?u=nora" alt="Nora Silvester" class="crc-message-avatar" />
+                                    <div class="crc-message-content">
+                                        <div class="crc-message-name">Nora Silvester</div>
+                                        <div class="crc-message-text">The subject goes here</div>
+                                        <small class="crc-message-time">4 Hours Ago</small>
+                                    </div>
+                                    <i class="fa fa-star crc-message-star" style="color:#ffc107;"></i>
+                                </div>
+                            </div>
+
+                            <div class="crc-messages-footer">
+                                <a href="#" class="crc-view-all-messages">Ver Todas as Mensagens</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== NOTIFICAÇÕES (dados reais da sessão) ===== -->
+                    <div class="crc-notification-dropdown">
+                        <a href="#" class="crc-icon-btn crc-notification-toggle">
+                            <i class="fa #{sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.isEmpty() ? 'fa-bell-o' : 'fa-bell animated swing'}"></i>
+                            <h:panelGroup layout="block"
+                                          styleClass="badge bg-warning notification-count"
+                                          rendered="#{!sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.isEmpty()}">
+                                #{sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.size()}
+                            </h:panelGroup>
+                        </a>
+
+                        <div class="crc-notification-menu">
+                            <div class="crc-notification-header">
+                                <strong>Notificações</strong>
+                            </div>
+
+                            <div class="crc-notification-list">
+
+                                <c:forEach var="comunicacao"
+                                           items="#{sessaoAtualSBWP.ultimasComuniccoesAguardandoRespostaUsuarioSesso}">
+                                    <h:form>
+                                        <div class="crc-notification-item">
+                                            <div class="crc-notification-content">
+                                                <p:commandLink styleClass="crc-notification-link"
+                                                               onclick="responderConversa('#{comunicacao.codigoSelo}')">
+                                                    <div class="crc-notification-title">
+                                                        <i class="#{comunicacao.tipoComunicacao.icone}"></i>
+                                                        <h:outputText escape="false" value="#{comunicacao.assunto}" />
+                                                    </div>
+                                                    <div class="crc-notification-desc">
+                                                        <h:outputText escape="false" value="#{comunicacao.mensagem}" />
+                                                    </div>
+                                                    <p:ajax event="dialogReturn"
+                                                            listener="#{pgUtilComunicacao.metodoRespostaModal}" />
+                                                </p:commandLink>
+                                            </div>
+
+                                            <div class="crc-notification-actions">
+                                                <c:forEach items="#{comunicacao.repostasPossiveis}" var="resp">
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-outline-secondary"
+                                                            title="#{resp.tipoResposta.nome}"
+                                                            onclick="responderConversaRespostaRapida('#{comunicacao.codigoSelo}', #{resp.tipoResposta.id})">
+                                                        <i class="#{resp.tipoResposta.icone}"></i>
+                                                    </button>
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </c:forEach>
+
+                                <h:panelGroup layout="block"
+                                              rendered="#{sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.isEmpty()}">
+                                    <div class="crc-notification-item">
+                                        <div class="crc-notification-content">
+                                            <div class="crc-notification-desc">Nenhuma notificação no momento.</div>
+                                        </div>
+                                    </div>
+                                </h:panelGroup>
+
+                            </div>
+
+                            <div class="crc-notification-footer">
+                                <h:form>
+                                    <p:commandLink styleClass="crc-view-all"
+                                                   oncomplete="removerNotificacoes();"
+                                                   rendered="#{sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.size() > 4}">
+                                        <i class="fa fa-times"></i> Remover notificações
+                                    </p:commandLink>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ====================== MENU DO USUÁRIO ====================== -->
+                <div class="crc-user-dropdown">
+                    <div class="crc-user-toggle">
+                        <img src="#{sessaoAtualSBWP.usuario.imgPequena}" alt="Usuário" />
+                        <span class="crc-user-name">#{sessaoAtualSBWP.usuario.nome}</span>
+                        <h:panelGroup layout="block"
+                                      styleClass="badge bg-danger total-notifications"
+                                      rendered="#{!sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.isEmpty()}">
+                            #{sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.size()}
+                        </h:panelGroup>
+                        <i class="fa fa-chevron-down"></i>
+                    </div>
+
+                    <!-- Dropdown do Usuário -->
+                    <div class="crc-user-menu">
+
+                        <div class="crc-user-header">
+                            <img src="#{sessaoAtualSBWP.usuario.imgPequena}" alt="Usuário" class="crc-user-avatar-large" />
+                            <div class="crc-user-header-info">
+                                <h4>#{sessaoAtualSBWP.usuario.nome}</h4>
+                                <p class="crc-user-role">#{sessaoAtualSBWP.usuario.grupo.nome}</p>
+                                <small>Membro desde Novembro 2023</small>
+                            </div>
+                        </div>
+
+                        <!-- Bloco de perfil (Followers / Vendas / Amigos) -->
+                        <ui:include src="/site/menuPerfil.xhtml" />
+
+                        <!-- ===== MENSAGENS - apenas mobile (estático - a implementar) ===== -->
+                        <h:panelGroup layout="block"
+                                      rendered="#{sessaoAtualSBWP.telaUsuario.umMobile}">
+
+                            <div class="crc-collapsible-header" data-target="crc-mobile-messages">
+                                <i class="fa fa-envelope"></i>
+                                <strong>Mensagens</strong>
+                                <span class="badge bg-danger message-count">3</span>
+                                <i class="fa fa-chevron-down crc-collapsible-chevron"></i>
+                            </div>
+                            <div class="crc-collapsible-body" id="crc-mobile-messages">
+                                <div class="crc-messages-list">
+                                    <div class="crc-message-item">
+                                        <img src="https://i.pravatar.cc/40?u=brad" alt="Brad Diesel" class="crc-message-avatar" />
+                                        <div class="crc-message-content">
+                                            <div class="crc-message-name">Brad Diesel</div>
+                                            <div class="crc-message-text">Call me whenever you can...</div>
+                                            <small class="crc-message-time">4 Hours Ago</small>
+                                        </div>
+                                        <i class="fa fa-star crc-message-star" style="color:#ffc107;"></i>
+                                    </div>
+                                    <div class="crc-message-item">
+                                        <img src="https://i.pravatar.cc/40?u=john" alt="John Pierce" class="crc-message-avatar" />
+                                        <div class="crc-message-content">
+                                            <div class="crc-message-name">John Pierce</div>
+                                            <div class="crc-message-text">I got your message bro</div>
+                                            <small class="crc-message-time">4 Hours Ago</small>
+                                        </div>
+                                        <i class="fa fa-star crc-message-star" style="color:#6c757d;"></i>
+                                    </div>
+                                    <div class="crc-message-item">
+                                        <img src="https://i.pravatar.cc/40?u=nora" alt="Nora Silvester" class="crc-message-avatar" />
+                                        <div class="crc-message-content">
+                                            <div class="crc-message-name">Nora Silvester</div>
+                                            <div class="crc-message-text">The subject goes here</div>
+                                            <small class="crc-message-time">4 Hours Ago</small>
+                                        </div>
+                                        <i class="fa fa-star crc-message-star" style="color:#ffc107;"></i>
+                                    </div>
+                                </div>
+
+                                <div class="crc-messages-footer">
+                                    <a href="#" class="crc-view-all-messages">Ver Todas as Mensagens</a>
+                                </div>
+                            </div>
+
+                        </h:panelGroup>
+
+                        <!-- ===== NOTIFICAÇÕES - apenas mobile (dados reais) ===== -->
+                        <h:panelGroup layout="block"
+                                      rendered="#{sessaoAtualSBWP.telaUsuario.umMobile}">
+
+                            <div class="crc-collapsible-header" data-target="crc-mobile-notifications">
+                                <i class="fa fa-bell"></i>
+                                <strong>Notificações</strong>
+                                <h:panelGroup layout="block"
+                                              styleClass="badge bg-warning notification-count"
+                                              rendered="#{!sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.isEmpty()}">
+                                    #{sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.size()}
+                                </h:panelGroup>
+                                <i class="fa fa-chevron-down crc-collapsible-chevron"></i>
+                            </div>
+                            <div class="crc-collapsible-body" id="crc-mobile-notifications">
+                                <div class="crc-notification-list">
+
+                                    <c:forEach var="comunicacao"
+                                               items="#{sessaoAtualSBWP.ultimasComuniccoesAguardandoRespostaUsuarioSesso}">
+                                        <h:form>
+                                            <div class="crc-notification-item">
+                                                <div class="crc-notification-content">
+                                                    <p:commandLink styleClass="crc-notification-link"
+                                                                   onclick="responderConversa('#{comunicacao.codigoSelo}')">
+                                                        <div class="crc-notification-title">
+                                                            <i class="#{comunicacao.tipoComunicacao.icone}"></i>
+                                                            <h:outputText escape="false" value="#{comunicacao.assunto}" />
+                                                        </div>
+                                                        <div class="crc-notification-desc">
+                                                            <h:outputText escape="false" value="#{comunicacao.mensagem}" />
+                                                        </div>
+                                                        <p:ajax event="dialogReturn"
+                                                                listener="#{pgUtilComunicacao.metodoRespostaModal}" />
+                                                    </p:commandLink>
+                                                </div>
+
+                                                <div class="crc-notification-actions">
+                                                    <c:forEach items="#{comunicacao.repostasPossiveis}" var="resp">
+                                                        <button type="button"
+                                                                class="btn btn-sm btn-outline-secondary"
+                                                                title="#{resp.tipoResposta.nome}"
+                                                                onclick="responderConversaRespostaRapida('#{comunicacao.codigoSelo}', #{resp.tipoResposta.id})">
+                                                            <i class="#{resp.tipoResposta.icone}"></i>
+                                                        </button>
+                                                    </c:forEach>
+                                                </div>
+                                            </div>
+                                        </h:form>
+                                    </c:forEach>
+
+                                    <h:panelGroup layout="block"
+                                                  rendered="#{sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.isEmpty()}">
+                                        <div class="crc-notification-item">
+                                            <div class="crc-notification-content">
+                                                <div class="crc-notification-desc">Nenhuma notificação no momento.</div>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
+
+                                </div>
+
+                                <div class="crc-notification-footer">
+                                    <h:form>
+                                        <p:commandLink styleClass="crc-view-all"
+                                                       oncomplete="removerNotificacoes();"
+                                                       rendered="#{sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.size() > 4}">
+                                            <i class="fa fa-times"></i> Remover notificações
+                                        </p:commandLink>
+                                    </h:form>
+                                </div>
+                            </div>
+
+                        </h:panelGroup>
+
+                        <div class="crc-user-actions">
+                            <a href="#" class="btn btn-outline-primary">Perfil</a>
+                            <h:form styleClass="crc-user-action-form">
+                                <p:commandLink styleClass="btn btn-danger"
+                                               actionListener="#{controleDeSessaoWeb.efetuarLogOut}"
+                                               oncomplete="javascript:window.location='#{infoWebApp.urlPagina}';">
+                                    Sair
+                                </p:commandLink>
+                            </h:form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+    </cc:implementation>
+
+</ui:composition>

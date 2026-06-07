@@ -1,0 +1,23 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:CrcPA="http://xmlns.jcp.org/jsf/composite/SBComp/composite/paginaAtualDeEntidade"
+    xmlns:CRCInput="http://xmlns.jcp.org/jsf/composite/SBComp/composite/input"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="#{layoutsPaginas.conteudoEmBranco.xhtmlVinculado}" >
+    <ui:define name="conteudo">
+        <h:form>
+            <CRCInput:input
+                registro="#{pgNotificacaoTransiente.entidadeSelecionada.getCampoByNomeOuAnotacao('assunto')}"
+                layout="#{layoutsComponenteSB.layoutCampo.esquerda}"
+                idAtualizarOnChange="@this"
+                />
+
+            <h:panelGroup  styleClass="Container3" layout="" >
+                <CrcPA:botaoAcaoPersonalizada
+                    acao="#{acoesCarameloDev_NotificacaoTransitoriaMbGestao.notificacaoTransitoriaCtrEnviar}"
+                    />
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>

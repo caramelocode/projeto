@@ -1,0 +1,57 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+    <!-- INTERFACE -->
+    <cc:interface shortDescription="Exibe a sidebar lateral do menu CRC (menu extendido/avançado)">
+        <cc:attribute name="menu" type="com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoMenuSB" required="true" />
+    </cc:interface>
+    <cc:implementation>
+
+        <aside id="crcSidebar" class="crc-sidebar">
+
+            <ul>
+
+                <li class="crc-sidebar-header">
+                    <div class="crc-sidebar-logo">
+                        <h:graphicImage name="logo.png" library="img" styleClass="crc-sidebar-logo-img" />
+                        <span class="crc-sidebar-title">MENU</span>
+                    </div>
+                </li>
+
+                <c:forEach items="#{cc.attrs.menu.sessoes}" var="sessao">
+
+                    <li>
+
+                        <a href="#" class="crc-sidebar-parent">
+                            <i class="#{sessao.iconeAcao}"></i>
+                            #{sessao.nomeAcao}
+                        </a>
+
+                        <ul>
+                            <c:forEach items="#{sessao.acoes}" var="acao">
+                                <li>
+                                    <a href="#{infoWebApp.getAcaoComLink(acao).urlDeAcesso}">
+                                        <i class="#{acao.iconeAcao}"></i>
+                                        #{acao.nomeAcao}
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+
+                    </li>
+
+                </c:forEach>
+
+            </ul>
+
+        </aside>
+
+    </cc:implementation>
+
+</ui:composition>

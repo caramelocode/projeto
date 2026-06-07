@@ -1,0 +1,32 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:CrcPA="http://xmlns.jcp.org/jsf/composite/SBComp/composite/paginaAtualDeEntidade"
+    xmlns:CRCInput="http://xmlns.jcp.org/jsf/composite/SBComp/composite/input"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="#{layoutsPaginas.conteudoEmBranco.xhtmlVinculado}"
+    xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <h:form>
+            <p:fieldset legend="Teste de notificação" >
+
+                <CRCInput:input
+                    rendered="#{pgNotificacaoTransiente.entidadeSelecionada!= null}"
+                    registro="#{pgNotificacaoTransiente.entidadeSelecionada.getCampoByNomeOuAnotacao('assunto')}"
+                    layout="#{layoutsComponenteSB.layoutCampo.esquerda}"
+                    idAtualizarOnChange="@this"
+                    />
+
+                <h:panelGroup  styleClass="Container3" layout="" >
+                    <CrcPA:botaoAcaoPersonalizada
+                        acao="#{acoesCarameloDev_NotificacaoTransitoriaMbGestao.notificacaoTransitoriaCtrEnviar}"
+                        />
+
+                    <p:commandButton update="@form" label="Atualizar"
+                                     value="Atualizar"
+                                     />
+                </h:panelGroup>
+            </p:fieldset>
+        </h:form>
+    </ui:define>
+</ui:composition>

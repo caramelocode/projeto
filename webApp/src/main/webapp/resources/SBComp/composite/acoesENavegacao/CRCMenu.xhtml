@@ -1,0 +1,39 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:CrcNav="http://xmlns.jcp.org/jsf/composite/SBComp/composite/acoesENavegacao"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+    <!-- INTERFACE -->/
+    <cc:interface shortDescription="Exibe o menu CRC da aplicação (topbar + sidebar) conforme definido nos menus da sessão.
+                  Versão nova do menuPadrao, com a marcação/estilo CRC (CRCMenu.css/CRCMenu.js).">
+        <cc:attribute name="menuBasico" type="com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoMenuSB"
+                      required="true"
+                      default="#{sessaoAtualSBWP.menusDaSessao.menuPrincipal}"
+                      shortDescription="O menu básico é o menu do topo da aplicação (topbar), normalmente com as funções
+                      mais simples" />
+        <cc:attribute name="menuExtendido"
+                      type="com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoMenuSB"
+                      default="#{sessaoAtualSBWP.menusDaSessao.menuAvancado}"
+                      shortDescription="O menu extendido é exibido na sidebar lateral, utilizado quando é necessário
+                      exibir muitas opções" />
+    </cc:interface>
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:outputStylesheet name="CRCMenu.css" library="SBComp/recursos/css" />
+        <h:outputScript name="CRCMenu.js" library="SBComp/recursos/js" target="body" />
+
+        <CrcNav:CRCMenuPadraoBasico
+            transient="#{true}"
+            rendered="#{cc.attrs.menuBasico != null}"
+            temMenuAvancado="#{cc.attrs.menuExtendido != null}"
+            menu="#{cc.attrs.menuBasico}" />
+
+
+        <CrcNav:CRCMenuPadraoExtendido
+            menu="#{cc.attrs.menuExtendido}"
+            rendered="#{cc.attrs.menuExtendido != null}" />
+
+    </cc:implementation>
+
+</ui:composition>

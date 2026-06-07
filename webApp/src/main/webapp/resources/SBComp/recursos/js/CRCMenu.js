@@ -24,17 +24,28 @@ document.addEventListener("DOMContentLoaded", function () {
         const sidebar = document.getElementById("crcSidebar");
         if (sidebar)
             sidebar.classList.remove("crc-sidebar-open");
+
+        // Hamburger volta para barras
+        const hb = document.getElementById("crcSidebarToggle");
+        if (hb)
+            hb.classList.remove("crc-is-open");
     }
 
-    // Toggle Sidebar
+    // Toggle Sidebar (só existe quando há menu extendido)
     const sidebar = document.getElementById("crcSidebar");
     const toggleBtn = document.getElementById("crcSidebarToggle");
 
-    toggleBtn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        closeAllMenus(); // fecha outros
-        sidebar.classList.toggle("crc-sidebar-open");
-    });
+    if (toggleBtn && sidebar) {
+        toggleBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const sidebarIsOpen = sidebar.classList.contains("crc-sidebar-open");
+            closeAllMenus(); // fecha outros
+            if (!sidebarIsOpen) {
+                sidebar.classList.add("crc-sidebar-open");
+                toggleBtn.classList.add("crc-is-open");
+            }
+        });
+    }
 
     // Toggle submenus do Sidebar
     document.querySelectorAll(".crc-sidebar-parent").forEach(item => {
@@ -63,21 +74,29 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ==================== DROPDOWN MENU SUPERIOR ====================
-    document.querySelectorAll('.dropdown-toggle').forEach(dropdown => {
-        dropdown.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const parent = this.parentElement;
-            const isOpen = parent.classList.contains('show');
-
-            closeAllMenus(); // fecha todos primeiro
-
-            if (!isOpen) {
-                parent.classList.add('show');
-            }
+    // ==================== DROPDOWN MENU SUPERIOR (hover) ====================
+    document.querySelectorAll('.dropdown').forEach(function (dropdown) {
+        dropdown.addEventListener('mouseenter', function () {
+            closeAllMenus();
+            this.classList.add('show');
         });
+
+        dropdown.addEventListener('mouseleave', function () {
+            this.classList.remove('show');
+        });
+
+        // Clique no item principal: sempre mantém aberto (não esconde).
+        // Como o menu já aparece no hover, o clique instintivo do usuário não deve fechá-lo;
+        // também garante a abertura em touch/mobile (onde não há hover).
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        if (toggle) {
+            toggle.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeAllMenus();
+                dropdown.classList.add('show');
+            });
+        }
     });
 
     // ==================== DROPDOWN DO USUÁRIO ====================
@@ -129,6 +148,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
         messagesDropdown.querySelector('.crc-messages-menu').addEventListener('click', e => e.stopPropagation());
     }
+
+
+    // ==================== SEÇÕES RETRÁTEIS DO MENU USUÁRIO ====================
+    function isMobile() {
+        return window.innerWidth <= 768;
+    }
+
+    function initCollapsibles() {
+        document.querySelectorAll('.crc-collapsible-header').forEach(function (header) {
+            const targetId = header.getAttribute('data-target');
+            const body = document.getElementById(targetId);
+            if (!body)
+                return;
+
+            // Estado inicial: expandido no mobile, retraído no desktop
+            if (isMobile()) {
+                body.classList.add('crc-section-open');
+                header.classList.add('crc-section-open');
+            } else {
+                body.classList.remove('crc-section-open');
+                header.classList.remove('crc-section-open');
+            }
+
+            header.addEventListener('click', function (e) {
+                e.stopPropagation();
+                const isOpen = body.classList.contains('crc-section-open');
+                body.classList.toggle('crc-section-open', !isOpen);
+                header.classList.toggle('crc-section-open', !isOpen);
+            });
+        });
+    }
+
+    initCollapsibles();
+
+    // Re-inicializa ao redimensionar (troca desktop/mobile)
+    let resizeTimer;
+    window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(initCollapsibles, 200);
+    });
 
     // Fecha tudo ao clicar fora
     document.addEventListener('click', function () {

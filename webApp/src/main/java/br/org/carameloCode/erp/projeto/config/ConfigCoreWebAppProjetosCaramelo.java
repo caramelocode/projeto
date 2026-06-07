@@ -9,6 +9,7 @@ import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.FabAca
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
 import br.org.coletivojava.fw.utils.servico.ServicoRepositorioDeArquivos.ServicoDeArquivosWebAppS3;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
+import com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao.FabAcaoDemonstracaoSB;
 import com.super_bits.modulos.SBAcessosModel.view.FabAcaoPaginasDoSistema;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizavel;
@@ -38,13 +39,13 @@ public class ConfigCoreWebAppProjetosCaramelo extends ConfiguradorCoreDeProjetoW
 
     @Override
     public void defineFabricasDeACao(ItfConfiguracaoCoreCustomizavel pConfig) {
-        pConfig.setClasseConfigPermissao(ConfigPermissaoCRMWeb.class);
+        pConfig.setClasseConfigPermissao(ConfigPermissaoProjetoWeb.class);
         pConfig.setCentralDeArquivos(ServicoDeArquivosWebAppS3.class);
         pConfig.setFabricaDeAcoes(new Class[]{
             FabAcaoPaginasDoSistema.class,
             FabAcaoProjetoCRCComponenteNativo.class,
             FabAcaoProjetoCRCCarameloFormulario.class,
-            FabAcaoProjetoSB.class
+            FabAcaoProjetoSB.class // FabAcaoDemonstracaoSB.class
         });
 
     }
