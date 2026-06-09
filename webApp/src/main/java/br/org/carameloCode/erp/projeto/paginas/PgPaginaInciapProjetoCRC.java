@@ -4,7 +4,7 @@
  */
 package br.org.carameloCode.erp.projeto.paginas;
 
-import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.usuario.UsuarioDevProjCRC;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.fabricaSoftware.usuario.UsuarioDevProjCRC;
 import com.super_bits.modulos.SBAcessosModel.view.FabAcaoPaginasDoSistema;
 import com.super_bits.modulos.SBAcessosModel.view.InfoAcaoPaginaDoSistema;
 import com.super_bits.modulosSB.webPaginas.JSFManagedBeans.formularios.MB_paginaCadastroEntidades;
@@ -20,7 +20,7 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 @InfoAcaoPaginaDoSistema(acao = FabAcaoPaginasDoSistema.PAGINA_NATIVA_HOME_MB_PADRAO)
-@InfoPagina(nomeCurto = "Home", tags = "Projeto Caramelo Code")
+@InfoPagina(nomeCurto = "Projetos Caramelo Code", tags = "Projeto Caramelo Code")
 public class PgPaginaInciapProjetoCRC extends MB_paginaCadastroEntidades<UsuarioDevProjCRC> {
 
     @PostConstruct

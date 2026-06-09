@@ -16,21 +16,31 @@ public class AcoesCarameloDev_NotificacaoTransitoriaMbGestao
 
 	public ItfAcaoFormulario getNotificacaoTransitoriaMbGestao() {
 		return (ItfAcaoFormulario) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCComponenteNativo.NOTIFICACAO_TRANSITORIA_MB_GESTAO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_MB_GESTAO");
+	}
+
+	public ItfAcaoFormularioEntidade getNotificacaoTransitoriaFrmRelAcaoDoSistema() {
+		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_FRM_REL_ACAO_DO_SISTEMA");
+	}
+
+	public ComoAcaoControllerEntidade getNotificacaoTransitoriaCtrRelAcaoDoSistema() {
+		return (ComoAcaoControllerEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_REL_ACAO_DO_SISTEMA");
 	}
 
 	public ItfAcaoFormularioEntidade getNotificacaoTransitoriaFrmEnviarMenuSistemaUsr() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCComponenteNativo.NOTIFICACAO_TRANSITORIA_FRM_ENVIAR_MENU_SISTEMA_USR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_FRM_ENVIAR_MENU_SISTEMA_USR");
 	}
 
 	public ItfAcaoFormularioEntidade getNotificacaoTransitoriaFrmEnviarMenuUsrToUsr() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCComponenteNativo.NOTIFICACAO_TRANSITORIA_FRM_ENVIAR_MENU_USR_TO_USR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_FRM_ENVIAR_MENU_USR_TO_USR");
 	}
 
 	public ComoAcaoControllerEntidade getNotificacaoTransitoriaCtrEnviar() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCComponenteNativo.NOTIFICACAO_TRANSITORIA_CTR_ENVIAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_ENVIAR");
 	}
 }

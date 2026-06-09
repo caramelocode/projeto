@@ -1,6 +1,6 @@
 package br.org.carameloCode.erp.modulo.projeto.api.model.planofabricasoftware;
 
-import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.sistema.PlanoFabricaSoftware;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.fabricaSoftware.plano.PlanoFabricaSoftware;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoReferenciaEntidade;
 
 @InfoReferenciaEntidade(tipoObjeto = PlanoFabricaSoftware.class)

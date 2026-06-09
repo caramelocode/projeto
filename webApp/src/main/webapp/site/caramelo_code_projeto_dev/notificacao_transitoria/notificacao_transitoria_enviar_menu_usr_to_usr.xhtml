@@ -17,14 +17,33 @@
                     idAtualizarOnChange="@this"
                     />
 
+                <CRCInput:input
+                    rendered="#{pgNotificacaoTransiente.entidadeSelecionada!= null}"
+                    registro="#{pgNotificacaoTransiente.entidadeSelecionada.getCampoByNomeOuAnotacao('mensagem')}"
+                    layout="#{layoutsComponenteSB.layoutCampo.esquerda}"
+                    idAtualizarOnChange="@this"
+                    />
+
+
+                <CRCInput:input
+                    rendered="#{pgNotificacaoTransiente.entidadeSelecionada!= null}"
+                    registro="#{pgNotificacaoTransiente.entidadeSelecionada.getCampoByNomeOuAnotacao('remetente')}"
+                    layout="#{layoutsComponenteSB.layoutCampo.esquerda}"
+                    idAtualizarOnChange="@this"
+                    />
+
+                <CRCInput:input
+                    rendered="#{pgNotificacaoTransiente.entidadeSelecionada!= null}"
+                    registro="#{pgNotificacaoTransiente.entidadeSelecionada.getCampoByNomeOuAnotacao('destinatario')}"
+                    layout="#{layoutsComponenteSB.layoutCampo.esquerda}"
+                    idAtualizarOnChange="@this"
+                    />
+
                 <h:panelGroup  styleClass="Container3" layout="" >
                     <CrcPA:botaoAcaoPersonalizada
                         acao="#{acoesCarameloDev_NotificacaoTransitoriaMbGestao.notificacaoTransitoriaCtrEnviar}"
                         />
 
-                    <p:commandButton update="@form" label="Atualizar"
-                                     value="Atualizar"
-                                     />
                 </h:panelGroup>
             </p:fieldset>
         </h:form>

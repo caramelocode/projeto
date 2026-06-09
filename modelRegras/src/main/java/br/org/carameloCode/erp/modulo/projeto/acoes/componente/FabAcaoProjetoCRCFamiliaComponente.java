@@ -6,10 +6,8 @@ package br.org.carameloCode.erp.modulo.projeto.acoes.componente;
 
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.familia.FamiliaComponenteProjetoCaramelo;
 import com.super_bits.modulos.SBAcessosModel.fabricas.ComoFabricaDeAcoesPersistencia;
-import com.super_bits.modulosSB.Persistencia.fabrica.ComoFabricaComPersistencia;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 
 /**
  *

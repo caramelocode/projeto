@@ -5,8 +5,11 @@
  */
 package br.org.carameloCode.erp.modulo.projeto.config;
 
+import br.org.carameloCode.erp.modulo.projeto.FabModulosProjetoCaramelo;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.FabExemploComponenteNativo;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.FabExemplosOpcoesItensSelecao;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.FabGrupoUsrProjeto;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.FabUsuarioPadraoProjeto;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCDataHora;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoAcaoSistema;
@@ -58,7 +61,10 @@ public class ConfigPersistenciaProjetoCaramelo implements ItfConfigSBPersistenci
         MapaObjetosProjetoAtual.adcionarObjeto(ComunicacaoAcaoSistema.class);
         return new Class[]{ //    FabAtividadeCRMAutoexecucao.class
             FabExemplosOpcoesItensSelecao.class,
-            FabExemploComponenteNativo.class
+            FabExemploComponenteNativo.class,
+            FabModulosProjetoCaramelo.class,
+            FabGrupoUsrProjeto.class,
+            FabUsuarioPadraoProjeto.class
         };
 
     }

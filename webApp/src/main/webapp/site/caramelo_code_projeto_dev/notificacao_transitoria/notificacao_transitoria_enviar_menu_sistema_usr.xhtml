@@ -13,6 +13,12 @@
                 idAtualizarOnChange="@this"
                 />
 
+            <CRCInput:input
+                registro="#{pgNotificacaoTransiente.entidadeSelecionada.getCampoByNomeOuAnotacao('mensagem')}"
+                layout="#{layoutsComponenteSB.layoutCampo.esquerda}"
+                idAtualizarOnChange="@this"
+                />
+
             <h:panelGroup  styleClass="Container3" layout="" >
                 <CrcPA:botaoAcaoPersonalizada
                     acao="#{acoesCarameloDev_NotificacaoTransitoriaMbGestao.notificacaoTransitoriaCtrEnviar}"

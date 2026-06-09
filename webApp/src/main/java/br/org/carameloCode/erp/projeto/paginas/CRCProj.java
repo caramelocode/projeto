@@ -1,7 +1,7 @@
 package br.org.carameloCode.erp.projeto.paginas;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.console.CRC_CONSOLE_TIPO_ACESSO;
-import br.org.carameloCode.erp.modulo.projeto.acoes.console.CRC_CONSOLE_TIPO_COMANDO;
+import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.CRC_CONSOLE_TIPO_ACESSO;
+import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.CRC_CONSOLE_TIPO_COMANDO;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;

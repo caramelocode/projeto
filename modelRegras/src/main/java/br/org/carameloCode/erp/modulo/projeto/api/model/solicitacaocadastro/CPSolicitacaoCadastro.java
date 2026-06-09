@@ -5,7 +5,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.Info
 
 @InfoReferenciaEntidade(tipoObjeto = SolicitacaoCadastro.class)
 public enum CPSolicitacaoCadastro {
-	_ID, _NOME, _EMAIL, _TELEFONE, _USUARIOGIT, _USUARIOCONVITE;
+	_ID, _NOME, _EMAIL, _TELEFONE, _USUARIOGIT, _USUARIOCONVITE, _USUARIOGERADO;
 
 	public static final String id = "id";
 	public static final String nome = "nome";
@@ -13,4 +13,5 @@ public enum CPSolicitacaoCadastro {
 	public static final String telefone = "telefone";
 	public static final String usuariogit = "usuarioGit";
 	public static final String usuarioconvite = "usuarioConvite";
+	public static final String usuariogerado = "usuarioGerado";
 }

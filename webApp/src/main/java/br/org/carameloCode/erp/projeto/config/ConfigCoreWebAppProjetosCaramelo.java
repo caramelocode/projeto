@@ -5,11 +5,15 @@
  */
 package br.org.carameloCode.erp.projeto.config;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.FabAcaoProjetoCRCCarameloFormulario;
+import br.org.carameloCode.erp.modulo.notificacao.api.FabAcaoNotificacaoPadraoSB;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
+import br.org.carameloCode.erp.modulo.projeto.acoes.componente.notificacoes.FabAcaoProjetoCRCNotificacoes;
+import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.acao.FabAcaoProjetoCRCAcoes;
+import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.console.FabAcaoProjetoCRCConsole;
+import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.projeto.FabAcaoProjetoCRCProjetoCaramelo;
+import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.requisito.FabAcaoProjetoCRCRequisito;
 import br.org.coletivojava.fw.utils.servico.ServicoRepositorioDeArquivos.ServicoDeArquivosWebAppS3;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
-import com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao.FabAcaoDemonstracaoSB;
 import com.super_bits.modulos.SBAcessosModel.view.FabAcaoPaginasDoSistema;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizavel;
@@ -44,8 +48,13 @@ public class ConfigCoreWebAppProjetosCaramelo extends ConfiguradorCoreDeProjetoW
         pConfig.setFabricaDeAcoes(new Class[]{
             FabAcaoPaginasDoSistema.class,
             FabAcaoProjetoCRCComponenteNativo.class,
-            FabAcaoProjetoCRCCarameloFormulario.class,
-            FabAcaoProjetoSB.class // FabAcaoDemonstracaoSB.class
+            FabAcaoProjetoSB.class,
+            FabAcaoProjetoCRCAcoes.class,
+            FabAcaoProjetoCRCConsole.class,
+            FabAcaoProjetoCRCProjetoCaramelo.class,
+            FabAcaoProjetoCRCRequisito.class,
+            FabAcaoNotificacaoPadraoSB.class,
+            FabAcaoProjetoCRCNotificacoes.class
         });
 
     }

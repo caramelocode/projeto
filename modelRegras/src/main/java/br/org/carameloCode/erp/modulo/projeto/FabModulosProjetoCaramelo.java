@@ -6,6 +6,8 @@
 package br.org.carameloCode.erp.modulo.projeto;
 
 import br.org.carameloCode.erp.modulo.projeto.menu.FabMenuProjetoCaramelo;
+import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ComoFabricaModulo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoDaFabrica;
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoFabricaMenu;
@@ -33,6 +35,27 @@ public enum FabModulosProjetoCaramelo implements ComoFabricaModulo {
 
     @Override
     public ComoFabricaMenu getMenuPadrao() {
+        switch (this) {
+
+            case ANONIMO:
+                break;
+            case CARAMELO_DEV:
+                break;
+            case CARAMELO_DEV_ADMIN:
+                break;
+            case PLATAFORMA_ADMIN:
+                break;
+            case CLIENTE:
+                break;
+            default:
+                throw new AssertionError();
+        }
         return FabMenuProjetoCaramelo.CARAMELO_DEV_ADMIN;
     }
+
+    @Override
+    public ModuloProjetoCaramelo getRegistro() {
+        return (ModuloProjetoCaramelo) ComoFabricaModulo.super.getRegistro(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
 }
