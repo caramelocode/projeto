@@ -5,6 +5,7 @@
 package br.org.carameloCode.erp.modulo.projeto.menu;
 
 import br.org.carameloCode.erp.modulo.notificacao.api.FabAcaoNotificacaoPadraoSB;
+import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.FabAcaoProjetoCRCCarameloFormulario;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.notificacoes.FabAcaoProjetoCRCNotificacoes;
 import com.super_bits.modulos.SBAcessosModel.controller.FabMenuAdmin;
@@ -61,9 +62,12 @@ public enum FabMenuProjetoCaramelo implements ComoFabricaMenu {
                 .addAcao(FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_FRM_ENVIAR_MENU_SISTEMA_USR);
         menusec.addSessao(FabAcaoNotificacaoPadraoSB.NOTIFICACAO_MB_GESTAO)
                 .addAcao(FabAcaoNotificacaoPadraoSB.TIPO_NOTIFICACAO_MB_GESTAO)
-                .addAcao(FabAcaoNotificacaoPadraoSB.NOTIFICACAO_FRM_NOVA)
+                .addAcao(FabAcaoNotificacaoPadraoSB.NOTIFICACAO_FRM_NOVO)
                 .addAcao(FabAcaoNotificacaoPadraoSB.NOTIFICACAO_FRM_LISTAR)
                 .setNome("Notificações Registradas");
+        menusec.addSessao(FabAcaoProjetoCRCCarameloFormulario.CRUD_EXEMPLO_MB_GESTAO)
+                .addAcao(FabAcaoProjetoCRCCarameloFormulario.CRUD_EXEMPLO_MB_GESTAO)
+                .addAcao(FabAcaoProjetoCRCCarameloFormulario.FORMMULARIO_PERSONALIZADO_MB_GESTAO).setNome("Modelos de Páginas");
         ;
 
         //    menuPrincipal.addSessao(FabAcaoProjetoCRCAcoes.ACOES_MB_GESTAO).addAcao(FabAcaoProjetoCRCAcoes.ACOES_MB_GESTAO);

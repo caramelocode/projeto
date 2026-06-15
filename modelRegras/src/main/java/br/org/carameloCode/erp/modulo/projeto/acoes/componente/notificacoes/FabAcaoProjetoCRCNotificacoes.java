@@ -18,7 +18,7 @@ import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoComunicacao;
 @InfoModuloProjetoCaraelo(modulo = FabModulosProjetoCaramelo.CARAMELO_DEV)
 public enum FabAcaoProjetoCRCNotificacoes implements ComoFabricaDeAcoesPersistencia {
 
-    @InfoTipoAcaoGestaoEntidade(entidade = ComunicacaoTransientDev.class, icone = "fa fa-bell-o ", nomeAcao = "Notificações")
+    @InfoTipoAcaoGestaoEntidade(entidade = ComunicacaoTransientDev.class, icone = "fa fa-bell-o ", nomeAcao = "Notificações Transitórias")
     NOTIFICACAO_TRANSITORIA_MB_GESTAO,
     @InfoTipoAcaoFormulario(icone = "fa fa-exclamation-triangle", entidade = ComunicacaoTransientDev.class,
             estadoFormulario = FabEstadoFormulario.NOVO, nomeAcao = "Execução Ação")

@@ -25,7 +25,7 @@
                                />
 
                 <p:column>
-                    <h:outputText styleClass="ui-theme ui-theme-#{item.id}" />
+                    <h:outputText styleClass="#{servicoVisualizacaoComponente.getIcone(item)}" rendered="#{servicoVisualizacaoComponente.getIcone(item) != null}"  />
                 </p:column>
 
                 <p:column>

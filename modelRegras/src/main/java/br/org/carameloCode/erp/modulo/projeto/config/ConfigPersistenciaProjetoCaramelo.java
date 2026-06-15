@@ -9,14 +9,18 @@ import br.org.carameloCode.erp.modulo.projeto.FabModulosProjetoCaramelo;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.FabExemploComponenteNativo;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.FabExemplosOpcoesItensSelecao;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.FabGrupoUsrProjeto;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.FabTipoNotificacaoTeste;
+
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.FabUsuarioPadraoProjeto;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCDataHora;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoTransient;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
+import com.super_bits.modulosSB.SBCore.modulos.view.modeloFormulario.ModeloPagina;
 
 /**
  *
@@ -59,12 +63,16 @@ public class ConfigPersistenciaProjetoCaramelo implements ItfConfigSBPersistenci
         MapaObjetosProjetoAtual.adcionarObjeto(UsuarioSistemaRoot.class);
         MapaObjetosProjetoAtual.adcionarObjeto(ComunicacaoTransient.class);
         MapaObjetosProjetoAtual.adcionarObjeto(ComunicacaoAcaoSistema.class);
+        MapaObjetosProjetoAtual.adcionarObjeto(EstruturaDeEntidade.class);
+        MapaObjetosProjetoAtual.adcionarObjeto(ModeloPagina.class);
         return new Class[]{ //    FabAtividadeCRMAutoexecucao.class
             FabExemplosOpcoesItensSelecao.class,
             FabExemploComponenteNativo.class,
             FabModulosProjetoCaramelo.class,
             FabGrupoUsrProjeto.class,
-            FabUsuarioPadraoProjeto.class
+            FabUsuarioPadraoProjeto.class,
+            FabTipoNotificacaoTeste.class
+
         };
 
     }

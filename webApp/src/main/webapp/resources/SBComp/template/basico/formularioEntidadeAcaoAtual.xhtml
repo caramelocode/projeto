@@ -14,7 +14,7 @@
         <span class="CardSubTopic">
             #{paginaAtual.infoPagina.acaoSelecionada.descricao}
         </span>
-        <h:panelGroup styleClass="Fright" layout="block">
+        <h:panelGroup styleClass="Fright Container3" layout="block">
             <h:form>
                 <SBAcaoNav:botaoDeAcao_Pagina_Entidade
                     rendered="#{paginaAtual.infoPagina.comoPaginaEntidade.acaoListarRegistros!=null}"
@@ -29,11 +29,15 @@
 
     <h:form  >
         <p:fieldset  styleClass="Container12">
+            <h:panelGroup  styleClass="Container12 OrganizadorContainer" layout="block" >
+                <ui:insert name="conteudo" />
+            </h:panelGroup>
 
-            <ui:insert name="conteudo" />
-
-            <ui:insert name="botoesDeAcao" />
-
+            <h:panelGroup styleClass="Container10" layout="block" >
+                <h:panelGroup styleClass="Container12 Fright" layout="block" >
+                    <ui:insert name="botoesDeAcao" />
+                </h:panelGroup>
+            </h:panelGroup>
         </p:fieldset>
     </h:form>
 

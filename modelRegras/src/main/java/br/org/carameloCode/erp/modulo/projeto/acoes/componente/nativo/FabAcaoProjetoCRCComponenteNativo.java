@@ -9,12 +9,9 @@ import br.org.carameloCode.erp.modulo.projeto.InfoModuloProjetoCaraelo;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.ExemploComponente;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.ExemploComponenteInput;
 import com.super_bits.modulos.SBAcessosModel.fabricas.ComoFabricaDeAcoesPersistencia;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.estadoFormulario.FabEstadoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoAcaoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoTransient;
 
 /**
  *
@@ -23,7 +20,7 @@ import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoTransient;
 @InfoModuloProjetoCaraelo(modulo = FabModulosProjetoCaramelo.CARAMELO_DEV)
 public enum FabAcaoProjetoCRCComponenteNativo implements ComoFabricaDeAcoesPersistencia {
 
-    @InfoTipoAcaoGestaoEntidade(entidade = ExemploComponente.class, icone = "fa fa-object-group ")
+    @InfoTipoAcaoGestaoEntidade(nomeAcao = "Componentes Nativos", entidade = ExemploComponente.class, icone = "fa fa-object-group ")
     COMPONENTE_NATIVO_MB_GESTAO,
     @InfoTipoAcaoFormulario(icone = "fa fa-object-group ")
     COMPONENTE_NATIVO_FRM_LISTAR,

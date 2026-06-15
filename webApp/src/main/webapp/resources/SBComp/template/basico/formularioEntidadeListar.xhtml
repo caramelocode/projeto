@@ -13,13 +13,15 @@
             <span class="CardSubTopic">
                 #{paginaAtual.infoPagina.comoFormularioWeb.acaoSelecionada.descricao}
             </span>
-            <h:panelGroup styleClass="Fright" style="position: relative  " layout="block">
-                <h:form rendered="#{paginaAtual.infoPagina.comoPaginaEntidade.acaoNovoRegistro!=null}">
-                    <SBpaginaAtual:botaoAcaoPersonalizada
-                        acao="#{paginaAtual.infoPagina.comoPaginaEntidade.acaoNovoRegistro}"
-                        />
-                </h:form>
-                <ui:insert name="conteudoDireita" />
+            <h:panelGroup styleClass="Container12" layout="block">
+                <h:panelGroup styleClass="Fright Container3" layout="block">
+                    <h:form rendered="#{paginaAtual.infoPagina.comoPaginaEntidade.acaoNovoRegistro!=null}">
+                        <SBpaginaAtual:botaoAcaoPersonalizada
+                            acao="#{paginaAtual.infoPagina.comoPaginaEntidade.acaoNovoRegistro}"
+                            />
+                    </h:form>
+                    <ui:insert name="conteudoDireita" />
+                </h:panelGroup>
             </h:panelGroup>
         </div>
         <div class="quebraBlocoComEspacoVertical10"></div>

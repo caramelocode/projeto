@@ -5,14 +5,17 @@
  */
 package br.org.carameloCode.erp.projeto.config;
 
+import br.org.carameloCode.erp.modulo.notificacao.controller.ModuloNotificacao;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.notificacoes.FabAcaoProjetoCRCNotificacoes;
 import br.org.carameloCode.erp.modulo.projeto.implemetation.componenteNativo.ExecAcoesComponenteNativo;
 import com.super_bits.modulos.SBAcessosModel.controller.FabMenuAdmin;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
+import com.super_bits.modulosSB.SBCore.modulos.erp.FabTipoAgenteOrganizacao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoGrupoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoMenusDeSessao;
 import config.ConfigPermissoesAcessosModel;
 import org.coletivojava.fw.api.objetoNativo.view.menu.MenuSBFW;
@@ -25,7 +28,7 @@ import org.coletivojava.fw.api.objetoNativo.view.menu.MenusDaSessao;
 public class ConfigPermissaoProjetoWeb extends ConfigPermissoesAcessosModel {
 
     public ConfigPermissaoProjetoWeb() {
-        super(new Class[]{ExecAcoesComponenteNativo.class});
+        super(new Class[]{ExecAcoesComponenteNativo.class, ModuloNotificacao.class});
 
     }
 
@@ -47,6 +50,11 @@ public class ConfigPermissaoProjetoWeb extends ConfigPermissoesAcessosModel {
 
         }
         return super.definirMenu(pGrupo); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
+    public FabTipoAgenteOrganizacao getTipoAgente(ComoUsuario pUsuario) {
+        return FabTipoAgenteOrganizacao.FORNECEDOR;
     }
 
 }

@@ -18,9 +18,9 @@ public class AcoesAdminTools_NotificacaoMbGestao implements Serializable {
 				.getAcaoDoSistemaByNomeUnico("FabAcaoNotificacaoPadraoSB.NOTIFICACAO_MB_GESTAO");
 	}
 
-	public ItfAcaoFormularioEntidade getNotificacaoFrmNova() {
+	public ItfAcaoFormularioEntidade getNotificacaoFrmNovo() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoNotificacaoPadraoSB.NOTIFICACAO_FRM_NOVA");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoNotificacaoPadraoSB.NOTIFICACAO_FRM_NOVO");
 	}
 
 	public ItfAcaoFormularioEntidade getNotificacaoFrmListar() {

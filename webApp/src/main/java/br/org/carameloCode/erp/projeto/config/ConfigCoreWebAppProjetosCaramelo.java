@@ -6,6 +6,7 @@
 package br.org.carameloCode.erp.projeto.config;
 
 import br.org.carameloCode.erp.modulo.notificacao.api.FabAcaoNotificacaoPadraoSB;
+import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.FabAcaoProjetoCRCCarameloFormulario;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.notificacoes.FabAcaoProjetoCRCNotificacoes;
 import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.acao.FabAcaoProjetoCRCAcoes;
@@ -54,8 +55,8 @@ public class ConfigCoreWebAppProjetosCaramelo extends ConfiguradorCoreDeProjetoW
             FabAcaoProjetoCRCProjetoCaramelo.class,
             FabAcaoProjetoCRCRequisito.class,
             FabAcaoNotificacaoPadraoSB.class,
-            FabAcaoProjetoCRCNotificacoes.class
-        });
+            FabAcaoProjetoCRCNotificacoes.class,
+            FabAcaoProjetoCRCCarameloFormulario.class});
 
     }
 

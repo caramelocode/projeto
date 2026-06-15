@@ -31,7 +31,10 @@ public class UtilProjetosCRC {
             FabAcaoProjetoCRCConsole.class,
             FabAcaoProjetoCRCProjetoCaramelo.class,
             FabAcaoProjetoCRCRequisito.class,
-            FabAcaoProjetoCRCEntidade.class,};
+            FabAcaoProjetoCRCEntidade.class,
+            FabAcaoProjetoCRCCarameloFormulario.class
+
+        };
     }
 
 }

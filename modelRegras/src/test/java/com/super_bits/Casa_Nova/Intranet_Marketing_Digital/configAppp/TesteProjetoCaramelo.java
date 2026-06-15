@@ -6,7 +6,6 @@
 package com.super_bits.Casa_Nova.Intranet_Marketing_Digital.configAppp;
 
 import br.org.carameloCode.erp.modulo.projeto.config.ConfigPersistenciaProjetoCaramelo;
-import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import testesFW.TesteJunitJPAModuloERP;

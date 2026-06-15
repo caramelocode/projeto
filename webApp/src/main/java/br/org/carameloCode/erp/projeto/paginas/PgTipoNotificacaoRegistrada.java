@@ -7,10 +7,9 @@ package br.org.carameloCode.erp.projeto.paginas;
 import br.org.carameloCode.erp.modulo.notificacao.api.FabAcaoNotificacaoPadraoSB;
 import br.org.carameloCode.erp.modulo.notificacao.api.InfoAcaoNotificacao;
 import br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.tipoNotificacao.TipoNotificacao;
-import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.fabricaSoftware.usuario.UsuarioDevProjCRC;
 import com.super_bits.modulosSB.webPaginas.JSFManagedBeans.formularios.MB_paginaCadastroEntidades;
 import com.super_bits.modulosSB.webPaginas.JSFManagedBeans.formularios.reflexao.anotacoes.InfoPagina;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 /**
@@ -18,7 +17,7 @@ import javax.inject.Named;
  * @author salvio
  */
 @Named
-@SessionScoped
+@ViewScoped
 @InfoAcaoNotificacao(acao = FabAcaoNotificacaoPadraoSB.TIPO_NOTIFICACAO_MB_GESTAO)
 @InfoPagina(nomeCurto = "TPNTR", tags = "Tipo notificação registrada")
 public class PgTipoNotificacaoRegistrada extends MB_paginaCadastroEntidades<TipoNotificacao> {

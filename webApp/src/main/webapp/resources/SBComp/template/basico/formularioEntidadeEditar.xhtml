@@ -14,7 +14,7 @@
                 #{paginaAtual.infoPagina.acaoSelecionada.descricao}
             </span>
 
-            <h:panelGroup styleClass="Fright">
+            <h:panelGroup styleClass="Fright Container3" layout="block">
                 <h:form>
                     <SBAcaoNav:botaoDeAcao_Pagina acao="#{paginaAtual.infoPagina.comoPaginaEntidade.acaoListarRegistros}"
                                                   tipoVisualizacao="#{layoutsComponenteSB.layoutBotoes.iconeENome}"
@@ -30,9 +30,10 @@
         <div class="SeparatorFull"></div>
 
         <div class="ContainerIndent">
+            <h:panelGroup  styleClass="Container12 OrganizadorContainer" layout="block" >
+                <ui:insert name="conteudo" />
 
-            <ui:insert name="conteudo" />
-
+            </h:panelGroup>
 
         </div>
     </div>

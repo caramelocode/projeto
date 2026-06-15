@@ -5,7 +5,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.Info
 
 @InfoReferenciaEntidade(tipoObjeto = TipoNotificacao.class)
 public enum CPTipoNotificacao {
-	_ID, _TIPOENTIDADE, _NOME, _ASSUNTO, _CONTEUDOHTML, _ACAOGATILHONOTIFICACAO, _ACAOAUTOEXECUCAOENVIO, _ACAOAUTOEXECUCAOENTREGA, _ACAOAUTOEXECUCAOLEITURA, _EXIGIRRECIBODEENTREGA, _EXIGIRRECIBOLEITURA, _NOTIFICACAOUNICA, _NOTIFIFICARVIAMATRIX, _NOTIFICARVIAMENU, _NOTIFICARVIATELADEBLOQUEIO, _NOTIFICARVIAMOBILE, _NOTIFICARVIAWHATSAPP, _NOTIFICARVIAAPIPERSONALIZADA, _NOTIFICARVIASMS, _NOTIFICARVIAEMAIL, _REMETENTEAGUARDARESPOSTA, _MINUTOSRENOTIFICACAO, _DIASLOG, _ATIVO, _NOMEENTIDADEREFERENCIA, _TIPOAGENTE, _ESTRUTURAENTIDADE, _ENTIDADESDISPONIVEIS, _ESTRATEGIA;
+	_ID, _TIPOENTIDADE, _NOME, _ASSUNTO, _CONTEUDOHTML, _ACAOGATILHONOTIFICACAO, _NOMEFABRICAGATILHONOTICAO, _ACAOAUTOEXECUCAOENVIO, _NOMEFABRICAGATILHOACAOENVIADA, _ACAOAUTOEXECUCAOENTREGA, _NOMEFABRICAGATILHOACAOENTREGA, _ACAOAUTOEXECUCAOLEITURA, _NOMEFABRICAGATILHOACAOLEITURA, _EXIGIRRECIBODEENTREGA, _EXIGIRRECIBOLEITURA, _NOTIFICACAOUNICA, _NOTIFIFICARVIAMATRIX, _NOTIFICARVIAMENU, _NOTIFICARVIATELADEBLOQUEIO, _NOTIFICARVIAMOBILE, _NOTIFICARVIAWHATSAPP, _NOTIFICARVIAAPIPERSONALIZADA, _NOTIFICARVIASMS, _NOTIFICARVIAEMAIL, _REMETENTEAGUARDARESPOSTA, _MINUTOSRENOTIFICACAO, _DIASLOG, _ATIVO, _NOMEENTIDADEREFERENCIA, _CAMINHOUSUARIODESTINATARIO, _TIPOAGENTE, _ESTRUTURAENTIDADE, _ACAOESGATILHODISPONIVEIS, _ENTIDADESDISPONIVEIS, _ESTRATEGIA, _TIPONOTIFICACAONATIVA;
 
 	public static final String id = "id";
 	public static final String tipoentidade = "tipoEntidade";
@@ -13,9 +13,13 @@ public enum CPTipoNotificacao {
 	public static final String assunto = "assunto";
 	public static final String conteudohtml = "conteudoHTML";
 	public static final String acaogatilhonotificacao = "acaoGatilhoNotificacao";
+	public static final String nomefabricagatilhonoticao = "nomeFabricaGatilhoNoticao";
 	public static final String acaoautoexecucaoenvio = "acaoAutoExecucaoEnvio";
+	public static final String nomefabricagatilhoacaoenviada = "nomeFabricaGatilhoAcaoEnviada";
 	public static final String acaoautoexecucaoentrega = "acaoAutoExecucaoEntrega";
+	public static final String nomefabricagatilhoacaoentrega = "nomeFabricaGatilhoAcaoEntrega";
 	public static final String acaoautoexecucaoleitura = "acaoAutoExecucaoLeitura";
+	public static final String nomefabricagatilhoacaoleitura = "nomeFabricaGatilhoAcaoLeitura";
 	public static final String exigirrecibodeentrega = "exigirReciboDeEntrega";
 	public static final String exigirreciboleitura = "exigirReciboLeitura";
 	public static final String notificacaounica = "notificacaoUnica";
@@ -32,8 +36,11 @@ public enum CPTipoNotificacao {
 	public static final String diaslog = "diasLog";
 	public static final String ativo = "ativo";
 	public static final String nomeentidadereferencia = "nomeEntidadeReferencia";
+	public static final String caminhousuariodestinatario = "caminhoUsuarioDestinatario";
 	public static final String tipoagente = "tipoAgente";
 	public static final String estruturaentidade = "estruturaEntidade";
+	public static final String acaoesgatilhodisponiveis = "acaoesGatilhoDisponiveis";
 	public static final String entidadesdisponiveis = "entidadesDisponiveis";
 	public static final String estrategia = "estrategia";
+	public static final String tiponotificacaonativa = "tipoNotificacaoNativa";
 }

@@ -10,6 +10,7 @@ import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import br.org.caramelo.web.testesFW.webApp.testes.RelatorioTesteWebPaginas;
+import br.org.carameloCode.erp.modulo.notificacao.api.FabAcaoNotificacaoPadraoSB;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +29,9 @@ public class TesteConformidadeTest extends RelatorioTesteWebPaginas {
             System.out.println(FabAcaoPaginasDoSistema.PAGINA_NATIVA_TOKEN_DINAMICO_MB.getRegistro().getNomeUnico());
             gerarMangedBeansAcessoAcoes();
             exibirRelatorioCompleto();
+            System.out.println(FabAcaoNotificacaoPadraoSB.NOTIFICACAO_FRM_NOVO.getRegistro().getComoFormulario().getXhtml());
+            System.out.println(FabAcaoNotificacaoPadraoSB.TIPO_NOTIFICACAO_FRM_EDITAR.getRegistro().getComoFormulario().getXhtml());
+            System.out.println(FabAcaoNotificacaoPadraoSB.TIPO_NOTIFICACAO_FRM_VISUALIZAR.getRegistro().getComoFormulario().getXhtml());
             SBCore.getServicoMensagens().enviarMsgAlertaAoDesenvolvedor("Teste");
         } catch (Throwable t) {
             lancarErroJUnit(t);
