@@ -198,9 +198,6 @@ function copiarValoresInput(idOrigem, idDestino) {
     document.getElementById(idDestino).value = document.getElementById(idOrigem).value;
 }
 
-function adicionarChamadaComDelay(idElemento, metodo) {
-
-}
 
 function mesclarOnChangeComDelayCkEditor(idElementoDigitacao, idElementoPersistente) {
     try {

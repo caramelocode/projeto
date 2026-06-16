@@ -5,11 +5,12 @@
  */
 package br.org.carameloCode.erp.modulo.projeto.config;
 
+import br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.statusNotificacao.FabStatusNotificacao;
 import br.org.carameloCode.erp.modulo.projeto.FabModulosProjetoCaramelo;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.FabExemploComponenteNativo;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.FabExemplosOpcoesItensSelecao;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.FabGrupoUsrProjeto;
-import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.FabTipoNotificacaoTeste;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.FabTipoNotificacaoProjetoCRCTeste;
 
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.FabUsuarioPadraoProjeto;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
@@ -69,9 +70,10 @@ public class ConfigPersistenciaProjetoCaramelo implements ItfConfigSBPersistenci
             FabExemplosOpcoesItensSelecao.class,
             FabExemploComponenteNativo.class,
             FabModulosProjetoCaramelo.class,
+            FabStatusNotificacao.class,
             FabGrupoUsrProjeto.class,
             FabUsuarioPadraoProjeto.class,
-            FabTipoNotificacaoTeste.class
+            FabTipoNotificacaoProjetoCRCTeste.class
 
         };
 
