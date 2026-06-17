@@ -12,6 +12,7 @@ import com.super_bits.modulosSB.webPaginas.JSFManagedBeans.formularios.MB_pagina
 import com.super_bits.modulosSB.webPaginas.JSFManagedBeans.formularios.reflexao.anotacoes.InfoPagina;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -20,7 +21,7 @@ import javax.inject.Named;
  * @author salvio
  */
 @Named
-@ViewScoped
+@SessionScoped
 @InfoAcaoProjetoCRCFormularios(acao = FabAcaoProjetoCRCCarameloFormulario.FORMMULARIO_PERSONALIZADO_MB_GESTAO)
 @InfoPagina(nomeCurto = "MODPAGE", tags = "Modelos de Páginas")
 public class PgModelosPagina extends MB_paginaCadastroEntidades<ModeloPagina> {

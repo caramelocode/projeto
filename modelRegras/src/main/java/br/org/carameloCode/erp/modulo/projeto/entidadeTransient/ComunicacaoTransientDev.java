@@ -22,16 +22,16 @@ public class ComunicacaoTransientDev extends EntidadeSimples {
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.ID)
     private Long id;
-
+    @InfoCampo(valorMaximo = 120, valorMinimo = 3, label = "Assunto")
     private String assunto = "Assunto teste de [remetente.nome]";
     private String mensagem = "Essa é uma menagem teste importante para [destinatario.nome]";
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.OBJETO_DE_UMA_LISTA, entidadeOpcoesDisponiveis = UsuarioSB.class)
-    private UsuarioSB destinatario;
+    private UsuarioSB usuarioDestinatario;
 
     @Override
     public void prepararNovoObjeto(Object... parametros) throws ErroPreparandoObjeto {
-        destinatario = (UsuarioSB) CarameloCode.getUsuarioLogado();
+        usuarioDestinatario = (UsuarioSB) CarameloCode.getUsuarioLogado();
     }
 
     public Long getId() {
@@ -58,12 +58,12 @@ public class ComunicacaoTransientDev extends EntidadeSimples {
         this.mensagem = mensagem;
     }
 
-    public UsuarioSB getDestinatario() {
-        return destinatario;
+    public UsuarioSB getUsuarioDestinatario() {
+        return usuarioDestinatario;
     }
 
-    public void setDestinatario(UsuarioSB destinatario) {
-        this.destinatario = destinatario;
+    public void setUsuarioDestinatario(UsuarioSB usuarioDestinatario) {
+        this.usuarioDestinatario = usuarioDestinatario;
     }
 
 }

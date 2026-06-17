@@ -20,6 +20,7 @@ public class ComunicacaoTransientUsrToUsrDev extends ComunicacaoTransientDev {
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.OBJETO_DE_UMA_LISTA, entidadeOpcoesDisponiveis = UsuarioSB.class)
     private UsuarioSB remetente;
+    private String observacao;
 
     @Override
     public void prepararNovoObjeto(Object... parametros) throws ErroPreparandoObjeto {

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
- */
 package br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario;
 
 import br.org.carameloCode.erp.modulo.projeto.FabModulosProjetoCaramelo;
@@ -40,11 +36,11 @@ public enum FabAcaoProjetoCRCCarameloFormulario implements ComoFabricaDeAcoesPer
     CRUD_EXEMPLO_CTR_ATIVAR_DESATIVAR,
     @InfoTipoAcaoController()
     CRUD_EXEMPLO_CTR_SALVAR_MERGE,
-    @InfoTipoAcaoController()
-    CRUD_EXEMPLO_CTR_SALVAR_REMOVER,
-    @InfoTipoAcaoGestaoEntidade(entidade = ModeloPagina.class)
+    @InfoTipoAcaoController(nomeAcao = "Exluir", fraseComunicação = "Excluir [nome] de forma definitifa? ")
+    CRUD_EXEMPLO_CTR_REMOVER,
+    @InfoTipoAcaoGestaoEntidade(entidade = ModeloPagina.class, nomeAcao = "Modelos de Páginas", icone = "fa fa-clone")
     FORMMULARIO_PERSONALIZADO_MB_GESTAO,
-    @InfoTipoAcaoFormulario()
+    @InfoTipoAcaoFormulario(nomeAcao = "Listar Modelos")
     FORMMULARIO_PERSONALIZADO_FRM_LISTAR,
     @InfoTipoAcaoFormulario()
     FORMMULARIO_PERSONALIZADO_FRM_VISUALIZAR;

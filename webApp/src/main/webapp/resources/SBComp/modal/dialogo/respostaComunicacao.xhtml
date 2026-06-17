@@ -13,19 +13,28 @@
     </h:head>
     <h:body>
         <h:form>
-            <p:textEditor toolbarVisible="false" secure="false" readonly="true"  value="#{pgModalREspostaComunicacao.comunicacao.mensagem}"
-                          height="250"
-                          />
-            <div class=" OrganizadorContainer" style="width: 100%">
-                <ui:repeat value="#{pgModalREspostaComunicacao.comunicacao.repostasPossiveis}" var="resp" >
-                    <h:panelGroup layout="block" styleClass="Container1" >
-                        <SBAcaoNav:botaoRespostaModal
-                            resposta="#{resp}"
-                            armazenamentoAcaoExecutada="#{pgModalREspostaComunicacao.respostaSelecionada}"
-                            metodo="#{pgModalREspostaComunicacao.enviarRespostaEExecutarAcao()}"
-                            />
-                    </h:panelGroup>
-                </ui:repeat>
+            <div class=" OrganizadorContainer Container12">
+                <p:staticMessage severity="info"
+                                 summary="#{pgModalREspostaComunicacao.comunicacao.assunto}"
+                                 detail="&lt;br/&gt;&lt;br/&gt;#{pgModalREspostaComunicacao.comunicacao.mensagem}"
+                                 escape="false"
+                                 styleClass="Fs30"
+                                 style="margin: 30px;"
+                                 />
+            </div>
+
+            <div class=" OrganizadorContainer Container12">
+                <div class="Container8  OrganizadorContainer">
+                    <ui:repeat value="#{pgModalREspostaComunicacao.comunicacao.repostasPossiveis}" var="resp" >
+                        <h:panelGroup layout="block" styleClass="Container3" >
+                            <SBAcaoNav:botaoRespostaModal
+                                resposta="#{resp}"
+                                armazenamentoAcaoExecutada="#{pgModalREspostaComunicacao.respostaSelecionada}"
+                                metodo="#{pgModalREspostaComunicacao.enviarRespostaEExecutarAcao()}"
+                                />
+                        </h:panelGroup>
+                    </ui:repeat>
+                </div>
             </div>
 
         </h:form>

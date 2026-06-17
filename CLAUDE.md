@@ -3,10 +3,10 @@
 ## Pastas a ignorar
 - Nunca leia ou modifique arquivos dentro de `target/`
 - Ignore arquivos `.class`, `.war`, `.jar`, `.ear`
-- Não acesse `target/` mesmo se solicitado indiretamente
+- Não acesse `*/target/` mesmo se solicitado indiretamente
 
 ## Stack
-- Java EE com Primefaces e Hibernate
+- Java EE com Primefaces 13.0.10 e Hibernate
 - java 8
 - Maven
 - Foco apenas em `src/` para código-fonte

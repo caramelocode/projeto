@@ -5,13 +5,11 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCJson;
 import com.super_bits.modulosSB.SBCore.UtilGeral.json.ErroProcessandoJson;
 import com.super_bits.modulosSB.webPaginas.JSFManagedBeans.declarados.util.ItfServicoPush;
-import jakarta.json.JsonBuilderFactory;
 import jakarta.json.JsonObjectBuilder;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 

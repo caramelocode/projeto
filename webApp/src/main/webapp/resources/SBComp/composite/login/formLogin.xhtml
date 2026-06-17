@@ -25,7 +25,7 @@
                 <div class="Card SoftGrayBack">
 
                     <p:inputText id="emaillogin" label="E-Mail"
-                                 requiredMessage="O E-Mail é obrigatório"
+                                 requiredMessage="informe seu e-mail"
                                  validatorMessage="O e-mail não parece ser válido" placeholder="E-mail" required="true"
                                  value="#{controleDeSessaoWeb.usuarioLogar}"  styleClass="Wid100 TexAlCenter">
                         <f:validateLength minimum="4" />
@@ -35,35 +35,45 @@
                     <p:message for="emaillogin" />
                     <div class="quebraBlocoComEspacoVertical10"></div>
 
-                    <p:password id="senha" placeholder="Sua Senha"
+                    <p:password id="senha"
+                                placeholder="Sua Senha"
                                 required="true"
+                                style="width: 100%;"
                                 validatorMessage="A Senha é obrigatória, se perdeu a senha, preencha seu e-mail, e clique em 'Esqueci minha Senha'"
                                 requiredMessage="A senha é obrigatória"
                                 value="#{controleDeSessaoWeb.senhaLogar}"
-
-                                styleClass="Wid100 TexAlCenter" toggleMask="true"/><br/>
+                                styleClass="Wid100 TexAlCenter"
+                                toggleMask="true"/>
+                    <br/>
                     <p:message for="senha" styleClass="Wid100" style="width:83%" />
-                    <div class="quebraBlocoComEspacoVertical4"></div>
 
-                    <div class="quebraBlocoComEspacoVertical4"></div>
-                    <p:commandButton value="Esqueci minha Senha"
-                                     id="botaoEsqueciMinhaSenha"
-                                     process="@this,emaillogin"
-                                     icon="fa fa-exclamation"
-                                     styleClass="RedButton"
-                                     actionListener="#{controleDeSessaoWeb.esqueceuaSenha()}"
-                                     partialSubmit="true"
-                                     />
+                    <h:panelGroup styleClass="Container12 OrganizadorContainer" layout="block" >
+                        <div class="quebraBlocoComEspacoVertical4"></div>
+                        <p:commandButton value="Esqueci minha Senha"
+                                         id="botaoEsqueciMinhaSenha"
+                                         style="margin: 10px;"
+                                         process="@this,emaillogin"
+                                         icon="fa fa-exclamation"
+                                         styleClass="botaoVermelho Container5"
+                                         actionListener="#{controleDeSessaoWeb.esqueceuaSenha()}"
+                                         partialSubmit="true"
+                                         />
 
-                    <div class="quebraBlocoComEspacoVertical10 somenteMobile"></div>
-                    <p:commandButton value="Entrar" icon="fa fa-sign-in"
-                                     id="botaoEntrarSec"
-                                     actionListener="#{controleDeSessaoWeb.efetuarLogIn()}"
-                                     update="@form" />
-                    <p:defaultCommand target="botaoEntrarSec"  />
-                    <p:captcha language="pt-BR" required="true" requiredMessage="Validação Captcha nescessária"
-                               rendered="false"
-                               validatorMessage="Validação Captcha nescessária" />
+                        <div class="quebraBlocoComEspacoVertical10 somenteMobile"></div>
+
+                        <p:commandButton value="Entrar"
+                                         icon="fa fa-sign-in"
+                                         style="margin: 10px;"
+                                         id="botaoEntrarSec"
+                                         styleClass="Container5"
+                                         actionListener="#{controleDeSessaoWeb.efetuarLogIn()}"
+                                         update="@form" />
+                        <p:defaultCommand target="botaoEntrarSec"  />
+                        <p:captcha language="pt-BR" required="true" requiredMessage="Validação Captcha nescessária"
+                                   rendered="false"
+
+                                   validatorMessage="Validação Captcha nescessária" />
+                    </h:panelGroup>
                 </div>
 
             </div>

@@ -1,686 +1,682 @@
-
-
 /**
- * Limpa todos os Tooltips do Primefaces
+ * CarameloCode — Núcleo JS do Caramelo Code Framework
+ *
+ * Namespace organizado por área de responsabilidade.
+ * Em código novo, use sempre CarameloCode.<area>.<funcao>(...).
+ * As funções globais antigas continuam existindo (ver bloco
+ * "FUNÇÕES LEGADAS" no final do arquivo) apenas por compatibilidade.
  */
-function esconderTooltips() {
-    try {
-        $(".ui-tooltip").hide();
-    } catch (erro) {
+var CarameloCode = {
 
-    }
-}
+    /**
+     * Encerra a sessão do usuário.
+     * TODO: implementar (redirecionamento / remoteCommand de logoff).
+     */
+    logoff: function () {
+        alert("todo logoff");
+    },
+    // ─── Notificações de sistema/menu ───────────────────────────────────────
+    notificacoes: {
+        /**
+         * Atualiza as notificações de sistema e de mensagens do usuário no menu.
+         * TODO: implementar.
+         */
+        atualizarMenu: function () {
+            CarameloCode.areaTrabalho.atualizarAreaByID('menuNotificacoesTopo');
+            setTimeout(function () {
+                CarameloCode.areaTrabalho.atualizarAreaByID('areaNotificacaoBloqueio');
+            }, 300); // 3 segundos
 
-function liberarBloqueios() {
-    var i;
-    try {
+            setTimeout(function () {
+                try {
+                    CarameloCode.areaTrabalho.atualizarAreaByID('menuMobile');
+                } catch {
 
-        for (i in PrimeFaces.widgets) {
-            if (PrimeFaces.widgets[i].show && PrimeFaces.widgets[i].blocker) {
-                PrimeFaces.widgets[i].hide();
+                }
+            }, 300);
+
+
+        },
+        push: function (notificacao) {
+            console.log(notificacao);
+        },
+        _filaSom: Promise.resolve(),
+        tocarSom: function () {
+            CarameloCode.notificacoes._filaSom =
+                    CarameloCode.notificacoes._filaSom.then(function () {
+                        return new Promise(function (resolve) {
+                            try {
+                                var audio = new Audio('https://cdn.freesound.org/previews/411/411642_5121236-lq.mp3');
+                                audio.volume = 0.5;
+                                audio.onended = resolve;
+                                audio.onerror = resolve;
+                                var promise = audio.play();
+                                if (promise !== undefined) {
+                                    promise.catch(function () {
+                                        document.addEventListener('click', function handler() {
+                                            audio.play();
+                                            document.removeEventListener('click', handler);
+                                        }, {once: true});
+                                        resolve();
+                                    });
+                                }
+                            } catch (t) {
+                                console.log("Erro ao tocar som de notificação: " + t);
+                                resolve();
+                            }
+                        });
+                    });
+        }
+    },
+
+    // ─── Comunicação / conversas ─────────────────────────────────────────────
+    comunicacao: {
+        responderConversa: function (codigoSelo) {
+            (document.getElementById('formularioComunicacao:codigoComunicacao')).value = codigoSelo;
+            PF('botaoAbrirModalConversa').jq.click();
+        },
+        responderConversaRespostaRapida: function (codigoSelo, codigoResposta) {
+            (document.getElementById('formularioComunicacaoRespostaRapida:codigoSeloCMRespostaRapida')).value = codigoSelo;
+            (document.getElementById('formularioComunicacaoRespostaRapida:codigoRespostaRapida')).value = codigoResposta;
+            PF('respostaRapidaAct').jq.click();
+        }
+    },
+    // ─── Formulário ──────────────────────────────────────────────────────────
+    formulario: {
+        /**
+         * Atualiza a área do campo instanciado informado, se visível.
+         * @param {string} pAreaCampo Ex.: "Cliente.nome"
+         */
+        atualizarCampo: function (pAreaCampo) {
+            try {
+                var nodePesquisa = document.querySelectorAll("[campoinstanciado='" + pAreaCampo + "']");
+                var qtdElementosEncontrados = nodePesquisa.length;
+                if (qtdElementosEncontrados > 0) {
+                    nodePesquisa.forEach(function (elemento) {
+                        if (elemento.parentElement.id.length > 0) {
+                            // mantém comportamento original
+                        } else {
+                            if (elemento.id.length > 0) {
+                                CarameloCode.areaTrabalho.atualizarAreaByID(elemento.id);
+                            } else {
+                                var idMaisProximo = CarameloCode.areaTrabalho.getIdSuperiorMaisProximo(elemento);
+                                if (idMaisProximo.length > 0) {
+                                    CarameloCode.areaTrabalho.atualizarAreaByID(idMaisProximo);
+                                }
+                            }
+                        }
+                        CarameloCode.areaTrabalho.atualizarAreaByID(elemento.parentElement.id);
+                    });
+                }
+                if (qtdElementosEncontrados > 1) {
+                    console.log("Atenção: a atualização da area do campo se visivel ainda não suporta atualização de multiplos elementos");
+                }
+            } catch (t) {
+                console.log("Erro buscando area de visão do campo " + pAreaCampo);
             }
-        }
-    } catch (erro) {
-
-    }
-}
-
-function bloquearTodosBotoes() {
-    var i;
-    for (i in $('.ui-button')) {
-        $(i).attr("disabled", true);
-    }
-}
-
-function desbloquearTodosBotoes() {
-    var i;
-    for (i in $('.ui-button')) {
-        $(i).attr("disabled", true);
-    }
-}
-
-function bloquearTodosCommandLinks() {
-
-
-    $(".ui-commandlink").each(function (index) {
-        $(this).hide();
-    });
-
-}
-
-function desbloquearTodosCommandLinks() {
-    $(".ui-commandlink").each(function (index) {
-        $(this).show();
-    });
-
-}
-
-
-function scrollEmCampoNaoValidado() {
-
-    try {
-        var elementoErro = $("input.ui-state-error:first");
-        if (elementoErro.length > 0) {
-
-            $('html, body').animate({
-                scrollTop: elementoErro.offset().top - 200
-            });
-            return true;
-        }
-
-        return false;
-    } catch (err) {
-
-    }
-    return false;
-}
-
-
-/**
- * Vai para o Topo
- */
-function irParaTopo() {
-    $("html, body").animate({scrollTop: 0}, "slow");
-}
-function irParTopo() {
-    irParaTopo();
-}
-
-function acoesPosAjax() {
-    try {
-        esconderTooltips();
-        liberarBloqueios();
-        if (!scrollEmCampoNaoValidado()) {
-            irParTopo();
-        }
-    } catch (err) {
-
-    }
-
-}
-
-
-
-/**
- * ->
- * O enviarInf
- */
-function atualizarResolucaoDaTela() {
-    getClientInfo();
-    enviarInfoTela();
-}
-/**
- *
- *
- * Atualiza o campo infotelafrm:clientinfo com a resolução atual da tela
- */
-function getClientInfo()
-{
-    var clientinfo = "";
-    clientinfo += "aplicativo:" + navigator.appName + "||";
-    clientinfo += "versaoAplicativo:" + navigator.appVersion + "||";
-    clientinfo += "tamanhoX:" + window.innerWidth + "||";
-    clientinfo += "tamanhoY:" + window.innerHeight;
-    (document.getElementById('contactfrm:clientinfo')).value = clientinfo;
-}
-
-
-
-function baixarArquivo(fileURL, fileName) {
-// for non-IE
-    if (!window.ActiveXObject) {
-        var save = document.createElement('a');
-        save.href = fileURL;
-        save.target = '_blank';
-        save.download = fileName || 'unknown';
-        var event = document.createEvent('Event');
-        event.initEvent('click', true, true);
-        save.dispatchEvent(event);
-        (window.URL || window.webkitURL).revokeObjectURL(save.href);
-    }
-
-// for IE
-    else if (!!window.ActiveXObject && document.execCommand) {
-        var _window = window.open(fileURL, '_blank');
-        _window.document.close();
-        _window.document.execCommand('SaveAs', true, fileName || fileURL)
-        _window.close();
-    }
-}
-
-function modificarIntputEclicar(idBotao, idInputEnvio, valor) {
-    try {
-        elementos = idInputEnvio.split(" ");
-        elementoCodigo = document.getElementById(elementos[0]);
-        if (elementoCodigo === null) {
-            elementoCodigo = document.getElementById(elementos[1]);
-        }
-
-
-        elementoCodigo.value = valor;
-        botoes = idBotao.split(" ");
-        botao = document.getElementById(botoes[0]);
-        if (botao === null) {
-            botao = document.getElementById(botoes[1]);
-        }
-        botao.click();
-    } catch (t) {
-        console.log(t);
-    }
-}
-
-function copiarValoresCKEditorByClasseEstilo(idOrigem, classeDestino) {
-
-    try {
-        var conteudo = CKEDITOR.instances[idOrigem].getData();
-        if (conteudo !== null) {
-            document.getElementsByClassName(classeDestino)[0].value = conteudo;
-
-        }
-    } catch (erro) {
-        alert(idOrigem + ' destino:' + classeDestino + erro);
-    }
-
-}
-
-function copiarValoresCKEditor(idOrigem, idDestino) {
-    // console.log("etapa Cópia");
-    try {
-        var conteudo = CKEDITOR.instances[idOrigem].getData();
-        if (conteudo !== null) {
-            document.getElementById(idDestino).value = conteudo;
-        }
-    } catch (erro) {
-        alert(idOrigem + ' destino:' + idDestino + erro);
-    }
-}
-function copiarValoresInput(idOrigem, idDestino) {
-    document.getElementById(idDestino).value = document.getElementById(idOrigem).value;
-}
-
-
-function mesclarOnChangeComDelayCkEditor(idElementoDigitacao, idElementoPersistente) {
-    try {
-        var timeout = null;
-        var elemento = document.getElementById(idElementoPersistente);
-        mesclarOnChangeComDelay(idElementoPersistente);
-        // console.log("etapa1 pesquisa de objetos");
-        // console.log('elemento escondido:');
-        // console.log(elemento);
-        // console.log("elemento replace CK=");
-        // console.log(idElementoDigitacao);
-        editorCK = CKEDITOR.instances[idElementoDigitacao];
-        editorCK.elemento = elemento;
-        //  console.log("CK instanciado:");
-        //   console.log(editorCK);
-        //  console.log("CK");
-
-        //    console.log("etapa2 definição dos novos metodos ");
-
-        editorCK.setData(elemento.value);
-        if (elemento.onchange) {
-            //     console.log("Definindo onchange do elemento, com timeout do CKEDITOR");
-            editorCK.elemento.metodoOnchangeComDelay = window.elemento.onchange;
-            editorCK.elemento.ultimapesquisa = editorCK.getData();
-
-        }
-        if (elemento.onchange) {
-
-            //  console.log("Definindo onkey do CKEDITOR");
-            editorCK.on('key', function (e) {
-
-                try {
-                    //  console.log("entrou on key");
-                    if (editorCK.getData() === this.elemento.ultimapesquisa) {
-                        if (this.elemento.idTimeout) {
-                            //   console.log("timoutEmExecucao");
-                            //    console.log(this.id);
-                            //    console.log(this.getData());
-                            //    console.log('data');
-
-                        }
-                    } else {
-                        //      console.log("keyup=" + this.elemento.ultimapesquisa + "asdasd");
-
-                        //    console.log(this.elemento.metodoOnchangeComDelay);
-
-
-                        // Clear the timeout if it has already been set.
-                        // This will prevent the previous task from executing
-                        // if it has been less than <MILLISECONDS>
-                        if (editorCK.elemento.idTimeout) {
-                            //      console.log("LimpouTimeout");
-                            clearTimeout(this.elemento.idTimeout);
-                        }
-                        // console.log("negativo");
-                        // Make a new timeout set to go off in 800ms
-                        editorCK.elemento.ultimapesquisa = editorCK.getData();
-                        this.elemento.idTimeout = setTimeout(function () {
-                            try {
-                                // console.log("foi");
-
-                                // console.log('data');
-
-                                setTimeout(function () {
-
-                                    window.elemento.metodoOnchangeComDelay();
-
-                                }, 1000);
-
-                            } catch (t) {
-                                //  console.log("Erro cabuloso");
-                                //   console.log(t);
-                            }
-                        }, 800);
-                        // console.log('IDTIMEOUT:');
-                        // console.log(timeout);
-                    }
-                } catch (t) {
-                    //    console.log("Erro");
-                    //    console.log(t);
+        },
+        validarCampo: function (pNomeCampoInstanciado) {
+            try {
+                var nodePesquisa = document.querySelectorAll("[campoinstanciado='" + pNomeCampoInstanciado + "']");
+                var qtdElementosEncontrados = nodePesquisa.length;
+                if (qtdElementosEncontrados === 0) {
+                    console.log("validarCampo: nenhum elemento encontrado para " + pNomeCampoInstanciado);
+                    return;
                 }
 
+                if (qtdElementosEncontrados > 1) {
+                    console.log("Atenção: validarCampo ainda não suporta múltiplos elementos para " + pNomeCampoInstanciado);
+                }
+
+                var elemento = nodePesquisa[0];
+                var elementoId = elemento.id;
+                if (!elementoId || elementoId.length === 0) {
+                    console.log("validarCampo: elemento sem ID, não é possível submeter via PrimeFaces AJAX");
+                    return;
+                }
+
+                // Determina o formulário pai para usar como source do submit
+                var formPai = elemento.closest('form');
+                var formId = formPai ? formPai.id : null;
+                // Determina a área de update — mesmo padrão do atualizarCampo
+                var areaUpdate = '';
+                if (elemento.parentElement && elemento.parentElement.id && elemento.parentElement.id.length > 0) {
+                    areaUpdate = elemento.parentElement.id;
+                } else {
+                    var idMaisProximo = CarameloCode.areaTrabalho.getIdSuperiorMaisProximo(elemento);
+                    if (idMaisProximo.length > 0) {
+                        areaUpdate = idMaisProximo;
+                    }
+                }
+
+                // Dispara o submit parcial via PrimeFaces AJAX
+                PrimeFaces.ab({
+                    s: elementoId, // source: o próprio campo
+                    e: 'valueChange', // evento (mesmo padrão do seu onchange)
+                    f: formId, // form pai
+                    p: elementoId, // process: somente este campo
+                    u: areaUpdate, // update: área de retorno
+                    onst: function (cfg) {
+                        if (areaUpdate)
+                            bloquearArea(areaUpdate);
+                    },
+                    onco: function (xhr, status, args, data) {
+                        if (areaUpdate)
+                            desbloquearArea(areaUpdate);
+                    }
+                });
+            } catch (t) {
+                console.log("Erro ao validar campo " + pNomeCampoInstanciado + ": " + t);
+            }
+        },
+        /**
+         * Atualiza, via PrimeFaces, todos os campos que possuem a classe CSS informada.
+         * @returns {Promise}
+         */
+        atualizarCampoPorClasse: async function (pClasse) {
+            var delay = function (t) {
+                return new Promise(function (resolve) {
+                    setTimeout(resolve, t);
+                });
+            };
+            var promessaAtualizacaoCamposSecundarios = new Promise(function (resolve, reject) {
+                try {
+                    $('.' + pClasse).each(function (i, obj) {
+                        CarameloCode.areaTrabalho.bloquearArea(CarameloCode.areaTrabalho.getIdSuperiorMaisProximo(obj));
+                    });
+                } catch (r) {
+                    console.log("Erro bloqueando campos com a classe " + pClasse);
+                }
+
+                try {
+                    window.PrimeFaces.ab({s: "", f: "formAjaxUpdateClientSide", u: "@(." + pClasse + ")", fp: ""});
+                } catch (t) {
+                    reject(new Error('Falha executando update primefaces'));
+                }
+
+                delay(3000).then(function () {
+                    $('.' + pClasse).each(function (i, obj) {
+                        CarameloCode.areaTrabalho.desbloquearArea(CarameloCode.areaTrabalho.getIdSuperiorMaisProximo(obj));
+                    });
+                });
             });
-            elemento.onchange = null;
-        }
+            return promessaAtualizacaoCamposSecundarios;
+        },
+        scrollEmCampoNaoValidado: function () {
+            try {
+                var elementoErro = $("input.ui-state-error:first");
+                if (elementoErro.length > 0) {
+                    $('html, body').animate({
+                        scrollTop: elementoErro.offset().top - 200
+                    });
+                    return true;
+                }
+                return false;
+            } catch (err) {
+            }
+            return false;
+        },
+        modificarInputEClicar: function (idBotao, idInputEnvio, valor) {
+            try {
+                var elementos = idInputEnvio.split(" ");
+                var elementoCodigo = document.getElementById(elementos[0]);
+                if (elementoCodigo === null) {
+                    elementoCodigo = document.getElementById(elementos[1]);
+                }
 
-
-    } catch (t) {
-
-    }
-}
-
-
-function mesclarOnChangeComDelay(idElementoDigitacao) {
-    try {
-        elemento = document.getElementById(idElementoDigitacao);
-        console.log(elemento);
-        idelementoJquery = PrimeFaces.escapeClientId(elemento.id);
-        $(idelementoJquery).putCursorAtEnd();
-
-        var timeout = null;
-        if (elemento.onchange) {
-            elemento.metodoOnchangeComDelay = elemento.onchange;
-            elemento.ultimapesquisa = elemento.value;
-            //elemento.onchange = null;
-
+                elementoCodigo.value = valor;
+                var botoes = idBotao.split(" ");
+                var botao = document.getElementById(botoes[0]);
+                if (botao === null) {
+                    botao = document.getElementById(botoes[1]);
+                }
+                botao.click();
+            } catch (t) {
+                console.log(t);
+            }
+        },
+        copiarValoresInput: function (idOrigem, idDestino) {
+            document.getElementById(idDestino).value = document.getElementById(idOrigem).value;
+        },
+        pesquisaDataSetComDelay: function (idElementoDigitacao, idDataSetPrime) {
+            // Contribuição: https://schier.co/blog/2014/12/08/wait-for-user-to-stop-typing-using-javascript.html
+            var elemento = document.getElementById(idElementoDigitacao);
+            var timeout = null;
             elemento.onkeyup = function (e) {
-
-                try {
-                    if (elemento.value === elemento.ultimapesquisa) {
-
-                    } else {
-                        // Clear the timeout if it has already been set.
-                        // This will prevent the previous task from executing
-                        // if it has been less than <MILLISECONDS>
-                        clearTimeout(timeout);
-
-                        // Make a new timeout set to go off in 800ms
-                        elemento.ultimapesquisa = elemento.value;
-                        timeout = setTimeout(function () {
-
-
-                            try {
-                                idelementoJquery = PrimeFaces.escapeClientId(elemento.id);
-                                $(idelementoJquery).disabled = true;
-                                bloquearArea(elemento.id);
-
-                                elemento.metodoOnchangeComDelay();
-                                desbloquearArea(elemento.id);
-                                $(idelementoJquery).disabled = false;
-
-                            } catch (t) {
-
-                            }
-                        }, 1200);
-                    }
-                } catch (t) {
-
-                }
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                    PF(idDataSetPrime).filter();
+                }, 800);
             };
         }
-    } catch (t) {
-
-    }
-}
-function focarComSelacaoAposAjax() {
-    try {
-        contemClientID = false;
-        console.log("O ativo é " + document.activeElement.id);
-        for (i = 0; i < arguments.length; i++) {
-            console.log("Analizando:" + arguments[i]);
-            if (document.activeElement.id.includes(arguments[i])) {
-                contemClientID = true;
-            }
-        }
-        if (!contemClientID) {
-            if ($(PrimeFaces.escapeClientId(document.activeElement.id)).attr('data-p-hl') === "inputnumber") {
-                $(PrimeFaces.escapeClientId(document.activeElement.id)).select();
-            } else {
-
-            }
-
-        }
-    } catch (o) {
-
-    }
-}
-
-
-
-function pesquisaDataSetComDelay(idElementoDigitacao, idDataSetPrime) {
-//Contribuição : https://schier.co/blog/2014/12/08/wait-for-user-to-stop-typing-using-javascript.html
-    elemento = document.getElementById(idElementoDigitacao);
-    // Init a timeout variable to be used below
-    var timeout = null;
-    // Listen for keystroke events
-    elemento.onkeyup = function (e) {
-
-
-        // Clear the timeout if it has already been set.
-        // This will prevent the previous task from executing
-        // if it has been less than <MILLISECONDS>
-        clearTimeout(timeout);
-        // Make a new timeout set to go off in 800ms
-        timeout = setTimeout(function () {
-
-            PF(idDataSetPrime).filter();
-        }, 800);
-    };
-}
-
-//Funções de comunicação
-function notificacoesPush(notificacao) {
-    console.log(notificacao);
-    alert("Push111!!!");
-
-}
-function responderConversa(codigoSelo) {
-    (document.getElementById('formularioComunicacao:codigoComunicacao')).value = codigoSelo;
-    PF('botaoAbrirModalConversa').jq.click();
-}
-
-function responderConversaRespostaRapida(codigoSelo, codigoResposta) {
-    (document.getElementById('formularioComunicacaoRespostaRapida:codigoSeloCMRespostaRapida')).value = codigoSelo;
-    (document.getElementById('formularioComunicacaoRespostaRapida:codigoRespostaRapida')).value = codigoResposta;
-    PF('respostaRapidaAct').jq.click();
-}
-
-
-function initBotaoMenuHorizontal(menuhorizontalresponsivo) {
-
-    var itemSize = $(menuhorizontalresponsivo).parent().find('.item-menu-horizontal-responsivo').outerWidth(true);
-    var itensQtd = $(menuhorizontalresponsivo).parent().find('.item-menu-horizontal-responsivo').length;
-    var scrollMaximo = (itensQtd * itemSize);
-    var tamanhoVisivel = $(menuhorizontalresponsivo).parent().width();
-    var pd = (itensQtd * 22);
-    var scrollMaximo = (itensQtd * itemSize);
-    var scrollMaximoVisivel = scrollMaximo - tamanhoVisivel;
-    if (scrollMaximo <= tamanhoVisivel) {
-        var botaoScrollEsquerda = $(menuhorizontalresponsivo).parent().find('.botao-lateral-esquerda-menu-horizontal-responsivo');
-        var botaoScrollDireita = $(menuhorizontalresponsivo).parent().find('.botao-lateral-direita-menu-horizontal-responsivo');
-        $(botaoScrollDireita).addClass('hidden-botao-lateral');
-        $(botaoScrollEsquerda).addClass('hidden-botao-lateral');
-    } else {
-        $(menuhorizontalresponsivo).css({
-            "padding-left": pd + "px"
-        });
-        $(menuhorizontalresponsivo).mousewheel(function (e, delta) {
-            // this.scrollLeft -= (delta * 350);
-            e.preventDefault();
-            if (delta < 0) {
-                acoesBotaoMenuHorizontal(menuhorizontalresponsivo, true, true);
-            } else {
-                acoesBotaoMenuHorizontal(menuhorizontalresponsivo, false, true);
-            }
-        });
-    }
-    var pixelScrolAtual = $(menuhorizontalresponsivo).scrollLeft();
-    $(menuhorizontalresponsivo).parent().data("posicaoInicial", pixelScrolAtual);
-}
-function acoesBotaoMenuHorizontal(menuhorizontalresponsivo, parafrente, semefeito) {
-    var etapaPosicaoScroolAtual = $(menuhorizontalresponsivo).parent().data("posicao");
-    if (etapaPosicaoScroolAtual == null) {
-        etapaPosicaoScroolAtual = 1;
-        $(menuhorizontalresponsivo).parent().data("posicao", etapaPosicaoScroolAtual);
-    } else {
-        if (parafrente) {
-            etapaPosicaoScroolAtual = etapaPosicaoScroolAtual + 1;
-            $(menuhorizontalresponsivo).parent().data("posicao", etapaPosicaoScroolAtual);
-        } else {
-            etapaPosicaoScroolAtual = etapaPosicaoScroolAtual - 1;
-            if (etapaPosicaoScroolAtual < 1) {
-                etapaPosicaoScroolAtual = 1;
-            }
-            $(menuhorizontalresponsivo).parent().data("posicao", etapaPosicaoScroolAtual);
-        }
-    }
-    var pixelScrolAtual = $(menuhorizontalresponsivo).scrollLeft();
-    var tamanhoVisivel = $(menuhorizontalresponsivo).parent().width();
-    var itensQtd = $(menuhorizontalresponsivo).parent().find('.item-menu-horizontal-responsivo').length;
-    var itemSize = $(menuhorizontalresponsivo).parent().find('.item-menu-horizontal-responsivo').outerWidth(true);
-    var pd = (itensQtd * 22);
-    var scrollMaximoVisivel = $(menuhorizontalresponsivo).outerWidth(true);
-    var scrollMaximo = (itensQtd * itemSize);
-    var intervaloScroll = tamanhoVisivel - itemSize;
-    var novoScroll = intervaloScroll + pixelScrolAtual;
-    if (parafrente) {
-        novoScroll = pixelScrolAtual + (intervaloScroll * 0.45);
-    } else {
-        novoScroll = pixelScrolAtual - (intervaloScroll * 0.6);
-        if (novoScroll < pd) {
-            if (novoScroll < 0) {
-                novoScroll = 0;
-            }
-        }
-    }
-    var botaoScrollEsquerda = $(menuhorizontalresponsivo).parent().find('.botao-lateral-esquerda-menu-horizontal-responsivo');
-    var botaoScrollDireita = $(menuhorizontalresponsivo).parent().find('.botao-lateral-direita-menu-horizontal-responsivo');
-    console.log("novoScroll>" + novoScroll + "ScrollMaximo" + scrollMaximo + "itensQtd->" + itensQtd + "itemSize" + itemSize + "erapa" + etapaPosicaoScroolAtual);
-
-    if (tamanhoVisivel >= scrollMaximo + pd) {
-        $(botaoScrollDireita).addClass('hidden-botao-lateral');
-        $(botaoScrollEsquerda).addClass('hidden-botao-lateral');
-
-    } else {
-
-        if (novoScroll >= scrollMaximoVisivel) {
-
-            $(botaoScrollDireita).addClass('hidden-botao-lateral');
-            $(botaoScrollEsquerda).removeClass('hidden-botao-lateral');
-        } else {
-            if (novoScroll <= 0) {
-                $(botaoScrollDireita).removeClass('hidden-botao-lateral');
-                $(botaoScrollEsquerda).addClass('hidden-botao-lateral');
-
-            } else {
-                $(botaoScrollDireita).removeClass('hidden-botao-lateral');
-                $(botaoScrollEsquerda).removeClass('hidden-botao-lateral');
-
-            }
-        }
-    }
-    var segundosefeitos = 900;
-    if (semefeito) {
-        segundosefeitos = 0;
-    }
-    if (parafrente) {
-        if (novoScroll >= scrollMaximoVisivel - intervaloScroll) {
-            $(menuhorizontalresponsivo).css({
-                "padding-left": "0px"
-            });
-        }
-        $(menuhorizontalresponsivo).animate({scrollLeft: novoScroll}, segundosefeitos);
-
-    } else {
-        $(menuhorizontalresponsivo).css({
-            "padding-left": pd + "px"
-        });
-        $(menuhorizontalresponsivo).animate({scrollLeft: novoScroll}, segundosefeitos);
-    }
-}
-
-function bloquearArea(idArea) {
-    try {
-        var areas = idArea.split(" ");
-        for (i = 0; i < areas.length; i++) {
+    },
+    // ─── Componentes ─────────────────────────────────────────────────────────
+    componente: {
+        mesclarOnChangeComDelay: function (idElementoDigitacao) {
             try {
-                $(PrimeFaces.escapeClientId(areas[i])).block({message: '<table style="min-height: 50px;"><tbody ><tr><td ><img src="/javax.faces.resource/images/preloader.gif.xhtml?ln=primefaces-adamantium" alt="" style="margin-right: 12px;vertical-align: middle;"></td><td><span style="white-space: nowrap; font-size:16px; color: #546E7A">Processando...</span></td></tr></tbody></table>', css: {border: '0px'}});
+                var elemento = document.getElementById(idElementoDigitacao);
+                var idelementoJquery = PrimeFaces.escapeClientId(elemento.id);
+                $(idelementoJquery).putCursorAtEnd();
+                var timeout = null;
+                if (elemento.onchange) {
+                    elemento.metodoOnchangeComDelay = elemento.onchange;
+                    elemento.ultimapesquisa = elemento.value;
+                    elemento.onkeyup = function (e) {
+                        try {
+                            if (elemento.value === elemento.ultimapesquisa) {
+                                // sem alteração
+                            } else {
+                                clearTimeout(timeout);
+                                elemento.ultimapesquisa = elemento.value;
+                                timeout = setTimeout(function () {
+                                    try {
+                                        idelementoJquery = PrimeFaces.escapeClientId(elemento.id);
+                                        $(idelementoJquery).disabled = true;
+                                        CarameloCode.areaTrabalho.bloquearArea(elemento.id);
+                                        elemento.metodoOnchangeComDelay();
+                                        CarameloCode.areaTrabalho.desbloquearArea(elemento.id);
+                                        $(idelementoJquery).disabled = false;
+                                    } catch (t) {
+                                    }
+                                }, 1200);
+                            }
+                        } catch (t) {
+                        }
+                    };
+                }
+            } catch (t) {
+            }
+        },
+        copiarTexto: function (btn) {
+            try {
+                var cell = btn.closest('.ui-panelgrid-cell');
+                var texto = cell.previousElementSibling.innerText.trim();
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(texto);
+                }
+            } catch (t) {
+            }
+        },
+        ckEditor: {
+            copiarValoresCKEditor: function (idOrigem, idDestino) {
+                try {
+                    var conteudo = CKEDITOR.instances[idOrigem].getData();
+                    if (conteudo !== null) {
+                        document.getElementById(idDestino).value = conteudo;
+                    }
+                } catch (erro) {
+                    alert(idOrigem + ' destino:' + idDestino + erro);
+                }
+            },
+            copiarValoresCKEditorByClasseEstilo: function (idOrigem, classeDestino) {
+                try {
+                    var conteudo = CKEDITOR.instances[idOrigem].getData();
+                    if (conteudo !== null) {
+                        document.getElementsByClassName(classeDestino)[0].value = conteudo;
+                    }
+                } catch (erro) {
+                    alert(idOrigem + ' destino:' + classeDestino + erro);
+                }
+            },
+            mesclarOnChangeComDelay: function (idElementoDigitacao, idElementoPersistente) {
+                try {
+                    var elemento = document.getElementById(idElementoPersistente);
+                    var editorCK;
+                    CarameloCode.componente.mesclarOnChangeComDelay(idElementoPersistente);
+                    editorCK = CKEDITOR.instances[idElementoDigitacao];
+                    editorCK.elemento = elemento;
+                    editorCK.setData(elemento.value);
+                    if (elemento.onchange) {
+                        editorCK.elemento.metodoOnchangeComDelay = elemento.onchange;
+                        editorCK.elemento.ultimapesquisa = editorCK.getData();
+                    }
+                    if (elemento.onchange) {
+                        editorCK.on('key', function (e) {
+                            try {
+                                if (editorCK.getData() === this.elemento.ultimapesquisa) {
+                                    if (this.elemento.idTimeout) {
+                                        // timeout em execução
+                                    }
+                                } else {
+                                    if (editorCK.elemento.idTimeout) {
+                                        clearTimeout(this.elemento.idTimeout);
+                                    }
+                                    editorCK.elemento.ultimapesquisa = editorCK.getData();
+                                    this.elemento.idTimeout = setTimeout(function () {
+                                        try {
+                                            setTimeout(function () {
+                                                editorCK.elemento.metodoOnchangeComDelay();
+                                            }, 1000);
+                                        } catch (t) {
+                                        }
+                                    }, 800);
+                                }
+                            } catch (t) {
+                            }
+                        });
+                        elemento.onchange = null;
+                    }
+                } catch (t) {
+                }
+            }
+        },
+        arquivos: {
+            baixarArquivo: function (fileURL, fileName) {
+                // navegadores não-IE
+                if (!window.ActiveXObject) {
+                    var save = document.createElement('a');
+                    save.href = fileURL;
+                    save.target = '_blank';
+                    save.download = fileName || 'unknown';
+                    var event = document.createEvent('Event');
+                    event.initEvent('click', true, true);
+                    save.dispatchEvent(event);
+                    (window.URL || window.webkitURL).revokeObjectURL(save.href);
+                }
+                // IE
+                else if (!!window.ActiveXObject && document.execCommand) {
+                    var _window = window.open(fileURL, '_blank');
+                    _window.document.close();
+                    _window.document.execCommand('SaveAs', true, fileName || fileURL);
+                    _window.close();
+                }
+            }
+        },
+        linkify: {
+            aplicarLinkify: function (nodes) {
+                nodes.forEach(function (node) {
+                    if (node.dataset.linkified === "true")
+                        return;
+                    node.innerHTML = node.innerHTML.replace(
+                            /(https?:\/\/[^\s<]+)/g,
+                            '<a href="$1" target="_blank">$1</a>'
+                            );
+                    node.dataset.linkified = "true";
+                });
+            },
+            registrarLinkifyAjax: function () {
+                // garante que jQuery e PrimeFaces já carregaram
+                if (!window.jQuery || !window.PrimeFaces) {
+                    console.warn("[Linkify] jQuery/PrimeFaces ainda não disponíveis");
+                    return;
+                }
+
+                // evita múltiplos binds
+                if (window._linkifyAjaxHookInstalled) {
+                    return;
+                }
+
+                window._linkifyAjaxHookInstalled = true;
+                $(document).on('pfAjaxComplete.linkify', function (e, xhr, settings) {
+                    var mensagens = document.querySelectorAll('.ui-message-error-detail');
+                    CarameloCode.componente.linkify.aplicarLinkify(mensagens);
+                });
+            },
+            initLinkifyQuandoPronto: function () {
+                if (!window.jQuery || !window.PrimeFaces) {
+                    setTimeout(CarameloCode.componente.linkify.initLinkifyQuandoPronto, 500);
+                    return;
+                }
+                CarameloCode.componente.linkify.registrarLinkifyAjax();
+            }
+        },
+        menuHorizontal: {
+            init: function (menuhorizontalresponsivo) {
+                var itemSize = $(menuhorizontalresponsivo).parent().find('.item-menu-horizontal-responsivo').outerWidth(true);
+                var itensQtd = $(menuhorizontalresponsivo).parent().find('.item-menu-horizontal-responsivo').length;
+                var scrollMaximo = (itensQtd * itemSize);
+                var tamanhoVisivel = $(menuhorizontalresponsivo).parent().width();
+                var pd = (itensQtd * 22);
+                if (scrollMaximo <= tamanhoVisivel) {
+                    var botaoScrollEsquerda = $(menuhorizontalresponsivo).parent().find('.botao-lateral-esquerda-menu-horizontal-responsivo');
+                    var botaoScrollDireita = $(menuhorizontalresponsivo).parent().find('.botao-lateral-direita-menu-horizontal-responsivo');
+                    $(botaoScrollDireita).addClass('hidden-botao-lateral');
+                    $(botaoScrollEsquerda).addClass('hidden-botao-lateral');
+                } else {
+                    $(menuhorizontalresponsivo).css({
+                        "padding-left": pd + "px"
+                    });
+                    $(menuhorizontalresponsivo).mousewheel(function (e, delta) {
+                        e.preventDefault();
+                        if (delta < 0) {
+                            CarameloCode.componente.menuHorizontal.acoes(menuhorizontalresponsivo, true, true);
+                        } else {
+                            CarameloCode.componente.menuHorizontal.acoes(menuhorizontalresponsivo, false, true);
+                        }
+                    });
+                }
+                var pixelScrolAtual = $(menuhorizontalresponsivo).scrollLeft();
+                $(menuhorizontalresponsivo).parent().data("posicaoInicial", pixelScrolAtual);
+            },
+            acoes: function (menuhorizontalresponsivo, parafrente, semefeito) {
+                var etapaPosicaoScroolAtual = $(menuhorizontalresponsivo).parent().data("posicao");
+                if (etapaPosicaoScroolAtual == null) {
+                    etapaPosicaoScroolAtual = 1;
+                    $(menuhorizontalresponsivo).parent().data("posicao", etapaPosicaoScroolAtual);
+                } else {
+                    if (parafrente) {
+                        etapaPosicaoScroolAtual = etapaPosicaoScroolAtual + 1;
+                        $(menuhorizontalresponsivo).parent().data("posicao", etapaPosicaoScroolAtual);
+                    } else {
+                        etapaPosicaoScroolAtual = etapaPosicaoScroolAtual - 1;
+                        if (etapaPosicaoScroolAtual < 1) {
+                            etapaPosicaoScroolAtual = 1;
+                        }
+                        $(menuhorizontalresponsivo).parent().data("posicao", etapaPosicaoScroolAtual);
+                    }
+                }
+                var pixelScrolAtual = $(menuhorizontalresponsivo).scrollLeft();
+                var tamanhoVisivel = $(menuhorizontalresponsivo).parent().width();
+                var itensQtd = $(menuhorizontalresponsivo).parent().find('.item-menu-horizontal-responsivo').length;
+                var itemSize = $(menuhorizontalresponsivo).parent().find('.item-menu-horizontal-responsivo').outerWidth(true);
+                var pd = (itensQtd * 22);
+                var scrollMaximoVisivel = $(menuhorizontalresponsivo).outerWidth(true);
+                var scrollMaximo = (itensQtd * itemSize);
+                var intervaloScroll = tamanhoVisivel - itemSize;
+                var novoScroll = intervaloScroll + pixelScrolAtual;
+                if (parafrente) {
+                    novoScroll = pixelScrolAtual + (intervaloScroll * 0.45);
+                } else {
+                    novoScroll = pixelScrolAtual - (intervaloScroll * 0.6);
+                    if (novoScroll < pd) {
+                        if (novoScroll < 0) {
+                            novoScroll = 0;
+                        }
+                    }
+                }
+                var botaoScrollEsquerda = $(menuhorizontalresponsivo).parent().find('.botao-lateral-esquerda-menu-horizontal-responsivo');
+                var botaoScrollDireita = $(menuhorizontalresponsivo).parent().find('.botao-lateral-direita-menu-horizontal-responsivo');
+                if (tamanhoVisivel >= scrollMaximo + pd) {
+                    $(botaoScrollDireita).addClass('hidden-botao-lateral');
+                    $(botaoScrollEsquerda).addClass('hidden-botao-lateral');
+                } else {
+                    if (novoScroll >= scrollMaximoVisivel) {
+                        $(botaoScrollDireita).addClass('hidden-botao-lateral');
+                        $(botaoScrollEsquerda).removeClass('hidden-botao-lateral');
+                    } else {
+                        if (novoScroll <= 0) {
+                            $(botaoScrollDireita).removeClass('hidden-botao-lateral');
+                            $(botaoScrollEsquerda).addClass('hidden-botao-lateral');
+                        } else {
+                            $(botaoScrollDireita).removeClass('hidden-botao-lateral');
+                            $(botaoScrollEsquerda).removeClass('hidden-botao-lateral');
+                        }
+                    }
+                }
+                var segundosefeitos = 900;
+                if (semefeito) {
+                    segundosefeitos = 0;
+                }
+                if (parafrente) {
+                    if (novoScroll >= scrollMaximoVisivel - intervaloScroll) {
+                        $(menuhorizontalresponsivo).css({
+                            "padding-left": "0px"
+                        });
+                    }
+                    $(menuhorizontalresponsivo).animate({scrollLeft: novoScroll}, segundosefeitos);
+                } else {
+                    $(menuhorizontalresponsivo).css({
+                        "padding-left": pd + "px"
+                    });
+                    $(menuhorizontalresponsivo).animate({scrollLeft: novoScroll}, segundosefeitos);
+                }
+            }
+        }
+    },
+    // ─── Tela / cliente ──────────────────────────────────────────────────────
+    tela: {
+        /**
+         * Atualiza o campo contactfrm:clientinfo com a resolução atual da tela.
+         */
+        getClientInfo: function () {
+            var clientinfo = "";
+            clientinfo += "aplicativo:" + navigator.appName + "||";
+            clientinfo += "versaoAplicativo:" + navigator.appVersion + "||";
+            clientinfo += "tamanhoX:" + window.innerWidth + "||";
+            clientinfo += "tamanhoY:" + window.innerHeight;
+            (document.getElementById('contactfrm:clientinfo')).value = clientinfo;
+        },
+        atualizarResolucaoDaTela: function () {
+            CarameloCode.tela.getClientInfo();
+            enviarInfoTela();
+        },
+        irParaTopo: function () {
+            $("html, body").animate({scrollTop: 0}, "slow");
+        }
+    },
+    // ─── Área de trabalho (bloqueios, atualizações de área) ──────────────────
+    areaTrabalho: {
+        bloquearArea: function (idArea) {
+            try {
+                var areas = idArea.split(" ");
+                for (var i = 0; i < areas.length; i++) {
+                    try {
+                        $(PrimeFaces.escapeClientId(areas[i])).block({message: '<table style="min-height: 50px;"><tbody ><tr><td ><img src="/javax.faces.resource/recursos/img/preloader.gif.xhtml?ln=SBComp" alt="" style="margin-right: 12px;vertical-align: middle;"></td><td><span style="white-space: nowrap; font-size:16px; color: #546E7A">Processando...</span></td></tr></tbody></table>', css: {border: '0px'}});
+                    } catch (t) {
+                        console.log("Erro bloqueando area");
+                        console.log(t);
+                    }
+                }
             } catch (t) {
                 console.log("Erro bloqueando area");
                 console.log(t);
             }
-        }
-
-    } catch (t) {
-        console.log("Erro bloqueando area");
-        console.log(t);
-    }
-}
-
-
-
-function desbloquearArea(idArea) {
-
-    try {
-        console.log("Splite de [" + idArea + "]");
-        var areas = idArea.split(" ");
-        for (i = 0; i < areas.length; i++) {
+        },
+        desbloquearArea: function (idArea) {
             try {
-                console.log("atualizando" + areas[i]);
-                console.log(areas[i].length);
-                if (areas[i].length > 0) {
-                    $(PrimeFaces.escapeClientId(areas[i])).unblock();
-                }
-            } catch (t) {
-                console.log("Erro bloqueando area [" + areas[i] + " ");
-                console.log(t);
-            }
-        }
-
-    } catch (t) {
-        console.log("Erro bloqueando area");
-        console.log(t);
-    }
-}
-
-function atualizarAreaByID(idAreaAtualizada) {
-    bloquearArea(idAreaAtualizada);
-    (document.getElementById('formAtualizacao:prAtualizarAreaID')).value = idAreaAtualizada;
-
-    atualizarAreaByIDRC();
-    desbloquearArea(idAreaAtualizada);
-}
-
-
-
-
-
-function getIdSuperiorMaisProximo(pElemento) {
-    if (pElemento === null) {
-        return null;
-    }
-    if (pElemento.id.length > 0) {
-        return pElemento.id;
-    }
-    if (pElemento.parentElement === null) {
-        return null;
-    }
-    return getIdMaisProximo(pElemento.parentElement);
-}
-
-
-async function  atualizarAreaCampoByCssEstilo(pClasse) {
-
-    const delay = t => new Promise(resolve => setTimeout(resolve, t));
-
-    const promessaAtualizacaoCamposSecundarios = new Promise(function (resolve, reject) {
-// "Producing Code" (May take some time)
-        try {
-            $('.' + pClasse).each(function (i, obj) {
-                bloquearArea(getIdSuperiorMaisProximo(obj));
-            });
-        } catch (r) {
-            console.log("Erro bloqueando campos com a classe " + pClasse);
-
-        }
-
-
-        try {
-            window.PrimeFaces.ab({s: "", f: "formAjaxUpdateClientSide", u: "@(." + pClasse + ")", fp: ""});
-            console.log("primefaces ok" + pClasse);
-        } catch (t) {
-            reject(new Error('Falha executando update primefaces'));
-        }
-        delay(3000).then(() => {
-            $('.' + pClasse).each(function (i, obj) {
-                desbloquearArea(getIdSuperiorMaisProximo(obj));
-            });
-        });
-
-
-    });
-    return promessaAtualizacaoCamposSecundarios;
-}
-
-function atualizarAreaCampoSeVisivel(pAreaCampo) {
-    try {
-
-        console.log("Atualizando " + pAreaCampo);
-        //document.querySelectorAll("[campoinstanciado='NegociacaoDividaPagamento.valorTotalDivida']");
-        nodePesquisa = document.querySelectorAll("[campoinstanciado='" + pAreaCampo + "']");
-        qtdElementosEncontrados = nodePesquisa.length;
-
-        if (qtdElementosEncontrados > 0) {
-            nodePesquisa.forEach(elemento => {
-                console.log("Atualizando" + elemento.parentElement.id);
-                if (elemento.parentElement.id.length > 0) {
-
-                } else {
-                    if (elemento.id.length > 0) {
-                        atualizarAreaByID(elemento.id);
-                    } else {
-                        idMaisProximo = getIdSuperiorMaisProximo(elemento);
-
-                        if (idMaisProximo.length > 0) {
-                            atualizarAreaByID(idMaisProximo);
+                var areas = idArea.split(" ");
+                for (var i = 0; i < areas.length; i++) {
+                    try {
+                        if (areas[i].length > 0) {
+                            $(PrimeFaces.escapeClientId(areas[i])).unblock();
                         }
+                    } catch (t) {
+                        console.log("Erro desbloqueando area [" + areas[i] + " ");
+                        console.log(t);
                     }
                 }
-                atualizarAreaByID(elemento.parentElement.id);
-
+            } catch (t) {
+                console.log("Erro desbloqueando area");
+                console.log(t);
+            }
+        },
+        bloquearAreaPorSegundos: function (idArea, segundos) {
+            try {
+                CarameloCode.areaTrabalho.bloquearArea(idArea);
+                setTimeout(function () {
+                    CarameloCode.areaTrabalho.desbloquearArea(idArea);
+                }, segundos * 1000);
+            } catch (t) {
+                console.log("Erro bloqueando area");
+                console.log(t);
+            }
+        },
+        atualizarAreaByID: function (idAreaAtualizada) {
+            CarameloCode.areaTrabalho.bloquearArea(idAreaAtualizada);
+            (document.getElementById('formAtualizacao:prAtualizarAreaID')).value = idAreaAtualizada;
+            atualizarAreaByIDRC();
+            CarameloCode.areaTrabalho.desbloquearArea(idAreaAtualizada);
+        },
+        getIdSuperiorMaisProximo: function (pElemento) {
+            if (pElemento === null) {
+                return null;
+            }
+            if (pElemento.id.length > 0) {
+                return pElemento.id;
+            }
+            if (pElemento.parentElement === null) {
+                return null;
+            }
+            return CarameloCode.areaTrabalho.getIdSuperiorMaisProximo(pElemento.parentElement);
+        },
+        liberarBloqueios: function () {
+            var i;
+            try {
+                for (i in PrimeFaces.widgets) {
+                    if (PrimeFaces.widgets[i].show && PrimeFaces.widgets[i].blocker) {
+                        PrimeFaces.widgets[i].hide();
+                    }
+                }
+            } catch (erro) {
+            }
+        },
+        esconderTooltips: function () {
+            try {
+                $(".ui-tooltip").hide();
+            } catch (erro) {
+            }
+        },
+        bloquearTodosBotoes: function () {
+            $('.ui-button').prop("disabled", true);
+        },
+        desbloquearTodosBotoes: function () {
+            $('.ui-button').prop("disabled", false);
+        },
+        bloquearTodosCommandLinks: function () {
+            $(".ui-commandlink").each(function (index) {
+                $(this).hide();
             });
-
-
+        },
+        desbloquearTodosCommandLinks: function () {
+            $(".ui-commandlink").each(function (index) {
+                $(this).show();
+            });
         }
-        if (qtdElementosEncontrados > 1) {
-            console.log("Atenção a atualizção da area do campo se visivel ainda não suporta atualização de multiplos elementos");
+    },
+    // ─── Ajax ────────────────────────────────────────────────────────────────
+    ajax: {
+        acoesPosAjax: function () {
+            try {
+                CarameloCode.areaTrabalho.esconderTooltips();
+                CarameloCode.areaTrabalho.liberarBloqueios();
+                if (!CarameloCode.formulario.scrollEmCampoNaoValidado()) {
+                    CarameloCode.tela.irParaTopo();
+                }
+            } catch (err) {
+            }
+        },
+        focarComSelacaoAposAjax: function () {
+            try {
+                var contemClientID = false;
+                for (var i = 0; i < arguments.length; i++) {
+                    if (document.activeElement.id.includes(arguments[i])) {
+                        contemClientID = true;
+                    }
+                }
+                if (!contemClientID) {
+                    if ($(PrimeFaces.escapeClientId(document.activeElement.id)).attr('data-p-hl') === "inputnumber") {
+                        $(PrimeFaces.escapeClientId(document.activeElement.id)).select();
+                    }
+                }
+            } catch (o) {
+            }
         }
-    } catch (t) {
-        console.log("Erro buscando area de visão do campo " + pAreaCampo);
     }
-
-}
-
-function bloquearAreaOitoSegundos(idArea) {
-    try {
-
-
-        bloquearArea(idArea);
-
-        setTimeout(function () {
-            desbloquearArea(idArea);
-        }, 8000);
-
-
-    } catch (t) {
-        console.log("Erro bloqueando area");
-        console.log(t);
-    }
-}
-
-
-
+};
+/**
+ * Plugin jQuery: posiciona o cursor no fim de um input/textarea.
+ * Usado por CarameloCode.componente.mesclarOnChangeComDelay.
+ */
 try {
     jQuery.fn.putCursorAtEnd = function () {
 
@@ -689,7 +685,6 @@ try {
             // Cache references
             var $el = $(this),
                     el = this;
-
             // Only focus if input isn't already
             if (!$el.is(":focus")) {
                 $el.focus();
@@ -700,350 +695,146 @@ try {
 
                 // Double the length because Opera is inconsistent about whether a carriage return is one character or two.
                 var len = $el.val().length * 2;
-
                 // Timeout seems to be required for Blink
                 setTimeout(function () {
                     el.setSelectionRange(len, len);
                 }, 1);
-
             } else {
 
                 // As a fallback, replace the contents with itself
                 // Doesn't work in Chrome, but Chrome supports setSelectionRange
                 $el.val($el.val());
-
             }
 
             // Scroll to the bottom, in case we're in a tall textarea
             // (Necessary for Firefox and Chrome)
             this.scrollTop = 999999;
-
         });
-
-
-
     };
 } catch (erroPosicionandoCursor) {
-    //  console.log(erroPosicionandoCursor);
+//  console.log(erroPosicionandoCursor);
 }
 
+
+// Inicialização automática
+CarameloCode.componente.linkify.initLinkifyQuandoPronto();
+/* ============================================================================
+ * FUNÇÕES LEGADAS
+ * ----------------------------------------------------------------------------
+ * Mantidas apenas por compatibilidade com XHTML/código que ainda chama os
+ * nomes globais antigos. Cada função abaixo apenas delega para o namespace
+ * CarameloCode definido acima. NÃO adicione novas funções aqui — em código
+ * novo use diretamente CarameloCode.<area>.<funcao>(...).
+ * ============================================================================ */
+
+function esconderTooltips() {
+    return CarameloCode.areaTrabalho.esconderTooltips();
+}
+function liberarBloqueios() {
+    return CarameloCode.areaTrabalho.liberarBloqueios();
+}
+function bloquearTodosBotoes() {
+    return CarameloCode.areaTrabalho.bloquearTodosBotoes();
+}
+function desbloquearTodosBotoes() {
+    return CarameloCode.areaTrabalho.desbloquearTodosBotoes();
+}
+function bloquearTodosCommandLinks() {
+    return CarameloCode.areaTrabalho.bloquearTodosCommandLinks();
+}
+function desbloquearTodosCommandLinks() {
+    return CarameloCode.areaTrabalho.desbloquearTodosCommandLinks();
+}
+function scrollEmCampoNaoValidado() {
+    return CarameloCode.formulario.scrollEmCampoNaoValidado();
+}
+function irParaTopo() {
+    return CarameloCode.tela.irParaTopo();
+}
+function irParTopo() {
+    return CarameloCode.tela.irParaTopo();
+}
+function acoesPosAjax() {
+    return CarameloCode.ajax.acoesPosAjax();
+}
+function atualizarResolucaoDaTela() {
+    return CarameloCode.tela.atualizarResolucaoDaTela();
+}
+function getClientInfo() {
+    return CarameloCode.tela.getClientInfo();
+}
+function baixarArquivo(fileURL, fileName) {
+    return CarameloCode.componente.arquivos.baixarArquivo(fileURL, fileName);
+}
+function modificarIntputEclicar(idBotao, idInputEnvio, valor) {
+    return CarameloCode.formulario.modificarInputEClicar(idBotao, idInputEnvio, valor);
+}
+function copiarValoresCKEditorByClasseEstilo(idOrigem, classeDestino) {
+    return CarameloCode.componente.ckEditor.copiarValoresCKEditorByClasseEstilo(idOrigem, classeDestino);
+}
+function copiarValoresCKEditor(idOrigem, idDestino) {
+    return CarameloCode.componente.ckEditor.copiarValoresCKEditor(idOrigem, idDestino);
+}
+function copiarValoresInput(idOrigem, idDestino) {
+    return CarameloCode.formulario.copiarValoresInput(idOrigem, idDestino);
+}
+function mesclarOnChangeComDelayCkEditor(idElementoDigitacao, idElementoPersistente) {
+    return CarameloCode.componente.ckEditor.mesclarOnChangeComDelay(idElementoDigitacao, idElementoPersistente);
+}
+function mesclarOnChangeComDelay(idElementoDigitacao) {
+    return CarameloCode.componente.mesclarOnChangeComDelay(idElementoDigitacao);
+}
+function focarComSelacaoAposAjax() {
+    return CarameloCode.ajax.focarComSelacaoAposAjax.apply(null, arguments);
+}
+function pesquisaDataSetComDelay(idElementoDigitacao, idDataSetPrime) {
+    return CarameloCode.formulario.pesquisaDataSetComDelay(idElementoDigitacao, idDataSetPrime);
+}
+function notificacoesPush(notificacao) {
+    return CarameloCode.notificacoes.push(notificacao);
+}
+function responderConversa(codigoSelo) {
+    return CarameloCode.comunicacao.responderConversa(codigoSelo);
+}
+function responderConversaRespostaRapida(codigoSelo, codigoResposta) {
+    return CarameloCode.comunicacao.responderConversaRespostaRapida(codigoSelo, codigoResposta);
+}
+function initBotaoMenuHorizontal(menuhorizontalresponsivo) {
+    return CarameloCode.componente.menuHorizontal.init(menuhorizontalresponsivo);
+}
+function acoesBotaoMenuHorizontal(menuhorizontalresponsivo, parafrente, semefeito) {
+    return CarameloCode.componente.menuHorizontal.acoes(menuhorizontalresponsivo, parafrente, semefeito);
+}
+function bloquearArea(idArea) {
+    return CarameloCode.areaTrabalho.bloquearArea(idArea);
+}
+function desbloquearArea(idArea) {
+    return CarameloCode.areaTrabalho.desbloquearArea(idArea);
+}
+function atualizarAreaByID(idAreaAtualizada) {
+    return CarameloCode.areaTrabalho.atualizarAreaByID(idAreaAtualizada);
+}
+function getIdSuperiorMaisProximo(pElemento) {
+    return CarameloCode.areaTrabalho.getIdSuperiorMaisProximo(pElemento);
+}
+function atualizarAreaCampoByCssEstilo(pClasse) {
+    return CarameloCode.formulario.atualizarCampoPorClasse(pClasse);
+}
+function atualizarAreaCampoSeVisivel(pAreaCampo) {
+    return CarameloCode.formulario.atualizarCampo(pAreaCampo);
+}
+function bloquearAreaOitoSegundos(idArea) {
+    return CarameloCode.areaTrabalho.bloquearAreaPorSegundos(idArea, 8);
+}
 function copiarTexto(btn) {
-
-
-    try {
-        var cell = btn.closest('.ui-panelgrid-cell');
-        var texto = cell.previousElementSibling.innerText.trim();
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(texto);
-
-        }
-    } catch (t) {
-
-    }
+    return CarameloCode.componente.copiarTexto(btn);
 }
-
-
 function aplicarLinkify(nodes) {
-
-
-    nodes.forEach(node => {
-        if (node.dataset.linkified === "true")
-            return;
-
-        node.innerHTML = node.innerHTML.replace(
-                /(https?:\/\/[^\s<]+)/g,
-                '<a href="$1" target="_blank">$1</a>'
-                );
-
-        node.dataset.linkified = "true";
-    });
+    return CarameloCode.componente.linkify.aplicarLinkify(nodes);
 }
-
 function registrarLinkifyAjax() {
-
-    // garante que jQuery e PrimeFaces já carregaram
-    if (!window.jQuery || !window.PrimeFaces) {
-        console.warn("[Linkify] jQuery/PrimeFaces ainda não disponíveis");
-        return;
-    }
-
-    // evita múltiplos binds
-    if (window._linkifyAjaxHookInstalled) {
-        console.log("[Linkify] já registrado");
-        return;
-    }
-
-    window._linkifyAjaxHookInstalled = true;
-
-    console.log("[Linkify] registrando hook pfAjaxComplete");
-
-    $(document).on('pfAjaxComplete.linkify', function (e, xhr, settings) {
-
-        console.log("[Linkify] pfAjaxComplete disparado");
-
-        const mensagens = document.querySelectorAll(
-                '.ui-message-error-detail'
-                );
-
-        aplicarLinkify(mensagens);
-    });
+    return CarameloCode.componente.linkify.registrarLinkifyAjax();
 }
-
 function initLinkifyQuandoPronto() {
-
-    if (!window.jQuery || !window.PrimeFaces) {
-        setTimeout(initLinkifyQuandoPronto, 500);
-        return;
-    }
-
-    registrarLinkifyAjax();
+    return CarameloCode.componente.linkify.initLinkifyQuandoPronto();
 }
-
-initLinkifyQuandoPronto();
-/**
- * CarameloPush — Cliente WebSocket para o Caramelo Code Framework
- *
- * Resiliente contra:
- *   - Chamadas duplas acidentais
- *   - Múltiplas abas (todas recebem, servidor mantém Set de sessões)
- *   - Quedas de conexão (reconexão com backoff exponencial)
- *   - Registro duplo de listeners (visibilidade e fechamento)
- *   - Troca de HTTP/HTTPS automática
- *
- * Uso:
- *   CarameloPush.iniciarSessao(email, onMensagem);
- *   CarameloPush.iniciarSessao(email, onMensagem, { onConectado, onDesconectado, onFalha });
- *   CarameloPush.encerrarSessao();
- *   CarameloPush.isConectado();
- */
-var CarameloPush = (function () {
-
-    // ─── Funções utilitárias (declaradas primeiro para evitar hoisting issues) ─
-
-    function _gerarIdAba() {
-        return 'aba_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
-    }
-
-    function _buildUrl(email) {
-        var protocolo = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
-        return protocolo + window.location.host + '/carameloPush/' + encodeURIComponent(email);
-    }
-
-    // ─── Estado interno ────────────────────────────────────────────────────────
-    var _socket = null;
-    var _email = null;
-    var _onMensagem = null;
-    var _onConectado = null; // callback: conexão estabelecida
-    var _onDesconectado = null; // callback: conexão perdida
-    var _onFalha = null; // callback: esgotou tentativas
-    var _tentativas = 0;
-    var _maxTentativas = 5;
-    var _intervaloRecon = null;
-    var _encerrado = false;
-    var _listenersRegistrados = false; // ← evita registro duplo
-    var _idAba = _gerarIdAba();
-
-    // ─── Log ──────────────────────────────────────────────────────────────────
-
-    function _log(msg) {
-        console.log('[CarameloPush][' + _idAba + '] ' + msg);
-    }
-
-    // ─── Estado do socket ─────────────────────────────────────────────────────
-
-    function _isAberto() {
-        return _socket !== null && _socket.readyState === WebSocket.OPEN;
-    }
-
-    function _isConectando() {
-        return _socket !== null && _socket.readyState === WebSocket.CONNECTING;
-    }
-
-    // ─── Reconexão automática com backoff exponencial ─────────────────────────
-
-    function _agendarReconexao() {
-        if (_encerrado)
-            return;
-
-        if (_tentativas >= _maxTentativas) {
-            _log('Número máximo de tentativas atingido (' + _maxTentativas + '). Desistindo.');
-            if (typeof _onFalha === 'function') {
-                _onFalha(_tentativas);
-            }
-            return;
-        }
-
-        // Backoff exponencial: 2s, 4s, 8s, 16s, 32s
-        var delay = Math.pow(2, _tentativas + 1) * 1000;
-        _tentativas++;
-        _log('Reconectando em ' + (delay / 1000) + 's... (tentativa ' + _tentativas + '/' + _maxTentativas + ')');
-
-        _intervaloRecon = setTimeout(function () {
-            if (!_encerrado) {
-                _conectar();
-            }
-        }, delay);
-    }
-
-    // ─── Conexão ──────────────────────────────────────────────────────────────
-
-    function _conectar() {
-        if (_isAberto() || _isConectando()) {
-            _log('Conexão já ativa ou em andamento. Ignorando.');
-            return;
-        }
-
-        var url = _buildUrl(_email);
-        _log('Conectando em: ' + url);
-
-        try {
-            _socket = new WebSocket(url);
-        } catch (e) {
-            _log('Erro ao criar WebSocket: ' + e.message);
-            _agendarReconexao();
-            return;
-        }
-
-        _socket.onopen = function () {
-            _log('Conectado com sucesso.');
-            _tentativas = 0;
-            if (typeof _onConectado === 'function') {
-                _onConectado();
-            }
-        };
-
-        _socket.onmessage = function (event) {
-            try {
-                var data = JSON.parse(event.data);
-                _log('Mensagem recebida: ' + JSON.stringify(data));
-                if (typeof _onMensagem === 'function') {
-                    _onMensagem(data);
-                }
-            } catch (e) {
-                _log('Erro ao processar mensagem: ' + e.message);
-            }
-        };
-
-        _socket.onerror = function () {
-            _log('Erro na conexão. Aguardando onclose para reconectar.');
-            // onclose sempre é chamado após onerror — reconexão acontece lá
-        };
-
-        _socket.onclose = function (event) {
-            _log('Conexão encerrada. Código: ' + event.code);
-            _socket = null;
-
-            if (typeof _onDesconectado === 'function') {
-                _onDesconectado(event.code);
-            }
-
-            // Código 1000 = fechamento normal intencional
-            if (!_encerrado && event.code !== 1000) {
-                _agendarReconexao();
-            }
-        };
-    }
-
-    // ─── Listeners de ciclo de vida da aba ───────────────────────────────────
-    // Registrados UMA única vez, independente de quantas vezes
-    // iniciarSessao() for chamado
-
-    function _registrarListeners() {
-        if (_listenersRegistrados)
-            return; // ← prova de registro duplo
-        _listenersRegistrados = true;
-
-        // Reconecta quando usuário volta para aba em background
-        document.addEventListener('visibilitychange', function () {
-            if (!document.hidden && !_encerrado && !_isAberto() && !_isConectando()) {
-                _log('Aba voltou ao foco. Reconectando...');
-                _tentativas = 0;
-                _conectar();
-            }
-        });
-
-        // Fecha limpo ao recarregar ou fechar a aba
-        window.addEventListener('beforeunload', function () {
-            if (_socket) {
-                _socket.close(1000, 'Aba fechada');
-            }
-        });
-    }
-
-    // ─── API pública ──────────────────────────────────────────────────────────
-
-    /**
-     * Inicia a sessão WebSocket.
-     *
-     * Prova de chamada dupla: se já estiver conectado ou conectando,
-     * a chamada é ignorada silenciosamente.
-     *
-     * @param {string}   email      - Email do usuário (identificador no servidor)
-     * @param {function} onMensagem - Callback ao receber mensagem (recebe objeto JSON)
-     * @param {object}   callbacks  - (opcional) { onConectado, onDesconectado, onFalha }
-     *   onConectado()           → chamado quando a conexão é estabelecida
-     *   onDesconectado(codigo)  → chamado quando a conexão é perdida
-     *   onFalha(tentativas)     → chamado quando esgota as tentativas de reconexão
-     */
-    function iniciarSessao(email, onMensagem, callbacks) {
-        if (!email) {
-            _log('Email não informado. Sessão não iniciada.');
-            return;
-        }
-
-        // ── Prova de chamada dupla ──────────────────────────────────────────
-        if (_isAberto() || _isConectando()) {
-            _log('Sessão já está ativa para: ' + _email + '. Ignorando nova chamada.');
-            return;
-        }
-
-        _email = email;
-        _onMensagem = onMensagem || null;
-        _encerrado = false;
-        _tentativas = 0;
-
-        // Callbacks opcionais de status
-        if (callbacks && typeof callbacks === 'object') {
-            _onConectado = callbacks.onConectado || null;
-            _onDesconectado = callbacks.onDesconectado || null;
-            _onFalha = callbacks.onFalha || null;
-        }
-
-        _registrarListeners(); // registra apenas uma vez
-        _conectar();
-    }
-
-    /**
-     * Encerra a sessão WebSocket manualmente.
-     * Cancela reconexões automáticas pendentes.
-     */
-    function encerrarSessao() {
-        _encerrado = true;
-
-        if (_intervaloRecon) {
-            clearTimeout(_intervaloRecon);
-            _intervaloRecon = null;
-        }
-
-        if (_socket) {
-            _log('Encerrando sessão manualmente.');
-            _socket.close(1000, 'Sessão encerrada pelo usuário');
-            _socket = null;
-        }
-    }
-
-    /**
-     * Retorna true se o WebSocket está aberto e conectado.
-     */
-    function isConectado() {
-        return _isAberto();
-    }
-
-    // ─── Expõe API ────────────────────────────────────────────────────────────
-    return {
-        iniciarSessao: iniciarSessao,
-        encerrarSessao: encerrarSessao,
-        isConectado: isConectado
-    };
-
-})();

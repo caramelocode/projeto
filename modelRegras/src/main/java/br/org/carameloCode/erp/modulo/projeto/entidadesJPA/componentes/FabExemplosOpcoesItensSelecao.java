@@ -32,7 +32,7 @@ public enum FabExemplosOpcoesItensSelecao implements ComoFabricaComPersistencia 
     IMAGEM_MEDIO,
     @InfoObjetoDaFabrica(classeObjeto = ExemploOpcaocomImagem.class, id = 6l, nomeObjeto = "imágem grande")
     IMAGEM_GRANDE,
-    @InfoObjetoDaFabrica(classeObjeto = ExemploOpcaocomStatus.class, id = 7l, nomeObjeto = "Item com status")
+    @InfoObjetoDaFabrica(classeObjeto = ExemploOpcaocomStatus.class, id = 7l, nomeObjeto = "Item com status", icone = "fa fa-dog", cor = "#5dab2cff")
     STATUS,;
 
     @Override
@@ -53,7 +53,7 @@ public enum FabExemplosOpcoesItensSelecao implements ComoFabricaComPersistencia 
                 iconecor.setCor("#238ae6");
                 break;
             case IMAGEM_PEQUENA:
-                //todo adicionar imagem 
+                //todo adicionar imagem
                 break;
             case IMAGEM_MEDIO:
                 break;

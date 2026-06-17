@@ -1836,6 +1836,10 @@ input[type="text"], input[type="password"], textarea{
     -moz-box-sizing:border-box;
 }
 
+.ui-password {
+    width: 100%;
+}
+
 /* Width */
 .Wid100{
     width:100%;

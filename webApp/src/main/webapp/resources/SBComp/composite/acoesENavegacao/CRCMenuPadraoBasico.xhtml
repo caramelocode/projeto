@@ -65,54 +65,53 @@
             </nav>
 
             <!-- ====================== ÁREA DIREITA ====================== -->
-            <div class="crc-top-actions">
+
+            <h:panelGroup layout="block" styleClass="crc-top-actions" >
 
                 <!-- Ícones visíveis apenas em Desktop -->
-                <div class="crc-desktop-only">
+
+
+                <h:panelGroup layout="block" styleClass="crc-desktop-only" id="menuNotificacoesTopo" >
 
                     <!-- ===== MENSAGENS (estático - a implementar) ===== -->
-                    <div class="crc-messages-dropdown">
+                    <div class="crc-messages-dropdown ">
                         <a href="#" class="crc-icon-btn crc-messages-toggle">
-                            <i class="fa fa-envelope"></i>
-                            <span class="badge bg-danger message-count">3</span>
+                            <i class="#{sessaoAtualSBWP.mensagensEntreUsuariosAguardandoMinhaResposta.isEmpty() ? 'fa fa-envelope-o':'fa fa-envelope animated heartBeat'}  "></i>
+
+                            <h:panelGroup styleClass="badge bg-danger message-count" rendered="#{sessaoAtualSBWP.mensagensEntreUsuariosAguardandoMinhaResposta.size()>0}" >
+                                #{sessaoAtualSBWP.mensagensEntreUsuariosAguardandoMinhaResposta.size()}
+                                <script type="text/javascript">
+                                    CarameloCode.notificacoes.tocarSom();
+                                </script>
+                            </h:panelGroup>
+
                         </a>
 
                         <div class="crc-messages-menu">
                             <div class="crc-messages-header">
                                 <strong>Mensagens</strong>
-                                <i class="fa fa-search"></i>
+
                             </div>
 
+
+
                             <div class="crc-messages-list">
-                                <div class="crc-message-item">
-                                    <img src="https://i.pravatar.cc/40?u=brad" alt="Brad Diesel" class="crc-message-avatar" />
-                                    <div class="crc-message-content">
-                                        <div class="crc-message-name">Brad Diesel</div>
-                                        <div class="crc-message-text">Call me whenever you can...</div>
-                                        <small class="crc-message-time">4 Hours Ago</small>
-                                    </div>
-                                    <i class="fa fa-star crc-message-star" style="color:#ffc107;"></i>
-                                </div>
+                                <c:forEach items="#{sessaoAtualSBWP.mensagensEntreUsuariosAguardandoMinhaResposta}" var="mensagem">
+                                    <h:form>
+                                        <p:commandLink  onclick="responderConversa('#{mensagem.codigoSelo}')">
+                                            <div class="crc-message-item">
+                                                <img src="#{mensagem.usuarioRemetente.imgPequena}" style="width: 40px;" alt="#{mensagem.usuarioRemetente.nome}" class="crc-message-avatar" />
+                                                <div class="crc-message-content">
+                                                    <div class="crc-message-name">#{mensagem.usuarioRemetente.nome} </div>
+                                                    <div class="crc-message-text">#{mensagem.assunto}</div>
+                                                    <small class="crc-message-time">#{pgUtilDataHoraFormato.getDataHoraSimplificado(mensagem.dataHoraDisparo)}</small>
+                                                </div>
 
-                                <div class="crc-message-item">
-                                    <img src="https://i.pravatar.cc/40?u=john" alt="John Pierce" class="crc-message-avatar" />
-                                    <div class="crc-message-content">
-                                        <div class="crc-message-name">John Pierce</div>
-                                        <div class="crc-message-text">I got your message bro</div>
-                                        <small class="crc-message-time">4 Hours Ago</small>
-                                    </div>
-                                    <i class="fa fa-star crc-message-star" style="color:#6c757d;"></i>
-                                </div>
+                                            </div>
+                                        </p:commandLink>
+                                    </h:form>
+                                </c:forEach>
 
-                                <div class="crc-message-item">
-                                    <img src="https://i.pravatar.cc/40?u=nora" alt="Nora Silvester" class="crc-message-avatar" />
-                                    <div class="crc-message-content">
-                                        <div class="crc-message-name">Nora Silvester</div>
-                                        <div class="crc-message-text">The subject goes here</div>
-                                        <small class="crc-message-time">4 Hours Ago</small>
-                                    </div>
-                                    <i class="fa fa-star crc-message-star" style="color:#ffc107;"></i>
-                                </div>
                             </div>
 
                             <div class="crc-messages-footer">
@@ -126,9 +125,12 @@
                         <a href="#" class="crc-icon-btn crc-notification-toggle">
                             <i class="fa #{sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.isEmpty() ? 'fa-bell-o' : 'fa-bell animated swing'}"></i>
                             <h:panelGroup layout="block"
-                                          styleClass="badge bg-warning notification-count"
+                                          styleClass="Fs12 badge bg-danger notification-count"
                                           rendered="#{!sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.isEmpty()}">
                                 #{sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.size()}
+                                <script type="text/javascript">
+                                    CarameloCode.notificacoes.tocarSom();
+                                </script>
                             </h:panelGroup>
                         </a>
 
@@ -195,17 +197,18 @@
                         </div>
                     </div>
 
-                </div>
+                </h:panelGroup>
 
                 <!-- ====================== MENU DO USUÁRIO ====================== -->
-                <div class="crc-user-dropdown">
+                <h:panelGroup layout="block" styleClass="crc-user-dropdown" id="menuMobile"  >
+
                     <div class="crc-user-toggle">
                         <img src="#{sessaoAtualSBWP.usuario.imgPequena}" alt="Usuário" />
                         <span class="crc-user-name">#{sessaoAtualSBWP.usuario.nome}</span>
                         <h:panelGroup layout="block"
                                       styleClass="badge bg-danger total-notifications"
                                       rendered="#{!sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.isEmpty()}">
-                            #{sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.size()}
+                            #{sessaoAtualSBWP.comunicacaoAguardandoRespostaUsuarioSesso.size()+sessaoAtualSBWP.mensagensEntreUsuariosAguardandoMinhaResposta.size()}
                         </h:panelGroup>
                         <i class="fa fa-chevron-down"></i>
                     </div>
@@ -216,9 +219,9 @@
                         <div class="crc-user-header">
                             <img src="#{sessaoAtualSBWP.usuario.imgPequena}" alt="Usuário" class="crc-user-avatar-large" />
                             <div class="crc-user-header-info">
-                                <h4>#{sessaoAtualSBWP.usuario.nome}</h4>
+                                <h4>#{sessaoAtualSBWP.usuario.nome} </h4>
                                 <p class="crc-user-role">#{sessaoAtualSBWP.usuario.grupo.nome}</p>
-                                <small>Membro desde Novembro 2023</small>
+                                <small>Membro desde #{pgUtilDataHoraFormato.getDataHoraSimplificado(sessaoAtualSBWP.usuario.dataCadastro)}</small>
                             </div>
                         </div>
 
@@ -232,49 +235,42 @@
                             <div class="crc-collapsible-header" data-target="crc-mobile-messages">
                                 <i class="fa fa-envelope"></i>
                                 <strong>Mensagens</strong>
-                                <span class="badge bg-danger message-count">3</span>
+                                <h:panelGroup styleClass="badge bg-danger message-count" >
+                                    #{sessaoAtualSBWP.mensagensEntreUsuariosAguardandoMinhaResposta.size()}
+                                </h:panelGroup>
                                 <i class="fa fa-chevron-down crc-collapsible-chevron"></i>
                             </div>
-                            <div class="crc-collapsible-body" id="crc-mobile-messages">
+
+                            <h:panelGroup layout="block" styleClass="crc-collapsible-body" id="crc-mobile-messages" >
                                 <div class="crc-messages-list">
-                                    <div class="crc-message-item">
-                                        <img src="https://i.pravatar.cc/40?u=brad" alt="Brad Diesel" class="crc-message-avatar" />
-                                        <div class="crc-message-content">
-                                            <div class="crc-message-name">Brad Diesel</div>
-                                            <div class="crc-message-text">Call me whenever you can...</div>
-                                            <small class="crc-message-time">4 Hours Ago</small>
-                                        </div>
-                                        <i class="fa fa-star crc-message-star" style="color:#ffc107;"></i>
-                                    </div>
-                                    <div class="crc-message-item">
-                                        <img src="https://i.pravatar.cc/40?u=john" alt="John Pierce" class="crc-message-avatar" />
-                                        <div class="crc-message-content">
-                                            <div class="crc-message-name">John Pierce</div>
-                                            <div class="crc-message-text">I got your message bro</div>
-                                            <small class="crc-message-time">4 Hours Ago</small>
-                                        </div>
-                                        <i class="fa fa-star crc-message-star" style="color:#6c757d;"></i>
-                                    </div>
-                                    <div class="crc-message-item">
-                                        <img src="https://i.pravatar.cc/40?u=nora" alt="Nora Silvester" class="crc-message-avatar" />
-                                        <div class="crc-message-content">
-                                            <div class="crc-message-name">Nora Silvester</div>
-                                            <div class="crc-message-text">The subject goes here</div>
-                                            <small class="crc-message-time">4 Hours Ago</small>
-                                        </div>
-                                        <i class="fa fa-star crc-message-star" style="color:#ffc107;"></i>
-                                    </div>
+                                    <c:forEach items="#{sessaoAtualSBWP.mensagensEntreUsuariosAguardandoMinhaResposta}" var="mensagem">
+
+                                        <p:link  href="#" onclick="responderConversa('#{mensagem.codigoSelo}')">
+                                            <div class="crc-message-item">
+                                                <img src="#{mensagem.usuarioRemetente.imgPequena}" style="width: 40px;" alt="#{mensagem.usuarioRemetente.nome}" class="crc-message-avatar" />
+                                                <div class="crc-message-content">
+                                                    <div class="crc-message-name">#{mensagem.usuarioRemetente.nome}</div>
+                                                    <div class="crc-message-text">#{mensagem.assunto}</div>
+                                                    <small class="crc-message-time">#{pgUtilDataHoraFormato.getDataHoraSimplificado(mensagem.dataHoraDisparo)}</small>
+                                                </div>
+
+                                            </div>
+                                        </p:link>
+                                    </c:forEach>
+
+
                                 </div>
 
                                 <div class="crc-messages-footer">
                                     <a href="#" class="crc-view-all-messages">Ver Todas as Mensagens</a>
                                 </div>
-                            </div>
+                            </h:panelGroup>
 
                         </h:panelGroup>
 
                         <!-- ===== NOTIFICAÇÕES - apenas mobile (dados reais) ===== -->
                         <h:panelGroup layout="block"
+                                      id="notificacoesMenuMobile"
                                       rendered="#{sessaoAtualSBWP.telaUsuario.umMobile}">
 
                             <div class="crc-collapsible-header" data-target="crc-mobile-notifications">
@@ -359,9 +355,9 @@
                         </div>
 
                     </div>
-                </div>
+                </h:panelGroup>
 
-            </div>
+            </h:panelGroup>
 
         </header>
 

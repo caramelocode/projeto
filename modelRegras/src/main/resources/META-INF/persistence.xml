@@ -41,12 +41,21 @@
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.familia.FamiliaComponenteProjetoCaramelo</class>
         <class>br.org.carameloCode.erp.modulo.projeto.ModuloProjetoCaramelo</class>
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.solicitacaoCandidado.SolicitacaoCadastro</class>
+
         <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.notificacao.NotificacaoSB</class>
+        <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.notificacao.NotificacaoRespostaAguardada</class>
+        <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.notificacao.NotificacaoUsrParaUsr</class>
         <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.recibos.entrega.ReciboEntrega</class>
         <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.recibos.leitura.ReciboLeitura</class>
         <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.tipoNotificacao.TipoNotificacao</class>
+        <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.tipoNotificacao.TipoNotificacaoUsrComUsr</class>
         <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.statusNotificacao.StatusNotificacao</class>
         <class>br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.transporte.LogDisparoNotificacao</class>
+
+
+
+
+
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.servidor.ServicoHospedagem</class>
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.cliente.Cliente</class>
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.cliente.UsuarioCliente</class>

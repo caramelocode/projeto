@@ -4,6 +4,7 @@
  */
 package br.org.carameloCode.erp.modulo.projeto.implemetation.componenteNativo;
 
+import br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.notificacao.DialogoNotificacaoUsrToUsr;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.FabAcaoProjetoCRCCarameloFormulario;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.InfoAcaoProjetoCRCFormularios;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
@@ -11,6 +12,7 @@ import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.InfoAcaoPr
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.notificacoes.FabAcaoProjetoCRCNotificacoes;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.notificacoes.InfoAcaoProjetoCRCNotificacoes;
 import br.org.carameloCode.erp.modulo.projeto.entidadeTransient.ComunicacaoTransientDev;
+import br.org.carameloCode.erp.modulo.projeto.entidadeTransient.ComunicacaoTransientUsrToUsrDev;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.ExemploComponente;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.entidadeExemplo.EntdExemplo;
 import com.super_bits.modulos.SBAcessosModel.controller.resposta.RespostaComGestaoEMRegraDeNegocioPadrao;
@@ -22,8 +24,10 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroRegraDeNegocio;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoTransient;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoTransientUsrToUsr;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ERPTipoCanalComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoComunicacao;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfDialogo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioAplicacaoEmExecucao;
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroAcessandoCanalComunicacao;
 import java.util.List;
@@ -56,7 +60,12 @@ public class ExecAcoesComponenteNativo extends ControllerAbstratoSBPersistencia 
             @Override
             public void regraDeNegocio() throws ErroRegraDeNegocio {
                 try {
-                    ComunicacaoTransient novacomunicacao = new ComunicacaoTransient(new UsuarioAplicacaoEmExecucao(), pExemplo.getDestinatario(), FabTipoComunicacao.OK_CANCELAR.getRegistro());
+                    ItfDialogo novacomunicacao = null;
+                    if (pExemplo instanceof ComunicacaoTransientUsrToUsrDev) {
+                        novacomunicacao = new ComunicacaoTransientUsrToUsr(((ComunicacaoTransientUsrToUsrDev) pExemplo).getRemetente(), pExemplo.getUsuarioDestinatario(), FabTipoComunicacao.OK_CANCELAR.getRegistro());
+                    } else {
+                        novacomunicacao = new ComunicacaoTransient(new UsuarioAplicacaoEmExecucao(), pExemplo.getUsuarioDestinatario(), FabTipoComunicacao.OK_CANCELAR.getRegistro());
+                    }
                     novacomunicacao.setAssunto(pExemplo.getAssunto());
                     novacomunicacao.setMensagem(pExemplo.getMensagem());
                     String registroDeNotiicacao = CarameloCode.getServicoComunicacao().dispararComunicacao(novacomunicacao, ERPTipoCanalComunicacao.INTRANET_MENU);
@@ -67,6 +76,25 @@ public class ExecAcoesComponenteNativo extends ControllerAbstratoSBPersistencia 
                 } catch (ErroAcessandoCanalComunicacao ex) {
                     SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha registrando comunicação ", ex);
                 }
+            }
+        }.getResposta();
+
+    }
+
+    @InfoAcaoProjetoCRCFormularios(acao = FabAcaoProjetoCRCCarameloFormulario.CRUD_EXEMPLO_CTR_REMOVER)
+    public static ItfRespostaAcaoDoSistema crudRemover(EntdExemplo pExemplo) {
+
+        return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaResposta(EntdExemplo.class), null) {
+            @Override
+            public void executarAcoesFinais() throws ErroEmBancoDeDados {
+                super.executarAcoesFinais();
+            }
+
+            @Override
+            public void regraDeNegocio() throws ErroRegraDeNegocio {
+                System.out.println(pExemplo.getJustificativa(FabAcaoProjetoCRCCarameloFormulario.CRUD_EXEMPLO_CTR_REMOVER.getRegistro()));
+                removerEntidade(pExemplo);
+
             }
         }.getResposta();
 

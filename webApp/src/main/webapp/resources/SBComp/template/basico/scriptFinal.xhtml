@@ -20,6 +20,10 @@
                              update="#{pgUtil.gerarCaminhoCompletoID(layoutIdsAreasConhecidas.AREA_TOPO_ITERNFACES)}"
                              />
         </h:form>
+
+
+
+
         <h:form id="formularioComunicacaoRespostaRapida" >
 
             <h:inputHidden  id="codigoSeloCMRespostaRapida" value="#{pgUtilComunicacao.codigoComunicacao}" class="codigoSeloCMRespostaRapida" />
@@ -30,6 +34,18 @@
 
             </p:commandButton>
         </h:form>
+
+
+        <h:panelGroup id="areaNotificacaoBloqueio" styleClass="areaNotificacaoBloqueio" >
+            <h:panelGroup rendered="#{sessaoAtualSBWP.notificacoesBloqueioTela.size() > 0}"   layout="block">
+
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        responderConversa('#{sessaoAtualSBWP.notificacoesBloqueioTela.get(0).codigoSelo}');
+                    });
+                </script>
+            </h:panelGroup>
+        </h:panelGroup>
 
     </h:panelGroup>
 </ui:composition>
