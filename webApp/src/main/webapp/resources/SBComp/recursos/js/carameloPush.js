@@ -248,12 +248,3 @@ var CarameloPush = (function () {
 })();
 
 
-
-//Funções de comunicação
-function notificacoesPush(notificacao) {
-
-    setTimeout(function () {
-        CarameloCode.notificacoes.atualizarMenu();
-    }, 3000); // 3 segundos
-
-}

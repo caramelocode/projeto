@@ -1,7 +1,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:panelGroup rendered="true">
 
 
@@ -46,6 +47,35 @@
                 </script>
             </h:panelGroup>
         </h:panelGroup>
+
+        <p:dialog id="modalNotificacaoTransitoria"
+                  widgetVar="modalNotificacaoTransitoria"
+                  modal="true"
+                  closable="true"
+                  draggable="false"
+                  resizable="false"
+                  appendTo="@(body)"
+                  styleClass="modal-transitorio">
+
+            <f:facet name="header">
+                <div class="notif-header">
+                    <span id="notif-assunto" class="notif-assunto"></span>
+                    <span id="notif-meta"    class="notif-meta"></span>
+                </div>
+            </f:facet>
+
+            <div class="notif-body">
+                <p id="notif-mensagem" class="notif-mensagem"></p>
+            </div>
+
+            <f:facet name="footer">
+                <div id="notif-footer" class="notif-footer"></div>
+            </f:facet>
+
+        </p:dialog>
+        <h:outputScript>
+            CarameloCode.formulario.paginaInstanciaID = '#{paginaAtual.infoPagina.paginaInstanciaID}';
+        </h:outputScript>
 
     </h:panelGroup>
 </ui:composition>

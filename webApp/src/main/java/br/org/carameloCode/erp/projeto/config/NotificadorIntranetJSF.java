@@ -4,11 +4,10 @@
  */
 package br.org.carameloCode.erp.projeto.config;
 
-import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfDialogo;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComoDialogo;
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ComoServicoComunicacaoUI;
 import com.super_bits.modulosSB.webPaginas.JSFManagedBeans.declarados.webSite.InfoWebApp;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
-import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 
 /**
  *
@@ -17,14 +16,15 @@ import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 public class NotificadorIntranetJSF implements ComoServicoComunicacaoUI {
 
     @Override
-    public boolean notificarViaMenu(ItfDialogo pDialogo) {
+    public boolean notificarViaMenu(ComoDialogo pDialogo) {
+
         InfoWebApp aplicacao = (InfoWebApp) UtilSBWPServletTools.getBeanByNamed("infoWebApp", InfoWebApp.class);
         return aplicacao.publicar(pDialogo);
 
     }
 
     @Override
-    public boolean notificarViaBloqueioTEla(ItfDialogo pDialogo) {
+    public boolean notificarViaBloqueioTEla(ComoDialogo pDialogo) {
         InfoWebApp aplicacao = (InfoWebApp) UtilSBWPServletTools.getBeanByNamed("infoWebApp", InfoWebApp.class);
         return aplicacao.publicar(pDialogo);
     }

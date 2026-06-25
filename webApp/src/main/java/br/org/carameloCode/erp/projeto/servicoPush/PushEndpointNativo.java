@@ -1,4 +1,4 @@
-package br.org.cpublicararameloCode.erp.projeto.servicoPush;
+package br.org.carameloCode.erp.projeto.servicoPush;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnError;

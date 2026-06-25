@@ -1,0 +1,224 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:cc="http://java.sun.com/jsf/composite"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+    </cc:interface>
+
+    <cc:implementation>
+
+        <!-- ── Sessão ── -->
+        <p:fieldset legend="Sessão" toggleable="true" style="margin-top:12px">
+            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank" style="width:100%">
+                <p:outputLabel value="ID" />
+                <h:outputText value="#{infoDadosDeSessao.idSessao}"
+                              style="font-family:monospace; font-size:12px" />
+
+                <p:outputLabel value="Nova?" />
+                <h:outputText value="#{infoDadosDeSessao.sessaoNova ? 'Sim' : 'Não'}" />
+
+                <p:outputLabel value="Criada em" />
+                <h:outputText value="#{infoDadosDeSessao.criadaEm}" />
+
+                <p:outputLabel value="Último acesso" />
+                <h:outputText value="#{infoDadosDeSessao.ultimoAcesso}" />
+
+                <p:outputLabel value="Idade" />
+                <h:outputText value="#{infoDadosDeSessao.idadeEmMinutos} min" />
+
+                <p:outputLabel value="Inativa há" />
+                <h:outputText value="#{infoDadosDeSessao.inativaHaMinutos} min" />
+
+                <p:outputLabel value="Timeout configurado" />
+                <h:outputText value="#{infoDadosDeSessao.maxInactiveInterval} seg" />
+
+                <p:outputLabel value="Autenticado?" />
+                <h:outputText value="#{infoDadosDeSessao.autenticado ? 'Sim' : 'Não'}" />
+
+                <p:outputLabel value="Usuário" />
+                <h:outputText value="#{empty infoDadosDeSessao.usuarioAutenticado ? '-' : infoDadosDeSessao.usuarioAutenticado}" />
+
+                <p:outputLabel value="Data/hora servidor" />
+                <h:outputText value="#{infoDadosDeSessao.dataHoraServidor}" />
+
+                <p:outputLabel value="session.id (nativo)" />
+                <h:outputText value="#{session.id}"
+                              style="font-family:monospace; font-size:12px" />
+
+                <p:outputLabel value="session.maxInactiveInterval (nativo)" />
+                <h:outputText value="#{session.maxInactiveInterval} seg" />
+            </p:panelGrid>
+
+            <p:fieldset legend="session.attributeNames" toggleable="true" collapsed="true" style="margin-top:8px">
+                <p:dataTable value="#{infoDadosDeSessao.atributosBrutos}" var="attr"
+                             emptyMessage="Nenhum atributo"
+                             stripedRows="true">
+                    <p:column headerText="Chave → Tipo">
+                        <h:outputText value="#{attr}"
+                                      style="font-family:monospace; font-size:11px" />
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+        </p:fieldset>
+
+        <!-- ── Ambiente ── -->
+        <p:fieldset legend="Ambiente" toggleable="true" collapsed="true" style="margin-top:12px">
+            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank" style="width:100%">
+                <p:outputLabel value="Java" />
+                <h:outputText value="#{infoDadosDeSessao.javaVersao}" />
+
+                <p:outputLabel value="Servidor" />
+                <h:outputText value="#{infoDadosDeSessao.servidorInfo}" />
+
+                <p:outputLabel value="Contexto" />
+                <h:outputText value="#{infoDadosDeSessao.contextoNome}" />
+
+                <p:outputLabel value="Memória usada" />
+                <h:outputText value="#{infoDadosDeSessao.memoriaUsadaMb} MB" />
+
+                <p:outputLabel value="Memória total" />
+                <h:outputText value="#{infoDadosDeSessao.memoriaTotalMb} MB" />
+
+                <p:outputLabel value="Memória máx" />
+                <h:outputText value="#{infoDadosDeSessao.memoriaMaxMb} MB" />
+            </p:panelGrid>
+        </p:fieldset>
+
+        <!-- ── Request ── -->
+        <p:fieldset legend="Request" toggleable="true" collapsed="true" style="margin-top:12px">
+            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank" style="width:100%">
+                <p:outputLabel value="Método" />
+                <h:outputText value="#{infoDadosDeSessao.request.metodo}" />
+
+                <p:outputLabel value="URI" />
+                <h:outputText value="#{infoDadosDeSessao.request.uri}" />
+
+                <p:outputLabel value="Query String" />
+                <h:outputText value="#{empty infoDadosDeSessao.request.queryString ? '-' : infoDadosDeSessao.request.queryString}" />
+
+                <p:outputLabel value="IP" />
+                <h:outputText value="#{infoDadosDeSessao.request.remoteAddr}" />
+
+                <p:outputLabel value="Host" />
+                <h:outputText value="#{infoDadosDeSessao.request.remoteHost}" />
+
+                <p:outputLabel value="Protocolo" />
+                <h:outputText value="#{infoDadosDeSessao.request.protocolo}" />
+
+                <p:outputLabel value="Seguro?" />
+                <h:outputText value="#{infoDadosDeSessao.request.seguro ? 'Sim' : 'Não'}" />
+
+                <p:outputLabel value="Ajax?" />
+                <h:outputText value="#{infoDadosDeSessao.request.ajax ? 'Sim' : 'Não'}" />
+
+                <p:outputLabel value="Content-Type" />
+                <h:outputText value="#{empty infoDadosDeSessao.request.contentType ? '-' : infoDadosDeSessao.request.contentType}" />
+
+                <p:outputLabel value="Referer" />
+                <h:outputText value="#{empty infoDadosDeSessao.request.referer ? '-' : infoDadosDeSessao.request.referer}" />
+
+                <p:outputLabel value="User-Agent" />
+                <h:outputText value="#{infoDadosDeSessao.request.userAgent}"
+                              style="word-break:break-all" />
+
+                <p:outputLabel value="Servlet Path" />
+                <h:outputText value="#{infoDadosDeSessao.request.servletPath}" />
+            </p:panelGrid>
+
+            <p:fieldset legend="Parâmetros" toggleable="true" collapsed="true" style="margin-top:8px">
+                <p:dataTable value="#{infoDadosDeSessao.request.parametros}" var="param"
+                             emptyMessage="Nenhum parâmetro">
+                    <p:column headerText="Parâmetro">
+                        <h:outputText value="#{param}" />
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+
+            <p:fieldset legend="Cabeçalhos" toggleable="true" collapsed="true" style="margin-top:8px">
+                <p:dataTable value="#{infoDadosDeSessao.request.cabecalhos}" var="cab"
+                             emptyMessage="Nenhum cabeçalho">
+                    <p:column headerText="Cabeçalho">
+                        <h:outputText value="#{cab}" />
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+        </p:fieldset>
+
+        <!-- ── Views ativas ── -->
+        <p:fieldset legend="Views ativas (#{infoDadosDeSessao.quantidadeViews} views / #{infoDadosDeSessao.quantidadeTotalBeans} beans)"
+                    toggleable="true" style="margin-top:12px">
+            <ui:repeat value="#{infoDadosDeSessao.views}" var="infoView" varStatus="vs">
+                <p:fieldset toggleable="true" collapsed="true" style="margin-bottom:8px">
+                    <f:facet name="legend">
+                        <h:outputText value="View #{vs.index + 1} — #{infoView.origem}" />
+                        <h:outputText value=" | #{infoView.resumoBeanPrincipal}"
+                                      rendered="#{not empty infoView.resumoBeanPrincipal}"
+                                      style="font-size:11px; color:#666; margin-left:8px; font-family:monospace" />
+                    </f:facet>
+
+                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" style="margin-bottom:8px">
+                        <p:outputLabel value="ID lógico" />
+                        <h:outputText value="#{infoView.viewLogicalId}"
+                                      style="font-family:monospace; font-size:12px" />
+
+                        <p:outputLabel value="Origem" />
+                        <h:outputText value="#{infoView.origem}" />
+
+                        <p:outputLabel value="Beans" />
+                        <h:outputText value="#{infoView.quantidadeBeans}" />
+                    </p:panelGrid>
+
+                    <p:dataTable value="#{infoView.beans}" var="infoBean"
+                                 emptyMessage="Nenhum bean nesta view"
+                                 stripedRows="true">
+                        <p:column headerText="Nome" style="width:20%">
+                            <h:outputText value="#{infoBean.nome}" />
+                        </p:column>
+                        <p:column headerText="Classe simples" style="width:20%">
+                            <h:outputText value="#{infoBean.classeSimples}" />
+                        </p:column>
+                        <p:column headerText="Classe completa" style="width:30%">
+                            <h:outputText value="#{infoBean.classe}"
+                                          style="font-size:11px; word-break:break-all" />
+                        </p:column>
+                        <p:column headerText="Pagina Instancia ID" style="width:15%">
+                            <h:outputText value="#{empty infoBean.paginaInstanciaID ? '-' : infoBean.paginaInstanciaID}"
+                                          style="font-family:monospace; font-size:11px" />
+                        </p:column>
+                        <p:column headerText="toString" style="width:15%">
+                            <p:tooltip value="#{infoBean.toString}" />
+                            <h:outputText value="#{infoBean.toString}"
+                                          style="font-size:11px; white-space:nowrap; overflow:hidden; display:block; max-width:150px; text-overflow:ellipsis" />
+                        </p:column>
+                    </p:dataTable>
+                </p:fieldset>
+            </ui:repeat>
+        </p:fieldset>
+
+        <!-- ── Atributos brutos ── -->
+        <p:fieldset legend="Atributos brutos da sessão" toggleable="true" collapsed="true" style="margin-top:12px">
+            <p:dataTable value="#{infoDadosDeSessao.atributosBrutos}" var="attr"
+                         emptyMessage="Nenhum atributo"
+                         stripedRows="true">
+                <p:column headerText="Chave → Tipo">
+                    <h:outputText value="#{attr}"
+                                  style="font-size:12px; font-family:monospace" />
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+
+        <!-- ── Debug RAW ── -->
+        <p:fieldset legend="DEBUG RAW sessão" toggleable="true" collapsed="true" style="margin-top:12px">
+            <p:dataTable value="#{infoDadosDeSessao.debugViewMapsRaw}" var="linha">
+                <p:column>
+                    <h:outputText value="#{linha}"
+                                  style="font-family:monospace; font-size:11px; white-space:pre" />
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+
+    </cc:implementation>
+</ui:composition>

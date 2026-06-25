@@ -5,6 +5,7 @@
  */
 package br.org.carameloCode.erp.modulo.projeto.config;
 
+import br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.notificacao.DialogoNotificacao;
 import br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.statusNotificacao.FabStatusNotificacao;
 import br.org.carameloCode.erp.modulo.projeto.FabModulosProjetoCaramelo;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.FabExemploComponenteNativo;
@@ -21,6 +22,9 @@ import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabrica;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.dialogo.resposta.BotaoResposta;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.dialogo.resposta.RespostaComunicacao;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.dialogo.tipoResposta.TipoRespostaComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.view.modeloFormulario.ModeloPagina;
 
 /**
@@ -66,6 +70,10 @@ public class ConfigPersistenciaProjetoCaramelo implements ItfConfigSBPersistenci
         MapaObjetosProjetoAtual.adcionarObjeto(ComunicacaoAcaoSistema.class);
         MapaObjetosProjetoAtual.adcionarObjeto(EstruturaDeEntidade.class);
         MapaObjetosProjetoAtual.adcionarObjeto(ModeloPagina.class);
+        MapaObjetosProjetoAtual.adcionarObjeto(DialogoNotificacao.class);
+        MapaObjetosProjetoAtual.adcionarObjeto(RespostaComunicacao.class);
+        MapaObjetosProjetoAtual.adcionarObjeto(TipoRespostaComunicacao.class);
+        MapaObjetosProjetoAtual.adcionarObjeto(BotaoResposta.class);
         return new Class[]{ //    FabAtividadeCRMAutoexecucao.class
             FabExemplosOpcoesItensSelecao.class,
             FabExemploComponenteNativo.class,

@@ -1,6 +1,5 @@
 package br.org.carameloCode.erp.projeto.servicoPush;
 
-import br.org.cpublicararameloCode.erp.projeto.servicoPush.PushEndpointNativo;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCJson;
 import com.super_bits.modulosSB.SBCore.UtilGeral.json.ErroProcessandoJson;

@@ -18,6 +18,7 @@ public class TesteConformidade extends TesteProjetoCaramelo {
 
     @Test
     public void gerarCodigo() {
+
         try {
 
             gerarCodigoModelProjeto();

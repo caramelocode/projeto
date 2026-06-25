@@ -1,0 +1,15 @@
+<ui:composition
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <f:facet name="view">
+        <f:attribute name="contentType" value="application/json" />
+    </f:facet>
+
+    {
+    "formulario": "#{pgUtilContextoPorID.paginaDoContexto.xhtmlAcaoAtual}",
+    "respostaRegistrada": "#{pgUtilContextoPorID.paginaDoContexto}"
+    }
+
+</ui:composition>

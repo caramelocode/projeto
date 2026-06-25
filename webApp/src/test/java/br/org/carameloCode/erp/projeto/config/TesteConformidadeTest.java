@@ -26,6 +26,7 @@ public class TesteConformidadeTest extends RelatorioTesteWebPaginas {
     @Test
     public void teste() {
         try {
+
             System.out.println(FabAcaoPaginasDoSistema.PAGINA_NATIVA_TOKEN_DINAMICO_MB.getRegistro().getNomeUnico());
             gerarMangedBeansAcessoAcoes();
             exibirRelatorioCompleto();
