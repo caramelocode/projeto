@@ -4,8 +4,6 @@
  */
 package br.org.carameloCode.erp.modulo.projeto.implemetation.componenteNativo;
 
-import br.org.carameloCode.erp.modulo.notificacao.api.ERPNotificacoes;
-import br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.notificacao.DialogoNotificacaoUsrToUsr;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.FabAcaoProjetoCRCCarameloFormulario;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.InfoAcaoProjetoCRCFormularios;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
@@ -30,14 +28,11 @@ import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ERPTipoCanalComunicac
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComoDialogo;
-import com.super_bits.modulosSB.SBCore.modulos.erp.FabTipoCanalChat;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioAplicacaoEmExecucao;
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroAcessandoCanalComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroDetectandoTelaBloqueio;
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroRegistrandoDialogo;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 
 /**
@@ -104,11 +99,6 @@ public class ExecAcoesComponenteNativo extends ControllerAbstratoSBPersistencia 
                 ComoDialogo exemploPergunta = CarameloCode.getServicoComunicacao().gerarComunicacaoSistema_Usuario(FabTipoComunicacao.PERGUNTAR_SIM_NAO_MAIS_TARDE,
                         CarameloCode.getUsuarioLogado(), "Exemplo mensagem codigo condicional com Notificações push");
                 System.out.println(CarameloCode.getUsuarioLogado().getEmail());
-                try {
-                    CarameloCode.getServicoComunicacao().getArmazenamento().registrarDialogoAtivo(exemploPergunta);
-                } catch (ErroRegistrandoDialogo ex) {
-                    CarameloCode.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha registrando comunicação", ex);
-                }
 
                 FabTipoRespostaComunicacao resposta;
                 try {

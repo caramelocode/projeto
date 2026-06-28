@@ -1337,10 +1337,21 @@ ui-message-warn-summary{
 .RedButton.ui-state-focus {
     background-color: #EA5753 !important;
 }
+.BotaoVermelho {
+    background-color: #E53935!important;
+}
 .BotaoVermelho.ui-state-hover,
 .BotaoVermelho.ui-state-focus {
+    background-color: #EF4444 !important;
+}
+.BotaoCinzaVermelhoHover {
+    background-color: #6B7280!important;
+}
+.BotaoCinzaVermelhoHover.ui-state-hover,
+.BotaoVerBotaoCinzaVemelhoHovermelho.ui-state-focus {
     background-color: #EA5753 !important;
 }
+
 
 
 .BotaoRosa {

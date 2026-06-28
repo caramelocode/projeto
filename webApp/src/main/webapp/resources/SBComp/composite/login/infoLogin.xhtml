@@ -44,7 +44,9 @@
             <c:if test="#{paginaAtual.sessao.identificado and !cc.attrs.ocultarBotaoSair}" >
                 <h:form >
                     <div class="TexAlCenter">
-                        <p:commandButton style="margin-top: 10px;" id="botao-logado" icon="ui-icon-gear" iconPos="" value="Sair \ alterar perfil" type="button" onclick="PF('janelaLogout').show();"  />
+                        <p:commandButton style="margin-top: 10px;" id="botao-logado"
+
+                                         icon="ui-icon-gear" iconPos="" value="Sair \ alterar perfil" type="button" onclick="PF('janelaLogout').show();"  />
                         <p:overlayPanel id="imagePanel" for="botao-logado" dismissable="true" showCloseIcon="true" >
                             <!--
                                                    <p class="menu-logado"> Alterar Senha </p>

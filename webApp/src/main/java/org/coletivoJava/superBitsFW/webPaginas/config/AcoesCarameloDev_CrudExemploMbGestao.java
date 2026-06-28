@@ -52,8 +52,8 @@ public class AcoesCarameloDev_CrudExemploMbGestao implements Serializable {
 				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCCarameloFormulario.CRUD_EXEMPLO_CTR_SALVAR_MERGE");
 	}
 
-	public ComoAcaoControllerEntidade getCrudExemploCtrSalvarRemover() {
+	public ComoAcaoControllerEntidade getCrudExemploCtrRemover() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCCarameloFormulario.CRUD_EXEMPLO_CTR_SALVAR_REMOVER");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCCarameloFormulario.CRUD_EXEMPLO_CTR_REMOVER");
 	}
 }

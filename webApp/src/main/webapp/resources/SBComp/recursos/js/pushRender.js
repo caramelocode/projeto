@@ -45,10 +45,10 @@ function preencherConteudoDialogo(dialogo) {
     }).join('');
 }
 
-function enviarResposta(idBotao, fabricaTipo, respostaObj, codigoDialogo) {
+function enviarResposta(idBotao, fabricaTipo, respostaObj, codigoSelo) {
     const params = new URLSearchParams({
         'paginaInstanciaID': CarameloCode.formulario.paginaInstanciaID,
-        'dialogoId': codigoDialogo,
+        'codigoSelo': codigoSelo,
         'resposta': JSON.stringify(respostaObj)
     });
 
@@ -135,34 +135,59 @@ function exibirDialogoPush(payload) {
 
 // ── Entrada principal do push ────────────────────────────────────────────────
 
-function notificacoesPush(notificacao) {
+function notificacoesPush(pPayloadTexto) {
     try {
-        const payload = (typeof notificacao === 'string')
-                ? JSON.parse(notificacao)
-                : notificacao;
+        const payload = (typeof pPayloadTexto === 'string')
+                ? JSON.parse(pPayloadTexto)
+                : pPayloadTexto;
 
         // ── switch NOVO — homologar um por um ───────────────
         switch (payload.tipo) {
-            case 'executarJS':
+            case 'EXECUTAR_JAVASCRIPT':
                 executarJavascriptPush(payload);
                 break;
 
-            case 'exibirDialogo':
+            case 'EXIBIR_DIALOGO_TRANSITORIO':
                 exibirDialogoPush(payload);
                 break;
 
-            case 'atualizarArea':
-                tratarAtualizarArea(payload);
+            case 'ATUALIZAR_AREA':
+                try {
+                    const areas = JSON.parse(payload.areas || '[]');
+                    areas.forEach(function (areaID) {
+                        CarameloCode.areaTrabalho.atualizarAreaByID(areaID);
+                    });
+                } catch (e) {
+                    console.error('[CarameloPush] Erro ao processar ATUALIZAR_AREA:', e.message);
+                }
                 break;
 
-            case 'atualizarCampos':
-                tratarAtualizarCampos(payload);
+            case 'VALIDAR_CAMPOS':
+                try {
+                    const campos = JSON.parse(payload.campos || '[]');
+                    campos.forEach(function (campo) {
+                        CarameloCode.formulario.validarCampo(campo);
+                    });
+                } catch (e) {
+                    console.error('[CarameloPush] Erro ao processar VALIDAR_CAMPOS:', e.message);
+                }
                 break;
 
-            case 'atualizarNotificacoes':
+            case 'ATUALIZAR_CAMPOS':
+                try {
+                    const campos = JSON.parse(payload.campos || '[]');
+                    campos.forEach(function (campo) {
+                        CarameloCode.formulario.atualizarCampo(campo);
+                    });
+                } catch (e) {
+                    console.error('[CarameloPush] Erro ao processar ATUALIZAR_CAMPOS:', e.message);
+                }
+                break;
+
+            case 'ATUALIZAR_NOTIFICACOES':
                 setTimeout(function () {
                     CarameloCode.notificacoes.atualizarMenu();
-                }, 3000);
+                }, 1000);
                 break;
 
             default:
@@ -175,7 +200,7 @@ function notificacoesPush(notificacao) {
         }
 
     } catch (e) {
-        console.error('[CarameloPush] Erro ao processar push:', e.message, '\nDados recebidos:', notificacao);
+        console.error('[CarameloPush] Erro ao processar push:', e.message, '\nDados recebidos:', pPayloadTexto);
     }
 }
 
