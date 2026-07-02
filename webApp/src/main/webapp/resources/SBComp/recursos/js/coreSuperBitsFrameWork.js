@@ -248,6 +248,37 @@ var CarameloCode = {
                     PF(idDataSetPrime).filter();
                 }, 800);
             };
+        },
+        /**
+         * Consulta o servlet infoPagina.json para checar se a instância de
+         * página (view) ainda está ativa no servidor.
+         * @returns {Promise<boolean>}
+         */
+        validarInstancia: function () {
+            var paginaInstanciaID = CarameloCode.formulario.paginaInstanciaID;
+            if (!paginaInstanciaID) {
+                // aba sem instância vinculada — nada a validar
+                return Promise.resolve(true);
+            }
+
+            var url = '/CRCForms/infoPagina.json?paginaInstanciaID='
+                    + encodeURIComponent(paginaInstanciaID)
+                    + '&tipodado=STATUS_FORMULARIO';
+
+            return fetch(url, {method: 'GET', credentials: 'include', headers: {'Accept': 'application/json'}})
+                    .then(function (res) {
+                        if (!res.ok)
+                            throw new Error('HTTP ' + res.status);
+                        return res.json();
+                    })
+                    .then(function (data) {
+                        return !!data.temFormInstanciado;
+                    })
+                    .catch(function (err) {
+                        console.error('[CarameloCode] Erro ao validar instância: ' + err.message);
+                        // falha de rede/parse não deve derrubar a tela por falso positivo
+                        return true;
+                    });
         }
     },
     // ─── Componentes ─────────────────────────────────────────────────────────
@@ -790,9 +821,7 @@ function focarComSelacaoAposAjax() {
 function pesquisaDataSetComDelay(idElementoDigitacao, idDataSetPrime) {
     return CarameloCode.formulario.pesquisaDataSetComDelay(idElementoDigitacao, idDataSetPrime);
 }
-function notificacoesPush(notificacao) {
-    return CarameloCode.notificacoes.push(notificacao);
-}
+
 function responderConversa(codigoSelo) {
     return CarameloCode.comunicacao.responderConversa(codigoSelo);
 }

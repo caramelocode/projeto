@@ -9,7 +9,7 @@ import br.org.carameloCode.erp.modulo.projeto.UtilProjetosCRC;
 import br.org.carameloCode.erp.modulo.projeto.config.ConfigPermissaoProjetoCRC;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ConfiguradorCoreDeProjetoJarPersistenciaAbstrato;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizavel;
-import com.super_bits.modulosSB.webPaginas.centralComunicacao.CentralComunicaoWebPadrao;
+import com.super_bits.modulosSB.webPaginas.centralComunicacao.ServicoComunicaoWebTransitorio;
 
 /**
  *

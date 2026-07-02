@@ -1,6 +1,6 @@
 package br.org.coletivoJava.fw.projetos.projeto.implemetation.model.tiponotificacaousrcomusr;
 
-import br.org.carameloCode.erp.modulo.notificacao.implemetation.model.tiponotificacaousrcomusr.ValidacaoTipoNotificacaoUsrComUsrNotifificarViaMatrix;
+import br.org.carameloCode.erp.modulo.notificacao.implemetation.model.tiponotificacaousrcomusr.ValidacaoTipoNotificacaoUsrComUsrNotificarViaMatrix;
 import br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.tipoNotificacao.TipoNotificacaoUsrComUsr;
 import br.org.coletivoJava.fw.projetos.projeto.api.model.tiponotificacaousrcomusr.ValidadorTipoNotificacaoUsrComUsr;
 import br.org.coletivoJava.fw.projetos.projeto.api.model.tiponotificacaousrcomusr.ValidadoresTipoNotificacaoUsrComUsr;
@@ -11,12 +11,12 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstancia
 import java.util.List;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.validador.ErroValidacao;
 
-@ValidadorTipoNotificacaoUsrComUsr(validador = ValidadoresTipoNotificacaoUsrComUsr.NOTIFIFICARVIAMATRIX)
-public class ValidacaoExtErpprojeTipoNotificacaoUsrComUsrNotifificarViaMatrix
+@ValidadorTipoNotificacaoUsrComUsr(validador = ValidadoresTipoNotificacaoUsrComUsr.NOTIFICARVIAMATRIX)
+public class ValidacaoExtErpprojeTipoNotificacaoUsrComUsrNotificarViaMatrix
         extends
-        ValidacaoTipoNotificacaoUsrComUsrNotifificarViaMatrix {
+        ValidacaoTipoNotificacaoUsrComUsrNotificarViaMatrix {
 
-    public ValidacaoExtErpprojeTipoNotificacaoUsrComUsrNotifificarViaMatrix(
+    public ValidacaoExtErpprojeTipoNotificacaoUsrComUsrNotificarViaMatrix(
             ItfCampoInstanciado pCampo) {
         super(pCampo);
     }
@@ -26,7 +26,4 @@ public class ValidacaoExtErpprojeTipoNotificacaoUsrComUsrNotifificarViaMatrix
         return super.validar(o);
     }
 
-    public TipoNotificacaoUsrComUsr getTipoNotificacaoUsrComUsr() {
-        return (TipoNotificacaoUsrComUsr) getObjetoDoAtributo();
-    }
 }
