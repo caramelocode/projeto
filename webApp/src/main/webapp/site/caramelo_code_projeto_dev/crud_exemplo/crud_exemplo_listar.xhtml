@@ -5,18 +5,12 @@
     template="#{layoutsPaginas.formularioListarGenerico.xhtmlVinculado}"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="conteudo" >
-        <h:panelGroup rendered="false" >
-            <ui:include src="/site/modelo/listagemGenerica.xhtml"  />
-        </h:panelGroup>
-        <CRCListagem:listaAcaoUnica
-            acaoExecucao="#{acoesCarameloDev_CrudExemploMbGestao.crudExemploFrmEditar}"
-            itemSelecionado="#{paginaAtual.infoPagina.comoPaginaEntidade.entidadeSelecionada}"
-            />
 
-        <h:panelGroup layout="block" styleClass="Container12" >
-            <br/><br/><br/><br/><br/>
+        <ui:include src="/site/modelo/listagemGenerica.xhtml"  />
 
-        </h:panelGroup>
+
+
+
 
     </ui:define>
 </ui:composition>
