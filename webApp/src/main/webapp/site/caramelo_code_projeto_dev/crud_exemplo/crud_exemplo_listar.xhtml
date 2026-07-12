@@ -1,8 +1,22 @@
 <ui:composition
     xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:CRCListagem="http://xmlns.jcp.org/jsf/composite/carameloStore/listagem"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    template="#{layoutsPaginas.formularioListarGenerico.xhtmlVinculado}" >
+    template="#{layoutsPaginas.formularioListarGenerico.xhtmlVinculado}"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="conteudo" >
-        <ui:include src="/site/modelo/listagemGenerica.xhtml" />
+        <h:panelGroup rendered="false" >
+            <ui:include src="/site/modelo/listagemGenerica.xhtml"  />
+        </h:panelGroup>
+        <CRCListagem:listaAcaoUnica
+            acaoExecucao="#{acoesCarameloDev_CrudExemploMbGestao.crudExemploFrmEditar}"
+            itemSelecionado="#{paginaAtual.infoPagina.comoPaginaEntidade.entidadeSelecionada}"
+            />
+
+        <h:panelGroup layout="block" styleClass="Container12" >
+            <br/><br/><br/><br/><br/>
+
+        </h:panelGroup>
+
     </ui:define>
 </ui:composition>

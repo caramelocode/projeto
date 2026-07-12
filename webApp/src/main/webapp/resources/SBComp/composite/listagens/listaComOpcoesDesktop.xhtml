@@ -59,17 +59,18 @@
         <c:set var="layoutListagem" value="#{pgUtilLayout.gerarLayout(cc.attrs.grupoCampos, cc.attrs.opcoes)}" />
         <h:panelGroup>
             <h:form>
-                <p:dataTable sortMode="multiple"
-                             value="#{cc.attrs.itens}"
-                             var="item"
-                             globalFilterFunction="#{pgUtilFiltroOrdenacao.filtrarColuna}"
-                             paginatorPosition="bottom"
-                             emptyMessage="#{cc.attrs.mensagemSemRegistro}"
-                             paginator="true"
-                             rows="10"
-                             widgetVar="#{pgUtil.gerarNomeSlug(cc.attrs.titulo)}"
-                             resizeMode="fit"
-                             >
+                <p:dataTable
+                    sortMode="multiple"
+                    value="#{cc.attrs.itens}"
+                    var="item"
+                    globalFilterFunction="#{pgUtilFiltroOrdenacao.filtrarColuna}"
+                    paginatorPosition="bottom"
+                    emptyMessage="#{cc.attrs.mensagemSemRegistro}"
+                    paginator="true"
+                    rows="10"
+                    widgetVar="#{pgUtil.gerarNomeSlug(cc.attrs.titulo)}"
+                    resizeMode="fit"
+                    >
 
                     <f:facet name="header" >
 

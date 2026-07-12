@@ -32,6 +32,11 @@ public class AcoesCarameloDev_CrudExemploMbGestao implements Serializable {
 				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCCarameloFormulario.CRUD_EXEMPLO_FRM_NOVO");
 	}
 
+	public ItfAcaoFormularioEntidade getCrudExemploFrmNovoEtdExtendida() {
+		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCCarameloFormulario.CRUD_EXEMPLO_FRM_NOVO_ETD_EXTENDIDA");
+	}
+
 	public ItfAcaoFormularioEntidade getCrudExemploFrmEditar() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
 				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCCarameloFormulario.CRUD_EXEMPLO_FRM_EDITAR");

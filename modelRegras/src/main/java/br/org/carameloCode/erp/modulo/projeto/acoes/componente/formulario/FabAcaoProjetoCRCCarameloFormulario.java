@@ -4,6 +4,7 @@ import br.org.carameloCode.erp.modulo.projeto.FabModulosProjetoCaramelo;
 import br.org.carameloCode.erp.modulo.projeto.InfoModuloProjetoCaraelo;
 import br.org.carameloCode.erp.modulo.projeto.api.model.entdexemplo.CPEntdExemplo;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.entidadeExemplo.EntdExemplo;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.entidadeExemplo.EntdExtendidaExemplo;
 import com.super_bits.modulos.SBAcessosModel.fabricas.ComoFabricaDeAcoesPersistencia;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoFormulario;
@@ -27,6 +28,13 @@ public enum FabAcaoProjetoCRCCarameloFormulario implements ComoFabricaDeAcoesPer
     @InfoTipoAcaoFormulario(campos = {"[separador: Campos Básicos]", CPEntdExemplo.nome, CPEntdExemplo.descricao,
         "[separador: Temporas]", CPEntdExemplo.data, CPEntdExemplo.datahora, CPEntdExemplo.hora})
     CRUD_EXEMPLO_FRM_NOVO,
+    @InfoTipoAcaoFormulario(
+            entidade = EntdExtendidaExemplo.class,
+            campos = {"[separador: Campos Básicos]", CPEntdExemplo.nome, CPEntdExemplo.descricao,
+                "[separador: Temporas]", CPEntdExemplo.data, CPEntdExemplo.datahora, CPEntdExemplo.hora,
+                "[separador: Campo Exclusivo]", "exemploCpEntdExetendida"
+            })
+    CRUD_EXEMPLO_FRM_NOVO_ETD_EXTENDIDA,
     @InfoTipoAcaoFormulario(campos = {"[separador: Campos Básicos]", CPEntdExemplo.nome, CPEntdExemplo.descricao, CPEntdExemplo.usuariocliente,
         "[separador: Temporas]", CPEntdExemplo.data, CPEntdExemplo.datahora, CPEntdExemplo.hora})
     CRUD_EXEMPLO_FRM_EDITAR,

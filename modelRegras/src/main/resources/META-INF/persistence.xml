@@ -88,6 +88,7 @@
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC</class>
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.entidadeExemplo.EntdExemplo</class>
         <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.entidadeExemplo.EntdParticularExemplo</class>
+        <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.entidadeExemplo.EntdExtendidaExemplo</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>

@@ -1,6 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:CarameloNav="http://xmlns.jcp.org/jsf/composite/carameloStore/seletorAcao"
                 xmlns:SBAcaoNav="http://xmlns.jcp.org/jsf/composite/SBComp/composite/acoesENavegacao"
                 xmlns:SBpaginaAtual="http://xmlns.jcp.org/jsf/composite/SBComp/composite/paginaAtualDeEntidade"
                 >
@@ -15,7 +16,12 @@
             </span>
             <h:panelGroup styleClass="Container12" layout="block">
                 <h:panelGroup styleClass="Fright Container3" layout="block">
-                    <h:form rendered="#{paginaAtual.infoPagina.comoPaginaEntidade.acaoNovoRegistro!=null}">
+                    <h:form rendered="#{paginaAtual.infoPagina.comoPaginaEntidade.temAcoesMultiplasNovoRegistro}" >
+                        <CarameloNav:seletorAcaoRadial metodo="#{paginaAtual.infoPagina.comoFormularioWeb.executarAcaoSelecionada()}"
+                                                       opcaoSelecionada="#{paginaAtual.infoPagina.comoFormularioWeb.acaoSelecionada}"
+                                                       opcoes="#{paginaAtual.infoPagina.comoPaginaEntidade.acoesNovoRegistro}"/>
+                    </h:form>
+                    <h:form rendered="#{paginaAtual.infoPagina.comoPaginaEntidade.acaoNovoRegistro!=null and !paginaAtual.infoPagina.comoPaginaEntidade.temAcoesMultiplasNovoRegistro}">
                         <SBpaginaAtual:botaoAcaoPersonalizada
                             acao="#{paginaAtual.infoPagina.comoPaginaEntidade.acaoNovoRegistro}"
                             />
