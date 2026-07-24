@@ -10,14 +10,10 @@
 
     <h:panelGrid columns="#{registro.temDescricao ? 2 : 2}"  class="inputCampo"
                  columnClasses="#{layoutsComponenteSB.layoutCampo.superior.getEstiloColuna(desabilitarEdicao)}"
-
                  >
-
-
-
-        <p:outputLabel  value="#{label}"
-                        for="#{pgUtil.getNomeIdComponenteInput(component)}"
-                        >
+        <p:outputLabel
+            value="#{label}"
+            for="#{pgUtil.getNomeIdComponenteInput(component)}">
             <h:panelGroup rendered="#{registro.temDescricao}">
                 <i class="#{registro.temDescricao?'fa fa-question-circle fa-1x':''}"></i>
             </h:panelGroup>
