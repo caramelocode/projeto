@@ -14,6 +14,17 @@
                       default="#{null}"
                       shortDescription="Especifica uma classe para estilizar o botão"
                       />
+
+        <cc:attribute name="update"
+                      default="#{paginaAtual.infoPagina.comoPaginaEntidade.idAreaExbicaoAcaoSelecionada}"
+                      shortDescription="Especifica uma classe para estilizar o botão"
+                      />
+
+        <cc:attribute name="javaScriptOncomplete"
+                      default="acoesPosAjax();"
+                      shortDescription="Javascript apos ajax"
+                      />
+
     </cc:interface>
     <cc:implementation>
         <SBAcaoNav:botaoDeAcao
@@ -24,7 +35,7 @@
             armazenamentoAcaoExecutada="#{paginaAtual.infoPagina.comoPaginaEntidade.acaoSelecionada}"
             tipoVisualizacao="#{layoutsComponenteSB.layoutBotoes.iconeENome}"
             update="#{paginaAtual.infoPagina.comoPaginaEntidade.idAreaExbicaoAcaoSelecionada}"
-            javaScriptOncomplete="acoesPosAjax();"
+            javaScriptOncomplete="#{cc.attrs.javaScriptOncomplete}"
             />
 
     </cc:implementation>

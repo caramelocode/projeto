@@ -55,6 +55,35 @@ public class ExecAcoesComponenteNativo extends ControllerAbstratoSBPersistencia 
 
     }
 
+    @InfoAcaoProjetoCRCNotificacoes(acao = FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_ENVIAR_RESP_PERSONALIZADA)
+    public static ItfRespostaAcaoDoSistema notificacaoTransitoriaPersonalizada(ComunicacaoTransientDev pExemplo) {
+
+        return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaResposta(ExemploComponente.class), null) {
+            @Override
+            public void regraDeNegocio() throws ErroRegraDeNegocio {
+                try {
+                    ComoDialogo novacomunicacao = null;
+                    if (pExemplo instanceof ComunicacaoTransientUsrToUsrDev) {
+                        novacomunicacao = new ComunicacaoTransientUsrToUsr(((ComunicacaoTransientUsrToUsrDev) pExemplo).getRemetente(), pExemplo.getUsuarioDestinatario(), FabTipoComunicacao.PERSONALIZADA.getRegistro());
+                    } else {
+                        novacomunicacao = new ComunicacaoTransient(new UsuarioAplicacaoEmExecucao(), pExemplo.getUsuarioDestinatario(), FabTipoComunicacao.PERSONALIZADA.getRegistro());
+                    }
+                    novacomunicacao.setAssunto(pExemplo.getAssunto());
+                    novacomunicacao.setMensagem(pExemplo.getMensagem());
+                    //?Onde colocar a url da mensagem personalizada?
+                    String registroDeNotiicacao = CarameloCode.getServicoComunicacao().dispararComunicacao(novacomunicacao, ERPTipoCanalComunicacao.INTRANET_MENU);
+                    if (registroDeNotiicacao == null) {
+                        throw new ErroRegraDeNegocio("Falha registrando comunicação");
+                    }
+
+                } catch (ErroAcessandoCanalComunicacao ex) {
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha registrando comunicação ", ex);
+                }
+            }
+        }.getResposta();
+
+    }
+
     @InfoAcaoProjetoCRCNotificacoes(acao = FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_ENVIAR)
     public static ItfRespostaAcaoDoSistema notificacaoTransitoria(ComunicacaoTransientDev pExemplo) {
 

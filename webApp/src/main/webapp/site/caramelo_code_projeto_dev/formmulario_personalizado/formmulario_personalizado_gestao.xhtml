@@ -1,12 +1,20 @@
 <ui:composition
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:CRCModeloPagina="http://xmlns.jcp.org/jsf/composite/carameloStore/modeloPagina"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    template="#{layoutsPaginas.modeloGeral.xhtmlVinculado}">
+    template="#{layoutsPaginas.modeloGeral.xhtmlVinculado}"
+    xmlns:p="http://primefaces.org/ui">
     <ui:define name="divConteudo">
 
-        #{pgModelosPagina.entidadeSelecionada==null?layoutsPaginas.modeloGeral.xhtmlVinculado:pgModelosPagina.entidadeSelecionada.xhtmlVinculado}
-        <h:panelGroup id="#{paginaAtual.infoPagina.idAreaExbicaoAcaoSelecionada}">
+
+        <CRCModeloPagina:areaModeloPagina
+            rendered="#{pgModelosPagina.entidadeSelecionada!=null}"
+            modelo="#{layoutsPaginas.modeloGeral}" nomeArea="divConteudo"/>
+
+        <h:panelGroup rendered="#{pgModelosPagina.umModeloSubPAgina or (pgModelosPagina.acaoSelecionada eq pgModelosPagina.acaoListarRegistros)}"
+                      layout="block"
+                      id="#{paginaAtual.infoPagina.idAreaExbicaoAcaoSelecionada}">
             <ui:include src="#{paginaAtual.infoPagina.xhtmlAcaoAtual}" />
         </h:panelGroup>
     </ui:define>

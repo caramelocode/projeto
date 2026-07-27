@@ -1,3 +1,4 @@
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:CRCListagem="http://xmlns.jcp.org/jsf/composite/carameloStore/listagem"
@@ -27,7 +28,7 @@
         />
 
     <CRCListagem:listaAcaoUnica
-        acaoExecucao="#{acoesCarameloDev_CrudExemploMbGestao.crudExemploFrmEditar}"
+        acaoExecucao="#{paginaAtual.infoPagina.comoPaginaEntidade.acoesRegistros[0]}"
         itemSelecionado="#{paginaAtual.infoPagina.comoPaginaEntidade.entidadeSelecionada}"
         rendered="#{paginaAtual.infoPagina.comoPaginaEntidade.acoesRegistros.size() lt 2}"
         />

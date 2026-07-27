@@ -7,13 +7,17 @@
     <ui:param name="iconeConteudo" value="#{paginaAtual.infoPagina.comoFormularioWeb.acaoVinculada.iconeAcao}" />
 
     <div class="CardTopic" style="min-height: 100px;padding: 10px">
-
-        <ui:insert name="titulo"/>
+        <h:panelGroup layout="block" styleClass="Container4">
+            <ui:insert name="titulo"/>
+        </h:panelGroup>
         <i class="#{iconeConteudo} Fs30 Fleft MarRight10"></i>
         <br/>
         <div class="quebraBlocoComEspacoVertical10 somenteMobile"></div>
+        <div class="quebraBloco somenteDesktop"></div>
         <span class="CardSubTopic">
-            <ui:insert name="subtitulo" />
+            <h:panelGroup layout="block" styleClass="Container4">
+                <ui:insert name="subtitulo" />
+            </h:panelGroup>
         </span>
         <h:panelGroup styleClass="Fright Container8" layout="block">
             <ui:insert name="conteudoDireita" />

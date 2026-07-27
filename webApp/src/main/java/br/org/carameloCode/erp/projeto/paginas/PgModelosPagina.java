@@ -13,7 +13,6 @@ import com.super_bits.modulosSB.webPaginas.JSFManagedBeans.formularios.reflexao.
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 /**
@@ -33,6 +32,17 @@ public class PgModelosPagina extends MB_paginaCadastroEntidades<ModeloPagina> {
             modelos.add(mod.getRegistro());
         }
         setEntidadesListadas(modelos);
+    }
+
+    public boolean isTemModeloSelcionado() {
+        return getEntidadeSelecionada() != null;
+    }
+
+    public boolean isUmModeloSubPAgina() {
+        if (getEntidadeSelecionada() == null) {
+            return false;
+        }
+        return getEntidadeSelecionada().isUmaSubPagina();
     }
 
 }

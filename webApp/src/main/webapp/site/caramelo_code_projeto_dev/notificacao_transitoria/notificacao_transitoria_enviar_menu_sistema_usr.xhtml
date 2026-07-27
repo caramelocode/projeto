@@ -18,6 +18,8 @@
                 layout="#{layoutsComponenteSB.layoutCampo.esquerda}"
                 idAtualizarOnChange="@this"
                 />
+
+
             <CRCInput:input
                 rendered="#{pgNotificacaoTransiente.entidadeSelecionada!= null}"
                 registro="#{pgNotificacaoTransiente.entidadeSelecionada.getCampoByNomeOuAnotacao('usuarioDestinatario')}"
@@ -27,6 +29,10 @@
             <h:panelGroup  styleClass="Container3" layout="" >
                 <CrcPA:botaoAcaoPersonalizada
                     acao="#{acoesCarameloDev_NotificacaoTransitoriaMbGestao.notificacaoTransitoriaCtrEnviar}"
+                    />
+
+                <CrcPA:botaoAcaoPersonalizada
+                    acao="#{acoesCarameloDev_NotificacaoTransitoriaMbGestao.notificacaoTransitoriaCtrEnviarRespPersonalizada}"
                     />
             </h:panelGroup>
         </h:form>

@@ -29,7 +29,9 @@ public enum FabAcaoProjetoCRCNotificacoes implements ComoFabricaDeAcoesPersisten
     NOTIFICACAO_TRANSITORIA_FRM_ENVIAR_MENU_SISTEMA_USR,
     @InfoTipoAcaoFormulario(icone = "fa fa-comments-o", estadoFormulario = FabEstadoFormulario.NOVO, nomeAcao = "Usuario para Usuário", entidade = ComunicacaoTransientUsrToUsrDev.class)
     NOTIFICACAO_TRANSITORIA_FRM_ENVIAR_MENU_USR_TO_USR,
-    @InfoTipoAcaoController(icone = "fa fa-paper-plane-o", entidade = ComunicacaoTransientDev.class)
-    NOTIFICACAO_TRANSITORIA_CTR_ENVIAR;
+    @InfoTipoAcaoController(icone = "fa fa-paper-plane-o", entidade = ComunicacaoTransientDev.class, nomeAcao = "Enviar meesagem modo normal")
+    NOTIFICACAO_TRANSITORIA_CTR_ENVIAR,
+    @InfoTipoAcaoController(icone = "fa fa-paper-plane-o", entidade = ComunicacaoTransientDev.class, nomeAcao = "Enviar mensagem personalizada")
+    NOTIFICACAO_TRANSITORIA_CTR_ENVIAR_RESP_PERSONALIZADA,
 
 }

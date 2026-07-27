@@ -13,7 +13,7 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta name="mobile-web-app-capable" content="yes" />
             <link rel="manifest" href="#{infoWebApp.urlPagina}/manifest.json"/>
 
 
@@ -43,7 +43,7 @@
         </h:panelGroup>
 
         <div style="margin-top: 80px;border: none;">
-            <h:panelGroup id="#{layoutIdsAreasConhecidas.AREA_CONTEUDO}" layout="block"  >
+            <h:panelGroup id="#{layoutIdsAreasConhecidas.AREA_CONTEUDO}" layout="block" style="display: flow-root; padding-bottom: 6px;"  >
 
                 <ui:insert name="divConteudo" />
                 <ui:insert name="conteudo" />
@@ -64,11 +64,6 @@
                 <h:outputText />
             </f:facet>
         </p:ajaxStatus>
-
-
-
-
-
 
 
         <h:panelGroup rendered="true" >

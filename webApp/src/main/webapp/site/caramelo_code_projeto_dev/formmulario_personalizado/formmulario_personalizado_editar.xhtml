@@ -2,20 +2,57 @@
 <ui:composition
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:CRCModeloPagina="http://xmlns.jcp.org/jsf/composite/carameloStore/modeloPagina"
     xmlns:SBFormulario="http://xmlns.jcp.org/jsf/composite/SBComp/composite/formulario"
     xmlns:SBPaginaAtual="http://xmlns.jcp.org/jsf/composite/SBComp/composite/paginaAtualDeEntidade"
-    template="#{layoutsPaginas.formularioAcaoAtualDaEntidade.xhtmlVinculado}" >
+    template="#{pgModelosPagina.entidadeSelecionada==null?layoutsPaginas.formularioAcaoAtualDaEntidade.xhtmlVinculado:pgModelosPagina.entidadeSelecionada.xhtmlVinculado}" >
     <ui:define name="conteudo">
-        <SBFormulario:camposDaAcao
-            registro="#{paginaAtual.infoPagina.comoPaginaEntidade.entidadeSelecionada}"
-            acao="#{paginaAtual.infoPagina.comoFormularioWeb.acaoSelecionada}"
-            tipoVisualizacaoLabel="#{layoutsComponenteSB.layoutCampo.superior}"
-            somenteLeitura="#{!paginaAtual.infoPagina.comoPaginaEntidade.podeEditar}"
-            />
+        <CRCModeloPagina:areaModeloPagina
+            rendered="#{pgModelosPagina.entidadeSelecionada!=null}"
+            modelo="#{pgModelosPagina.entidadeSelecionada}" nomeArea="conteudo"/>
+
+        #{pgModelosPagina.entidadeSelecionada.xhtmlVinculado}
+
     </ui:define>
     <ui:define name="botoesDeAcao">
+        <CRCModeloPagina:areaModeloPagina
+            rendered="#{pgModelosPagina.entidadeSelecionada!=null}"
+            modelo="#{pgModelosPagina.entidadeSelecionada}" nomeArea="botoesDeAcao"/>
 
-        <SBPaginaAtual:botaoSalvarAlteracoes/>
 
     </ui:define>
+
+
+    <ui:define name="botoesDeAcao">
+        <CRCModeloPagina:areaModeloPagina
+            rendered="#{pgModelosPagina.entidadeSelecionada!=null}"
+            modelo="#{pgModelosPagina.entidadeSelecionada}" nomeArea="botoesDeAcao"/>
+
+
+    </ui:define>
+
+
+
+    <ui:define name="subtitulo">
+        <CRCModeloPagina:areaModeloPagina
+            rendered="#{pgModelosPagina.entidadeSelecionada!=null}"
+            modelo="#{pgModelosPagina.entidadeSelecionada}" nomeArea="subtitulo"/>
+    </ui:define>
+
+    <ui:define name="titulo">
+        <CRCModeloPagina:areaModeloPagina
+            rendered="#{pgModelosPagina.entidadeSelecionada!=null}"
+            modelo="#{pgModelosPagina.entidadeSelecionada}" nomeArea="titulo"/>
+    </ui:define>
+
+
+
+    <ui:define name="conteudoDireita">
+
+        <CRCModeloPagina:areaModeloPagina
+            rendered="#{pgModelosPagina.entidadeSelecionada!=null}"
+            modelo="#{pgModelosPagina.entidadeSelecionada}" nomeArea="conteudoDireita"/>
+    </ui:define>
+
+
 </ui:composition>
