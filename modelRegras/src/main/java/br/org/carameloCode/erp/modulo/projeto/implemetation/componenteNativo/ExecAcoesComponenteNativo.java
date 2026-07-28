@@ -4,6 +4,7 @@
  */
 package br.org.carameloCode.erp.modulo.projeto.implemetation.componenteNativo;
 
+import br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.notificacao.DialogoNotificacao;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.FabAcaoProjetoCRCCarameloFormulario;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.InfoAcaoProjetoCRCFormularios;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
@@ -32,7 +33,10 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroAcessandoCanalComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroDetectandoTelaBloqueio;
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroRegistrandoDialogo;
+import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroSelandoDialogo;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 
 /**
@@ -63,6 +67,7 @@ public class ExecAcoesComponenteNativo extends ControllerAbstratoSBPersistencia 
             public void regraDeNegocio() throws ErroRegraDeNegocio {
                 try {
                     ComoDialogo novacomunicacao = null;
+
                     if (pExemplo instanceof ComunicacaoTransientUsrToUsrDev) {
                         novacomunicacao = new ComunicacaoTransientUsrToUsr(((ComunicacaoTransientUsrToUsrDev) pExemplo).getRemetente(), pExemplo.getUsuarioDestinatario(), FabTipoComunicacao.PERSONALIZADA.getRegistro());
                     } else {
@@ -70,7 +75,9 @@ public class ExecAcoesComponenteNativo extends ControllerAbstratoSBPersistencia 
                     }
                     novacomunicacao.setAssunto(pExemplo.getAssunto());
                     novacomunicacao.setMensagem(pExemplo.getMensagem());
-                    //?Onde colocar a url da mensagem personalizada?
+                    novacomunicacao.setUmaComunicacaoPersonalizada(true);
+                    CarameloCode.getServicoComunicacao().selarComunicacao(novacomunicacao);
+                    novacomunicacao.setUrlRespostaPersonalizada(CarameloCode.getServicoVisualizacao().getEndrRemotoFormulario(FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_FRM_SOLUCIONAR_PERSONALIZADA) + "?codSelo=" + novacomunicacao.getCodigoSelo());
                     String registroDeNotiicacao = CarameloCode.getServicoComunicacao().dispararComunicacao(novacomunicacao, ERPTipoCanalComunicacao.INTRANET_MENU);
                     if (registroDeNotiicacao == null) {
                         throw new ErroRegraDeNegocio("Falha registrando comunicação");
@@ -78,6 +85,8 @@ public class ExecAcoesComponenteNativo extends ControllerAbstratoSBPersistencia 
 
                 } catch (ErroAcessandoCanalComunicacao ex) {
                     SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha registrando comunicação ", ex);
+                } catch (ErroSelandoDialogo ex) {
+                    throw new ErroRegraDeNegocio("Erro selando comunicação");
                 }
             }
         }.getResposta();

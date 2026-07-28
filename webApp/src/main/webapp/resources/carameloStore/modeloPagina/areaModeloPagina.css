@@ -5,7 +5,6 @@
    à área de um template de página, com o nome da área centralizado.
    Classe pai: .AreaDoModelo
    ============================================================ */
-
 .AreaDoModelo {
     /* Medidas — ajuste fino em um lugar só.
        As cores vêm dos modificadores --geral / --subpagina abaixo. */

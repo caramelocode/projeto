@@ -98,24 +98,44 @@
                             <div class="crc-messages-list">
                                 <c:forEach items="#{sessaoAtualSBWP.mensagensEntreUsuariosAguardandoMinhaResposta}" var="mensagem">
                                     <h:form>
-                                        <p:commandLink  onclick="responderConversa('#{mensagem.codigoSelo}')">
-                                            <div class="crc-message-item">
+                                        <div class="crc-message-item">
+                                            <p:commandLink styleClass="crc-message-link"
+                                                           onclick="responderConversa('#{mensagem.codigoSelo}')">
                                                 <img src="#{mensagem.usuarioRemetente.imgPequena}" style="width: 40px;" alt="#{mensagem.usuarioRemetente.nome}" class="crc-message-avatar" />
                                                 <div class="crc-message-content">
                                                     <div class="crc-message-name">#{mensagem.usuarioRemetente.nome} </div>
                                                     <div class="crc-message-text">#{mensagem.assunto}</div>
                                                     <small class="crc-message-time">#{pgUtilDataHoraFormato.getDataHoraSimplificado(mensagem.dataHoraDisparo)}</small>
                                                 </div>
+                                            </p:commandLink>
 
+                                            <div class="crc-message-actions">
+                                                <c:forEach items="#{mensagem.repostasPossiveis}" var="resp">
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-outline-secondary"
+                                                            title="#{resp.tipoResposta.nome}"
+                                                            onclick="responderConversaRespostaRapida('#{mensagem.codigoSelo}', #{resp.tipoResposta.id})">
+                                                        <i class="#{resp.tipoResposta.icone}"></i>
+                                                    </button>
+                                                </c:forEach>
                                             </div>
-                                        </p:commandLink>
+                                        </div>
                                     </h:form>
                                 </c:forEach>
+
+                                <h:panelGroup layout="block"
+                                              rendered="#{sessaoAtualSBWP.mensagensEntreUsuariosAguardandoMinhaResposta.isEmpty()}">
+                                    <div class="crc-message-item">
+                                        <div class="crc-message-content">
+                                            <div class="crc-message-empty">Nenhuma mensagem no momento.</div>
+                                        </div>
+                                    </div>
+                                </h:panelGroup>
 
                             </div>
 
                             <div class="crc-messages-footer">
-                                <a href="#" class="crc-view-all-messages">Ver Todas as Mensagens</a>
+                                <a href="#{pgUtilAcoes.getUrlAcao(acoesAdminTools_NotificacaoMbGestao.notificacaoFrmListar)}" class="crc-view-all-messages">Ver Todas as Mensagens</a>
                             </div>
                         </div>
                     </div>
@@ -186,6 +206,7 @@
                             </div>
 
                             <div class="crc-notification-footer">
+                                <a href="#{pgUtilAcoes.getUrlAcao(acoesAdminTools_NotificacaoMbGestao.notificacaoFrmListar)}" class="crc-view-all-messages">Ver Todas as Mensagens</a>
                                 <h:form>
                                     <p:commandLink styleClass="crc-view-all"
                                                    oncomplete="removerNotificacoes();"
@@ -245,19 +266,38 @@
                                 <div class="crc-messages-list">
                                     <c:forEach items="#{sessaoAtualSBWP.mensagensEntreUsuariosAguardandoMinhaResposta}" var="mensagem">
 
-                                        <p:link  href="#" onclick="responderConversa('#{mensagem.codigoSelo}')">
-                                            <div class="crc-message-item">
+                                        <div class="crc-message-item">
+                                            <p:link href="#" styleClass="crc-message-link"
+                                                    onclick="responderConversa('#{mensagem.codigoSelo}')">
                                                 <img src="#{mensagem.usuarioRemetente.imgPequena}" style="width: 40px;" alt="#{mensagem.usuarioRemetente.nome}" class="crc-message-avatar" />
                                                 <div class="crc-message-content">
                                                     <div class="crc-message-name">#{mensagem.usuarioRemetente.nome}</div>
                                                     <div class="crc-message-text">#{mensagem.assunto}</div>
                                                     <small class="crc-message-time">#{pgUtilDataHoraFormato.getDataHoraSimplificado(mensagem.dataHoraDisparo)}</small>
                                                 </div>
+                                            </p:link>
 
+                                            <div class="crc-message-actions">
+                                                <c:forEach items="#{mensagem.repostasPossiveis}" var="resp">
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-outline-secondary"
+                                                            title="#{resp.tipoResposta.nome}"
+                                                            onclick="responderConversaRespostaRapida('#{mensagem.codigoSelo}', #{resp.tipoResposta.id})">
+                                                        <i class="#{resp.tipoResposta.icone}"></i>
+                                                    </button>
+                                                </c:forEach>
                                             </div>
-                                        </p:link>
+                                        </div>
                                     </c:forEach>
 
+                                    <h:panelGroup layout="block"
+                                                  rendered="#{sessaoAtualSBWP.mensagensEntreUsuariosAguardandoMinhaResposta.isEmpty()}">
+                                        <div class="crc-message-item">
+                                            <div class="crc-message-content">
+                                                <div class="crc-message-empty">Nenhuma mensagem no momento.</div>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
 
                                 </div>
 
@@ -331,6 +371,7 @@
                                 </div>
 
                                 <div class="crc-notification-footer">
+                                    <a href="#{pgUtilAcoes.getUrlAcao(acoesAdminTools_NotificacaoMbGestao.notificacaoFrmListar)}" class="crc-view-all-messages">Ver Todas as Mensagens</a>
                                     <h:form>
                                         <p:commandLink styleClass="crc-view-all"
                                                        oncomplete="removerNotificacoes();"

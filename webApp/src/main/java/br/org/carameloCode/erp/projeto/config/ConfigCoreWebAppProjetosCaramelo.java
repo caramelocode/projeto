@@ -56,7 +56,9 @@ public class ConfigCoreWebAppProjetosCaramelo extends ConfiguradorCoreDeProjetoW
             FabAcaoProjetoCRCRequisito.class,
             FabAcaoNotificacaoPadraoSB.class,
             FabAcaoProjetoCRCNotificacoes.class,
-            FabAcaoProjetoCRCCarameloFormulario.class});
+            FabAcaoProjetoCRCCarameloFormulario.class
+
+        });
 
     }
 

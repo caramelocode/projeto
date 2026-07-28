@@ -33,5 +33,9 @@ public enum FabAcaoProjetoCRCNotificacoes implements ComoFabricaDeAcoesPersisten
     NOTIFICACAO_TRANSITORIA_CTR_ENVIAR,
     @InfoTipoAcaoController(icone = "fa fa-paper-plane-o", entidade = ComunicacaoTransientDev.class, nomeAcao = "Enviar mensagem personalizada")
     NOTIFICACAO_TRANSITORIA_CTR_ENVIAR_RESP_PERSONALIZADA,
+    @InfoTipoAcaoFormulario(icone = "fa fa-paper-plane-o", entidade = ComunicacaoTransientDev.class, nomeAcao = "Responder questão personalizada")
+    NOTIFICACAO_TRANSITORIA_FRM_SOLUCIONAR_PERSONALIZADA,
+    @InfoTipoAcaoController(icone = "fa fa-paper-plane-o", entidade = ComunicacaoTransientDev.class, nomeAcao = "Enviar resposta personalizada")
+    NOTIFICACAO_TRANSITORIA_CTR_RESPONDER_PERSONALIZADA;
 
 }

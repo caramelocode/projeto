@@ -48,4 +48,14 @@ public class AcoesCarameloDev_NotificacaoTransitoriaMbGestao
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
 				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_ENVIAR_RESP_PERSONALIZADA");
 	}
+
+	public ItfAcaoFormularioEntidade getNotificacaoTransitoriaFrmSolucionarPersonalizada() {
+		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_FRM_SOLUCIONAR_PERSONALIZADA");
+	}
+
+	public ComoAcaoControllerEntidade getNotificacaoTransitoriaCtrResponderPersonalizada() {
+		return (ComoAcaoControllerEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_RESPONDER_PERSONALIZADA");
+	}
 }

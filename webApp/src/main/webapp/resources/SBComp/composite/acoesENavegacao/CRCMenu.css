@@ -673,10 +673,60 @@ body {
     font-size: 0.8rem;
 }
 
+/* Estado vazio da lista de mensagens */
+.crc-message-empty {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
 .crc-message-star {
     font-size: 1.1rem;
     margin-left: 8px;
     align-self: center;
+}
+
+/* Link que envolve o conteúdo da mensagem (p:commandLink / p:link) */
+.crc-message-link {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.crc-message-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Botões de resposta rápida da mensagem (gerados dinamicamente) */
+.crc-message-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.crc-message-actions button {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.crc-message-actions button:hover {
+    transform: scale(1.1);
 }
 
 /* Rodapé */
@@ -804,6 +854,16 @@ body {
     text-align: center;
     border-top: 1px solid #eee;
     background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+/* O h:form do "Remover notificações" não deve empurrar o layout do rodapé */
+.crc-notification-footer form {
+    margin: 0;
 }
 
 .crc-notification-footer a,
