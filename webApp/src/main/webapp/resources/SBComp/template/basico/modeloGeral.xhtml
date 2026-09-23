@@ -42,7 +42,7 @@
             <p:growl class="mensagemGrowl"  widgetVar="#{layoutIdsAreasConhecidas.AREA_MENSAGEM_INTERFACE}" />
         </h:panelGroup>
 
-        <div style="margin-top: 80px;border: none;">
+        <div style="margin-top: var(--altura-topbar, 80px);border: none;">
             <h:panelGroup id="#{layoutIdsAreasConhecidas.AREA_CONTEUDO}" layout="block" style="display: flow-root; padding-bottom: 6px;"  >
 
                 <ui:insert name="divConteudo" />

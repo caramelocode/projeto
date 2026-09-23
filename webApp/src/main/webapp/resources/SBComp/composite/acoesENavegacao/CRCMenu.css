@@ -1,3 +1,9 @@
+:root {
+    --altura-topbar: 80px;
+}
+
+
+
 body {
     margin: 0;
     background: #f4f6f9;
@@ -1050,4 +1056,9 @@ body {
     animation-duration: 1.5s;
     animation-iteration-count: 2;
     animation-fill-mode: both;
+}
+
+.crc-topbar {
+    height: var(--altura-topbar);
+    box-sizing: border-box;
 }

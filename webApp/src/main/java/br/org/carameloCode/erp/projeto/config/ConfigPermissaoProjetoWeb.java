@@ -13,6 +13,7 @@ import com.super_bits.modulos.SBAcessosModel.controller.FabMenuAdmin;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.modulos.erp.FabTipoAgenteOrganizacao;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioAnonimo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoUsuario;
@@ -25,7 +26,8 @@ import org.coletivojava.fw.api.objetoNativo.view.menu.MenusDaSessao;
  *
  * @author sfurbino
  */
-public class ConfigPermissaoProjetoWeb extends ConfigPermissoesAcessosModel {
+public class ConfigPermissaoProjetoWeb
+        extends ConfigPermissoesAcessosModel {
 
     public ConfigPermissaoProjetoWeb() {
         super(new Class[]{ExecAcoesComponenteNativo.class, ModuloNotificacao.class});
@@ -49,12 +51,20 @@ public class ConfigPermissaoProjetoWeb extends ConfigPermissoesAcessosModel {
             return new MenusDaSessao(menuPrincipal, menusec);
 
         }
-        return super.definirMenu(pGrupo); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        return super.definirMenu(pGrupo);
     }
 
     @Override
     public FabTipoAgenteOrganizacao getTipoAgente(ComoUsuario pUsuario) {
         return FabTipoAgenteOrganizacao.FORNECEDOR;
+    }
+
+    @Override
+    public ComoUsuario gerarUsuarioConvidado(String pNome, String pTelefone) {
+        UsuarioAnonimo usr = new UsuarioAnonimo();
+        usr.setNome(pNome);
+        usr.setComplemento("Tel " + pTelefone);
+        return usr;
     }
 
 }

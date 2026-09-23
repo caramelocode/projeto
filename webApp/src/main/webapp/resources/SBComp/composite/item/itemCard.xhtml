@@ -57,7 +57,7 @@
         </h:panelGroup>
 
         <h:panelGroup rendered="#{servicoVisualizacaoComponente.visualizarEstiloNomeSimples(cc.attrs.objetoSimples)}" styleClass="statusText Fs16"  >
-            #{servicoVisualizacaoComponente.getEntidadeSimplesNome(cc.attrs.objetoSimples)}
+            #{servicoVisualizacaoComponente.getEntidadeSimplesNome(cc.attrs.objetoSimples)} #{cc.attrs.objetoSimples.nome}
         </h:panelGroup>
 
 
