@@ -17,6 +17,7 @@ OS SEGUINTES ERROS DE CONFIGURAÇÃO FORAM ENCONTRADOS NO SISTEMA:
 ->O arquivo font-awesome.css não foi encontrado no sistema
 ->O arquivo font-awesome.css não foi encontrado no sistema
 ->O arquivo font-awesome.css não foi encontrado no sistema
+->O ícone  da ação FabAcaoNotificacaoPadraoSB.TIPO_NOTIFICACAO_CTR_RESTAURAR_CONFIGURACAO_DE_FABRICAfa-solid fa-rotate-left deveria começar com [fa ] (Para os fontawsome) ou [icon] (para os icones nativos)
 ->O arquivo font-awesome.css não foi encontrado no sistema
 ->O arquivo font-awesome.css não foi encontrado no sistema
 ->O arquivo font-awesome.css não foi encontrado no sistema
@@ -66,6 +67,7 @@ OS SEGUINTES ERROS DE CONFIGURAÇÃO FORAM ENCONTRADOS NO SISTEMA:
 ->O arquivo font-awesome.css não foi encontrado no sistema
 ->O arquivo font-awesome.css não foi encontrado no sistema
 ->O arquivo font-awesome.css não foi encontrado no sistema
+->O ícone  da ação FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_ADICIONAR_NOTIFICACAO_CHAT_ALEATORIAfa-solid fa-comment-medical deveria começar com [fa ] (Para os fontawsome) ou [icon] (para os icones nativos)
 ->O arquivo font-awesome.css não foi encontrado no sistema
 ->O arquivo font-awesome.css não foi encontrado no sistema
 ->O arquivo font-awesome.css não foi encontrado no sistema

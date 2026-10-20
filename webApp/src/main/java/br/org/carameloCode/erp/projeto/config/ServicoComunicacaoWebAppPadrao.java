@@ -2,11 +2,16 @@ package br.org.carameloCode.erp.projeto.config;
 
 import com.super_bits.modulosSB.webPaginas.push.NotificadorIntranetJSF;
 import br.org.carameloCode.erp.modulo.notificacao.controller.ServicoNotificacaoComPersistencia;
+import br.org.coletivoJava.fw.erp.implementacao.chat.atendente.EscutaAtendenteMatrixAbst;
+import br.org.coletivoJava.fw.erp.implementacao.chat.atendente.RepositorioJanelasChatAtendimento;
+import br.org.coletivoJava.fw.erp.implementacao.chat.atendente.janelaChat.GestaoNotificacaoJanelaChat;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComoDialogo;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfTipoCanalComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.chat.NotificacaoUsuarioJanelaChat;
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ComoServicoComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroDetectandoTelaBloqueio;
 import javax.swing.JOptionPane;
@@ -62,6 +67,17 @@ public class ServicoComunicacaoWebAppPadrao extends
     @Override
     public String getTokenDispositivoNotificacao(ComoUsuario pUsuario) {
         return null;
+    }
+
+    @Override
+    public NotificacaoUsuarioJanelaChat gerarGestaoNotificacaoChat(String pEmailAtendimento) {
+        if (CarameloCode.getServicoSessao().getSessaoAtual().isIdentificado()) {
+            return new GestaoNotificacaoJanelaChat((ComoUsuario) CarameloCode.getServicoSessao().getSessaoAtual().getUsuario(),
+                    RepositorioJanelasChatAtendimento.getServico().getServicoUrlCliente().getUrlChatBaseUsuario(CarameloCode.getServicoPermissao().getUsuarioByEmail(pEmailAtendimento)));
+
+        } else {
+            return null;
+        }
     }
 
 }

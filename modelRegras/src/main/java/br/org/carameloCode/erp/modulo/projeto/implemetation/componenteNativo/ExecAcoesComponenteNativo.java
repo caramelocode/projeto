@@ -4,7 +4,6 @@
  */
 package br.org.carameloCode.erp.modulo.projeto.implemetation.componenteNativo;
 
-import br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.notificacao.DialogoNotificacao;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.FabAcaoProjetoCRCCarameloFormulario;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.InfoAcaoProjetoCRCFormularios;
 import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
@@ -15,12 +14,16 @@ import br.org.carameloCode.erp.modulo.projeto.entidadeTransient.ComunicacaoTrans
 import br.org.carameloCode.erp.modulo.projeto.entidadeTransient.ComunicacaoTransientUsrToUsrDev;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.ExemploComponente;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.entidadeExemplo.EntdExemplo;
+import br.org.coletivoJava.fw.erp.implementacao.chat.atendente.AtualizacaoSalaAtendente;
+import br.org.coletivoJava.fw.erp.implementacao.chat.atendente.FabTipoAtualizacaoSalaAtendente;
+import br.org.coletivoJava.fw.erp.implementacao.chat.atendente.JanelaChatSessaoUpdate;
 import com.super_bits.modulos.SBAcessosModel.controller.resposta.RespostaComGestaoEMRegraDeNegocioPadrao;
 import com.super_bits.modulosSB.Persistencia.dao.ControllerAbstratoSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.ErroEmBancoDeDados;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCNumeros;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroRegraDeNegocio;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoTransient;
@@ -30,13 +33,13 @@ import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComoDialogo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioAplicacaoEmExecucao;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.chat.ComoJanelaChat;
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroAcessandoCanalComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroDetectandoTelaBloqueio;
-import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroRegistrandoDialogo;
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroSelandoDialogo;
+import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Optional;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 
 /**
@@ -87,6 +90,47 @@ public class ExecAcoesComponenteNativo extends ControllerAbstratoSBPersistencia 
                     SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha registrando comunicação ", ex);
                 } catch (ErroSelandoDialogo ex) {
                     throw new ErroRegraDeNegocio("Erro selando comunicação");
+                }
+            }
+        }.getResposta();
+
+    }
+
+    @InfoAcaoProjetoCRCNotificacoes(acao = FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_ADICIONAR_NOTIFICACAO_CHAT_ALEATORIA)
+    public static ItfRespostaAcaoDoSistema notificacaoTransitoriaNotificacaoChat(ComunicacaoTransientDev pExemplo) {
+
+        return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaResposta(ExemploComponente.class), null) {
+            @Override
+            public void regraDeNegocio() throws ErroRegraDeNegocio {
+                try {
+
+                    int codigoSAla = UtilCRCNumeros.getNumeroRandomico(1, 3);
+                    AtualizacaoSalaAtendente atualizaca = new AtualizacaoSalaAtendente(
+                            FabTipoAtualizacaoSalaAtendente.NOVA_INTERACAO,
+                            pExemplo.getNome() + "codigoUsurMatrixExemplo",
+                            "codigoSala" + codigoSAla,
+                            "apelidosala" + codigoSAla,
+                            "nomeSala " + codigoSAla,
+                            "codigoRementente" + pExemplo.getNome(),
+                            pExemplo.getUsuarioDestinatario().getNome(),
+                            pExemplo.getMensagem(),
+                            String.valueOf(UtilCRCNumeros.getNumeroRandomico(1, 1000)),
+                            new Date().getTime(),
+                            1
+                    );
+                    Optional<ComoJanelaChat> janela = CarameloCode.getServicoSessao().getSessaoAtual().getNotificacoesJanelasChat().getJanelas().stream().filter(cod -> cod.getCodigoSala().equals("codigoSala" + codigoSAla)).findFirst();
+                    if (janela.isPresent()) {
+                        JanelaChatSessaoUpdate janelaExistente = (JanelaChatSessaoUpdate) janela.get();
+                        janelaExistente.incluirNovaAtualizacao(atualizaca);
+
+                    } else {
+                        JanelaChatSessaoUpdate novaSala = new JanelaChatSessaoUpdate(atualizaca);
+                        CarameloCode.getServicoSessao().getSessaoAtual().getNotificacoesJanelasChat().getJanelas().add(novaSala);
+
+                    }
+                    CarameloCode.getServicoSessao().getSessaoAtual().getNotificacoesJanelasChat().atualizarNotificacoes();
+                } catch (Throwable ex) {
+                    throw new ErroRegraDeNegocio("Falha criando mensagem sala simulação");
                 }
             }
         }.getResposta();

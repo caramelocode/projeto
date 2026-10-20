@@ -1,0 +1,125 @@
+<ui:composition
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:cc="http://java.sun.com/jsf/composite"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <cc:interface>
+
+    </cc:interface>
+
+    <!-- IMPLEMENTATION br.org.coletivoJava.fw.erp.implementacao.chat.atendente.JanelaChatSessaoUpdate -->
+    <cc:implementation>
+        <h:outputStylesheet name="composite/chat/chat.css" library="SBComp" />
+        <h:outputScript  name="composite/chat/chat.js" library="SBComp" target="head"  />
+
+        <!-- Raiz do componente: é a área atualizada pelo push (volta sempre como estadoMinimizado; o chat.js reaplica o estado guardado em memória) -->
+        <h:panelGroup id="compJanelasNotificacao" styleClass="crc-comp-janela-chat-notificacoes estadoMinimizado" layout="block">
+
+            <!-- Notificações: a lista pode chegar vazia após o push -->
+            <h:panelGroup id="notificacoesSalaChat" styleClass="notificacoesSalaChat" layout="block">
+                <h:panelGroup  layout="block" styleClass="conteudoNotificacoes" rendered="#{not empty sessaoAtualSBWP.notificacoesJanelasChat.janelas}">
+
+                    <!-- Botão flutuante exibido quando minimizado -->
+                    <button type="button" class="lancadorNotificacoes" title="Abrir notificações de chat">
+                        <i class="fa-solid fa-comments"></i>
+                        <span class="badgeNotificacoes">#{sessaoAtualSBWP.notificacoesJanelasChat.totalNotificacoes}</span>
+                    </button>
+
+                    <!-- Janela exibida quando maximizado -->
+                    <h:panelGroup layout="block" styleClass="janelaNotificacoesChat" >
+
+                        <h:panelGroup layout="block" styleClass="janelaChatCabecalhoNotificacoes" >
+                            <span class="tituloCabecalhoNotificacoes">
+                                <i class="fa-solid fa-comments"></i>
+                                #{sessaoAtualSBWP.notificacoesJanelasChat.totalNotificacoes} interações em Salas que você faz parte
+                            </span>
+                            <button type="button" class="botaoMinimizarNotificacoes" title="Minimizar">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                        </h:panelGroup>
+
+                        <!-- Sanfona: uma sala aberta por vez -->
+                        <h:panelGroup layout="block" styleClass="janelasNotificacoes"  >
+                            <ui:repeat value="#{sessaoAtualSBWP.notificacoesJanelasChat.janelas}" var="janela" varStatus="s">
+                                <h:panelGroup layout="block" styleClass="JanelaSala janelaNaoSelecionada"
+                                              pt:data-chave="#{janela.linkSala}"
+                                              pt:data-link="#{janela.linkSala}"
+                                              pt:data-titulo="#{janela.aliasSala}" >
+
+                                    <h:panelGroup layout="block" styleClass="cabecalhoJanela"  >
+                                        <span class="nomeSala">#{janela.aliasSala}</span>
+                                        <span class="badgeSala">#{janela.quantidadeNotificacoes}</span>
+                                        <i class="fa-solid fa-chevron-down iconeSanfona"></i>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup layout="block" styleClass="detalhesJanela" >
+
+                                        <h:panelGroup layout="block" styleClass="remetenteJanela" >
+
+                                            <!-- Imagem do usuário via Gravatar (hash calculado no chat.js) -->
+                                            <h:panelGroup layout="block" styleClass="avatarRemetente" rendered="#{not empty janela.emailRemetente}" >
+                                                <i class="fa-solid fa-circle-user iconeAvatarPadrao"></i>
+                                                <img class="imagemGravatar" alt="" data-email="#{janela.emailRemetente}" />
+                                            </h:panelGroup>
+
+                                            <!-- Sem e-mail: telefone com link para WhatsApp (href montado no chat.js) -->
+                                            <h:panelGroup layout="block" styleClass="avatarRemetente" rendered="#{empty janela.emailRemetente and not empty janela.telefoneRemetente}" >
+                                                <i class="fa-brands fa-whatsapp iconeWhatsapp"></i>
+                                            </h:panelGroup>
+
+                                            <h:panelGroup layout="block" styleClass="identificacaoRemetente" >
+                                                <span class="nomeRemetente">#{janela.nomeRemetente}</span>
+                                                <span class="dataUltimaMensagem">#{pgUtilDataHoraFormato.getDataHoraSimplificado(janela.dataHoraUltimaMensagem)}</span>
+                                                <h:panelGroup rendered="#{empty janela.emailRemetente and not empty janela.telefoneRemetente}" >
+                                                    <a class="linkWhatsapp" target="_blank" rel="noopener" data-telefone="#{janela.telefoneRemetente}">
+                                                        #{janela.telefoneRemetente}
+                                                    </a>
+                                                </h:panelGroup>
+                                            </h:panelGroup>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup layout="block" styleClass="ultimaMensagem" >
+                                            #{janela.textoUltimaMensagem}
+                                        </h:panelGroup>
+
+                                        <h:panelGroup layout="block" styleClass="acoesJanela" >
+                                            <button type="button" class="botaoAcaoJanela botaoAbrirModal" title="Abrir a sala aqui">
+                                                <i class="fa-solid fa-window-maximize"></i> Abrir
+                                            </button>
+                                            <button type="button" class="botaoAcaoJanela botaoNovaJanela" title="Abrir a sala em nova janela">
+                                                <i class="fa-solid fa-up-right-from-square"></i> Nova janela
+                                            </button>
+                                        </h:panelGroup>
+
+                                    </h:panelGroup>
+
+                                </h:panelGroup>
+                            </ui:repeat>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+            <!-- Modelo do modal da sala: não é exibido aqui; o chat.js clona uma única vez para o body,
+                 assim o modal aberto sobrevive ao push mesmo que a lista de janelas fique vazia -->
+            <template class="modeloModalSalaChat">
+                <div class="modalSalaChat">
+                    <div class="modalSalaChatConteudo">
+                        <div class="modalSalaChatCabecalho">
+                            <span class="modalSalaChatTitulo"></span>
+                            <button type="button" class="botaoFecharModalSala" title="Fechar" aria-label="Fechar">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <iframe class="modalSalaChatFrame" title="Sala de chat"></iframe>
+                    </div>
+                </div>
+            </template>
+
+        </h:panelGroup>
+
+    </cc:implementation>
+
+</ui:composition>

@@ -82,4 +82,9 @@ public class ConfigPermissaoProjetoCRC extends ConfigPermissoesAcessoModelAbstra
 
     }
 
+    @Override
+    public ComoUsuario gerarUsuarioConvidado(String pNome, String pTelefone) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

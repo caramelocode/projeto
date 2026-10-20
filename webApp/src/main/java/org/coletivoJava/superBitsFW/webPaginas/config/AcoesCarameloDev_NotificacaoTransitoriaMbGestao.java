@@ -58,4 +58,9 @@ public class AcoesCarameloDev_NotificacaoTransitoriaMbGestao
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
 				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_RESPONDER_PERSONALIZADA");
 	}
+
+	public ComoAcaoControllerEntidade getNotificacaoTransitoriaCtrAdicionarNotificacaoChatAleatoria() {
+		return (ComoAcaoControllerEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_ADICIONAR_NOTIFICACAO_CHAT_ALEATORIA");
+	}
 }

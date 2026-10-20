@@ -1,0 +1,368 @@
+/* Componente janelasNotificacao — notificações de salas de chat */
+
+.crc-comp-janela-chat-notificacoes {
+    --crc-chat-cor-primaria: #2563eb;
+    --crc-chat-cor-primaria-escura: #1d4ed8;
+    --crc-chat-cor-badge: #dc2626;
+    --crc-chat-cor-borda: #e5e7eb;
+    --crc-chat-cor-fundo-item: #f9fafb;
+    --crc-chat-cor-texto-secundario: #6b7280;
+}
+
+/* Janela e lançador ficam fixos no canto inferior direito */
+.crc-comp-janela-chat-notificacoes .conteudoNotificacoes {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 1100;
+}
+
+/* ---------- Estados ---------- */
+.crc-comp-janela-chat-notificacoes.estadoMinimizado .janelaNotificacoesChat {
+    display: none;
+}
+
+.crc-comp-janela-chat-notificacoes.estadoMaximizado .lancadorNotificacoes {
+    display: none;
+}
+
+/* ---------- Lançador (minimizado) ---------- */
+.crc-comp-janela-chat-notificacoes .lancadorNotificacoes {
+    position: relative;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: none;
+    border-radius: 50%;
+    background: var(--crc-chat-cor-primaria);
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.crc-comp-janela-chat-notificacoes .lancadorNotificacoes:hover {
+    background: var(--crc-chat-cor-primaria-escura);
+    transform: scale(1.06);
+}
+
+.crc-comp-janela-chat-notificacoes .badgeNotificacoes {
+    position: absolute;
+    top: -0.2rem;
+    right: -0.2rem;
+    min-width: 1.4rem;
+    height: 1.4rem;
+    padding: 0 0.35rem;
+    border-radius: 0.7rem;
+    background: var(--crc-chat-cor-badge);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.4rem;
+    text-align: center;
+}
+
+/* ---------- Janela (maximizado) ---------- */
+.crc-comp-janela-chat-notificacoes .janelaNotificacoesChat {
+    display: flex;
+    flex-direction: column;
+    width: 22rem;
+    max-width: calc(100vw - 2rem);
+    max-height: 70vh;
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    animation: crcChatSurgir 0.2s ease-out;
+}
+
+@keyframes crcChatSurgir {
+    from { opacity: 0; transform: translateY(1rem); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.crc-comp-janela-chat-notificacoes .janelaChatCabecalhoNotificacoes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.65rem 0.8rem;
+    background: var(--crc-chat-cor-primaria);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.crc-comp-janela-chat-notificacoes .tituloCabecalhoNotificacoes i {
+    margin-right: 0.35rem;
+}
+
+.crc-comp-janela-chat-notificacoes .botaoMinimizarNotificacoes {
+    flex-shrink: 0;
+    width: 1.8rem;
+    height: 1.8rem;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+}
+
+.crc-comp-janela-chat-notificacoes .botaoMinimizarNotificacoes:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ---------- Sanfona ---------- */
+.crc-comp-janela-chat-notificacoes .janelasNotificacoes {
+    overflow-y: auto;
+}
+
+.crc-comp-janela-chat-notificacoes .JanelaSala {
+    border-bottom: 1px solid var(--crc-chat-cor-borda);
+}
+
+.crc-comp-janela-chat-notificacoes .cabecalhoJanela {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.8rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.crc-comp-janela-chat-notificacoes .cabecalhoJanela:hover {
+    background: var(--crc-chat-cor-fundo-item);
+}
+
+.crc-comp-janela-chat-notificacoes .nomeSala {
+    flex: 1;
+    overflow: hidden;
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.crc-comp-janela-chat-notificacoes .badgeSala {
+    min-width: 1.3rem;
+    padding: 0 0.4rem;
+    border-radius: 0.65rem;
+    background: var(--crc-chat-cor-badge);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1.3rem;
+    text-align: center;
+}
+
+.crc-comp-janela-chat-notificacoes .iconeSanfona {
+    color: var(--crc-chat-cor-texto-secundario);
+    transition: transform 0.2s ease;
+}
+
+.crc-comp-janela-chat-notificacoes .janelaSelecionada .iconeSanfona {
+    transform: rotate(180deg);
+}
+
+.crc-comp-janela-chat-notificacoes .detalhesJanela {
+    display: none;
+    padding: 0.2rem 0.8rem 0.8rem;
+    background: var(--crc-chat-cor-fundo-item);
+}
+
+.crc-comp-janela-chat-notificacoes .janelaSelecionada .detalhesJanela {
+    display: block;
+}
+
+.crc-comp-janela-chat-notificacoes .janelaSelecionada .cabecalhoJanela {
+    background: var(--crc-chat-cor-fundo-item);
+}
+
+/* ---------- Detalhes da sala ---------- */
+.crc-comp-janela-chat-notificacoes .remetenteJanela {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-top: 0.5rem;
+}
+
+.crc-comp-janela-chat-notificacoes .avatarRemetente {
+    position: relative;
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+}
+
+.crc-comp-janela-chat-notificacoes .iconeAvatarPadrao {
+    color: #9ca3af;
+}
+
+.crc-comp-janela-chat-notificacoes .iconeWhatsapp {
+    color: #25d366;
+}
+
+/* Imagem do Gravatar só aparece depois de carregada (classe aplicada no chat.js) */
+.crc-comp-janela-chat-notificacoes .imagemGravatar {
+    display: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.crc-comp-janela-chat-notificacoes .imagemGravatar.gravatarCarregado {
+    display: block;
+}
+
+.crc-comp-janela-chat-notificacoes .identificacaoRemetente {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.crc-comp-janela-chat-notificacoes .nomeRemetente {
+    overflow: hidden;
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.crc-comp-janela-chat-notificacoes .dataUltimaMensagem {
+    color: var(--crc-chat-cor-texto-secundario);
+    font-size: 0.75rem;
+}
+
+.crc-comp-janela-chat-notificacoes .linkWhatsapp {
+    color: #128c7e;
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.crc-comp-janela-chat-notificacoes .linkWhatsapp:hover {
+    text-decoration: underline;
+}
+
+.crc-comp-janela-chat-notificacoes .ultimaMensagem {
+    display: -webkit-box;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.65rem;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    background: #fff;
+    border: 1px solid var(--crc-chat-cor-borda);
+    font-size: 0.85rem;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.crc-comp-janela-chat-notificacoes .acoesJanela {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+}
+
+.crc-comp-janela-chat-notificacoes .botaoAcaoJanela {
+    flex: 1;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--crc-chat-cor-primaria);
+    border-radius: 0.4rem;
+    background: #fff;
+    color: var(--crc-chat-cor-primaria);
+    font-size: 0.82rem;
+    cursor: pointer;
+}
+
+.crc-comp-janela-chat-notificacoes .botaoAcaoJanela:hover,
+.crc-comp-janela-chat-notificacoes .botaoAbrirModal {
+    background: var(--crc-chat-cor-primaria);
+    color: #fff;
+}
+
+.crc-comp-janela-chat-notificacoes .botaoAbrirModal:hover {
+    background: var(--crc-chat-cor-primaria-escura);
+}
+
+/* ---------- Modal da sala ---------- */
+/* Portal no body (criado pelo script do XHTML): só hospeda o modal, sem ocupar espaço no layout */
+.crc-comp-janela-chat-notificacoes.portalModalSalaChat {
+    display: contents;
+}
+
+.crc-comp-janela-chat-notificacoes .modalSalaChat {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.crc-comp-janela-chat-notificacoes .modalSalaChat.modalSalaChatAberto {
+    display: flex;
+}
+
+.crc-comp-janela-chat-notificacoes .modalSalaChatConteudo {
+    display: flex;
+    flex-direction: column;
+    width: min(60rem, 95vw);
+    height: 85vh;
+    background: #fff;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+}
+
+.crc-comp-janela-chat-notificacoes .modalSalaChatCabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.9rem;
+    background: var(--crc-chat-cor-primaria);
+    color: #fff;
+    font-weight: 600;
+}
+
+.crc-comp-janela-chat-notificacoes .botaoFecharModalSala {
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.crc-comp-janela-chat-notificacoes .botaoFecharModalSala:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.crc-comp-janela-chat-notificacoes .modalSalaChatFrame {
+    flex: 1;
+    width: 100%;
+    border: none;
+}
+
+/* ---------- Telas pequenas ---------- */
+@media (max-width: 576px) {
+    .crc-comp-janela-chat-notificacoes .conteudoNotificacoes {
+        right: 0.5rem;
+        bottom: 0.5rem;
+    }
+
+    .crc-comp-janela-chat-notificacoes .janelaNotificacoesChat {
+        width: calc(100vw - 1rem);
+        max-width: calc(100vw - 1rem);
+    }
+
+    .crc-comp-janela-chat-notificacoes .modalSalaChatConteudo {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+    }
+}

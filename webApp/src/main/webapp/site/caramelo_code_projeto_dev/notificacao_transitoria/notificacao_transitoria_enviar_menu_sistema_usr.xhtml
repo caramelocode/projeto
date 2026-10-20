@@ -3,6 +3,7 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:CrcPA="http://xmlns.jcp.org/jsf/composite/SBComp/composite/paginaAtualDeEntidade"
     xmlns:CRCInput="http://xmlns.jcp.org/jsf/composite/SBComp/composite/input"
+    xmlns:CRCChat="http://xmlns.jcp.org/jsf/composite/SBComp/composite/chat"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     template="#{layoutsPaginas.conteudoEmBranco.xhtmlVinculado}" >
     <ui:define name="conteudo">
@@ -26,7 +27,7 @@
                 layout="#{layoutsComponenteSB.layoutCampo.esquerda}"
                 idAtualizarOnChange="@this"
                 />
-            <h:panelGroup  styleClass="Container3" layout="" >
+            <h:panelGroup  styleClass="Container3" layout="block" >
                 <CrcPA:botaoAcaoPersonalizada
                     acao="#{acoesCarameloDev_NotificacaoTransitoriaMbGestao.notificacaoTransitoriaCtrEnviar}"
                     />
@@ -34,7 +35,15 @@
                 <CrcPA:botaoAcaoPersonalizada
                     acao="#{acoesCarameloDev_NotificacaoTransitoriaMbGestao.notificacaoTransitoriaCtrEnviarRespPersonalizada}"
                     />
+
+                <CrcPA:botaoAcaoPersonalizada
+                    acao="#{acoesCarameloDev_NotificacaoTransitoriaMbGestao.notificacaoTransitoriaCtrAdicionarNotificacaoChatAleatoria}"
+                    />
             </h:panelGroup>
+
+            [#{sessaoAtualSBWP.notificacoesJanelasChat.totalNotificacoes}]
+
         </h:form>
+        <CRCChat:janelasNotificacao />
     </ui:define>
 </ui:composition>

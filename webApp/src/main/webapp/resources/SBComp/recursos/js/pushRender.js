@@ -180,11 +180,31 @@ function exibirDialogoPush(payload) {
 
 // ── Entrada principal do push ────────────────────────────────────────────────
 
+/**
+ * Normaliza um campo do payload para array.
+ * Aceita array (formato correto), string JSON (legado) ou vazio.
+ */
+function lerListaPush(pValor) {
+    if (Array.isArray(pValor)) {
+        return pValor;
+    }
+    if (typeof pValor === 'string' && pValor.trim() !== '') {
+        const convertido = JSON.parse(pValor);
+        return Array.isArray(convertido) ? convertido : [convertido];
+    }
+    return [];
+}
+
 async function notificacoesPush(pPayloadTexto) {
     try {
         const payload = (typeof pPayloadTexto === 'string')
                 ? JSON.parse(pPayloadTexto)
                 : pPayloadTexto;
+
+        if (!payload || typeof payload !== 'object') {
+            console.warn('[CarameloPush] payload vazio ou inválido:', pPayloadTexto);
+            return;
+        }
 
         // ── validação única de instância — antes de processar qualquer tipo ──
         // validarInstancia() já resolve 'true' de imediato (sem chamar o
@@ -199,7 +219,7 @@ async function notificacoesPush(pPayloadTexto) {
 
             exibirDialogoAlertaPush(
                     'Sua sessão foi desconectada',
-                    'Isso pode acontecer por 3 motivos: 1 -> Sessão expirou, 2 Você fez logoff, 3 abriu muitas abas',
+                    'Isso pode acontecer por 3 motivos: 1 -> Sessão expirou, 2 -> Você fez logoff, 3 -> Abriu muitas abas',
                     'Clique aqui para reiniciar',
                     'location.reload();'
                     );
@@ -218,8 +238,7 @@ async function notificacoesPush(pPayloadTexto) {
 
             case 'ATUALIZAR_AREA':
                 try {
-                    const areas = JSON.parse(payload.areas || '[]');
-                    areas.forEach(function (areaID) {
+                    lerListaPush(payload.areas).forEach(function (areaID) {
                         CarameloCode.areaTrabalho.atualizarAreaByID(areaID);
                     });
                 } catch (e) {
@@ -229,8 +248,7 @@ async function notificacoesPush(pPayloadTexto) {
 
             case 'VALIDAR_CAMPOS':
                 try {
-                    const campos = JSON.parse(payload.campos || '[]');
-                    campos.forEach(function (campo) {
+                    lerListaPush(payload.campos).forEach(function (campo) {
                         CarameloCode.formulario.validarCampo(campo);
                     });
                 } catch (e) {
@@ -240,8 +258,7 @@ async function notificacoesPush(pPayloadTexto) {
 
             case 'ATUALIZAR_CAMPOS':
                 try {
-                    const campos = JSON.parse(payload.campos || '[]');
-                    campos.forEach(function (campo) {
+                    lerListaPush(payload.campos).forEach(function (campo) {
                         CarameloCode.formulario.atualizarCampo(campo);
                     });
                 } catch (e) {
@@ -268,4 +285,3 @@ async function notificacoesPush(pPayloadTexto) {
         console.error('[CarameloPush] Erro ao processar push:', e.message, '\nDados recebidos:', pPayloadTexto);
     }
 }
-

@@ -9,12 +9,13 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:decorate template="#{layout.xhtmlJsfCaminhoRelativo}">
         <ui:define name="input">
-
-            <p:textEditor height="300" style="width: 100%"
+            <h:panelGroup layout="block"
                           rendered="#{desabilitarEdicao}"
-                          secure="false"
-                          disabled="true"
-                          />
+                          styleClass="ql-editor"
+                          style="width: 100%; min-height: 300px;">
+                <h:outputText value="#{valor}" escape="false"/>
+            </h:panelGroup>
+
             <h:panelGroup styleClass="Container12 Responsive" style="#{sessaoAtualSBWP.telaUsuario.umMobile?'height: 400px;':'height: 300px;'}  "
                           rendered="#{!desabilitarEdicao}"
 
@@ -24,6 +25,7 @@
                 <p:inputText
                     class=" campoResponsivo  TexAlCenter #{componente.classeCSS} invisivel"
                     disabled="#{desabilitarEdicao}"
+
                     rendered="#{!desabilitarEdicao}"
                     required="#{obrigatorio}"
                     value="#{valor}"
@@ -92,9 +94,14 @@
                             }
 
                             var CKEDITOR_BASEPATH = '/libUrlPadrao/ckeditor/';
+                            CKEDITOR.dtd.$removeEmpty['i'] = false;
+                            CKEDITOR.dtd.$removeEmpty['span'] = false;
 
                             CKEDITOR.replace('#{component.children.get(1).clientId}', {
                                 extraPlugins: 'placeholderSeletor',
+                                allowedContent: true,
+                                autoParagraph: false,
+                                fillEmptyBlocks: false,
                                 toolbarGroups: [{
                                         "name": "basicstyles",
                                         "groups": ["basicstyles"]
