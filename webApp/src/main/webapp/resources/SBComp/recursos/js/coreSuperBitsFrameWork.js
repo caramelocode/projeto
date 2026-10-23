@@ -389,6 +389,212 @@ var CarameloCode = {
                     }
                 } catch (t) {
                 }
+            },
+            // Barra reduzida para criação de conteúdo de e-mail
+            TOOLBAR_EMAIL: [
+                ['Undo', 'Redo'],
+                ['Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat'],
+                ['TextColor', 'BGColor'],
+                ['Format', 'FontSize'],
+                '/',
+                ['NumberedList', 'BulletedList'],
+                ['JustifyLeft', 'JustifyCenter', 'JustifyRight'],
+                ['Link', 'Unlink'],
+                ['Image', 'Table', 'HorizontalRule'],
+                ['CreatePlaceholder'],
+                ['Source']
+            ],
+            ALTURA_MINIMA: 150,
+            // Primeiro ancestral com altura definida: style height inline ou classe alturaEditorHtml
+            _ancestralComAltura: function (elemento) {
+                var atual = elemento.parentElement;
+                while (atual && atual !== document.body) {
+                    if (atual.style.height || atual.classList.contains('alturaEditorHtml')) {
+                        return atual;
+                    }
+                    atual = atual.parentElement;
+                }
+                return null;
+            },
+            // Espaço vertical livre (positivo) ou excedente (negativo) dentro do ancestral
+            _alturaLivre: function (ancestral) {
+                var estilo = window.getComputedStyle(ancestral);
+                var topoConteudo = ancestral.getBoundingClientRect().top
+                        + ancestral.clientTop + (parseFloat(estilo.paddingTop) || 0);
+                var alturaDisponivel = ancestral.clientHeight
+                        - (parseFloat(estilo.paddingTop) || 0) - (parseFloat(estilo.paddingBottom) || 0);
+                var fimConteudo = topoConteudo;
+                for (var i = 0; i < ancestral.children.length; i++) {
+                    var filho = ancestral.children[i];
+                    var estiloFilho = window.getComputedStyle(filho);
+                    if (estiloFilho.display === 'none' || estiloFilho.position === 'absolute' || estiloFilho.position === 'fixed') {
+                        continue;
+                    }
+                    var fimFilho = filho.getBoundingClientRect().bottom + (parseFloat(estiloFilho.marginBottom) || 0);
+                    fimConteudo = Math.max(fimConteudo, fimFilho);
+                }
+                return alturaDisponivel - (fimConteudo - topoConteudo);
+            },
+            // Configuração (idEditor/idDestino/idAtualizarOnChange) por id de componente, usada pelo recarregarCK
+            _configuracoes: {},
+            // Remove as limitações de HTML do CKEditor (tags vazias e aninhamentos comuns em e-mail)
+            _liberarHtml: function () {
+                var dtd = CKEDITOR.dtd;
+                for (var tag in dtd.$removeEmpty) {
+                    dtd.$removeEmpty[tag] = false;
+                }
+                ['div', 'table', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].forEach(function (filha) {
+                    dtd.a[filha] = 1;
+                });
+            },
+            /**
+             * Cria (ou recria) o CKEditor do componente campo html/htmlTemplate.
+             *  idEditor            - textarea substituído pelo editor
+             *  idDestino           - textarea invisível ligado ao bean, onde ficam os p:ajax
+             *  idAtualizarOnChange - área bloqueada durante o onchange disparado no blur
+             * Chamado só com idComponente, recria o editor com a configuração já registrada.
+             */
+            recarregarCK: function (idComponente, idEditor, idDestino, idAtualizarOnChange) {
+                var ckEditor = CarameloCode.componente.ckEditor;
+                var anterior = ckEditor._configuracoes[idComponente];
+                if (anterior && anterior.observadorAltura) {
+                    anterior.observadorAltura.disconnect();
+                    anterior.observadorAltura = null;
+                }
+                if (idEditor) {
+                    ckEditor._configuracoes[idComponente] = {idEditor: idEditor, idDestino: idDestino, idAtualizarOnChange: idAtualizarOnChange};
+                }
+                var config = ckEditor._configuracoes[idComponente];
+                if (!config) {
+                    console.error('[CarameloCode] ckEditor não registrado: ' + idComponente);
+                    return;
+                }
+                try {
+                    var instanciaAnterior = CKEDITOR.instances[config.idEditor];
+                    if (instanciaAnterior) {
+                        try {
+                            instanciaAnterior.destroy(true);
+                        } catch (t) {
+                            // elemento já substituído por atualização ajax
+                            CKEDITOR.remove(instanciaAnterior);
+                        }
+                    }
+                    ckEditor._liberarHtml();
+                    var editor = CKEDITOR.replace(config.idEditor, {
+                        extraPlugins: 'placeholderSeletor',
+                        allowedContent: true,
+                        autoParagraph: false,
+                        fillEmptyBlocks: false,
+                        toolbar: ckEditor.TOOLBAR_EMAIL
+                    });
+                    editor.setData(document.getElementById(config.idDestino).value);
+
+                    editor.on('change', function () {
+                        ckEditor.copiarValoresCKEditor(config.idEditor, config.idDestino);
+                    });
+                    // Transfere o onchange (p:ajax) do destino para a digitação no editor, com delay
+                    var onChangeMesclado = false;
+                    editor.on('focus', function () {
+                        if (onChangeMesclado) {
+                            return;
+                        }
+                        onChangeMesclado = true;
+                        // O mesclarOnChangeComDelay chama setData com o mesmo conteúdo, o que
+                        // levaria o cursor para o início do texto: neutralizado durante a chamada
+                        var setDataOriginal = editor.setData;
+                        editor.setData = function () {};
+                        try {
+                            ckEditor.mesclarOnChangeComDelay(config.idEditor, config.idDestino);
+                        } finally {
+                            editor.setData = setDataOriginal;
+                        }
+                        // Timer da digitação e blur usam o mesmo método: só envia se o valor mudou
+                        var destino = document.getElementById(config.idDestino);
+                        var onChangeOriginal = destino.metodoOnchangeComDelay;
+                        if (onChangeOriginal) {
+                            config.ultimoValorEnviado = destino.value;
+                            destino.metodoOnchangeComDelay = function () {
+                                if (destino.value === config.ultimoValorEnviado) {
+                                    return;
+                                }
+                                config.ultimoValorEnviado = destino.value;
+                                return onChangeOriginal.apply(destino, arguments);
+                            };
+                        }
+                    });
+                    // No modo código-fonte o 'change' não dispara: o blur garante a cópia
+                    editor.on('blur', function () {
+                        var destino = document.getElementById(config.idDestino);
+                        var idArea = config.idAtualizarOnChange;
+                        ckEditor.copiarValoresCKEditor(config.idEditor, config.idDestino);
+                        if (!destino || !destino.metodoOnchangeComDelay
+                                || destino.value === config.ultimoValorEnviado) {
+                            return;
+                        }
+                        if (idArea) {
+                            CarameloCode.areaTrabalho.bloquearArea(idArea);
+                        }
+                        try {
+                            destino.metodoOnchangeComDelay();
+                        } finally {
+                            if (idArea) {
+                                CarameloCode.areaTrabalho.desbloquearArea(idArea);
+                            }
+                        }
+                    });
+                    // A altura do editor é definida pelo primeiro ancestral com altura definida
+                    // (style height inline ou classe alturaEditorHtml); sem ele, vale o min-height do componente
+                    editor.on('instanceReady', function () {
+                        var container = editor.container.$.parentNode;
+                        var ancestral = ckEditor._ancestralComAltura(container);
+                        var ajustar = function () {
+                            var alturaEditor = editor.container.$.offsetHeight;
+                            var novaAltura;
+                            if (ancestral) {
+                                novaAltura = alturaEditor + ckEditor._alturaLivre(ancestral);
+                            } else {
+                                novaAltura = parseInt(window.getComputedStyle(container).minHeight, 10) || 0;
+                            }
+                            novaAltura = Math.max(Math.floor(novaAltura), ckEditor.ALTURA_MINIMA);
+                            if (ancestral && ancestral.clientHeight === 0) {
+                                return; // ancestral oculto (aba, dialog): ajusta quando aparecer
+                            }
+                            if (Math.abs(novaAltura - alturaEditor) > 1) {
+                                editor.resize('100%', novaAltura);
+                            }
+                        };
+                        ajustar();
+                        // Observa do container até o ancestral: mensagens de validação e
+                        // mudanças de tamanho em qualquer nível recalculam a altura
+                        config.observadorAltura = new ResizeObserver(ajustar);
+                        var elemento = container;
+                        while (elemento) {
+                            config.observadorAltura.observe(elemento);
+                            if (elemento === ancestral) {
+                                break;
+                            }
+                            elemento = ancestral ? elemento.parentElement : null;
+                        }
+                    });
+                } catch (erro) {
+                    console.error('[CarameloCode] Erro carregando o ckEditor ' + idComponente + ': ' + erro);
+                }
+            },
+            ajustarAlturaIframe: function (iframe) {
+                var ajustar = function () {
+                    iframe.style.height = '0px';
+                    iframe.style.height = iframe.contentWindow.document.documentElement.scrollHeight + 'px';
+                };
+
+                ajustar();
+
+                var larguraAnterior = iframe.offsetWidth;
+                new ResizeObserver(function () {
+                    if (iframe.offsetWidth !== larguraAnterior) {
+                        larguraAnterior = iframe.offsetWidth;
+                        ajustar();
+                    }
+                }).observe(iframe);
             }
         },
         arquivos: {
@@ -805,6 +1011,9 @@ function copiarValoresCKEditorByClasseEstilo(idOrigem, classeDestino) {
 }
 function copiarValoresCKEditor(idOrigem, idDestino) {
     return CarameloCode.componente.ckEditor.copiarValoresCKEditor(idOrigem, idDestino);
+}
+function ajustarAlturaIframe(iframe) {
+    return CarameloCode.componente.ckEditor.ajustarAlturaIframe(iframe);
 }
 function copiarValoresInput(idOrigem, idDestino) {
     return CarameloCode.formulario.copiarValoresInput(idOrigem, idDestino);

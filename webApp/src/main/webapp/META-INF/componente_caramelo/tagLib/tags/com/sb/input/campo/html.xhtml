@@ -9,35 +9,49 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:decorate template="#{layout.xhtmlJsfCaminhoRelativo}">
         <ui:define name="input">
+
+
             <h:panelGroup layout="block"
                           rendered="#{desabilitarEdicao}"
-                          styleClass="ql-editor"
-                          style="width: 100%; min-height: 300px;">
-                <h:outputText value="#{valor}" escape="false"/>
+                          styleClass="Container12"
+                          style="width: 100%;">
+
+                <iframe srcdoc="#{valor}"
+                        sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                        style="width: 100%; min-height: 300px; border: 0;"
+                        onload="CarameloCode.componente.ckEditor.ajustarAlturaIframe(this);">
+                </iframe>
+
             </h:panelGroup>
 
-            <h:panelGroup styleClass="Container12 Responsive" style="#{sessaoAtualSBWP.telaUsuario.umMobile?'height: 400px;':'height: 300px;'}  "
+            <!-- A altura é definida pelo primeiro ancestral com style height ou classe alturaEditorHtml (recarregarCK); min-height é o fallback.
+                 Os dois primeiros filhos precisam ser o editor (0) e o destino (1). -->
+            <h:panelGroup layout="block"
+                          styleClass="Container12 Responsive"
+                          style="#{sessaoAtualSBWP.telaUsuario.umMobile?'min-height: 400px;':'min-height: 300px;'}"
                           rendered="#{!desabilitarEdicao}"
-
                           >
+                <!-- Substituído pelo CKEditor: sem value, quem envia o valor ao bean é o destino -->
+                <h:inputTextarea style="width: 0px; height: 0px;"
+                                 styleClass="invisivel"
+                                 >
+                    <f:passThroughAttribute name="palavras_placeholder" value="#{registro.comoTemplate.opcoesPalavaChaveJson}" />
+                </h:inputTextarea>
 
-
-                <p:inputText
-                    class=" campoResponsivo  TexAlCenter #{componente.classeCSS} invisivel"
-                    disabled="#{desabilitarEdicao}"
-
-                    rendered="#{!desabilitarEdicao}"
-                    required="#{obrigatorio}"
-                    value="#{valor}"
-                    validatorMessage="O campo #{label} não é um valor válido"
-                    requiredMessage="O campo #{label} não foi informado! "
-                    validator="org.super_bits.view.validadores.generico"
-                    converterMessage="Impossível converter o valor de #{label} em um tipo válido "
-                    >
+                <!-- Destino: único campo ligado ao bean -->
+                <p:inputTextarea value="#{valor}"
+                                 style="width: 1px; height: 1px;"
+                                 styleClass="invisivel"
+                                 autoResize="false"
+                                 required="#{obrigatorio}"
+                                 validatorMessage="O campo #{label} não é um valor válido"
+                                 requiredMessage="O campo #{label} não foi informado! "
+                                 validator="org.super_bits.view.validadores.generico"
+                                 converterMessage="Impossível converter o valor de #{label} em um tipo válido "
+                                 >
                     <f:passThroughAttribute name="caminhoCampo" value="#{registro.nomeCompostoIdentificador}" />
                     <f:passThroughAttribute name="dominio" value="#{registro.nomeClasseOrigemAtributo}" />
                     <f:passThroughAttribute name="campoInstanciado" value="#{registro}" />
-
 
                     <c:if test="#{atualizarGrupoOnChange}" >
                         <p:ajax
@@ -54,21 +68,17 @@
                         <p:ajax
                             rendered="#{atualizarFormOnChange}"
                             event="valueChange"
-
                             update="@form"/>
                     </c:if>
 
                     <c:if test="#{possuiMetodoOnChange}" >
                         <p:ajax rendered="#{possuiMetodoOnChange}"
                                 global="true"
-
                                 event="valueChange"
                                 listener="#{prMetodo}"/>
                     </c:if>
 
-
                     <c:if test="#{possuiIDOnChange}" >
-
                         <p:ajax
                             rendered="#{possuiIDOnChange}"
                             event="valueChange"
@@ -76,89 +86,16 @@
                             onstart="bloquearArea('#{idAtualizarOnChange}')"
                             oncomplete="desbloquearArea('#{idAtualizarOnChange}')"
                             />
-
                     </c:if>
+                </p:inputTextarea>
 
-                </p:inputText>
-
-                <h:inputTextarea  style="width: 1px; height: 1px;"  styleClass="invisivel"/>
                 <script src="#{infoWebApp.urlPagina}/libUrlPadrao/ckeditor/ckeditor.js"></script>
                 <script type="text/javascript">
-
-                    function recarregarCK#{component.id}() {
-
-                        try {
-                            for (var i in CKEDITOR.instances) {
-                                CKEDITOR.instances[i].removeAllListeners();
-                                CKEDITOR.remove(CKEDITOR.instances[i]);
-                            }
-
-                            var CKEDITOR_BASEPATH = '/libUrlPadrao/ckeditor/';
-                            CKEDITOR.dtd.$removeEmpty['i'] = false;
-                            CKEDITOR.dtd.$removeEmpty['span'] = false;
-
-                            CKEDITOR.replace('#{component.children.get(1).clientId}', {
-                                extraPlugins: 'placeholderSeletor',
-                                allowedContent: true,
-                                autoParagraph: false,
-                                fillEmptyBlocks: false,
-                                toolbarGroups: [{
-                                        "name": "basicstyles",
-                                        "groups": ["basicstyles"]
-                                    },
-                                    {
-                                        "name": "links",
-                                        "groups": ["links"]
-                                    },
-                                    {
-                                        "name": "paragraph",
-                                        "groups": ["list", "blocks"]
-                                    },
-                                    {
-                                        "name": "insert",
-                                        "groups": ["insert"],
-                                    },
-                                    {
-                                        "name": "styles",
-                                        "groups": ["styles"]
-                                    },
-                                    {
-                                        "name": "document",
-                                        "groups": ["mode"]
-                                    }
-                                ],
-                                removeButtons: 'Flash,Save,NewPage,Preview,New',
-                                on: {
-                                    loaded: function (evt) {
-
-
-                                        CKEDITOR.instances['#{component.children.get(1).clientId}'].on('focus', function () {
-                                            mesclarOnChangeComDelayCkEditor('#{component.children.get(1).clientId}', '#{component.children.get(0).clientId}');
-                                        });
-                                        CKEDITOR.instances['#{component.children.get(1).clientId}'].on('change', function () {
-                                            copiarValoresCKEditor('#{component.children.get(1).clientId}', '#{component.children.get(0).clientId}');
-                                        });
-                                        CKEDITOR.instances['#{component.children.get(1).clientId}'].on('blur', function () {
-
-                                            bloquearArea('#{idAtualizarOnChange}');
-
-                                            copiarValoresCKEditor('#{component.children.get(1).clientId}', '#{component.children.get(0).clientId}');
-
-                                            document.getElementById("#{component.children.get(0).clientId}").metodoOnchangeComDelay();
-                                            desbloquearArea('#{idAtualizarOnChange}');
-                                        });
-                                    }
-                                }
-
-                            });
-                        } catch (t) {
-                            console.log("Houve um erro carregando o ckEditor");
-                        }
-                    }
-                    recarregarCK#{component.id}();
-                    CKEDITOR.instances['#{component.children.get(1).clientId}'].setData(document.getElementById('#{component.children.get(0).clientId}').value);
+                    CarameloCode.componente.ckEditor.recarregarCK('#{component.clientId}',
+                            '#{component.children.get(0).clientId}',
+                            '#{component.children.get(1).clientId}',
+                            '#{idAtualizarOnChange}');
                 </script>
-                <h:panelGroup style="display: block; width: 1%; height:400px; overflow:hidden;" ></h:panelGroup>
             </h:panelGroup>
 
 

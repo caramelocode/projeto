@@ -5,43 +5,98 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:p="http://primefaces.org/ui"
-    >
+
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:decorate template="#{layout.xhtmlJsfCaminhoRelativo}">
         <ui:define name="input">
 
-            <p:textEditor height="300" style="width: 100%"
+
+            <h:panelGroup layout="block"
                           rendered="#{desabilitarEdicao}"
-                          value="#{valor}"
-                          secure="false"
-                          disabled="true"
-                          />
-            <p:fieldset styleClass="Container12 Responsive" style="height: 300px; "
-                        rendered="#{!desabilitarEdicao}"
-                        >
-                <h:inputTextarea
-                    style="width: 0px; height: 0px;"
-                    title="teste"
-                    value="#{valor}"
-                    styleClass="invisivel"
-                    >
+                          styleClass="Container12"
+                          style="width: 100%;">
+
+                <iframe srcdoc="#{valor}"
+                        sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                        style="width: 100%; min-height: 300px; border: 0;"
+                        onload="CarameloCode.componente.ckEditor.ajustarAlturaIframe(this);">
+                </iframe>
+
+            </h:panelGroup>
+
+            <!-- A altura é definida pelo primeiro ancestral com style height ou classe alturaEditorHtml (recarregarCK); min-height é o fallback.
+                 Os dois primeiros filhos precisam ser o editor (0) e o destino (1). -->
+            <h:panelGroup layout="block"
+                          styleClass="Container12 Responsive"
+                          style="#{sessaoAtualSBWP.telaUsuario.umMobile?'min-height: 400px;':'min-height: 300px;'}"
+                          rendered="#{!desabilitarEdicao}"
+                          >
+                <!-- Substituído pelo CKEditor: sem value, quem envia o valor ao bean é o destino -->
+                <h:inputTextarea style="width: 0px; height: 0px;"
+                                 styleClass="invisivel"
+                                 >
                     <f:passThroughAttribute name="palavras_placeholder" value="#{registro.comoTemplate.opcoesPalavaChaveJson}" />
                 </h:inputTextarea>
-                <p:inputTextarea value="#{valor}" style="width: 1px; height: 1px;"  styleClass="invisivel"/>
+
+                <!-- Destino: único campo ligado ao bean -->
+                <p:inputTextarea value="#{valor}"
+                                 style="width: 1px; height: 1px;"
+                                 styleClass="invisivel"
+                                 autoResize="false"
+                                 required="#{obrigatorio}"
+                                 validatorMessage="O campo #{label} não é um valor válido"
+                                 requiredMessage="O campo #{label} não foi informado! "
+                                 validator="org.super_bits.view.validadores.generico"
+                                 converterMessage="Impossível converter o valor de #{label} em um tipo válido "
+                                 >
+                    <f:passThroughAttribute name="caminhoCampo" value="#{registro.nomeCompostoIdentificador}" />
+                    <f:passThroughAttribute name="dominio" value="#{registro.nomeClasseOrigemAtributo}" />
+                    <f:passThroughAttribute name="campoInstanciado" value="#{registro}" />
+
+                    <c:if test="#{atualizarGrupoOnChange}" >
+                        <p:ajax
+                            rendered="#{atualizarGrupoOnChange}"
+                            event="valueChange"
+                            onstart="bloquearArea('#{pgUtil.getNomeIdPFieldSetPai(component)}')"
+                            oncomplete="desbloquearArea('#{pgUtil.getNomeIdPFieldSetPai(component)}')"
+                            process="#{pgUtil.getIdInputSBComponentePai(component)}"
+                            update="#{pgUtil.getNomeIdPFieldSetPai(component)}"
+                            />
+                    </c:if>
+
+                    <c:if test="#{atualizarFormOnChange}" >
+                        <p:ajax
+                            rendered="#{atualizarFormOnChange}"
+                            event="valueChange"
+                            update="@form"/>
+                    </c:if>
+
+                    <c:if test="#{possuiMetodoOnChange}" >
+                        <p:ajax rendered="#{possuiMetodoOnChange}"
+                                global="true"
+                                event="valueChange"
+                                listener="#{prMetodo}"/>
+                    </c:if>
+
+                    <c:if test="#{possuiIDOnChange}" >
+                        <p:ajax
+                            rendered="#{possuiIDOnChange}"
+                            event="valueChange"
+                            update="#{idAtualizarOnChange}"
+                            onstart="bloquearArea('#{idAtualizarOnChange}')"
+                            oncomplete="desbloquearArea('#{idAtualizarOnChange}')"
+                            />
+                    </c:if>
+                </p:inputTextarea>
+
                 <script src="#{infoWebApp.urlPagina}/libUrlPadrao/ckeditor/ckeditor.js"></script>
                 <script type="text/javascript">
-
-                    function recarregarCK#{component.id}() {
-                        CKEDITOR.replace('#{pgUtil.getIDComponenteFilhoPorCordenada(component,0)}', {
-                            extraPlugins: 'placeholderSeletor'
-                        });
-                        CKEDITOR.instances['#{pgUtil.getIDComponenteFilhoPorCordenada(component,0)}'].on('change', function () {
-                            copiarValoresCKEditor('#{pgUtil.getIDComponenteFilhoPorCordenada(component,0)}', '#{pgUtil.getIDComponenteFilhoPorCordenada(component,1)}');
-                        });
-                    }
-                    recarregarCK#{component.id}();
+                    CarameloCode.componente.ckEditor.recarregarCK('#{component.clientId}',
+                            '#{component.children.get(0).clientId}',
+                            '#{component.children.get(1).clientId}',
+                            '#{idAtualizarOnChange}');
                 </script>
-
-            </p:fieldset>
+            </h:panelGroup>
 
 
         </ui:define>
