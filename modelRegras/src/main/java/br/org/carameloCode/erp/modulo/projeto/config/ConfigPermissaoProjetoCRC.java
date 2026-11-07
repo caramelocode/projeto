@@ -5,6 +5,10 @@
  */
 package br.org.carameloCode.erp.modulo.projeto.config;
 
+import br.org.carameloCode.erp.modulo.notificacao.controller.ModuloNotificacao;
+import br.org.carameloCode.erp.modulo.projeto.regraDeNegocio.Entidadeobjeto.ExecAcoesObjetosEntidadeCRC;
+import br.org.carameloCode.erp.modulo.projeto.regraDeNegocio.componenteNativo.ExecAcoesComponenteNativo;
+import br.org.carameloCode.erp.modulo.projeto.regraDeNegocio.projeto.ExecAcoesProjetosCRC;
 import com.super_bits.modulos.SBAcessosModel.ConfigPermissoesAcessoModelAbstrato;
 import com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao.FabAcaoDemonstracaoSB;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
@@ -29,7 +33,7 @@ import org.coletivojava.fw.api.tratamentoErros.FabErro;
 public class ConfigPermissaoProjetoCRC extends ConfigPermissoesAcessoModelAbstrato {
 
     public ConfigPermissaoProjetoCRC() {
-        super(new Class[]{});
+        super(new Class[]{ExecAcoesComponenteNativo.class, ExecAcoesProjetosCRC.class, ExecAcoesObjetosEntidadeCRC.class, ModuloNotificacao.class});
     }
 
     @Override

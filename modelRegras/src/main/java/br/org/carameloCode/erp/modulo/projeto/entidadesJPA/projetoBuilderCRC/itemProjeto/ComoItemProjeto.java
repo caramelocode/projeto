@@ -14,4 +14,6 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoEntid
 @InfoObjetoSB(tags = "Item do Projeto", plural = "Itens do projeto")
 public interface ComoItemProjeto extends ComoEntidadeSimples {
 
+    public FabTipoItemProjeto getTipoItemProjeto();
+
 }

@@ -9,6 +9,7 @@ import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.fab
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.implantacao.builds.BuildProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.implantacao.implantacao.ImplantacaoProjeto;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.acoes.AcaoProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.requisito.RequisitoDeProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.modulo.ModuloProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.servidor.ServicoHospedagem;
@@ -42,14 +43,20 @@ public class ProjetoCRC extends EntidadeSimples {
     @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
     private String nome;
 
+    @InfoCampo(tipo = FabTipoAtributoObjeto.DESCRITIVO)
+    private String descricao;
+
     @ManyToOne(targetEntity = RepositorioGit.class)
     private RepositorioGit repositorioGit;
 
     @ManyToOne(targetEntity = FabricaSoftware.class)
     private FabricaSoftware organizacao;
 
-    @OneToMany(targetEntity = ObjetoProjCRC.class)
+    @OneToMany(targetEntity = ObjetoProjCRC.class, mappedBy = "projeto")
     private List<ObjetoProjCRC> objetos;
+
+    @OneToMany(targetEntity = AcaoProjCRC.class, mappedBy = "projeto")
+    private List<AcaoProjCRC> acoes;
 
     @OneToMany(mappedBy = "projeto")
     private List<RequisitoDeProjeto> requisitos;
@@ -92,6 +99,14 @@ public class ProjetoCRC extends EntidadeSimples {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public RepositorioGit getRepositorioGit() {
@@ -188,6 +203,22 @@ public class ProjetoCRC extends EntidadeSimples {
 
     public void setValorGasto(double valorGasto) {
         this.valorGasto = valorGasto;
+    }
+
+    public List<AcaoProjCRC> getAcoes() {
+        return acoes;
+    }
+
+    public void setAcoes(List<AcaoProjCRC> acoes) {
+        this.acoes = acoes;
+    }
+
+    public List<RequisitoDeProjeto> getRequisitos() {
+        return requisitos;
+    }
+
+    public void setRequisitos(List<RequisitoDeProjeto> requisitos) {
+        this.requisitos = requisitos;
     }
 
 }

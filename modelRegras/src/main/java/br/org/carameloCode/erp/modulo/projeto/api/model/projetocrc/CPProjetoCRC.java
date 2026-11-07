@@ -5,13 +5,15 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.Info
 
 @InfoReferenciaEntidade(tipoObjeto = ProjetoCRC.class)
 public enum CPProjetoCRC {
-	_ID, _NOME, _REPOSITORIOGIT, _ORGANIZACAO, _OBJETOS, _REQUISITOS, _MODULOS, _MODULOSIMPORTADOS, _REPOSITORIOSCODIGO, _IMPLANTACOES, _BUILDS, _SERVIDORPADRAOPRODUCAO, _SERVIDORPADRAOHOMOLOGACAO, _VALORESTIMADO, _VALORGASTO;
+	_ID, _NOME, _DESCRICAO, _REPOSITORIOGIT, _ORGANIZACAO, _OBJETOS, _ACOES, _REQUISITOS, _MODULOS, _MODULOSIMPORTADOS, _REPOSITORIOSCODIGO, _IMPLANTACOES, _BUILDS, _SERVIDORPADRAOPRODUCAO, _SERVIDORPADRAOHOMOLOGACAO, _VALORESTIMADO, _VALORGASTO;
 
 	public static final String id = "id";
 	public static final String nome = "nome";
+	public static final String descricao = "descricao";
 	public static final String repositoriogit = "repositorioGit";
 	public static final String organizacao = "organizacao";
 	public static final String objetos = "objetos";
+	public static final String acoes = "acoes";
 	public static final String requisitos = "requisitos";
 	public static final String modulos = "modulos";
 	public static final String modulosimportados = "modulosImportados";

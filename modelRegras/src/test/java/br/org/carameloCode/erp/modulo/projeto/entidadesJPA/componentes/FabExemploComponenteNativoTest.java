@@ -4,7 +4,7 @@
  */
 package br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes;
 
-import com.super_bits.Casa_Nova.Intranet_Marketing_Digital.configAppp.TesteProjetoCaramelo;
+import com.carameloCode.projeto.configAppp.TesteProjetoCaramelo;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;

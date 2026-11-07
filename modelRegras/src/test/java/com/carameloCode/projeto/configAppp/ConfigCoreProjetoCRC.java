@@ -1,0 +1,33 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.carameloCode.projeto.configAppp;
+
+import br.org.carameloCode.erp.modulo.notificacao.controller.ServicoNotificacaoPadraoDev;
+import br.org.carameloCode.erp.modulo.projeto.UtilProjetosCRC;
+import br.org.carameloCode.erp.modulo.projeto.config.ConfigPermissaoProjetoCRC;
+import com.super_bits.modulosSB.Persistencia.ConfigGeral.ConfiguradorCoreDeProjetoJarPersistenciaAbstrato;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ComoContextoExecCustomizavel;
+import com.super_bits.modulosSB.webPaginas.centralComunicacao.ServicoComunicaoWebTransitorio;
+
+/**
+ *
+ * @author salvio
+ */
+public class ConfigCoreProjetoCRC extends ConfiguradorCoreDeProjetoJarPersistenciaAbstrato {
+
+    @Override
+    public void defineClassesBasicas(ComoContextoExecCustomizavel pConfiguracao) {
+        super.defineClassesBasicas(pConfiguracao);
+        pConfiguracao.setCentralComunicacao(ServicoNotificacaoPadraoDev.class);
+        pConfiguracao.setClasseConfigPermissao(ConfigPermissaoProjetoCRC.class);
+    }
+
+    @Override
+    public void defineFabricasDeACao(ComoContextoExecCustomizavel pConfig) {
+        pConfig.setFabricaDeAcoes(UtilProjetosCRC.pAcoesDoSistema());
+
+    }
+
+}

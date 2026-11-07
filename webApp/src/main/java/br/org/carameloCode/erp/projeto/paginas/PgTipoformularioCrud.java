@@ -4,8 +4,8 @@
  */
 package br.org.carameloCode.erp.projeto.paginas;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.FabAcaoProjetoCRCCarameloFormulario;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.InfoAcaoProjetoCRCFormularios;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.formulario.FabAcaoProjetoCRCCarameloFormulario;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.formulario.InfoAcaoProjetoCRCFormularios;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.entidadeExemplo.EntdExemplo;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 import com.super_bits.modulosSB.webPaginas.JSFManagedBeans.formularios.MB_paginaCadastroEntidades;

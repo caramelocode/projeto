@@ -6,13 +6,14 @@
 package br.org.carameloCode.erp.projeto.config;
 
 import br.org.carameloCode.erp.modulo.notificacao.api.FabAcaoNotificacaoPadraoSB;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.FabAcaoProjetoCRCCarameloFormulario;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.notificacoes.FabAcaoProjetoCRCNotificacoes;
-import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.acao.FabAcaoProjetoCRCAcoes;
-import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.console.FabAcaoProjetoCRCConsole;
-import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.projeto.FabAcaoProjetoCRCProjetoCaramelo;
-import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.requisito.FabAcaoProjetoCRCRequisito;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.formulario.FabAcaoProjetoCRCCarameloFormulario;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.nativo.FabAcaoProjetoCRCComponenteNativo;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.notificacoes.FabAcaoProjetoCRCNotificacoes;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.acao.FabAcaoCarameloDevAcaoProjCRC;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.console.FabAcaoCarameloDevConsoleCRCProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.projeto.FabAcaoCarameloDevProjetoCRC;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.requisito.FabAcaoCarameloDevRequisito;
 import br.org.coletivojava.fw.utils.servico.ServicoRepositorioDeArquivos.ServicoDeArquivosWebAppS3;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
 import com.super_bits.modulos.SBAcessosModel.view.FabAcaoPaginasDoSistema;
@@ -50,13 +51,14 @@ public class ConfigCoreWebAppProjetosCaramelo extends ConfiguradorCoreDeProjetoW
             FabAcaoPaginasDoSistema.class,
             FabAcaoProjetoCRCComponenteNativo.class,
             FabAcaoProjetoSB.class,
-            FabAcaoProjetoCRCAcoes.class,
-            FabAcaoProjetoCRCConsole.class,
-            FabAcaoProjetoCRCProjetoCaramelo.class,
-            FabAcaoProjetoCRCRequisito.class,
+            FabAcaoCarameloDevAcaoProjCRC.class,
+            FabAcaoCarameloDevConsoleCRCProjeto.class,
+            FabAcaoCarameloDevProjetoCRC.class,
+            FabAcaoCarameloDevRequisito.class,
             FabAcaoNotificacaoPadraoSB.class,
             FabAcaoProjetoCRCNotificacoes.class,
-            FabAcaoProjetoCRCCarameloFormulario.class
+            FabAcaoProjetoCRCCarameloFormulario.class,
+            FabAcaoCarameloDevComoItemProjeto.class
 
         });
 

@@ -35,7 +35,7 @@
                 <h:inputTextarea style="width: 0px; height: 0px;"
                                  styleClass="invisivel"
                                  >
-                    <f:passThroughAttribute name="palavras_placeholder" value="#{registro.comoTemplate.opcoesPalavaChaveJson}" />
+                    <f:passThroughAttribute name="palavras_placeholder" value="#{[]}" />
                 </h:inputTextarea>
 
                 <!-- Destino: único campo ligado ao bean -->
@@ -91,10 +91,10 @@
 
                 <script src="#{infoWebApp.urlPagina}/libUrlPadrao/ckeditor/ckeditor.js"></script>
                 <script type="text/javascript">
-                    CarameloCode.componente.ckEditor.recarregarCK('#{component.clientId}',
-                            '#{component.children.get(0).clientId}',
-                            '#{component.children.get(1).clientId}',
-                            '#{idAtualizarOnChange}');
+                            CarameloCode.componente.ckEditor.recarregarCK('#{component.clientId}',
+                                    '#{component.children.get(0).clientId}',
+                                    '#{component.children.get(1).clientId}',
+                                    '#{idAtualizarOnChange}');
                 </script>
             </h:panelGroup>
 

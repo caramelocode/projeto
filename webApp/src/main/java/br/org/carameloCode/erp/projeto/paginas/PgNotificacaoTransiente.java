@@ -4,8 +4,8 @@
  */
 package br.org.carameloCode.erp.projeto.paginas;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.notificacoes.FabAcaoProjetoCRCNotificacoes;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.notificacoes.InfoAcaoProjetoCRCNotificacoes;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.notificacoes.FabAcaoProjetoCRCNotificacoes;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.notificacoes.InfoAcaoProjetoCRCNotificacoes;
 import br.org.carameloCode.erp.modulo.projeto.entidadeTransient.ComunicacaoTransientDev;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.webPaginas.JSFManagedBeans.formularios.MB_paginaCadastroEntidades;

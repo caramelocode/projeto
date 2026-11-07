@@ -6,8 +6,6 @@
 package br.org.carameloCode.erp.modulo.projeto;
 
 import br.org.carameloCode.erp.modulo.projeto.menu.FabMenuProjetoCaramelo;
-import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ComoFabricaModulo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoDaFabrica;
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoFabricaMenu;
@@ -23,7 +21,7 @@ import com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoFabricaMenu;
 public enum FabModulosProjetoCaramelo implements ComoFabricaModulo {
 
     @InfoObjetoDaFabrica(nomeObjeto = "Anônimo", classeObjeto = ModuloProjetoCaramelo.class)
-    ANONIMO,
+    DEMONSTRACAO,
     @InfoObjetoDaFabrica(nomeObjeto = "Caramelo Code Projeto Dev", classeObjeto = ModuloProjetoCaramelo.class)
     CARAMELO_DEV,
     @InfoObjetoDaFabrica(nomeObjeto = "Caramelo Code Projeto Dev Admin", classeObjeto = ModuloProjetoCaramelo.class)
@@ -37,7 +35,8 @@ public enum FabModulosProjetoCaramelo implements ComoFabricaModulo {
     public ComoFabricaMenu getMenuPadrao() {
         switch (this) {
 
-            case ANONIMO:
+            case DEMONSTRACAO:
+
                 break;
             case CARAMELO_DEV:
                 break;
@@ -46,6 +45,7 @@ public enum FabModulosProjetoCaramelo implements ComoFabricaModulo {
             case PLATAFORMA_ADMIN:
                 break;
             case CLIENTE:
+
                 break;
             default:
                 throw new AssertionError();

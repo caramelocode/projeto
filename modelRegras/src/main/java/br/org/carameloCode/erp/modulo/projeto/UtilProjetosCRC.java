@@ -5,14 +5,14 @@
 package br.org.carameloCode.erp.modulo.projeto;
 
 import br.org.carameloCode.erp.modulo.notificacao.api.FabAcaoNotificacaoPadraoSB;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.FabAcaoProjetoCRCCarameloFormulario;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
-import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.acao.FabAcaoProjetoCRCAcoes;
-import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.console.FabAcaoProjetoCRCConsole;
-import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.entidade.FabAcaoProjetoCRCEntidade;
-import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.projeto.FabAcaoProjetoCRCProjetoCaramelo;
-import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.requisito.FabAcaoProjetoCRCRequisito;
-import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.formulario.FabAcaoProjetoCRCCarameloFormulario;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.nativo.FabAcaoProjetoCRCComponenteNativo;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.notificacoes.FabAcaoProjetoCRCNotificacoes;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.acao.FabAcaoCarameloDevAcaoProjCRC;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.console.FabAcaoCarameloDevConsoleCRCProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.projeto.FabAcaoCarameloDevProjetoCRC;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.requisito.FabAcaoCarameloDevRequisito;
 import com.super_bits.modulos.SBAcessosModel.view.FabAcaoPaginasDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 
@@ -27,13 +27,14 @@ public class UtilProjetosCRC {
             FabAcaoPaginasDoSistema.class,
             FabAcaoProjetoCRCComponenteNativo.class,
             FabAcaoProjetoCRCCarameloFormulario.class,
-            FabAcaoProjetoCRCAcoes.class,
-            FabAcaoProjetoCRCConsole.class,
-            FabAcaoProjetoCRCProjetoCaramelo.class,
-            FabAcaoProjetoCRCRequisito.class,
-            FabAcaoProjetoCRCEntidade.class,
-            FabAcaoProjetoCRCCarameloFormulario.class
-
+            FabAcaoCarameloDevAcaoProjCRC.class,
+            FabAcaoCarameloDevConsoleCRCProjeto.class,
+            FabAcaoCarameloDevProjetoCRC.class,
+            FabAcaoCarameloDevRequisito.class,
+            FabAcaoCarameloDevComoItemProjeto.class,
+            FabAcaoProjetoCRCCarameloFormulario.class,
+            FabAcaoProjetoCRCNotificacoes.class,
+            FabAcaoNotificacaoPadraoSB.class
         };
     }
 

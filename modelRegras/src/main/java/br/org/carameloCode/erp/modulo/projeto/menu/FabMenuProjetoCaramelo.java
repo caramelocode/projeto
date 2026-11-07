@@ -5,9 +5,12 @@
 package br.org.carameloCode.erp.modulo.projeto.menu;
 
 import br.org.carameloCode.erp.modulo.notificacao.api.FabAcaoNotificacaoPadraoSB;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.FabAcaoProjetoCRCCarameloFormulario;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.notificacoes.FabAcaoProjetoCRCNotificacoes;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.formulario.FabAcaoProjetoCRCCarameloFormulario;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.nativo.FabAcaoProjetoCRCComponenteNativo;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.notificacoes.FabAcaoProjetoCRCNotificacoes;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.acao.FabAcaoCarameloDevAcaoProjCRC;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.console.FabAcaoCarameloDevConsoleCRCProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.projeto.FabAcaoCarameloDevProjetoCRC;
 import com.super_bits.modulos.SBAcessosModel.controller.FabMenuAdmin;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoFabricaMenu;
@@ -29,9 +32,11 @@ public enum FabMenuProjetoCaramelo implements ComoFabricaMenu {
     @Override
     public ComoMenuSB getMenuPrincipal() {
         MenuSBFW menuPrincipal = FabMenuAdmin.ROOT.getMenuPrincipal();
-        menuPrincipal.addSessao(FabAcaoProjetoSB.PROJETO_MB_GERENCIAR).addAcao(FabAcaoProjetoSB.PROJETO_FRM_VISAO_GERAL);
-        //    menuPrincipal.addSessao(FabAcaoProjetoCRCAcoes.ACOES_MB_GESTAO).addAcao(FabAcaoProjetoCRCAcoes.ACOES_MB_GESTAO);
-        //    menuPrincipal.addSessao(FabAcaoProjetoCRCEntidade.).addAcao(FabAcaoProjetoCRCAcoes.ACOES_MB_GESTAO);
+        menuPrincipal
+                .addSessao(FabAcaoCarameloDevProjetoCRC.PROJETO_MB_GESTAO)
+                .addAcao(FabAcaoProjetoSB.PROJETO_FRM_VISAO_GERAL)
+                .addAcao(FabAcaoCarameloDevProjetoCRC.PROJETO_MB_GESTAO)
+                .addAcao(FabAcaoCarameloDevConsoleCRCProjeto.CONSOLE_ITEM_PROJ_MB_GESTAO);
 
         switch (this) {
 
@@ -70,8 +75,8 @@ public enum FabMenuProjetoCaramelo implements ComoFabricaMenu {
                 .addAcao(FabAcaoProjetoCRCCarameloFormulario.FORMMULARIO_PERSONALIZADO_MB_GESTAO).setNome("Modelos de Páginas");
         ;
 
-        //    menuPrincipal.addSessao(FabAcaoProjetoCRCAcoes.ACOES_MB_GESTAO).addAcao(FabAcaoProjetoCRCAcoes.ACOES_MB_GESTAO);
-        //    menuPrincipal.addSessao(FabAcaoProjetoCRCEntidade.).addAcao(FabAcaoProjetoCRCAcoes.ACOES_MB_GESTAO);
+        //    menuPrincipal.addSessao(FabAcaoCarameloDevAcaoProjCRC.ACOES_MB_GESTAO).addAcao(FabAcaoCarameloDevAcaoProjCRC.ACOES_MB_GESTAO);
+        //    menuPrincipal.addSessao(FabAcaoProjetoCRCEntidade.).addAcao(FabAcaoCarameloDevAcaoProjCRC.ACOES_MB_GESTAO);
         switch (this) {
 
             case CARAMELO_DEV:

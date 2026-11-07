@@ -6,7 +6,7 @@ package br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC;
 
 import br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.tipoNotificacao.TipoNotificacao;
 import br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.tipoNotificacao.TipoNotificacaoUsrComUsr;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.formulario.FabAcaoProjetoCRCCarameloFormulario;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.formulario.FabAcaoProjetoCRCCarameloFormulario;
 import br.org.carameloCode.erp.modulo.projeto.api.model.entdexemplo.CPEntdExemplo;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.entidadeExemplo.EntdExemplo;
 import com.super_bits.modulosSB.Persistencia.fabrica.ComoFabricaComPersistencia;

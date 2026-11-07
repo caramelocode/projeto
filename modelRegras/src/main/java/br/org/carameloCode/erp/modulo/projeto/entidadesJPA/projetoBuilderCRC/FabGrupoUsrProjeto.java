@@ -5,9 +5,9 @@
 package br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC;
 
 import br.org.carameloCode.erp.modulo.projeto.FabModulosProjetoCaramelo;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
-import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.projeto.FabAcaoProjetoCRCProjetoCaramelo;
-import br.org.carameloCode.erp.modulo.projeto.acoes.projetoCarameloBuilder.requisito.FabAcaoProjetoCRCRequisito;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.nativo.FabAcaoProjetoCRCComponenteNativo;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.projeto.FabAcaoCarameloDevProjetoCRC;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.requisito.FabAcaoCarameloDevRequisito;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulosSB.Persistencia.fabrica.ComoFabricaComPersistencia;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoDaFabrica;
@@ -38,15 +38,15 @@ public enum FabGrupoUsrProjeto implements ComoFabricaComPersistencia {
                 grupo.setModuloPrincipal(FabModulosProjetoCaramelo.CARAMELO_DEV.getRegistro());
                 break;
             case CLIENTE:
-                grupo.setPaginaInicial(FabAcaoProjetoCRCRequisito.REQUISITO_MB_GESTAO);
+                grupo.setPaginaInicial(FabAcaoCarameloDevRequisito.REQUISITO_MB_GESTAO);
                 grupo.setModuloPrincipal(FabModulosProjetoCaramelo.CLIENTE.getRegistro());
                 break;
             case ADMIN_FABRICA:
-                grupo.setPaginaInicial(FabAcaoProjetoCRCProjetoCaramelo.PROJETO_MB_GESTAO);
+                grupo.setPaginaInicial(FabAcaoCarameloDevProjetoCRC.PROJETO_MB_GESTAO);
                 grupo.setModuloPrincipal(FabModulosProjetoCaramelo.CARAMELO_DEV_ADMIN.getRegistro());
                 break;
             case ADMIN_PLATAFORMA:
-                grupo.setPaginaInicial(FabAcaoProjetoCRCProjetoCaramelo.PROJETO_MB_GESTAO);
+                grupo.setPaginaInicial(FabAcaoCarameloDevProjetoCRC.PROJETO_MB_GESTAO);
                 grupo.setModuloPrincipal(FabModulosProjetoCaramelo.PLATAFORMA_ADMIN.getRegistro());
                 break;
             default:

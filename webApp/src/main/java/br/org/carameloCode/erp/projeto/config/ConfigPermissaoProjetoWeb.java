@@ -6,9 +6,10 @@
 package br.org.carameloCode.erp.projeto.config;
 
 import br.org.carameloCode.erp.modulo.notificacao.controller.ModuloNotificacao;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.notificacoes.FabAcaoProjetoCRCNotificacoes;
-import br.org.carameloCode.erp.modulo.projeto.implemetation.componenteNativo.ExecAcoesComponenteNativo;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.nativo.FabAcaoProjetoCRCComponenteNativo;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.notificacoes.FabAcaoProjetoCRCNotificacoes;
+import br.org.carameloCode.erp.modulo.projeto.regraDeNegocio.componenteNativo.ExecAcoesComponenteNativo;
+import br.org.carameloCode.erp.modulo.projeto.regraDeNegocio.projeto.ExecAcoesProjetosCRC;
 import com.super_bits.modulos.SBAcessosModel.controller.FabMenuAdmin;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
@@ -30,7 +31,7 @@ public class ConfigPermissaoProjetoWeb
         extends ConfigPermissoesAcessosModel {
 
     public ConfigPermissaoProjetoWeb() {
-        super(new Class[]{ExecAcoesComponenteNativo.class, ModuloNotificacao.class});
+        super(new Class[]{ExecAcoesComponenteNativo.class, ExecAcoesProjetosCRC.class, ModuloNotificacao.class});
 
     }
 

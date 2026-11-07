@@ -1,8 +1,15 @@
 <ui:composition
     xmlns="http://www.w3.org/1999/xhtml"
+
+
+    xmlns:CRCConsole="http://xmlns.jcp.org/jsf/composite/CRCc"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    template="#{layoutsPaginas.formularioListarGenerico.xhtmlVinculado}" >
+    template="#{layoutsPaginas.conteudoEmBranco.xhtmlVinculado}"
+    xmlns:CRCconsole="http://xmlns.jcp.org/jsf/composite/CRCconsole">
     <ui:define name="conteudo" >
-        <ui:include src="/site/modelo/listagemGenerica.xhtml" />
+
+
+        <CRCconsole:consoleItens />
+
     </ui:define>
 </ui:composition>

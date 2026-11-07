@@ -8,6 +8,7 @@ package br.org.carameloCode.erp.modulo.projeto.config;
 import br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.notificacao.DialogoNotificacao;
 import br.org.carameloCode.erp.modulo.notificacao.entidadesJPA.statusNotificacao.FabStatusNotificacao;
 import br.org.carameloCode.erp.modulo.projeto.FabModulosProjetoCaramelo;
+import br.org.carameloCode.erp.modulo.projeto.console.ConsoleCRCProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.FabExemploComponenteNativo;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.FabExemplosOpcoesItensSelecao;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.FabGrupoUsrProjeto;
@@ -15,6 +16,7 @@ import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.Fab
 
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.FabUsuarioPadraoProjeto;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.dinamico.OpcaoDadoDinamico;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCDataHora;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComunicacaoTransient;
@@ -74,6 +76,8 @@ public class ConfigPersistenciaProjetoCaramelo implements ItfConfigSBPersistenci
         MapaObjetosProjetoAtual.adcionarObjeto(RespostaComunicacao.class);
         MapaObjetosProjetoAtual.adcionarObjeto(TipoRespostaComunicacao.class);
         MapaObjetosProjetoAtual.adcionarObjeto(BotaoResposta.class);
+        MapaObjetosProjetoAtual.adcionarObjeto(OpcaoDadoDinamico.class);
+        MapaObjetosProjetoAtual.adcionarObjeto(ConsoleCRCProjeto.class);
         return new Class[]{ //    FabAtividadeCRMAutoexecucao.class
             FabExemplosOpcoesItensSelecao.class,
             FabExemploComponenteNativo.class,

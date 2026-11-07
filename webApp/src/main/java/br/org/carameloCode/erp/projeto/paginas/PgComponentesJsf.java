@@ -1,7 +1,7 @@
 package br.org.carameloCode.erp.projeto.paginas;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.FabAcaoProjetoCRCComponenteNativo;
-import br.org.carameloCode.erp.modulo.projeto.acoes.componente.nativo.InfoAcaoProjetoCRCComponenteNativo;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.nativo.FabAcaoProjetoCRCComponenteNativo;
+import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.nativo.InfoAcaoProjetoCRCComponenteNativo;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.ExemploComponente;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.ExemploComponenteInput;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringFiltros;
