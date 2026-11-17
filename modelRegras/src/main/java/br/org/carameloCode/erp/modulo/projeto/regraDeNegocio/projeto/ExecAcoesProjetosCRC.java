@@ -15,6 +15,11 @@ import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.ite
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.projeto.ProjetoCRC;
 import br.org.carameloCode.erp.modulo.projeto.regraDeNegocio.Entidadeobjeto.ExecAcoesObjetosEntidadeCRC;
+import br.org.carameloCode.erp.modulo.projeto.regraDeNegocio.fabrica.ExecAcoesFabricasCRC;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.FabricaEntidadeProjCRC;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.FabricaStatusProjCRC;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.ItemFabrica;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.ItemFabricaStatus;
 import com.super_bits.modulos.SBAcessosModel.controller.resposta.RespostaComGestaoEMRegraDeNegocioPadrao;
 import com.super_bits.modulosSB.Persistencia.dao.ControllerAbstratoSBPersistencia;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
@@ -34,6 +39,19 @@ public class ExecAcoesProjetosCRC extends ControllerAbstratoSBPersistencia {
         }
         if (pItemDeProjeto instanceof AcaoProjCRC) {
             return salvarAcao((AcaoProjCRC) pItemDeProjeto);
+        }
+        // subclasses antes das classes base
+        if (pItemDeProjeto instanceof FabricaStatusProjCRC) {
+            return ExecAcoesFabricasCRC.salvarFabricaStatus((FabricaStatusProjCRC) pItemDeProjeto);
+        }
+        if (pItemDeProjeto instanceof FabricaEntidadeProjCRC) {
+            return ExecAcoesFabricasCRC.salvarFabrica((FabricaEntidadeProjCRC) pItemDeProjeto);
+        }
+        if (pItemDeProjeto instanceof ItemFabricaStatus) {
+            return ExecAcoesFabricasCRC.salvarItemFabricaStatus((ItemFabricaStatus) pItemDeProjeto);
+        }
+        if (pItemDeProjeto instanceof ItemFabrica) {
+            return ExecAcoesFabricasCRC.salvarItemFabrica((ItemFabrica) pItemDeProjeto);
         }
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItemDeProjeto), null) {
 

@@ -22,13 +22,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.coletivojava.fw.api.tratamentoErros.ErroPreparandoObjeto;
@@ -38,6 +42,8 @@ import org.coletivojava.fw.api.tratamentoErros.ErroPreparandoObjeto;
  * @author salvio
  */
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipoObjetoDB")
 @InfoObjetoSB(tags = {"Entidade do Projeto"}, plural = "Entidades do Projeto")
 public class ObjetoProjCRC extends EntidadeSimplesORM implements ComoEstruturaEntidadeSimples, ComoItemProjeto {
 
@@ -70,7 +76,12 @@ public class ObjetoProjCRC extends EntidadeSimplesORM implements ComoEstruturaEn
     @InfoCampo(tipo = FabTipoAtributoObjeto.OBJETO_DE_UMA_LISTA)
     private ProjetoCRC projeto;
 
+    /**
+     * Atributos na ordem definida (ValorLogicoAtributoDeEntidadeSimplesOrdem);
+     * empate (ex.: atributos antigos com ordem 0) desfeito pelo id.
+     */
     @OneToMany(targetEntity = AtributoDeEntidadeSimples.class, mappedBy = "entidade", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OrderBy("ordem ASC, id ASC")
     private List<AtributoDeEntidadeSimples> atributos;
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.REG_DATAALTERACAO, label = "Data/Hora Alteração", descricao = "Data e hora de alteração")

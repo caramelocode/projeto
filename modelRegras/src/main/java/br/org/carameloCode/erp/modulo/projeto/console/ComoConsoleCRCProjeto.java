@@ -21,8 +21,6 @@ public interface ComoConsoleCRCProjeto {
 
     public ProjetoCRC getProjetoSelecionado();
 
-    public void setObjetoSelecionado(ObjetoProjCRC pObejto);
-
     public List<String> autocompletProjeto(String pValor);
 
     public void carregarProjetoSelecionado();

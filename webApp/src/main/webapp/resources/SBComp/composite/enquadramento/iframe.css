@@ -1,0 +1,19 @@
+/* === crc-iframe-interno === */
+/* Raiz em inline-block: vários componentes seguidos ficam lado a lado e quebram linha quando não cabem.
+   Largura/altura vêm da página interna (ui:param largura/altura), aplicadas na raiz pelo onload do iframe.
+   Sem esses valores, usa largura total e 70vh de altura. */
+.crc-iframe-interno {
+    display: inline-block;
+    vertical-align: top;
+    width: var(--crc-iframe-interno-largura, 100%);
+    max-width: 100%;
+}
+
+.crc-iframe-interno__frame {
+    display: block;
+    width: 100%;
+    height: var(--crc-iframe-interno-altura, 70vh);
+    min-height: 200px;
+    max-height: var(--crc-iframe-interno-altura-maxima, none);
+    border: 0;
+}

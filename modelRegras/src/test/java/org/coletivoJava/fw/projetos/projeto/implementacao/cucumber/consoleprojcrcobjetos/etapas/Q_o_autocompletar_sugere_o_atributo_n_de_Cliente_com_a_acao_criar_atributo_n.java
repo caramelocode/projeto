@@ -19,7 +19,7 @@ public class Q_o_autocompletar_sugere_o_atributo_n_de_Cliente_com_a_acao_criar_a
 				.filter(op -> op.getItemAssociado() instanceof AtributoDeEntidadeSimples)
 				.anyMatch(op -> {
 					AtributoDeEntidadeSimples atributo = (AtributoDeEntidadeSimples) op.getItemAssociado();
-					return FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR.equals(op.getFabAcaoAssociada())
+					return FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO.equals(op.getFabAcaoAssociada())
 							&& FluxoConsoleObjetos.TEXTO_PARCIAL_ATRIBUTO_N.equals(atributo.getNomeDeclarado())
 							&& atributo.getId() == null
 							&& FluxoConsoleObjetos.NOME_ENTIDADE_CLIENTE.equals(atributo.getEntidade().getNomeEntidade());

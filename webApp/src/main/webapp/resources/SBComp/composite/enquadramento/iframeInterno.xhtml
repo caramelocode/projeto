@@ -1,0 +1,48 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html"
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+              xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+    <cc:interface>
+        <cc:attribute name="src" required="true"/>
+        <cc:attribute name="alturaMaxima" default="none"/>
+        <cc:attribute name="titulo" default=""/>
+        <!-- Método JSF chamado quando a página interna envia uma mensagem (postMessage).
+             O dado enviado chega no parâmetro de requisição "crcIframeDados". -->
+        <cc:attribute name="metodoInteracaoIframe" method-signature="void metodo()"/>
+        <!-- Componentes a atualizar após a chamada do método (sintaxe update do PrimeFaces) -->
+        <cc:attribute name="atualizarAoInteragir" default=""/>
+    </cc:interface>
+
+    <cc:implementation>
+        <h:outputStylesheet name="composite/enquadramento/iframe.css" library="SBComp"/>
+        <h:outputScript name="composite/enquadramento/iframes.js" library="SBComp" target="head"/>
+
+        <!-- Nome JS único da função de interação deste componente -->
+        <ui:param name="nomeInteracao" value="crcIframeInteracao_#{fn:replace(cc.clientId, ':', '_')}"/>
+
+        <!-- Raiz do componente; a altura máxima é repassada via variável CSS -->
+        <h:panelGroup layout="block"
+                      styleClass="crc-iframe-interno"
+                      style="--crc-iframe-interno-altura-maxima: #{cc.attrs.alturaMaxima};">
+            <iframe id="#{cc.clientId}"
+                    class="crc-embed crc-iframe-interno__frame"
+                    src="#{cc.attrs.src}"
+                    data-crc-parte="#{cc.attrs.src}"
+                    data-crc-interacao="#{nomeInteracao}"
+                    title="#{cc.attrs.titulo}"
+                    onload="crcIframeInternoAjustar(this)"></iframe>
+
+            <!-- Ponte iframe → JSF; precisa estar dentro de um h:form.
+                 O onsuccess descarta updates do servidor que substituiriam o próprio iframe. -->
+            <p:remoteCommand id="crcInteracao"
+                             name="#{nomeInteracao}"
+                             action="#{cc.attrs.metodoInteracaoIframe}"
+                             process="@this"
+                             update="#{cc.attrs.atualizarAoInteragir}"
+                             onsuccess="crcIframeInternoFiltrarResposta(data, '#{cc.clientId}')"/>
+
+        </h:panelGroup>
+    </cc:implementation>
+</ui:component>

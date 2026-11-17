@@ -19,28 +19,13 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroRegraDeNego
  */
 public class ExecAcoesObjetosEntidadeCRC extends ControllerAbstratoSBPersistencia {
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR_NOVO)
     public static ItfRespostaAcaoDoSistema salvarObjetoEntidade(ObjetoProjCRC pItemDeProjeto) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItemDeProjeto), pItemDeProjeto) {
             @Override
             public void regraDeNegocio() throws ErroRegraDeNegocio {
                 setRetorno(atualizarEntidade(pItemDeProjeto));
-            }
-        }.getResposta();
-
-    }
-
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR)
-    public static ItfRespostaAcaoDoSistema salvarAtributoEntidade(AtributoDeEntidadeSimples pAtributo) {
-
-        return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pAtributo), pAtributo) {
-            @Override
-            public void regraDeNegocio() throws ErroRegraDeNegocio {
-                if (pAtributo.getEntidade() == null) {
-                    throw new ErroRegraDeNegocio("O atributo precisa estar vinculado a uma entidade");
-                }
-                setRetorno(atualizarEntidade(pAtributo));
             }
         }.getResposta();
 

@@ -1,0 +1,66 @@
+package org.coletivoJava.superBitsFW.webPaginas.config;
+
+import javax.inject.Named;
+import javax.enterprise.context.ApplicationScoped;
+import java.io.Serializable;
+import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoControllerEntidade;
+
+@Named
+@ApplicationScoped
+public class AcoesDemonstracao_NotificacaoTransitoriaMbGestao
+		implements
+			Serializable {
+
+	public ItfAcaoFormulario getNotificacaoTransitoriaMbGestao() {
+		return (ItfAcaoFormulario) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_MB_GESTAO");
+	}
+
+	public ItfAcaoFormularioEntidade getNotificacaoTransitoriaFrmRelAcaoDoSistema() {
+		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_FRM_REL_ACAO_DO_SISTEMA");
+	}
+
+	public ComoAcaoControllerEntidade getNotificacaoTransitoriaCtrRelAcaoDoSistema() {
+		return (ComoAcaoControllerEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_REL_ACAO_DO_SISTEMA");
+	}
+
+	public ItfAcaoFormularioEntidade getNotificacaoTransitoriaFrmEnviarMenuSistemaUsr() {
+		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_FRM_ENVIAR_MENU_SISTEMA_USR");
+	}
+
+	public ItfAcaoFormularioEntidade getNotificacaoTransitoriaFrmEnviarMenuUsrToUsr() {
+		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_FRM_ENVIAR_MENU_USR_TO_USR");
+	}
+
+	public ComoAcaoControllerEntidade getNotificacaoTransitoriaCtrEnviar() {
+		return (ComoAcaoControllerEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_ENVIAR");
+	}
+
+	public ComoAcaoControllerEntidade getNotificacaoTransitoriaCtrEnviarRespPersonalizada() {
+		return (ComoAcaoControllerEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_ENVIAR_RESP_PERSONALIZADA");
+	}
+
+	public ItfAcaoFormularioEntidade getNotificacaoTransitoriaFrmSolucionarPersonalizada() {
+		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_FRM_SOLUCIONAR_PERSONALIZADA");
+	}
+
+	public ComoAcaoControllerEntidade getNotificacaoTransitoriaCtrResponderPersonalizada() {
+		return (ComoAcaoControllerEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_RESPONDER_PERSONALIZADA");
+	}
+
+	public ComoAcaoControllerEntidade getNotificacaoTransitoriaCtrAdicionarNotificacaoChatAleatoria() {
+		return (ComoAcaoControllerEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCNotificacoes.NOTIFICACAO_TRANSITORIA_CTR_ADICIONAR_NOTIFICACAO_CHAT_ALEATORIA");
+	}
+}

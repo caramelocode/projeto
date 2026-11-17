@@ -14,21 +14,21 @@ public class AcoesCarameloDev_RequisitoMbGestao implements Serializable {
 
 	public ItfAcaoFormulario getRequisitoMbGestao() {
 		return (ItfAcaoFormulario) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCRequisito.REQUISITO_MB_GESTAO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevRequisito.REQUISITO_MB_GESTAO");
 	}
 
 	public ItfAcaoFormularioEntidade getRequisitoFrmNovo() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCRequisito.REQUISITO_FRM_NOVO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevRequisito.REQUISITO_FRM_NOVO");
 	}
 
 	public ItfAcaoFormularioEntidade getRequisitoFrmEditar() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCRequisito.REQUISITO_FRM_EDITAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevRequisito.REQUISITO_FRM_EDITAR");
 	}
 
 	public ComoAcaoControllerEntidade getRequisitoCtrSalvar() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCRequisito.REQUISITO_CTR_SALVAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevRequisito.REQUISITO_CTR_SALVAR");
 	}
 }

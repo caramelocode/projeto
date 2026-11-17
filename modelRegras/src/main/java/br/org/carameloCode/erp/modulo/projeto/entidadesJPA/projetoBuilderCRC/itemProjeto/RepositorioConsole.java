@@ -4,6 +4,7 @@ import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.ite
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.acoes.AcaoProjCRCGestao;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.acoes.UtilProjCRCNomeAcao;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.FabricaEntidadeProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.projeto.ProjetoCRC;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCListasObjeto;
@@ -59,11 +60,41 @@ public class RepositorioConsole {
         ac.stream().forEach(acaoProj -> {
             ACOES.put(acaoProj.getNomeUnico(), acaoProj);
         });
+        FABRICAS.clear();
+        List<FabricaEntidadeProjCRC> fabricas = getProjeto().getFabricas();
+        if (fabricas != null) {
+            fabricas.stream()
+                    .filter(fabrica -> fabrica.getNomeFabrica() != null)
+                    .forEach(fabrica -> FABRICAS.put(fabrica.getNomeFabrica(), fabrica));
+        }
 
     }
 
     private Map<String, ObjetoProjCRC> OBJETOS = new HashMap<>();
     private Map<String, AcaoProjCRC> ACOES = new HashMap<>();
+    private Map<String, FabricaEntidadeProjCRC> FABRICAS = new HashMap<>();
+
+    /**
+     * Fábrica (genérica ou de status) pelo nome exato, ex.: FabStatusPedido.
+     */
+    public FabricaEntidadeProjCRC getFabricaExistente(String pNomeFabrica) {
+        return FABRICAS.get(pNomeFabrica);
+    }
+
+    /**
+     * Fábricas do tipo informado (FABRICA_STATUS ou FABRICA_ENTIDADE_GENERICA)
+     * cujo nome começa com o texto, em ordem alfabética.
+     */
+    public List<FabricaEntidadeProjCRC> getFabricasIniciandoCom(String pInicioNome, FabTipoItemProjeto pTipo) {
+        if (pInicioNome == null) {
+            return new ArrayList<>();
+        }
+        return FABRICAS.values().stream()
+                .filter(fabrica -> fabrica.getTipoItemProjeto() == pTipo)
+                .filter(fabrica -> fabrica.getNomeFabrica().startsWith(pInicioNome))
+                .sorted(Comparator.comparing(FabricaEntidadeProjCRC::getNomeFabrica))
+                .collect(Collectors.toList());
+    }
 
     public boolean isEntidadeExiste(String pnomeEntidade) {
         return OBJETOS.containsKey(pnomeEntidade);

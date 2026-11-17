@@ -10,6 +10,7 @@ import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.pro
 import com.carameloCode.projeto.configAppp.ConfigCoreProjetoCRC;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.dinamico.TipoDadoDinamico;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import cucumber.api.CucumberOptions;
@@ -165,8 +166,8 @@ public class FluxoConsoleAcoes extends TesteIntegracaoFuncionalidadeCucumber {
 
     /**
      * Confere, nas últimas sugestões do autocompletar, que todos os subtipos
-     * pendentes da gestão de Cliente aparecem no formato da fábrica informada
-     * e que a gestão, já criada, não aparece.
+     * pendentes da gestão de Cliente aparecem no formato da fábrica informada e
+     * que a gestão, já criada, não aparece.
      */
     public static void verificarSubtiposPendentesDaGestaoCliente(String pFabrica) {
         for (String acaoPendente : ACOES_PENDENTES_APOS_GESTAO) {
@@ -180,8 +181,8 @@ public class FluxoConsoleAcoes extends TesteIntegracaoFuncionalidadeCucumber {
     }
 
     /**
-     * Monta o texto digitado no console: fábrica + separador _o_ + nome da ação (ou só
-     * o prefixo da entidade).
+     * Monta o texto digitado no console: fábrica + separador _o_ + nome da ação
+     * (ou só o prefixo da entidade).
      */
     public static String getTextoFabricaAcao(String pFabrica, String pAcao) {
         return pFabrica + SEPARADOR_FABRICA_ACAO + pAcao;
@@ -270,6 +271,7 @@ public class FluxoConsoleAcoes extends TesteIntegracaoFuncionalidadeCucumber {
         Assert.assertNull("A ação a criar não deveria estar persistida", acao.getId());
         Assert.assertEquals("Nome único da ação a criar incorreto", getNomeUnico(pFabrica, pAcao), acao.getNomeUnico());
         Assert.assertNotNull("A ação a criar deveria ter um módulo", acao.getModulo());
+
         return acao;
     }
 

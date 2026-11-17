@@ -6,6 +6,8 @@ import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.ite
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.acoes.AcaoProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoDeEntidadeSimples;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.FabricaEntidadeProjCRC;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.ItemFabrica;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
@@ -62,7 +64,7 @@ public class UtilConsoleCRCTexto {
      * desenvolvimento).
      */
     public static void imprimirExecucao(ItemOpcaoConsole pOpcao, ItfRespostaAcaoDoSistema pResposta, String pObservacao) {
-        if (SBCore.isEmModoDesenvolvimento()) {
+        if (!SBCore.isEmModoProducao()) {
             System.out.println(getTextoExecucao(pOpcao, pResposta, pObservacao));
         }
     }
@@ -144,8 +146,8 @@ public class UtilConsoleCRCTexto {
     }
 
     /**
-     * Descreve o item com o que importa para cada tipo, e se ele já está
-     * salvo (id) ou é novo.
+     * Descreve o item com o que importa para cada tipo, e se ele já está salvo
+     * (id) ou é novo.
      */
     public static String getDescricaoItem(ComoItemProjeto pItem) {
         if (pItem == null) {
@@ -166,6 +168,19 @@ public class UtilConsoleCRCTexto {
         }
         if (pItem instanceof ObjetoProjCRC) {
             return "Entidade " + ((ObjetoProjCRC) pItem).getNomeEntidade() + situacao;
+        }
+        if (pItem instanceof FabricaEntidadeProjCRC) {
+            FabricaEntidadeProjCRC fabrica = (FabricaEntidadeProjCRC) pItem;
+            return pItem.getClass().getSimpleName() + " " + fabrica.getNomeFabrica() + situacao
+                    + " tipoObjeto=" + (fabrica.getTipoObjetoPadrao() == null ? NENHUM : fabrica.getTipoObjetoPadrao().getNomeEntidade())
+                    + " itens=" + (fabrica.getItens() == null ? 0 : fabrica.getItens().size());
+        }
+        if (pItem instanceof ItemFabrica) {
+            ItemFabrica item = (ItemFabrica) pItem;
+            String fabrica = item.getFabrica() == null ? NENHUM : item.getFabrica().getNomeFabrica();
+            return pItem.getClass().getSimpleName() + " " + fabrica + "." + item.getNomeEnum() + situacao
+                    + " idObjeto=" + item.getIdObjeto() + " nomeObjeto=" + item.getNomeObjeto()
+                    + " tipoObjeto=" + (item.getTipoObjeto() == null ? NENHUM : item.getTipoObjeto().getNomeEntidade());
         }
         return pItem.getClass().getSimpleName() + " " + pItem.getNome() + situacao;
     }
@@ -190,8 +205,8 @@ public class UtilConsoleCRCTexto {
     }
 
     /**
-     * Alinha as colunas pela maior célula de cada uma; a última coluna fica
-     * sem preenchimento.
+     * Alinha as colunas pela maior célula de cada uma; a última coluna fica sem
+     * preenchimento.
      */
     private static List<String> getLinhasTabela(List<String[]> pTabela) {
         int colunas = pTabela.get(0).length;

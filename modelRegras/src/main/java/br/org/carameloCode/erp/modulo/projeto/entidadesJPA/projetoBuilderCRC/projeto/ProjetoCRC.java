@@ -10,6 +10,7 @@ import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.ite
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.implantacao.builds.BuildProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.implantacao.implantacao.ImplantacaoProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.acoes.AcaoProjCRC;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.FabricaEntidadeProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.requisito.RequisitoDeProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.modulo.ModuloProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.servidor.ServicoHospedagem;
@@ -60,6 +61,9 @@ public class ProjetoCRC extends EntidadeSimples {
 
     @OneToMany(mappedBy = "projeto")
     private List<RequisitoDeProjeto> requisitos;
+
+    @OneToMany(targetEntity = FabricaEntidadeProjCRC.class, mappedBy = "projeto")
+    private List<FabricaEntidadeProjCRC> fabricas;
 
     @OneToMany(targetEntity = ModuloProjCRC.class)
     private List<ModuloProjCRC> modulos;
@@ -219,6 +223,14 @@ public class ProjetoCRC extends EntidadeSimples {
 
     public void setRequisitos(List<RequisitoDeProjeto> requisitos) {
         this.requisitos = requisitos;
+    }
+
+    public List<FabricaEntidadeProjCRC> getFabricas() {
+        return fabricas;
+    }
+
+    public void setFabricas(List<FabricaEntidadeProjCRC> fabricas) {
+        this.fabricas = fabricas;
     }
 
 }

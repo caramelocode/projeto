@@ -14,31 +14,31 @@ public class AcoesCarameloDev_ProjetoMbGestao implements Serializable {
 
 	public ItfAcaoFormulario getProjetoMbGestao() {
 		return (ItfAcaoFormulario) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCProjetoCaramelo.PROJETO_MB_GESTAO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevProjetoCRC.PROJETO_MB_GESTAO");
 	}
 
 	public ItfAcaoFormularioEntidade getProjetoFrmListar() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCProjetoCaramelo.PROJETO_FRM_LISTAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevProjetoCRC.PROJETO_FRM_LISTAR");
 	}
 
 	public ItfAcaoFormularioEntidade getProjetoFrmNovo() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCProjetoCaramelo.PROJETO_FRM_NOVO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevProjetoCRC.PROJETO_FRM_NOVO");
 	}
 
 	public ItfAcaoFormularioEntidade getProjetoFrmEditar() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCProjetoCaramelo.PROJETO_FRM_EDITAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevProjetoCRC.PROJETO_FRM_EDITAR");
 	}
 
 	public ComoAcaoControllerEntidade getProjetoCtrSalvarMerge() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCProjetoCaramelo.PROJETO_CTR_SALVAR_MERGE");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevProjetoCRC.PROJETO_CTR_SALVAR_MERGE");
 	}
 
 	public ComoAcaoControllerEntidade getProjetoCtrPublicar() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCProjetoCaramelo.PROJETO_CTR_PUBLICAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevProjetoCRC.PROJETO_CTR_PUBLICAR");
 	}
 }

@@ -37,6 +37,7 @@ public class ItemOpcaoConsole extends EntidadeSimples {
         if (acaoassociada != null) {
             this.acaoAssociada = acaoassociada.getRegistro();
         }
+
     }
 
     public String getNomeDigitado() {

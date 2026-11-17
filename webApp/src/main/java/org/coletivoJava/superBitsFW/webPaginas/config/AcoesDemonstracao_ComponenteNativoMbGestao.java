@@ -1,0 +1,34 @@
+package org.coletivoJava.superBitsFW.webPaginas.config;
+
+import javax.inject.Named;
+import javax.enterprise.context.ApplicationScoped;
+import java.io.Serializable;
+import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoControllerEntidade;
+
+@Named
+@ApplicationScoped
+public class AcoesDemonstracao_ComponenteNativoMbGestao implements Serializable {
+
+	public ItfAcaoFormulario getComponenteNativoMbGestao() {
+		return (ItfAcaoFormulario) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCComponenteNativo.COMPONENTE_NATIVO_MB_GESTAO");
+	}
+
+	public ItfAcaoFormularioEntidade getComponenteNativoFrmListar() {
+		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCComponenteNativo.COMPONENTE_NATIVO_FRM_LISTAR");
+	}
+
+	public ItfAcaoFormularioEntidade getComponenteNativoFrmVerComponenteInput() {
+		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCComponenteNativo.COMPONENTE_NATIVO_FRM_VER_COMPONENTE_INPUT");
+	}
+
+	public ComoAcaoControllerEntidade getComponenteNativoCtrCompilarTagLibPadrao() {
+		return (ComoAcaoControllerEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoProjetoCRCComponenteNativo.COMPONENTE_NATIVO_CTR_COMPILAR_TAG_LIB_PADRAO");
+	}
+}

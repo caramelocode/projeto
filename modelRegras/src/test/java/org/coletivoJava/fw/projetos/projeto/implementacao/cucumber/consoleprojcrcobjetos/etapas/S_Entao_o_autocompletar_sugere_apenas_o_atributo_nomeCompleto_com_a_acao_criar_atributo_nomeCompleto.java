@@ -21,7 +21,7 @@ public class S_Entao_o_autocompletar_sugere_apenas_o_atributo_nomeCompleto_com_a
 		List<ItemOpcaoConsole> opcoes = FluxoConsoleObjetos.CONSOLE.getOpcoesDisponiveis();
 		Assert.assertEquals("Deveria haver apenas a opção de criar o atributo", 1, opcoes.size());
 		ItemOpcaoConsole opcao = opcoes.get(0);
-		Assert.assertEquals("Ação da opção incorreta", FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR, opcao.getFabAcaoAssociada());
+		Assert.assertEquals("Ação da opção incorreta", FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO, opcao.getFabAcaoAssociada());
 		Assert.assertTrue("A opção deveria estar associada a um atributo", opcao.getItemAssociado() instanceof AtributoDeEntidadeSimples);
 		AtributoDeEntidadeSimples atributo = (AtributoDeEntidadeSimples) opcao.getItemAssociado();
 		Assert.assertEquals("Nome do atributo a criar incorreto", FluxoConsoleObjetos.NOME_ATRIBUTO_NOME_COMPLETO, atributo.getNomeDeclarado());

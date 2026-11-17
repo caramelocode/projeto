@@ -1,0 +1,136 @@
+<ui:composition
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:cc="http://java.sun.com/jsf/composite"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:crcEnquadramento="http://xmlns.jcp.org/jsf/composite/SBComp/composite/enquadramento"
+    xmlns:crc="http://xmlns.jcp.org/jsf/composite/CRCconsole">
+
+    <cc:interface>
+        <cc:attribute
+            type="br.org.carameloCode.erp.modulo.projeto.console.ConsoleCRCProjeto"
+            name="console"
+            required="true"
+            shortDescription="console"
+            />
+        <cc:attribute name="id" default="consoleProjCRC" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION br.org.coletivoJava.fw.erp.implementacao.chat.atendente.JanelaChatSessaoUpdate -->
+    <cc:implementation>
+
+        <h:outputStylesheet name="crcConsole.css" library="CRCconsole" />
+        <h:outputScript      name="crcConsole.js" library="CRCconsole"  target="body"  />
+
+        <h:panelGroup layout="block" styleClass="crc-console-projeto-crc" >
+            <h:form>
+
+                <p:card styleClass="Container12 OrganizadorContainer crc-console-projeto-crc__card" >
+
+                    <!-- Cabeçalho: projeto selecionado -->
+                    <h:panelGroup layout="block" styleClass="Container12 crc-console-projeto-crc__cabecalho" >
+                        <h:panelGroup layout="block" styleClass="Container6 crc-console-projeto-crc__projeto" >
+                            <i class="fa-solid fa-terminal crc-console-projeto-crc__projeto-icone"></i>
+                            #{cc.attrs.console.projetoSelecionado.nome}
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" styleClass="Container6" >
+
+                        </h:panelGroup>
+                    </h:panelGroup>
+
+                    <!-- Entrada do console com sugestões em fonte grande -->
+                    <p:autoComplete id="itemTip" value="#{cc.attrs.console.textoDefinido}"
+                                    completeMethod="#{cc.attrs.console.autocompletProjeto}"
+                                    var="opcao" itemLabel="#{opcao}" itemValue="#{opcao}"
+                                    styleClass="Container12 crc-console-projeto-crc__entrada"
+                                    panelStyleClass="crc-console-projeto-crc__sugestoes"
+                                    scrollHeight="400">
+                        <p:ajax event="itemSelect" listener="#{cc.attrs.console.executarOpcaoSelecionada()}" update="@form:areaOpcaoSelecionada"/>
+
+                        <f:facet name="itemtip">
+                            <h:panelGroup layout="block" styleClass="crc-console-projeto-crc__item-dica" >
+                                <h:panelGroup layout="block" styleClass="crc-console-projeto-crc__item-dica-projeto"
+                                              rendered="#{not empty cc.attrs.console.projetoSelecionado}" >
+                                    #{cc.attrs.console.projetoSelecionado.nome}
+                                </h:panelGroup>
+                                <h:outputText value="#{opcao}" styleClass="crc-console-projeto-crc__item-dica-texto" />
+                            </h:panelGroup>
+                        </f:facet>
+
+                        <f:facet name="footer">
+                            <h:panelGroup layout="block" styleClass="ui-fluid crc-console-projeto-crc__rodape" >
+                                <!-- Opções: cada acaoAssociada usa sua própria cor (variável CSS crc-console-cor) -->
+                                <!-- Componente separado: resources/CRCconsole/opcoesConsoleCRC.xhtml -->
+                                <crc:opcoesConsoleCRC console="#{cc.attrs.console}" atualizar="@form:areaOpcaoSelecionada" />
+
+                                <!-- Dica exibida abaixo das opções -->
+                                <p:staticMessage severity="info" summary="#{cc.attrs.console.textoDica}"
+                                                 styleClass="crc-console-projeto-crc__dica" />
+                            </h:panelGroup>
+                        </f:facet>
+                    </p:autoComplete>
+
+                </p:card>
+
+                <!-- Detalhes da opção selecionada -->
+                <!-- Invólucro sempre renderizado: alvo do update ajax precisa existir no DOM -->
+                <h:panelGroup layout="block" styleClass="Container12 crc-console-projeto-crc__area-selecionada" id="areaOpcaoSelecionada" >
+                    <!-- Sem opção selecionada, mas com opções disponíveis: exibe as opções para escolha -->
+                    <h:panelGroup layout="block" styleClass="Container12 crc-console-projeto-crc__selecionada-opcoes"
+                                  rendered="#{!empty cc.attrs.console and empty cc.attrs.console.opcaoSelecionada and not empty cc.attrs.console.opcoesDisponiveis}" >
+                        <crc:opcoesConsoleCRC console="#{cc.attrs.console}" atualizar="@form:areaOpcaoSelecionada" />
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="Container12 crc-console-projeto-crc__selecionada" rendered="#{!empty cc.attrs.console and !empty cc.attrs.console.opcaoSelecionada}" >
+                        <h:panelGroup layout="block" styleClass="crc-console-projeto-crc__selecionada-conteudo"
+                                      rendered="#{not empty cc.attrs.console.opcaoSelecionada.acaoFormularioDetalhes}"
+                                      style="#{empty cc.attrs.console.opcaoSelecionada.acaoFormularioDetalhes.cor ? '' : '--crc-console-cor: '.concat(cc.attrs.console.opcaoSelecionada.acaoAssociada.cor)}" >
+                            <c:set var="urlAcaoSelecionada"
+                                   value="#{pgUtilAcoes.getUrlAcao(cc.attrs.console.opcaoSelecionada.acaoFormularioDetalhes, cc.attrs.console.opcaoSelecionada.itemAssociado)}" />
+                            <c:set var="urlDemonstracao"
+                                   value="#{pgUtilAcoes.getUrlAcao(acoesCarameloDev_PrevisualizacaoItemProjMbGestao.previsualizacaoItemProjFrmVisualizarAcaoGestao, cc.attrs.console.opcaoSelecionada.itemAssociado)}" />
+
+                            <!-- Cabeçalho: ícone na cor da ação, nome da ação, item e atalho -->
+                            <h:panelGroup layout="block" styleClass="crc-console-projeto-crc__selecionada-cabecalho" >
+                                <span class="crc-console-projeto-crc__selecionada-icone">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </span>
+                                <h:panelGroup layout="block" styleClass="crc-console-projeto-crc__selecionada-titulos" >
+                                    <span class="crc-console-projeto-crc__selecionada-rotulo">Opção selecionada</span>
+                                    <span class="crc-console-projeto-crc__selecionada-acao">
+                                        #{cc.attrs.console.opcaoSelecionada.acaoAssociada.nomeAcao}
+                                    </span>
+                                    <h:panelGroup styleClass="crc-console-projeto-crc__selecionada-item"
+                                                  rendered="#{not empty cc.attrs.console.opcaoSelecionada.itemAssociado}" >
+                                        <i class="fa-solid fa-cube"></i>
+                                        #{cc.attrs.console.opcaoSelecionada.itemAssociado.nome}
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <kbd class="crc-console-projeto-crc__selecionada-atalho">CTRL + SHIFT + #{cc.attrs.console.opcaoSelecionada.ordem}</kbd>
+                            </h:panelGroup>
+
+                            <!-- Corpo: descrição da opção e link para o formulário de detalhes -->
+                            <h:panelGroup layout="block" styleClass="crc-console-projeto-crc__selecionada-corpo" >
+
+                                <!-- Iframes lado a lado, quebrando linha quando não couberem -->
+                                <h:panelGroup layout="block" styleClass="d-flex flex-wrap align-items-start gap-3">
+                                    <crcEnquadramento:iframeInterno src="#{urlAcaoSelecionada}"
+                                                                    metodoInteracaoIframe="#{pgUtil.enviaMensagem('teste')}"/>
+                                    <crcEnquadramento:iframeInterno src="#{urlDemonstracao}" />
+                                    #{urlDemonstracao}
+                                </h:panelGroup>
+
+
+                                #{urlAcaoSelecionada}
+                            </h:panelGroup>
+
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:form>
+        </h:panelGroup>
+    </cc:implementation>
+</ui:composition>

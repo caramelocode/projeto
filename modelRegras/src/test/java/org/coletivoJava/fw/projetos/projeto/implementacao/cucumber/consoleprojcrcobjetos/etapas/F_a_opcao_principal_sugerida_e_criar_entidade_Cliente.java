@@ -14,7 +14,7 @@ public class F_a_opcao_principal_sugerida_e_criar_entidade_Cliente {
     public void implementacaoEtapa() {
         ItemOpcaoConsole opcao = FluxoConsoleObjetos.CONSOLE.getOpcaoPrincipalSugerida();
         Assert.assertNotNull("Nenhuma opção principal sugerida", opcao);
-        Assert.assertEquals("Ação sugerida diferente da esperada", FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR, opcao.getFabAcaoAssociada());
+        Assert.assertEquals("Ação sugerida diferente da esperada", FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR_NOVO, opcao.getFabAcaoAssociada());
         Assert.assertTrue("A opção principal deveria estar associada a uma entidade", opcao.getItemAssociado() instanceof ObjetoProjCRC);
         Assert.assertEquals("Nome da entidade a criar incorreto", FluxoConsoleObjetos.NOME_ENTIDADE_CLIENTE,
                 ((ObjetoProjCRC) opcao.getItemAssociado()).getNomeEntidade());

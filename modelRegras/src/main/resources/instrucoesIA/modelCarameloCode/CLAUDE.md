@@ -81,22 +81,22 @@ Arquivo: `itemProjeto/entidades/FabTiposEntidade.java`. Define que classe base a
 | COMO_STATUS | `EntidadeORMStatus` | ainda não definido (lança `UnsupportedOperationException`) |
 | COMO_PESSOA, COMO_USUARIO, COMO_GRUPO_USUARIO | `null` | ainda não definido (lança `UnsupportedOperationException`) |
 
-- **`aplicarAtributo(objeto)`:** cria a lista de atributos se ela estiver nula. Para cada tipo de `getAtributosDoTIpo()`, cria o atributo com `getAtributo(objeto, tipo, getNomePadraoATributo(objeto, tipo))` e o adiciona em `objeto.getAtributos()`.
-- **`getNomePadraoATributo(objeto, tipo)`:** devolve o nome padrão do campo para cada tipo.
+- **`aplicarAtributo(objeto)`:** cria a lista de atributos se ela estiver nula. Para cada tipo de `getAtributosDoTIpo()`, cria o atributo com `getAtributo(objeto, tipo, FabTipoInstanciaAtributoProjeto.getTipoAtributo(tipo).getNomePadraoATributo(objeto, tipo))` e o adiciona em `objeto.getAtributos()`.
+- **`FabTipoInstanciaAtributoProjeto.getNomePadraoATributo(objeto, tipo)`:** devolve o nome padrão do campo para cada tipo.
   - Nomes fixos: `ID` → `id`; `NOME` → `nome`; `NOME_LONGO`/`NOME_COMPLETO` → `nomeCompleto`; `DESCRITIVO` → `descricao`; `REG_DATAALTERACAO` → `dataHoraAlteracao`; `REG_DATAINSERCAO` → `dataHoraInsercao`; `REG_USUARIO_ALTERACAO` → `usuarioAlteracao`; `REG_USUARIO_INSERCAO` → `usuarioInsercao`; `REG_ATIVO_INATIVO` → `ativo`.
   - Demais tipos: o nome do enum em camelCase (`LC_CIDADE` → `lcCidade`).
 - **`getAtributo(objeto, tipo, nome)`:** cria e prepara um `AtributoDeEntidadeSimples` ligado ao objeto, mas **não** o adiciona à lista do objeto.
 
 ### Como adicionar atributos padrão a um tipo de entidade
 1. Em `getAtributosDoTIpo()`, devolver a lista de `FabTipoAtributoObjeto` do tipo.
-2. Em `getNomePadraoATributo()`, adicionar um `case` com o nome do campo, se o camelCase automático não servir.
+2. Em `FabTipoInstanciaAtributoProjeto.getNomePadraoATributo()`, adicionar um `case` com o nome do campo, se o camelCase automático não servir.
 3. Se o tipo de atributo precisar de outra classe, como referência ou lista, ajustar `getAtributo()` para instanciar a subclasse certa (`AtributoEntidadeEntidade`, `AtrubutoEntidadeLista` ou uma nova).
 
 ### Como criar um novo tipo de atributo (subclasse)
 1. Criar a subclasse de `AtributoDeEntidadeSimples` com `@Entity` e `@InfoObjetoSB(tags = ..., plural = ...)`. Ela fica na mesma tabela, com o discriminador `tipoAtributo`.
 2. Se tiver parâmetros próprios, sobrescrever `prepararNovoObjeto`. Chame `super.prepararNovoObjeto(parametros)`, repita a anotação `@InfoPreparacaoObjeto` e leia os parâmetros extras com `isTemParametroDesteTipo`/`getParametroInicialEnviado`.
 3. Fazer `FabTiposEntidade.getAtributo()` (ou um método equivalente) criar a subclasse conforme o `FabTipoAtributoObjeto`. Ex.: `OBJETO_DE_UMA_LISTA` → `AtributoEntidadeEntidade`; `LISTA_OBJETOS_PUBLICOS`/`LISTA_OBJETOS_PARTICULARES` → `AtrubutoEntidadeLista`.
-4. No console (`FabTipoItemProjeto.ATRIBUTO_OBJETO`), hoje o atributo novo é sempre criado com `TIPO_PADRAO_NOVO_ATRIBUTO` (`TEXTO_SIMPLES`). Para inferir o tipo pelo nome digitado, ajuste o `getOpcoesConsole`.
+4. No console (`FabTipoItemProjeto.ATRIBUTO_OBJETO`), a classe e o tipo do atributo novo vêm do texto e do nome (`FabTipoInstanciaAtributoProjeto.getTipoInstanciaPeloNome` e `getTipoPeloNome` de cada instância; sem correspondência, `getTipoPadrao()`). Para novos nomes com tipo automático, ajuste os mapas `TIPOS_POR_NOME_EXATO_*` desse enum (regras em `instrucoesIA/console`).
 
 ## Ações (`acoes/projetoCarameloBuilder/entidade/FabAcaoProjetoCRCEntidade`)
 

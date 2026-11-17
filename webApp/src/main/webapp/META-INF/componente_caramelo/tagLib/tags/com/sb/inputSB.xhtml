@@ -21,6 +21,7 @@
         <ui:param name="valor" value="#{registro.valor}"/>
         <ui:param name="obrigatorio" value="#{registro.obrigatorio}"/>
         <ui:param name="nomeItem" value="#{registro.label}"/>
+
         <ui:param rendered="#{registro.umValorComLista}" name="lista" value="#{registro.listaDeOpcoes}"/>
         <ui:param name="regex" value="#{registro.validacaoRegex}" rendered="#{registro.temValidacaoRegex}"/>
         <ui:param name="valorMaximo" value="#{registro.valorMaximo}" />

@@ -4,14 +4,11 @@
  */
 package br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades;
 
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.FabTipoInstanciaAtributoProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoDeEntidadeSimples;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeORMNormal;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeORMStatus;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimplesORM;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringConversores;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringFiltros;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringGerador;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringsCammelCase;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,51 +96,22 @@ public enum FabTiposEntidade {
             pObjeto.setAtributos(new ArrayList<>());
         }
         for (FabTipoAtributoObjeto tipo : getAtributosDoTIpo()) {
-            AtributoDeEntidadeSimples atributo = getAtributo(pObjeto, tipo, getNomePadraoATributo(pObjeto, tipo));
+            String nomePadrao = FabTipoInstanciaAtributoProjeto.getTipoAtributo(tipo).getNomePadraoATributo(pObjeto, tipo);
+            AtributoDeEntidadeSimples atributo = getAtributo(pObjeto, tipo, nomePadrao);
             pObjeto.getAtributos().add(atributo);
         }
     }
 
-    public static String getNomePadraoATributo(ObjetoProjCRC pObjeto, FabTipoAtributoObjeto pTipoAtributo) {
-        switch (pTipoAtributo) {
-            case ID:
-                return "id";
-            case NOME:
-                return "nome";
-            case NOME_LONGO:
-            case NOME_COMPLETO:
-                return "nomeCompleto";
-            case DESCRITIVO:
-                return "descricao";
-            case REG_DATAALTERACAO:
-                return "dataHoraAlteracao";
-            case REG_DATAINSERCAO:
-                return "dataHoraInsercao";
-            case REG_USUARIO_ALTERACAO:
-                return "usuarioAlteracao";
-            case REG_USUARIO_INSERCAO:
-                return "usuarioInsercao";
-            case REG_ATIVO_INATIVO:
-                return "ativo";
-            default:
-                return getNomeCamelCase(pTipoAtributo);
-        }
-    }
+    /**
+     * Tipo usado quando o nome do atributo não indica nenhum tipo.
+     */
+    public static final FabTipoAtributoObjeto TIPO_PADRAO_ATRIBUTO_SIMPLES = FabTipoAtributoObjeto.TEXTO_SIMPLES;
 
     public static AtributoDeEntidadeSimples getAtributo(ObjetoProjCRC pObjeto, FabTipoAtributoObjeto pTipoAtributo, String pNomeAtributo) throws ErroPreparandoObjeto {
         AtributoDeEntidadeSimples atributo = new AtributoDeEntidadeSimples();
         atributo.prepararNovoObjeto(pObjeto, pTipoAtributo, pNomeAtributo);
 
         return atributo;
-    }
-
-    /**
-     * Nome padrão para tipos sem nome definido: o nome do enum em camelCase
-     * (ex.: LC_CIDADE → lcCidade).
-     */
-    private static String getNomeCamelCase(FabTipoAtributoObjeto pTipoAtributo) {
-        return UtilCRCStringsCammelCase.getCamelByTextoPrimeiraLetraMaiuscula(pTipoAtributo.name());
-
     }
 
 }

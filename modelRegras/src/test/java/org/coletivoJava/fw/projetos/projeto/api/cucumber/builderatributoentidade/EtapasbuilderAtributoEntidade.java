@@ -1,0 +1,16 @@
+package org.coletivoJava.fw.projetos.projeto.api.cucumber.builderatributoentidade;
+public enum EtapasbuilderAtributoEntidade {
+	_DADO_UM_PROJETO_COM_A_ENTIDADE_CLIENTE_CARREGADO_DO_RESULTADO_DO_FLUXOCONSOLEOBJETOS, _QUANDO_O_USUARIO_DIGITA_UM_NOME_PARA_CADA_TIPO_DE_ATRIBUTO_DE_ENTIDADE, _E_O_USUARIO_EXECUTA_A_PRIMEIRA_OPCAO_SUGERIDA_DE_CADA_ATRIBUTO, _ENTAO_OS_ATRIBUTOS_SAO_PERSISTIDOS_COMO_ATRIBUTOENTIDADEENTIDADE, _E_OS_TIPOS_DOS_NOMES_RESERVADOS_SAO_DEFINIDOS_DE_FORMA_AUTOMATICA, _E_O_ATRIBUTO_CLIENTEINDICOU_REFERENCIA_A_ENTIDADE_CLIENTE, _E_A_VISIBILIDADE_DAS_PROPRIEDADES_DOS_ATRIBUTOS_ESTA_DE_ACORDO, _QUANDO_O_USUARIO_LISTA_OS_ATRIBUTOS_QUE_PRECISAM_TER_O_TIPO_DEFINIDO_NA_MAO, _E_O_USUARIO_DEFINE_OS_TIPOS, _ENTAO_O_CAMPO_TIPO_EXIBE_APENAS_OS_TIPOS_COMPATIVEIS_COM_ATRIBUTOENTIDADEENTIDADE, _E_A_VISIBILIDADE_DAS_PROPRIEDADES_DESTES_ATRIBUTOS_FICA_DE_ACORDO_COM_O_ESPERADO;
+
+	public static final String DADO_UM_PROJETO_COM_A_ENTIDADE_CLIENTE_CARREGADO_DO_RESULTADO_DO_FLUXOCONSOLEOBJETOS = "um projeto com a entidade Cliente carregado do resultado do FluxoConsoleObjetos";
+	public static final String QUANDO_O_USUARIO_DIGITA_UM_NOME_PARA_CADA_TIPO_DE_ATRIBUTO_DE_ENTIDADE = "o usuario digita um nome para cada tipo de atributo de entidade";
+	public static final String E_O_USUARIO_EXECUTA_A_PRIMEIRA_OPCAO_SUGERIDA_DE_CADA_ATRIBUTO = "o usuario executa a primeira opcao sugerida de cada atributo";
+	public static final String ENTAO_OS_ATRIBUTOS_SAO_PERSISTIDOS_COMO_ATRIBUTOENTIDADEENTIDADE = "os atributos sao persistidos como AtributoEntidadeEntidade";
+	public static final String E_OS_TIPOS_DOS_NOMES_RESERVADOS_SAO_DEFINIDOS_DE_FORMA_AUTOMATICA = "os tipos dos nomes reservados sao definidos de forma automatica";
+	public static final String E_O_ATRIBUTO_CLIENTEINDICOU_REFERENCIA_A_ENTIDADE_CLIENTE = "o atributo clienteIndicou referencia a entidade Cliente";
+	public static final String E_A_VISIBILIDADE_DAS_PROPRIEDADES_DOS_ATRIBUTOS_ESTA_DE_ACORDO = "a visibilidade das propriedades dos atributos esta de acordo";
+	public static final String QUANDO_O_USUARIO_LISTA_OS_ATRIBUTOS_QUE_PRECISAM_TER_O_TIPO_DEFINIDO_NA_MAO = "o usuario lista os atributos que precisam ter o tipo definido na mao";
+	public static final String E_O_USUARIO_DEFINE_OS_TIPOS = "o usuario define os tipos";
+	public static final String ENTAO_O_CAMPO_TIPO_EXIBE_APENAS_OS_TIPOS_COMPATIVEIS_COM_ATRIBUTOENTIDADEENTIDADE = "o campo tipo exibe apenas os tipos compativeis com AtributoEntidadeEntidade";
+	public static final String E_A_VISIBILIDADE_DAS_PROPRIEDADES_DESTES_ATRIBUTOS_FICA_DE_ACORDO_COM_O_ESPERADO = "a visibilidade das propriedades destes atributos fica de acordo com o esperado";
+}

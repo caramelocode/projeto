@@ -16,6 +16,13 @@ import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.ite
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.FabTiposEntidade;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoDeEntidadeSimples;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoEntidadeEntidade;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoEntidadeLista;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.FabricaEntidadeProjCRC;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.FabricaStatusProjCRC;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.ItemFabrica;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.ItemFabricaStatus;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.UtilProjCRCNomeFabrica;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.projeto.ProjetoCRC;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabrica;
@@ -27,8 +34,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.coletivojava.fw.api.tratamentoErros.ErroPreparandoObjeto;
 
@@ -45,18 +50,63 @@ public enum FabTipoItemProjeto implements ComoFabrica {
     COMPONENTE_VISUAL,
     FABRICA_STATUS,
     FABRICA_GRUPO_USUARIOS,
+    FABRICA_ENTIDADE_GENERICA,
     FABRICA_MODULOS,
     FLUXO_TESTES,
-    FABRICA_ENTIDADE_GENERICA,
     DESCONHECIDO;
 
     public static final String SEPARADOR_ATRIBUTO = ".";
 
     /**
-     * Tipo usado ao criar um atributo novo pelo console, antes do usuário
-     * definir o tipo no formulário.
+     * Tipo do atributo criado com Entidade.atributo. (objeto).
      */
-    public static final FabTipoAtributoObjeto TIPO_PADRAO_NOVO_ATRIBUTO = FabTipoAtributoObjeto.TEXTO_SIMPLES;
+    public static final FabTipoAtributoObjeto TIPO_NOVO_ATRIBUTO_OBJETO = FabTipoAtributoObjeto.OBJETO_DE_UMA_LISTA;
+    /**
+     * Tipo do atributo criado com Entidade.atributo[] (lista).
+     */
+    public static final FabTipoAtributoObjeto TIPO_NOVO_ATRIBUTO_LISTA = FabTipoAtributoObjeto.LISTA_OBJETOS_PUBLICOS;
+
+    /**
+     * Cores do tipo de item: {padrão, discreta, destaque}. Todas as fábricas
+     * usam a mesma cor.
+     */
+    private String[] getCores() {
+        switch (this) {
+            case OBJETO:
+                return new String[]{"#2563EB", "#60A5FA", "#1E3A8A"}; // azul
+            case ATRIBUTO_OBJETO:
+                return new String[]{"#0891B2", "#22D3EE", "#164E63"}; // ciano
+            case ACAO:
+                return new String[]{"#7C3AED", "#A78BFA", "#4C1D95"}; // violeta
+            case REQUISITO:
+                return new String[]{"#16A34A", "#4ADE80", "#14532D"}; // verde
+            case COMPONENTE_VISUAL:
+                return new String[]{"#DB2777", "#F472B6", "#831843"}; // rosa
+            case FABRICA_STATUS:
+            case FABRICA_GRUPO_USUARIOS:
+            case FABRICA_MODULOS:
+            case FABRICA_ENTIDADE_GENERICA:
+                return new String[]{"#D97706", "#FBBF24", "#78350F"}; // âmbar
+            case FLUXO_TESTES:
+                return new String[]{"#DC2626", "#F87171", "#7F1D1D"}; // vermelho
+            case DESCONHECIDO:
+                return new String[]{"#4B5563", "#9CA3AF", "#1F2937"}; // cinza
+            default:
+                throw new AssertionError(this);
+        }
+    }
+
+    public String getCorPadrao() {
+        return getCores()[0];
+    }
+
+    public String getCorDiscreta() {
+        return getCores()[1];
+    }
+
+    public String getCorDestaque() {
+        return getCores()[2];
+    }
 
     public String getTextoDica() {
 
@@ -75,7 +125,7 @@ public enum FabTipoItemProjeto implements ComoFabrica {
             case COMPONENTE_VISUAL:
                 break;
             case FABRICA_STATUS:
-                break;
+                return "Escreva FabStatus[Nome] para criar ou editar uma fábrica de status, ou FabStatus[Nome].nomeStatus para criar ou editar um status, ex.: FabStatusPedido.emAndamento";
             case FABRICA_GRUPO_USUARIOS:
                 break;
             case FABRICA_MODULOS:
@@ -83,7 +133,7 @@ public enum FabTipoItemProjeto implements ComoFabrica {
             case FLUXO_TESTES:
                 break;
             case FABRICA_ENTIDADE_GENERICA:
-                break;
+                return "Escreva Fab[Nome] para criar ou editar uma fábrica de objetos estáticos, ou Fab[Nome].nomeItem para criar ou editar um item, ex.: FabTipoPagamento.cartao";
             case DESCONHECIDO:
                 return "Para Editar e criar ações, digite FabAcaoNomeAcao, para Criar e editar entidades digite, NomeEntidade, e Para criar dados estáticos, como Status, e Tipo digite FabTipoXNomeTipo";
 
@@ -174,26 +224,28 @@ public enum FabTipoItemProjeto implements ComoFabrica {
                 if (entidade == null) {
                     return opcoesAutocomplet;
                 }
-                String nomeAtributo = UtilProjCRCItemProjetoTexto.getSegundaParte(pTextoDefinidoNomrmatizado);
+                String nomeAtributo = UtilProjCRCItemProjetoTexto.getNomeAtributoSemSufixo(
+                        UtilProjCRCItemProjetoTexto.getSegundaParte(pTextoDefinidoNomrmatizado));
                 if (!nomeAtributo.isEmpty() && getAtributoExistente(entidade, nomeAtributo) == null) {
                     opcoesAutocomplet.add(pTextoDefinidoNomrmatizado);
                 }
+                // Atributo de listagem é sugerido com o sufixo [] (Cliente.clientesRelacionados[])
                 getAtributosIniciandoCom(entidade, nomeAtributo).stream()
-                        .map(at -> entidade.getNomeEntidade() + SEPARADOR_ATRIBUTO + at.getNomeDeclarado())
+                        .map(at -> entidade.getNomeEntidade() + SEPARADOR_ATRIBUTO + at.getNomeDeclarado()
+                        + (at instanceof AtributoEntidadeLista ? UtilProjCRCItemProjetoTexto.SUFIXO_ATRIBUTO_LISTA : ""))
                         .forEach(opcoesAutocomplet::add);
                 return opcoesAutocomplet;
             }
             case COMPONENTE_VISUAL:
                 break;
             case FABRICA_STATUS:
-                break;
+            case FABRICA_ENTIDADE_GENERICA:
+                return getSugestoesFabrica(pConsole.getRepositorio(), pTextoDefinidoNomrmatizado);
             case FABRICA_GRUPO_USUARIOS:
                 break;
             case FABRICA_MODULOS:
                 break;
             case FLUXO_TESTES:
-                break;
-            case FABRICA_ENTIDADE_GENERICA:
                 break;
             case DESCONHECIDO:
 
@@ -222,8 +274,8 @@ public enum FabTipoItemProjeto implements ComoFabrica {
                     try {
 
                         novoItem = (ObjetoProjCRC) this.getItemByTexto(console.getProjetoSelecionado(), console.getTextoDefinido());
-                        opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR, novoItem, i,
-                                FabAcaoCarameloDevComoItemProjeto.ENTIDADE_FRM_NOVO.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                        opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR_NOVO, novoItem, i,
+                                FabAcaoCarameloDevComoItemProjeto.ENTIDADE_FRM_EDITAR.getRegistro().getComoFormulario(), this.getComponentePreview()));
                         i++;
                     } catch (ErroPreparandoObjeto ex) {
                         //valor incompativel
@@ -240,13 +292,37 @@ public enum FabTipoItemProjeto implements ComoFabrica {
                 if (entidade == null) {
                     return opcoesConsole;
                 }
-                String nomeAtributo = UtilProjCRCItemProjetoTexto.getSegundaParte(console.getTextoDefinido());
+                String nomeDigitado = UtilProjCRCItemProjetoTexto.getSegundaParte(console.getTextoDefinido());
+                String nomeAtributo = UtilProjCRCItemProjetoTexto.getNomeAtributoSemSufixo(nomeDigitado);
                 int i = 1;
                 if (!nomeAtributo.isEmpty() && getAtributoExistente(entidade, nomeAtributo) == null) {
                     try {
-                        AtributoDeEntidadeSimples novoAtributo = FabTiposEntidade.getAtributo(entidade, TIPO_PADRAO_NOVO_ATRIBUTO, nomeAtributo);
-                        opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR, novoAtributo, i,
-                                FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_NOVO.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                        if (UtilProjCRCItemProjetoTexto.isAtributoTipoLista(nomeDigitado)) {
+                            // Entidade.atributo[] → atributo do tipo lista
+                            AtributoEntidadeLista novoAtributo = new AtributoEntidadeLista();
+                            novoAtributo.prepararNovoObjeto(entidade, FabTipoInstanciaAtributoProjeto.ATRIBUTO_LISTAGEM.getTipoPeloNome(nomeAtributo), nomeAtributo);
+                            novoAtributo.setEntidadeItemLista(getEntidadeReferenciadaPeloNome(console.getRepositorio(), entidade, nomeAtributo));
+                            opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO_TP_LISTA, novoAtributo, i,
+                                    FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_EDITAR_LISTA.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                        } else if (UtilProjCRCItemProjetoTexto.isAtributoTipoObjeto(nomeDigitado)
+                                || FabTipoInstanciaAtributoProjeto.getTipoInstanciaPeloNome(nomeAtributo) == FabTipoInstanciaAtributoProjeto.ATRIBUTO_ENTIDADE) {
+                            // Entidade.atributo. ou nome reservado (bairro, uf, usuarioCriacao...) → atributo que referencia outra entidade
+                            FabTipoAtributoObjeto tipo = FabTipoInstanciaAtributoProjeto.ATRIBUTO_ENTIDADE.getTipoPeloNome(nomeAtributo);
+                            AtributoEntidadeEntidade novoAtributo = new AtributoEntidadeEntidade();
+                            novoAtributo.prepararNovoObjeto(entidade, tipo, nomeAtributo);
+                            if (tipo == FabTipoAtributoObjeto.OBJETO_DE_UMA_LISTA) {
+                                // Nos tipos de localidade e de usuário a entidade é fixa
+                                novoAtributo.setEntidadeReferenciada(getEntidadeReferenciadaPeloNome(console.getRepositorio(), entidade, nomeAtributo));
+                            }
+                            opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO_TP_ENTIDADE, novoAtributo, i,
+                                    FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_EDITAR_OBJETO.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                        } else {
+                            // Tipo deduzido pelo nome (logo → IMG_PEQUENA); sem correspondência, TEXTO_SIMPLES
+                            AtributoDeEntidadeSimples novoAtributo = FabTiposEntidade.getAtributo(entidade,
+                                    FabTipoInstanciaAtributoProjeto.ATRIBUTO_SIMPLES.getTipoPeloNome(nomeAtributo), nomeAtributo);
+                            opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO, novoAtributo, i,
+                                    FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_EDITAR.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                        }
                         i++;
                     } catch (ErroPreparandoObjeto ex) {
                         //valor incompativel
@@ -290,14 +366,13 @@ public enum FabTipoItemProjeto implements ComoFabrica {
             case COMPONENTE_VISUAL:
                 break;
             case FABRICA_STATUS:
-                break;
+            case FABRICA_ENTIDADE_GENERICA:
+                return getOpcoesConsoleFabrica(console);
             case FABRICA_GRUPO_USUARIOS:
                 break;
             case FABRICA_MODULOS:
                 break;
             case FLUXO_TESTES:
-                break;
-            case FABRICA_ENTIDADE_GENERICA:
                 break;
             case DESCONHECIDO:
                 return new ArrayList<>();
@@ -383,9 +458,9 @@ public enum FabTipoItemProjeto implements ComoFabrica {
     }
 
     /**
-     * Formulário de edição da ação, usado como detalhe da opção de criar e
-     * como ação da opção de editar: formulário → EDITAR_ACAO_FORMULARIO,
-     * controller → EDITAR_ACAO_CONTROLLER, gestão → VISAO_GERAL.
+     * Formulário de edição da ação, usado como detalhe da opção de criar e como
+     * ação da opção de editar: formulário → EDITAR_ACAO_FORMULARIO, controller
+     * → EDITAR_ACAO_CONTROLLER, gestão → VISAO_GERAL.
      */
     private static FabAcaoCarameloDevAcaoProjCRC getFormularioDetalhesAcao(AcaoProjCRC pAcao) {
         if (pAcao.isUmaAcaoFormulario()) {
@@ -397,6 +472,23 @@ public enum FabTipoItemProjeto implements ComoFabrica {
         return FabAcaoCarameloDevAcaoProjCRC.ACOES_FRM_VISAO_GERAL;
     }
 
+    /**
+     * Entidade do projeto deduzida pelo nome do atributo: a de nome mais longo
+     * que seja prefixo do nome do atributo com a primeira letra maiúscula
+     * (clientesRelacionados → Cliente). Sem correspondência, a própria entidade
+     * dona do atributo.
+     */
+    private static ObjetoProjCRC getEntidadeReferenciadaPeloNome(RepositorioConsole pRepositorio, ObjetoProjCRC pEntidadeDona, String pNomeAtributo) {
+        if (pRepositorio.getProjeto() == null || pRepositorio.getProjeto().getObjetos() == null) {
+            return pEntidadeDona;
+        }
+        String nomeComMaiuscula = UtilProjCRCItemProjetoTexto.getTextoNormatizado(pNomeAtributo);
+        return pRepositorio.getProjeto().getObjetos().stream()
+                .filter(obj -> obj.getNomeEntidade() != null && nomeComMaiuscula.startsWith(obj.getNomeEntidade()))
+                .max((a, b) -> Integer.compare(a.getNomeEntidade().length(), b.getNomeEntidade().length()))
+                .orElse(pEntidadeDona);
+    }
+
     private static AtributoDeEntidadeSimples getAtributoExistente(ObjetoProjCRC pEntidade, String pNomeAtributo) {
         if (pEntidade.getAtributos() == null) {
             return null;
@@ -406,11 +498,201 @@ public enum FabTipoItemProjeto implements ComoFabrica {
                 .findFirst().orElse(null);
     }
 
+    /**
+     * Opções de FABRICA_STATUS e FABRICA_ENTIDADE_GENERICA.
+     *
+     * Sem ponto (FabStatusPedido): criar a fábrica (se não existir) ou editar a
+     * fábrica e criar um item nela (se existir), e editar as fábricas do mesmo
+     * tipo que começam com o texto.
+     *
+     * Com ponto (FabStatusPedido.emAnd): criar o item (se não existir) e editar
+     * os itens cujo nomeEnum começa com o nome digitado (EM_AND).
+     */
+    private List<ItemOpcaoConsole> getOpcoesConsoleFabrica(ConsoleCRCProjeto console) {
+        List<ItemOpcaoConsole> opcoes = new ArrayList<>();
+        boolean status = this == FABRICA_STATUS;
+        FabAcaoCarameloDevComoItemProjeto salvarFabrica = status
+                ? FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_CTR_SALVAR_MERGE : FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_CTR_SALVAR_MERGE;
+        FabAcaoCarameloDevComoItemProjeto editarFabrica = status
+                ? FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_FRM_EDITAR : FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_FRM_EDITAR;
+        FabAcaoCarameloDevComoItemProjeto salvarItem = status
+                ? FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_CTR_SALVAR_MERGE : FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_CTR_SALVAR_MERGE;
+        FabAcaoCarameloDevComoItemProjeto novoItemFrm = status
+                ? FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_FRM_EDITAR : FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_FRM_EDITAR;
+        FabAcaoCarameloDevComoItemProjeto editarItem = status
+                ? FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_FRM_EDITAR : FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_FRM_EDITAR;
+
+        String texto = console.getTextoDefinido();
+        String nomeFabrica = UtilProjCRCNomeFabrica.getNomeFabrica(texto);
+        FabricaEntidadeProjCRC fabrica = console.getRepositorio().getFabricaExistente(nomeFabrica);
+        int i = 1;
+
+        if (!UtilProjCRCNomeFabrica.isPossuiItem(texto)) {
+            if (fabrica == null) {
+                if (UtilProjCRCNomeFabrica.isNomeFabricaCompleto(nomeFabrica, status)) {
+                    try {
+                        FabricaEntidadeProjCRC novaFabrica = getNovaFabrica(console.getProjetoSelecionado(), nomeFabrica);
+                        opcoes.add(new ItemOpcaoConsole(texto, salvarFabrica, novaFabrica, i,
+                                editarFabrica.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                        i++;
+                    } catch (ErroPreparandoObjeto ex) {
+                        //valor incompativel
+                    }
+                }
+            } else if (fabrica.getTipoItemProjeto() == this) {
+                opcoes.add(new ItemOpcaoConsole(texto, editarFabrica, fabrica, i,
+                        editarFabrica.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                i++;
+                try {
+                    ItemFabrica novoItem = getNovoItemFabrica(fabrica, null);
+                    opcoes.add(new ItemOpcaoConsole(texto, novoItemFrm, novoItem, i,
+                            novoItemFrm.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                    i++;
+                } catch (ErroPreparandoObjeto ex) {
+                    //valor incompativel
+                }
+            }
+            for (FabricaEntidadeProjCRC existente : console.getRepositorio().getFabricasIniciandoCom(nomeFabrica, this)) {
+                if (existente != fabrica) {
+                    opcoes.add(new ItemOpcaoConsole(texto, editarFabrica, existente, i,
+                            editarFabrica.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                    i++;
+                }
+            }
+            return opcoes;
+        }
+
+        if (fabrica == null || fabrica.getTipoItemProjeto() != this) {
+            return opcoes;
+        }
+        String nomeItem = UtilProjCRCNomeFabrica.getNomeItem(texto);
+        String nomeEnum = ItemFabrica.getNomeEnumPorTexto(nomeItem);
+        if (!nomeItem.isEmpty() && getItemFabricaExistente(fabrica, nomeEnum) == null) {
+            try {
+                ItemFabrica novoItem = getNovoItemFabrica(fabrica, nomeItem);
+                opcoes.add(new ItemOpcaoConsole(texto, salvarItem, novoItem, i,
+                        novoItemFrm.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                i++;
+            } catch (ErroPreparandoObjeto ex) {
+                //valor incompativel
+            }
+        }
+        for (ItemFabrica existente : getItensFabricaIniciandoCom(fabrica, nomeEnum)) {
+            opcoes.add(new ItemOpcaoConsole(texto, editarItem, existente, i,
+                    editarItem.getRegistro().getComoFormulario(), this.getComponentePreview()));
+            i++;
+        }
+        return opcoes;
+    }
+
+    /**
+     * Sugestões de FABRICA_STATUS e FABRICA_ENTIDADE_GENERICA.
+     *
+     * Sem ponto: o próprio texto (se a fábrica não existir) e, para cada
+     * fábrica do tipo que começa com o texto, o nome e o nome seguido de ponto.
+     * Com ponto: o próprio texto (se o item não existir) e Fabrica.NOME_ENUM de
+     * cada item que começa com o nome digitado.
+     */
+    private List<String> getSugestoesFabrica(RepositorioConsole pRepositorio, String pTexto) {
+        List<String> sugestoes = new ArrayList<>();
+        boolean status = this == FABRICA_STATUS;
+        String nomeFabrica = UtilProjCRCNomeFabrica.getNomeFabrica(pTexto);
+        FabricaEntidadeProjCRC fabrica = pRepositorio.getFabricaExistente(nomeFabrica);
+        if (!UtilProjCRCNomeFabrica.isPossuiItem(pTexto)) {
+            if (fabrica == null && UtilProjCRCNomeFabrica.isNomeFabricaCompleto(nomeFabrica, status)) {
+                sugestoes.add(pTexto);
+            }
+            for (FabricaEntidadeProjCRC existente : pRepositorio.getFabricasIniciandoCom(nomeFabrica, this)) {
+                sugestoes.add(existente.getNomeFabrica());
+                sugestoes.add(existente.getNomeFabrica() + UtilProjCRCNomeFabrica.SEPARADOR_ITEM);
+            }
+            return sugestoes;
+        }
+        if (fabrica == null || fabrica.getTipoItemProjeto() != this) {
+            return sugestoes;
+        }
+        String nomeItem = UtilProjCRCNomeFabrica.getNomeItem(pTexto);
+        String nomeEnum = ItemFabrica.getNomeEnumPorTexto(nomeItem);
+        if (!nomeItem.isEmpty() && getItemFabricaExistente(fabrica, nomeEnum) == null) {
+            sugestoes.add(pTexto);
+        }
+        getItensFabricaIniciandoCom(fabrica, nomeEnum).stream()
+                .map(item -> UtilProjCRCNomeFabrica.getTextoItem(fabrica.getNomeFabrica(), item.getNomeEnum()))
+                .forEach(sugestoes::add);
+        return sugestoes;
+    }
+
+    /**
+     * Nova fábrica do tipo (FabricaStatusProjCRC ou FabricaEntidadeProjCRC),
+     * sem adicioná-la à lista do projeto.
+     */
+    private FabricaEntidadeProjCRC getNovaFabrica(ProjetoCRC pProjeto, String pNomeFabrica) throws ErroPreparandoObjeto {
+        FabricaEntidadeProjCRC nova = this == FABRICA_STATUS ? new FabricaStatusProjCRC() : new FabricaEntidadeProjCRC();
+        nova.prepararNovoObjeto(pProjeto, pNomeFabrica);
+        return nova;
+    }
+
+    /**
+     * Novo item da fábrica (ItemFabricaStatus para fábrica de status), sem
+     * adicioná-lo em fabrica.getItens(). Nome nulo: item sem nome, para o
+     * formulário de novo item.
+     */
+    private static ItemFabrica getNovoItemFabrica(FabricaEntidadeProjCRC pFabrica, String pNomeItem) throws ErroPreparandoObjeto {
+        ItemFabrica novo = pFabrica instanceof FabricaStatusProjCRC ? new ItemFabricaStatus() : new ItemFabrica();
+        if (pNomeItem == null) {
+            novo.prepararNovoObjeto(pFabrica);
+        } else {
+            novo.prepararNovoObjeto(pFabrica, pNomeItem);
+        }
+        return novo;
+    }
+
+    private static FabricaEntidadeProjCRC getFabricaDoProjeto(ProjetoCRC pProjeto, String pNomeFabrica) {
+        if (pProjeto == null || pProjeto.getFabricas() == null) {
+            return null;
+        }
+        return pProjeto.getFabricas().stream()
+                .filter(fab -> pNomeFabrica.equals(fab.getNomeFabrica()))
+                .findFirst().orElse(null);
+    }
+
+    private static ItemFabrica getItemFabricaExistente(FabricaEntidadeProjCRC pFabrica, String pNomeEnum) {
+        if (pFabrica.getItens() == null || pNomeEnum == null) {
+            return null;
+        }
+        return pFabrica.getItens().stream()
+                .filter(item -> pNomeEnum.equals(item.getNomeEnum()))
+                .findFirst().orElse(null);
+    }
+
+    /**
+     * Itens da fábrica cujo nomeEnum começa com o texto (vazio retorna todos),
+     * na ordem do idObjeto.
+     */
+    private static List<ItemFabrica> getItensFabricaIniciandoCom(FabricaEntidadeProjCRC pFabrica, String pInicioNomeEnum) {
+        if (pFabrica.getItens() == null) {
+            return new ArrayList<>();
+        }
+        String inicio = pInicioNomeEnum == null ? "" : pInicioNomeEnum;
+        return pFabrica.getItens().stream()
+                .filter(item -> item.getNomeEnum() != null && item.getNomeEnum().startsWith(inicio))
+                .sorted(java.util.Comparator.comparing(ItemFabrica::getIdObjeto, java.util.Comparator.nullsLast(java.util.Comparator.naturalOrder())))
+                .collect(Collectors.toList());
+    }
+
     public static FabTipoItemProjeto getTipoItemPorTexto(String pTexto) {
-        // Por enquanto só ACAO é identificado pelo prefixo (getSlugInicialTipoItem):
-        // ligar os demais faria entidades como Requisicao ou Fabrica mudarem de tipo
+        // Identificados por prefixo: ACAO (FabAcao), FABRICA_STATUS (FabStatus) e
+        // FABRICA_ENTIDADE_GENERICA (Fab + maiúscula). Os demais prefixos de
+        // getSlugInicialTipoItem ainda não estão ligados
         if (UtilProjCRCNomeAcao.isTextoAcao(pTexto)) {
             return ACAO;
+        }
+        // FabStatus antes de Fab; exige maiúscula depois do prefixo (Fabrica continua OBJETO)
+        if (UtilProjCRCNomeFabrica.isTextoFabricaStatus(pTexto)) {
+            return FABRICA_STATUS;
+        }
+        if (UtilProjCRCNomeFabrica.isTextoFabrica(pTexto)) {
+            return FABRICA_ENTIDADE_GENERICA;
         }
 
         Optional<FabTipoItemProjeto> tipoDeclarado = Arrays.stream(FabTipoItemProjeto.values())
@@ -491,8 +773,21 @@ public enum FabTipoItemProjeto implements ComoFabrica {
 
                 break;
             case FABRICA_STATUS:
-
-                break;
+            case FABRICA_ENTIDADE_GENERICA: {
+                FabricaEntidadeProjCRC fabrica = getFabricaDoProjeto(pProjeto, primeiraParte);
+                if (!UtilProjCRCNomeFabrica.isPossuiItem(texto)) {
+                    return fabrica != null ? fabrica : getNovaFabrica(pProjeto, primeiraParte);
+                }
+                if (fabrica == null) {
+                    return null;
+                }
+                String nomeItem = UtilProjCRCNomeFabrica.getNomeItem(texto);
+                if (nomeItem.isEmpty()) {
+                    return null;
+                }
+                ItemFabrica existente = getItemFabricaExistente(fabrica, ItemFabrica.getNomeEnumPorTexto(nomeItem));
+                return existente != null ? existente : getNovoItemFabrica(fabrica, nomeItem);
+            }
             case FABRICA_GRUPO_USUARIOS:
 
                 break;
@@ -501,8 +796,6 @@ public enum FabTipoItemProjeto implements ComoFabrica {
                 break;
             case FLUXO_TESTES:
 
-                break;
-            case FABRICA_ENTIDADE_GENERICA:
                 break;
             default:
                 throw new AssertionError();

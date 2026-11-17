@@ -5,10 +5,13 @@
 package br.org.carameloCode.erp.modulo.projeto.console;
 
 import br.org.carameloCode.erp.modulo.projeto.console.texto.UtilConsoleCRCTexto;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.ComoItemProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.FabTipoItemProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.RepositorioConsole;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.UtilProjCRCItemProjetoTexto;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.acoes.AcaoProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoDeEntidadeSimples;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.projeto.ProjetoCRC;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
@@ -16,8 +19,15 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCListasObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.ErroChamadaController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComoDialogo;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ERPTipoCanalComunicacao;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoComunicacao;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
+import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroDetectandoTelaBloqueio;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
@@ -51,8 +61,11 @@ public class ConsoleCRCProjeto implements ComoConsoleCRCProjeto {
     }
 
     public void setTextoDefinido(String ptextoDefinido) {
-        this.textoDefinido = UtilProjCRCItemProjetoTexto.getTextoNormatizado(ptextoDefinido);;
-
+        this.textoDefinido = UtilProjCRCItemProjetoTexto.getTextoNormatizado(ptextoDefinido);
+        // A opção escolhida para o texto anterior não vale para o novo texto
+        opcaoSelecionada = null;
+        tipoPesquisa = FabTipoItemProjeto.getTipoItemPorTexto(textoDefinido);
+        opcoesDisponiveis = tipoPesquisa.getOpcoesConsole(this);
     }
 
     @Override
@@ -92,6 +105,7 @@ public class ConsoleCRCProjeto implements ComoConsoleCRCProjeto {
         opcoesDisponiveis = tipoPesquisa.getOpcoesConsole(this);
         UtilCRCListasObjeto.ordernarPorCampo(opcoesDisponiveis, "ordem");
         UtilConsoleCRCTexto.imprimirPesquisa(this, opcoesAutocomplet);
+        opcaoSelecionada = null;
         return opcoesAutocomplet;
     }
 
@@ -122,37 +136,87 @@ public class ConsoleCRCProjeto implements ComoConsoleCRCProjeto {
 
     @Override
     public ObjetoProjCRC getObjetoSelecionado() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (getOpcaoSelecionada() == null) {
+            return null;
+        }
+        if (getOpcaoSelecionada().getItemAssociado() instanceof ObjetoProjCRC) {
+            return (ObjetoProjCRC) getOpcaoSelecionada().getItemAssociado();
+        }
+        if (getOpcaoSelecionada().getItemAssociado() instanceof AtributoDeEntidadeSimples) {
+            return ((AtributoDeEntidadeSimples) getOpcaoSelecionada().getItemAssociado()).getEntidade();
+        }
+        if (getOpcaoSelecionada().getItemAssociado() instanceof AcaoProjCRC) {
+            return ((AcaoProjCRC) getOpcaoSelecionada().getItemAssociado()).getEntidadeDominio();
+        }
+        return null;
     }
 
-    @Override
-    public void setObjetoSelecionado(ObjetoProjCRC pObejto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+    /**
+     * Primeira opção sugerida: a de menor ordem. Não depende da lista estar
+     * ordenada (setTextoDefinido não ordena; autocompletProjeto ordena).
+     *
+     * @return null se não houver opções
+     */
     @Override
     public ItemOpcaoConsole getOpcaoPrincipalSugerida() {
-        if (opcoesDisponiveis == null) {
-            return null;
-        }
-        if (getOpcoesDisponiveis().isEmpty()) {
-            return null;
-        }
-        return getOpcoesDisponiveis().get(0);
+        return getOpcoesDisponiveis().stream()
+                .min(Comparator.comparingInt(ItemOpcaoConsole::getOrdem))
+                .orElse(null);
     }
 
     @Override
     public void executarOpcaoSelecionada() {
+        if (opcaoSelecionada == null) {
+            if (getOpcaoPrincipalSugerida() != null) {
+                opcaoSelecionada = getOpcaoPrincipalSugerida();
+            }
+        }
+        if (opcaoSelecionada == null) {
+            if (false) {
+                if (!getOpcoesDisponiveis().isEmpty()) {
+                    if (getOpcoesDisponiveis().get(0).getAcaoAssociada() != null) {
+                        ComoAcaoDoSistema acaoSugeridaConfigramcao = getOpcoesDisponiveis().get(0).getAcaoAssociada();
+                        ComoItemProjeto itemSugestao = getOpcoesDisponiveis().get(0).getItemAssociado();
+                        ComoDialogo exemploPergunta = CarameloCode.getServicoComunicacao().gerarComunicacaoSistema_Usuario(FabTipoComunicacao.PERGUNTAR_SIM_NAO_MAIS_TARDE,
+                                CarameloCode.getUsuarioLogado(), "Quer executar a ação " + acaoSugeridaConfigramcao.getNomeAcao() + " com " + itemSugestao.getNome());
+                        System.out.println(CarameloCode.getUsuarioLogado().getEmail());
+
+                        FabTipoRespostaComunicacao resposta;
+                        try {
+                            resposta = CarameloCode.getServicoComunicacao()
+                                    .aguardarRespostaComunicacao(ERPTipoCanalComunicacao.INTRANET_BLOQUEIO_TELA.getRegistro(), exemploPergunta, 3000, FabTipoRespostaComunicacao.NAO_AUTORIZADO);
+                        } catch (ErroDetectandoTelaBloqueio ex) {
+                            return;
+                        }
+                        if (resposta.isRespostaPositiva()) {
+
+                            opcaoSelecionada = getOpcoesDisponiveis().get(0);
+
+                        } else {
+                            return;
+                        }
+
+                    } else {
+                        return;
+                    }
+
+                }
+            }
+        }
 
         if (getOpcaoSelecionada() != null && getOpcaoSelecionada().getFabAcaoAssociada().getRegistro().isUmaAcaoController()) {
             ItfRespostaAcaoDoSistema resposta;
             try {
-                resposta = CarameloCode.getServicoController().getResposta(getOpcaoSelecionada().getFabAcaoAssociada(), getOpcaoSelecionada().getItemAssociado());
-                UtilConsoleCRCTexto.imprimirExecucao(getOpcaoSelecionada(), resposta, null);
-                if (!resposta.isSucesso()) {
-                    resposta.dispararMensagens();
-                } else {
-                    repositorio.recarregarRepositorio();
+                if (getOpcaoSelecionada().getFabAcaoAssociada().getRegistro().isUmaAcaoController()) {
+                    resposta = CarameloCode.getServicoController().getResposta(getOpcaoSelecionada().getFabAcaoAssociada(), getOpcaoSelecionada().getItemAssociado());
+                    UtilConsoleCRCTexto.imprimirExecucao(getOpcaoSelecionada(), resposta, null);
+                    if (!resposta.isSucesso()) {
+                        resposta.dispararMensagens();
+
+                    } else {
+                        repositorio.recarregarRepositorio();
+                        getOpcaoSelecionada().setItemAssociado((ComoItemProjeto) resposta.getRetorno());
+                    }
                 }
             } catch (ErroChamadaController ex) {
                 UtilConsoleCRCTexto.imprimirExecucao(getOpcaoSelecionada(), null, "Erro chamando o controller: " + ex.getMessage());

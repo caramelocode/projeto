@@ -1,0 +1,15 @@
+<ui:composition
+    template="/resources/SBComp/template/basico/modeloQuadroInternoIframe.xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    >
+    <ui:param name="largura" value="400"/>
+    <ui:param name="altura"  value="600"/>
+    <ui:define name="conteudo">
+        <h:panelGroup layout="block" id="#{layoutIdsAreasConhecidas.AREA_CONTEUDO}">
+            <h:panelGroup id="#{paginaAtual.infoPagina.idAreaExbicaoAcaoSelecionada}">
+                <ui:include src="#{paginaAtual.infoPagina.xhtmlAcaoAtual}" />
+            </h:panelGroup>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>
