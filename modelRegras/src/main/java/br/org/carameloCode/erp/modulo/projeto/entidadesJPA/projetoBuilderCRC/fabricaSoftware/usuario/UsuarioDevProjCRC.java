@@ -20,7 +20,7 @@ import javax.persistence.OneToMany;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(plural = "Caramelo code Devs", tags = "Dev CRC")
+@InfoObjetoSB(plural = "Caramelo code Devs", tags = "Dev CRC", icone = "fa fa-laptop-code")
 public class UsuarioDevProjCRC extends UsuarioSB {
 
     @ManyToOne(targetEntity = FabricaSoftware.class)

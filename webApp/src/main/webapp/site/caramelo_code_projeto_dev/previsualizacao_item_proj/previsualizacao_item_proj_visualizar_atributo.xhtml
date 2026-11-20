@@ -12,9 +12,7 @@
     xmlns:p="http://primefaces.org/ui">
     <h:panelGroup layout="block" styleClass="Container12"  rendered="#{not empty pgPrevItemProj.entidadeSelecionada}" style="height: 300px; top: 10px;" >
         <h:form>
-            [#{pgPrevItemProj.entidadeSelecionada.campoInstanciado.campoNaoInstanciado}]
-            [#{pgPrevItemProj.entidadeSelecionada.campoInstanciado.label}]
-            [#{pgPrevItemProj.entidadeSelecionada.campoInstanciado.labelPadrao}]
+
             <p:fieldset>
                 <CRCInput:input campoInstanciado="#{pgPrevItemProj.entidadeSelecionada.campoInstanciado}" layout="#{layoutsComponenteSB.layoutCampo.superior}" rendered="#{not empty pgPrevItemProj.entidadeSelecionada}"
 

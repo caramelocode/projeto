@@ -1,6 +1,6 @@
 package org.coletivoJava.fw.projetos.projeto.implementacao.cucumber.consoleprojcrcobjetos.etapas;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import br.org.carameloCode.erp.modulo.projeto.console.ItemOpcaoConsole;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC;
 import org.coletivoJava.fw.projetos.projeto.api.cucumber.consoleprojcrcobjetos.EtapasconsoleProjCRCObjetos;
@@ -14,7 +14,7 @@ public class F_a_opcao_principal_sugerida_e_criar_entidade_Cliente {
     public void implementacaoEtapa() {
         ItemOpcaoConsole opcao = FluxoConsoleObjetos.CONSOLE.getOpcaoPrincipalSugerida();
         Assert.assertNotNull("Nenhuma opção principal sugerida", opcao);
-        Assert.assertEquals("Ação sugerida diferente da esperada", FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR_NOVO, opcao.getFabAcaoAssociada());
+        Assert.assertEquals("Ação sugerida diferente da esperada", FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_CTR_SALVAR_NOVO, opcao.getFabAcaoCriarItem());
         Assert.assertTrue("A opção principal deveria estar associada a uma entidade", opcao.getItemAssociado() instanceof ObjetoProjCRC);
         Assert.assertEquals("Nome da entidade a criar incorreto", FluxoConsoleObjetos.NOME_ENTIDADE_CLIENTE,
                 ((ObjetoProjCRC) opcao.getItemAssociado()).getNomeEntidade());

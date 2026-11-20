@@ -14,21 +14,26 @@ public class AcoesCarameloDev_RequisitoMbGestao implements Serializable {
 
 	public ItfAcaoFormulario getRequisitoMbGestao() {
 		return (ItfAcaoFormulario) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevRequisito.REQUISITO_MB_GESTAO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevProjetoCRC.REQUISITO_MB_GESTAO");
+	}
+
+	public ItfAcaoFormularioEntidade getRequisitoFrmListar() {
+		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevProjetoCRC.REQUISITO_FRM_LISTAR");
 	}
 
 	public ItfAcaoFormularioEntidade getRequisitoFrmNovo() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevRequisito.REQUISITO_FRM_NOVO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevProjetoCRC.REQUISITO_FRM_NOVO");
 	}
 
 	public ItfAcaoFormularioEntidade getRequisitoFrmEditar() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevRequisito.REQUISITO_FRM_EDITAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevProjetoCRC.REQUISITO_FRM_EDITAR");
 	}
 
-	public ComoAcaoControllerEntidade getRequisitoCtrSalvar() {
+	public ComoAcaoControllerEntidade getRequisitoCtrSalvarMerge() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevRequisito.REQUISITO_CTR_SALVAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevProjetoCRC.REQUISITO_CTR_SALVAR_MERGE");
 	}
 }

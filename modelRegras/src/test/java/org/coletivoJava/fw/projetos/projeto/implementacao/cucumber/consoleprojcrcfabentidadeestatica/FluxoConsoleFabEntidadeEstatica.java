@@ -1,6 +1,6 @@
 package org.coletivoJava.fw.projetos.projeto.implementacao.cucumber.consoleprojcrcfabentidadeestatica;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import br.org.carameloCode.erp.modulo.projeto.config.ConfigPersistenciaProjetoCaramelo;
 import br.org.carameloCode.erp.modulo.projeto.console.ConsoleCRCProjeto;
 import br.org.carameloCode.erp.modulo.projeto.console.ItemOpcaoConsole;
@@ -68,8 +68,8 @@ public class FluxoConsoleFabEntidadeEstatica extends TesteIntegracaoFuncionalida
     public static final long ID_OBJETO_CLIENTE_PADRAO = 2L;
 
     // Ações esperadas nas opções do console
-    public static final FabAcaoCarameloDevComoItemProjeto ACAO_SALVAR_FABRICA = FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_CTR_SALVAR_MERGE;
-    public static final FabAcaoCarameloDevComoItemProjeto ACAO_SALVAR_ITEM = FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_CTR_SALVAR_MERGE;
+    public static final FabAcaoCarameloDevEdicaoItemProj ACAO_SALVAR_FABRICA = FabAcaoCarameloDevEdicaoItemProj.FABRICA_GENERICA_CTR_SALVAR_MERGE;
+    public static final FabAcaoCarameloDevEdicaoItemProj ACAO_SALVAR_ITEM = FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_CTR_SALVAR_MERGE;
 
     // Textos digitados no console
     /**
@@ -114,7 +114,7 @@ public class FluxoConsoleFabEntidadeEstatica extends TesteIntegracaoFuncionalida
     public static ItemFabrica getItemDaOpcaoPrincipalDeCriacao(String pNomeEnum) {
         ItemOpcaoConsole opcao = CONSOLE.getOpcaoPrincipalSugerida();
         Assert.assertNotNull("Nenhuma opção principal sugerida para o item " + pNomeEnum, opcao);
-        Assert.assertEquals("A opção principal deveria ser salvar o item", ACAO_SALVAR_ITEM, opcao.getFabAcaoAssociada());
+        Assert.assertEquals("A opção principal deveria ser salvar o item", ACAO_SALVAR_ITEM, opcao.getFabAcaoCriarItem());
         Assert.assertTrue("O item associado deveria ser um item de fábrica",
                 opcao.getItemAssociado() instanceof ItemFabrica);
         Assert.assertFalse("O item associado não deveria ser um item de status",
@@ -130,10 +130,10 @@ public class FluxoConsoleFabEntidadeEstatica extends TesteIntegracaoFuncionalida
     /**
      * Confere que a opção selecionada é a ação esperada e a executa.
      */
-    public static void executarOpcaoSelecionada(FabAcaoCarameloDevComoItemProjeto pAcaoEsperada) {
+    public static void executarOpcaoSelecionada(FabAcaoCarameloDevEdicaoItemProj pAcaoEsperada) {
         Assert.assertNotNull("Nenhuma opção selecionada para executar", CONSOLE.getOpcaoSelecionada());
         Assert.assertEquals("A opção selecionada deveria ser " + pAcaoEsperada,
-                pAcaoEsperada, CONSOLE.getOpcaoSelecionada().getFabAcaoAssociada());
+                pAcaoEsperada, CONSOLE.getOpcaoSelecionada().getFabAcaoCriarItem());
         CONSOLE.executarOpcaoSelecionada();
     }
 

@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(tags = "ação de gestão de domínio", plural = "Ações de gestão de domínio", icone = "fa fa-list-alt")
+@InfoObjetoSB(tags = "ação de gestão de domínio", plural = "Ações de gestão de domínio", icone = "fa fa-rectangle-list")
 public class AcaoProjCRCGestao extends AcaoProjCRC {
 
     @OneToMany(targetEntity = AcaoCRCProjSecundaria.class)

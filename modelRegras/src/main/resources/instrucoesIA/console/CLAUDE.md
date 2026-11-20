@@ -25,7 +25,7 @@ Documentos relacionados:
 | `entidadesJPA/projetoBuilderCRC/itemProjeto/FabTipoItemProjeto` | **Onde fica a regra de cada tipo de item**: dica, sugestões de autocompletar, opções e criação do item a partir do texto. |
 | `entidadesJPA/projetoBuilderCRC/itemProjeto/RepositorioConsole` | Cache dos itens do projeto aberto, com um EntityManager próprio. |
 | `entidadesJPA/projetoBuilderCRC/itemProjeto/UtilProjCRCItemProjetoTexto` | Normalização e separação do texto (`Entidade.atributo`). |
-| `entidadesJPA/projetoBuilderCRC/itemProjeto/acoes/UtilProjCRCNomeAcao` | Interpretação do texto de ações (`FabAcao..._o_...`), ver `acoesCarameloCode`. |
+| `entidadesJPA/projetoBuilderCRC/itemProjeto/acoes/UtilProjCRCNomeAcao` | Interpretação do texto de ações (`FabAcao.......`), ver `acoesCarameloCode`. |
 | `entidadesJPA/projetoBuilderCRC/itemProjeto/fabrica/UtilProjCRCNomeFabrica` | Interpretação do texto de fábricas (`FabStatusPedido`, `FabTipoPagamento.cartao`). |
 | `entidadesJPA/projetoBuilderCRC/itemProjeto/ComoItemProjeto` | Interface que todo item exibido no console precisa implementar (`getTipoItemProjeto()`). |
 
@@ -121,28 +121,28 @@ Prefixos previstos em `getSlugInicialTipoItem`: `FabAcao` (ACAO), `Req` (REQUISI
   3. contém `modelo` → `HTML_TEMPLATE`;
   4. contém `dataHora` → `DATAHORA`; senão contém `data` → `DATA`; senão contém `hora` → `HORA`;
   5. nenhum: `getTipoPadrao()` = `FabTiposEntidade.TIPO_PADRAO_ATRIBUTO_SIMPLES` (`TEXTO_SIMPLES`).
-  
+
   O usuário pode trocar o tipo no formulário. Os mapas `TIPOS_AUTODETECTAVEIS` e `ATRIBUTOS_DETECTADOS_PELO_NOME` do `FluxoBuilderAtributoSimples` e `ATRIBUTOS_DETECTADOS_PELO_NOME` do `FluxoBuilderAtributoEntidade` precisam acompanhar essas regras.
 - **Planejado:** status, `fab` e `fabStatus` definindo a classe. Ver [Regras planejadas](#regras-planejadas-testadas-pelos-fluxos-ainda-não-implementadas).
 
-### ACAO (`FabAcao[Modulo][Entidade]_o_[ENTIDADE]_[MB|FRM|CTR]_[DESCRICAO]`)
+### ACAO (`FabAcao[Modulo][Entidade].[ENTIDADE]_[MB|FRM|CTR]_[DESCRICAO]`)
 Formato do nome, tipos, módulo, gestão e regra de negócio estão em `instrucoesIA/acoesCarameloCode`. Aqui fica só o comportamento do console. Exemplos com a entidade `Cliente`:
 
 | Texto digitado | Autocompletar | Opções |
 |---|---|---|
 | `FabAcao` | nada (falta o módulo) | editar as ações existentes que começam com o texto |
-| `FabAcaoGerente` | `FabAcaoGerenteCliente` e `FabAcaoGerente_o_CLIENTE`, pela entidade com `dataHoraInsersao` mais recente | editar as existentes que começam com o texto |
-| `FabAcaoGerente_o_` | `FabAcaoGerente_o_CLIENTE` (entidade mais recente) | editar as existentes |
-| `FabAcaoGerente_o_CLIENTE` | `..._MB_`, `..._FRM_`, `..._CTR_` e, se a gestão já existe, os **subtipos padrão ainda não criados** (`..._FRM_LISTAR`...) | editar as existentes |
-| `FabAcaoGerente_o_CLIENTE_FRM_` | subtipos padrão do tipo que começam com a descrição (`..._FRM_LISTAR`, `..._FRM_EDITAR`...) | editar as existentes (ex.: os formulários já criados) |
-| `FabAcaoGerente_o_CLIENTE_CTR_ACAO_X` | o próprio texto (descrição personalizada) | 1: criar (`ACOES_CTR_SALVAR`), se o nome único não existir; depois editar as existentes |
+| `FabAcaoGerente` | `FabAcaoGerenteCliente` e `FabAcaoGerente.CLIENTE`, pela entidade com `dataHoraInsersao` mais recente | editar as existentes que começam com o texto |
+| `FabAcaoGerente.` | `FabAcaoGerente.CLIENTE` (entidade mais recente) | editar as existentes |
+| `FabAcaoGerente.CLIENTE` | `..._MB_`, `..._FRM_`, `..._CTR_` e, se a gestão já existe, os **subtipos padrão ainda não criados** (`..._FRM_LISTAR`...) | editar as existentes |
+| `FabAcaoGerente.CLIENTE_FRM_` | subtipos padrão do tipo que começam com a descrição (`..._FRM_LISTAR`, `..._FRM_EDITAR`...) | editar as existentes (ex.: os formulários já criados) |
+| `FabAcaoGerente.CLIENTE_CTR_ACAO_X` | o próprio texto (descrição personalizada) | 1: criar (`ACOES_CTR_SALVAR`), se o nome único não existir; depois editar as existentes |
 
 - **Criar** só aparece com o nome completo (módulo, entidade, tipo e descrição) e se o nome único (`FabAcaoGerente.CLIENTE_CTR_ACAO_X`) ainda não existe no repositório. É sempre a ordem 1.
 - O item da opção de criar vem de `getItemByTexto`: `AcaoProjCRCGestao`, `AcaoProjCRCFormulario` ou `AcaoProjCRCContoller`, conforme a sigla, preparado com `prepararNovoObjeto(projeto, texto)`.
 - **Editar:** para cada ação salva cujo texto no console (`UtilProjCRCNomeAcao.getTextoConsole(nomeUnico)`) começa com o texto digitado (`repositorio.getAcoesIniciandoCom`), as editadas mais recentemente primeiro.
 - A ação da opção (e o formulário de detalhes) é: formulário → `ACOES_FRM_EDITAR_ACAO_FORMULARIO`; controller → `ACOES_FRM_EDITAR_ACAO_CONTROLLER`; gestão → `ACOES_FRM_VISAO_GERAL`.
-- Os subtipos pendentes são calculados pela gestão do **módulo + domínio**, então `FabAcaoGerente_o_CLIENTE` e `FabAcaoGerenteCliente_o_CLIENTE` listam os mesmos pendentes (cada um no seu formato de fábrica).
-- As ações existentes **não** entram no autocompletar, só nas opções. Assim a lista de sugestões de `FabAcaoGerente_o_CLIENTE` mostra só o que falta criar.
+- Os subtipos pendentes são calculados pela gestão do **módulo + domínio**, então `FabAcaoGerente.CLIENTE` e `FabAcaoGerenteCliente.CLIENTE` listam os mesmos pendentes (cada um no seu formato de fábrica).
+- As ações existentes **não** entram no autocompletar, só nas opções. Assim a lista de sugestões de `FabAcaoGerente.CLIENTE` mostra só o que falta criar.
 
 ### FABRICA_STATUS e FABRICA_ENTIDADE_GENERICA (`FabStatusPedido`, `FabStatusPedido.emAnd`, `FabTipoPagamento.cartao`)
 O modelo fica em `entidadesJPA/projetoBuilderCRC/itemProjeto/fabrica`. `FabricaProjCRC` (e a subclasse `FabricaStatusProjCRC`) gera o enum, e cada `ItemFabrica` (e `ItemFabricaStatus`) gera uma constante com `@InfoObjetoDaFabrica(id = idObjeto, nomeObjeto, cor, icone, classeObjeto = tipoObjeto)`. A regra de negócio fica em `regraDeNegocio/fabrica/ExecAcoesFabricasCRC`. Os dois tipos usam a mesma regra (`getOpcoesConsoleFabrica` e `getSugestoesFabrica`), e cada um usa as ações do seu bloco em `FabAcaoCarameloDevComoItemProjeto`:
@@ -179,7 +179,7 @@ O modelo fica em `entidadesJPA/projetoBuilderCRC/itemProjeto/fabrica`. `FabricaP
 ### Dicas (`getTextoDica`)
 - **OBJETO:** orienta a digitar o nome da entidade, ou `Entidade.nomeAtributo`.
 - **ATRIBUTO_OBJETO:** orienta a digitar um atributo existente ou um nome novo.
-- **ACAO:** mostra o formato `FabAcao[Modulo][Entidade opcional]_o_[ENTIDADE]_[MB, FRM ou CTR]_[DESCRICAO]` com um exemplo.
+- **ACAO:** mostra o formato `FabAcao[Modulo][Entidade opcional].[ENTIDADE]_[MB, FRM ou CTR]_[DESCRICAO]` com um exemplo.
 - **FABRICA_STATUS:** `FabStatus[Nome]` e `FabStatus[Nome].nomeStatus`, ex.: `FabStatusPedido.emAndamento`.
 - **FABRICA_ENTIDADE_GENERICA:** `Fab[Nome]` e `Fab[Nome].nomeItem`, ex.: `FabTipoPagamento.cartao`.
 - **DESCONHECIDO e demais tipos:** texto geral (FabAcao..., NomeEntidade, FabTipo...).
@@ -232,7 +232,7 @@ As regras abaixo já estão descritas nos fluxos `FluxoConsoleObjetoStatus` e `F
 - Abre o próprio EntityManager (`UtilSBPersistencia.getEMPadraoNovo()`).
 - `recarregarRepositorio()` fecha e reabre o EntityManager e recarrega, **a partir do projeto** (`getProjeto().getObjetos()`, `getProjeto().getAcoes()` e `getProjeto().getFabricas()`), três mapas que são limpos antes de cada recarga:
   - `OBJETOS`, indexado por **`nomeEntidade`**;
-  - `ACOES`, indexado por **`nomeUnico`** (`FabAcaoGerente.CLIENTE_FRM_LISTAR`, com ponto; **não** é o texto digitado com `_o_`);
+  - `ACOES`, indexado por **`nomeUnico`** (`FabAcaoGerente.CLIENTE_FRM_LISTAR`, com ponto; **não** é o texto digitado com `.`);
   - `FABRICAS`, indexado por **`nomeFabrica`** e carregado de `getProjeto().getFabricas()`. Inclui as fábricas genéricas e as de status.
 - `getProjeto()` recarrega o projeto pelo EntityManager do repositório. Os itens devolvidos pelo repositório pertencem a esse EntityManager.
 

@@ -10,11 +10,11 @@ Pacote base: `br.org.carameloCode.erp.modulo.projeto` (em `modelRegras/src/main/
 
 ### Texto digitado no console
 ```
-FabAcao[NomeModulo][NomeEntidade opcional]_o_[NOME_ENTIDADE]_[TIPO]_[DESCRICAO]
+FabAcao[NomeModulo][NomeEntidade opcional].[NOME_ENTIDADE]_[TIPO]_[DESCRICAO]
 ```
-Ex.: `FabAcaoGerente_o_CLIENTE_FRM_LISTAR`, `FabAcaoGerenteCliente_o_CLIENTE_FRM_LISTAR`, `FabAcaoCliente_o_CLIENTE_MB_GESTAO`.
+Ex.: `FabAcaoGerente.CLIENTE_FRM_LISTAR`, `FabAcaoGerenteCliente.CLIENTE_FRM_LISTAR`, `FabAcaoCliente.CLIENTE_MB_GESTAO`.
 
-O `_o_` separa a fábrica do nome da ação e existe só no texto digitado. No console, o ponto fica reservado para `Entidade.atributo`.
+O `.` separa a fábrica do nome da ação e existe só no texto digitado. No console, o ponto fica reservado para `Entidade.atributo`.
 
 ### Nome único (o que é salvo)
 ```
@@ -33,13 +33,13 @@ O utilitário só interpreta o texto; quem decide o que sugerir é o `FabTipoIte
 |---|---|---|---|---|---|---|
 | `FabAcao` | (vazio) | null | null | null | não | (vazio) |
 | `FabAcaoGerente` | Gerente | null | null | null | não | Gerente |
-| `FabAcaoGerente_o_CLIENTE` | Gerente | CLIENTE | null | null | não | Gerente |
-| `FabAcaoGerente_o_CLIENTE_FRM_` | Gerente | CLIENTE | FRM | (vazio) | não | Gerente |
-| `FabAcaoGerenteCliente_o_CLIENTE_FRM_LISTAR` | GerenteCliente | CLIENTE | FRM | LISTAR | sim | **Gerente** |
-| `FabAcaoCliente_o_CLIENTE_FRM_LISTAR` | Cliente | CLIENTE | FRM | LISTAR | sim | **Cliente** |
-| `FabAcaoX_o_PEDIDO_VENDA_MB_GESTAO` | X | PEDIDO_VENDA | MB | GESTAO | sim | X |
+| `FabAcaoGerente.CLIENTE` | Gerente | CLIENTE | null | null | não | Gerente |
+| `FabAcaoGerente.CLIENTE_FRM_` | Gerente | CLIENTE | FRM | (vazio) | não | Gerente |
+| `FabAcaoGerenteCliente.CLIENTE_FRM_LISTAR` | GerenteCliente | CLIENTE | FRM | LISTAR | sim | **Gerente** |
+| `FabAcaoCliente.CLIENTE_FRM_LISTAR` | Cliente | CLIENTE | FRM | LISTAR | sim | **Cliente** |
+| `FabAcaoX.PEDIDO_VENDA_MB_GESTAO` | X | PEDIDO_VENDA | MB | GESTAO | sim | X |
 
-- A entidade é o trecho entre `_o_` e o primeiro marcador `_MB_`, `_FRM_` ou `_CTR_`. Por isso nomes compostos (`PEDIDO_VENDA`) funcionam.
+- A entidade é o trecho entre `.` e o primeiro marcador `_MB_`, `_FRM_` ou `_CTR_`. Por isso nomes compostos (`PEDIDO_VENDA`) funcionam.
 - `getNomeEntidadeCaixaAlta("PedidoVenda")` → `PEDIDO_VENDA`; `getNomeEntidadeCamelCase("PEDIDO_VENDA")` → `PedidoVenda`.
 - **Módulo:** a fábrica sem `FabAcao`. Se ela terminar com o nome da entidade e for maior que ele, o nome da entidade sai do fim (`GerenteCliente` → `Gerente`). Se for só o nome da entidade (`FabAcaoCliente`), o módulo é a própria entidade.
 - `getTrechoTipoEDescricao` devolve `_FRM_LISTAR`: é o que se passa para identificar a ação genérica, para que o nome da entidade não interfira nas palavras-chave.
@@ -86,7 +86,7 @@ AcaoProjCRC                (@DiscriminatorColumn tipoAcaoDB, implementa ComoItem
 ```
 
 ### Campos de `AcaoProjCRC` preenchidos pelo console
-| Campo | Valor (ex.: `FabAcaoGerente_o_CLIENTE_FRM_LISTAR`) |
+| Campo | Valor (ex.: `FabAcaoGerente.CLIENTE_FRM_LISTAR`) |
 |---|---|
 | `tipoItemProjeto` | `FabTipoItemProjeto.ACAO` |
 | `projeto` | o projeto aberto (`@ManyToOne`; lista `ProjetoCRC.acoes` com `mappedBy = "projeto"`) |
@@ -126,7 +126,7 @@ public void prepararNovoObjeto(Object... parametros) throws ErroPreparandoObjeto
 ### Gestão
 - **No framework**, a gestão de uma ação é a ação `_MB` do mesmo enum com o mesmo prefixo (`getAcaoPrincipalDoDominio`), e as sub-ações são as do mesmo domínio (`getSubAcoesDaAcaoPrincipal`).
 - **No console**, a gestão é identificada por **módulo + domínio** (`Gerente` + `CLIENTE`): `RepositorioConsole.getAcaoGestao(modulo, dominio)` e, no `prepararNovoObjeto`, `AcaoCRCProjSecundaria.aplicarVinculosDoNomeDigitado()`.
-- Assim, `FabAcaoGerente_o_CLIENTE...` e `FabAcaoGerenteCliente_o_CLIENTE...` usam a mesma gestão.
+- Assim, `FabAcaoGerente.CLIENTE...` e `FabAcaoGerenteCliente.CLIENTE...` usam a mesma gestão.
 - Uma ação secundária pode ser criada antes da gestão; nesse caso ela fica sem `acaoGestao`.
 
 ### Relacionamentos sem `mappedBy`

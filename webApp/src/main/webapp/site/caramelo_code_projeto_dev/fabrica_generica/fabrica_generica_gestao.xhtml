@@ -1,6 +1,7 @@
 <ui:composition
     template="/resources/SBComp/template/basico/modeloQuadroInternoIframe.xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:CRCDev="http://xmlns.jcp.org/jsf/composite/SBComp/composite/devel"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     >
     <ui:param name="largura" value="400"/>
@@ -10,6 +11,10 @@
             <h:panelGroup id="#{paginaAtual.infoPagina.idAreaExbicaoAcaoSelecionada}">
                 <ui:include src="#{paginaAtual.infoPagina.xhtmlAcaoAtual}" />
             </h:panelGroup>
+            <h:panelGroup rendered="#{infoWebApp.emModoDesenvolvimentoHomologacao}" style="" layout="block" >
+                #{paginaAtual.infoPagina.xhtmlAcaoAtual}
+            </h:panelGroup>
         </h:panelGroup>
+        <CRCDev:infoPagina />
     </ui:define>
 </ui:composition>

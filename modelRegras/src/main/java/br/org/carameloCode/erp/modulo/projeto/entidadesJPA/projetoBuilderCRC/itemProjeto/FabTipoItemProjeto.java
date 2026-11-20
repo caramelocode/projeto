@@ -5,7 +5,8 @@
 package br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto;
 
 import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.acao.FabAcaoCarameloDevAcaoProjCRC;
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.console.FabAcaoCarameloDevConsoleCRCProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import br.org.carameloCode.erp.modulo.projeto.console.ConsoleCRCProjeto;
 import br.org.carameloCode.erp.modulo.projeto.console.ItemOpcaoConsole;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.acoes.AcaoProjCRC;
@@ -26,6 +27,7 @@ import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.ite
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.projeto.ProjetoCRC;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import jakarta.json.JsonObject;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -108,6 +110,45 @@ public enum FabTipoItemProjeto implements ComoFabrica {
         return getCores()[2];
     }
 
+    public ComoFabricaAcoes getFabAcaoPreview() {
+        switch (this) {
+
+            case OBJETO:
+                return FabAcaoCarameloDevConsoleCRCProjeto.PREV_OBJETO_PROJ_MB_GESTAO;
+
+            case ATRIBUTO_OBJETO:
+                return FabAcaoCarameloDevConsoleCRCProjeto.PREV_ATRIBUTO_PROJ_FRM_VISUALIZAR_ATRIBUTO;
+
+            case ACAO:
+                return FabAcaoCarameloDevConsoleCRCProjeto.PREV_ACAO_MB_GESTAO;
+
+            case REQUISITO:
+                break;
+            case COMPONENTE_VISUAL:
+                break;
+            case FABRICA_STATUS:
+                return FabAcaoCarameloDevConsoleCRCProjeto.PREV_FABRICA_FRM_FABRICA_STATUS;
+
+            case FABRICA_GRUPO_USUARIOS:
+                return FabAcaoCarameloDevConsoleCRCProjeto.PREV_FABRICA_MB_GESTAO;
+
+            case FABRICA_ENTIDADE_GENERICA:
+                return FabAcaoCarameloDevConsoleCRCProjeto.PREV_FABRICA_FRM_FABRICA_GENERICA;
+
+            case FABRICA_MODULOS:
+                return FabAcaoCarameloDevConsoleCRCProjeto.PREV_FABRICA_FRM_FABRICA_GENERICA;
+
+            case FLUXO_TESTES:
+                return FabAcaoCarameloDevConsoleCRCProjeto.PREV_FLUXO_TESTES_FRM_VER_FLUXO;
+
+            case DESCONHECIDO:
+                break;
+            default:
+                return null;
+        }
+        return null;
+    }
+
     public String getTextoDica() {
 
         switch (this) {
@@ -141,10 +182,6 @@ public enum FabTipoItemProjeto implements ComoFabrica {
                 throw new AssertionError();
         }
         return "Para Editar e criar ações, digite FabAcaoNomeAcao, para Criar e editar entidades digite, NomeEntidade, e Para criar dados estáticos, como Status, e Tipo digite FabTipoXNomeTipo";
-    }
-
-    public String getComponentePreview() {
-        return null;
     }
 
     public List<String> textosSugestaoAutocomplete(ConsoleCRCProjeto pConsole, String pTextoDefinidoNomrmatizado) {
@@ -265,7 +302,7 @@ public enum FabTipoItemProjeto implements ComoFabrica {
             case OBJETO:
                 if (console.getRepositorio().isEntidadeExiste(console.getTextoDefinido())) {
                     adicionarOpcoesEntidadeExistente(opcoesConsole, console.getTextoDefinido(),
-                            console.getRepositorio().getEntidadeExistente(console.getTextoDefinido()), 1, this.getComponentePreview());
+                            console.getRepositorio().getEntidadeExistente(console.getTextoDefinido()), 1, this.getFabAcaoPreview());
                     return opcoesConsole;
                 } else {
                     List<ObjetoProjCRC> sugestoes = console.getRepositorio().getLista3ObjetosMaisParecidos(console.getTextoDefinido());
@@ -274,15 +311,15 @@ public enum FabTipoItemProjeto implements ComoFabrica {
                     try {
 
                         novoItem = (ObjetoProjCRC) this.getItemByTexto(console.getProjetoSelecionado(), console.getTextoDefinido());
-                        opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR_NOVO, novoItem, i,
-                                FabAcaoCarameloDevComoItemProjeto.ENTIDADE_FRM_EDITAR.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                        opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_CTR_SALVAR_NOVO, novoItem, i,
+                                FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_FRM_EDITAR.getRegistro().getComoFormulario(), this.getFabAcaoPreview()));
                         i++;
                     } catch (ErroPreparandoObjeto ex) {
                         //valor incompativel
                     }
 
                     for (ObjetoProjCRC item : sugestoes) {
-                        i = adicionarOpcoesEntidadeExistente(opcoesConsole, console.getTextoDefinido(), item, i, "");
+                        i = adicionarOpcoesEntidadeExistente(opcoesConsole, console.getTextoDefinido(), item, i, FabTipoItemProjeto.OBJETO.getFabAcaoPreview());
                     }
                     return opcoesConsole;
                 }
@@ -302,8 +339,8 @@ public enum FabTipoItemProjeto implements ComoFabrica {
                             AtributoEntidadeLista novoAtributo = new AtributoEntidadeLista();
                             novoAtributo.prepararNovoObjeto(entidade, FabTipoInstanciaAtributoProjeto.ATRIBUTO_LISTAGEM.getTipoPeloNome(nomeAtributo), nomeAtributo);
                             novoAtributo.setEntidadeItemLista(getEntidadeReferenciadaPeloNome(console.getRepositorio(), entidade, nomeAtributo));
-                            opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO_TP_LISTA, novoAtributo, i,
-                                    FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_EDITAR_LISTA.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                            opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO_TP_LISTA, novoAtributo, i,
+                                    FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_FRM_EDITAR_LISTA.getRegistro().getComoFormulario(), this.getFabAcaoPreview()));
                         } else if (UtilProjCRCItemProjetoTexto.isAtributoTipoObjeto(nomeDigitado)
                                 || FabTipoInstanciaAtributoProjeto.getTipoInstanciaPeloNome(nomeAtributo) == FabTipoInstanciaAtributoProjeto.ATRIBUTO_ENTIDADE) {
                             // Entidade.atributo. ou nome reservado (bairro, uf, usuarioCriacao...) → atributo que referencia outra entidade
@@ -314,14 +351,14 @@ public enum FabTipoItemProjeto implements ComoFabrica {
                                 // Nos tipos de localidade e de usuário a entidade é fixa
                                 novoAtributo.setEntidadeReferenciada(getEntidadeReferenciadaPeloNome(console.getRepositorio(), entidade, nomeAtributo));
                             }
-                            opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO_TP_ENTIDADE, novoAtributo, i,
-                                    FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_EDITAR_OBJETO.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                            opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO_TP_ENTIDADE, novoAtributo, i,
+                                    FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_FRM_EDITAR_OBJETO.getRegistro().getComoFormulario(), this.getFabAcaoPreview()));
                         } else {
                             // Tipo deduzido pelo nome (logo → IMG_PEQUENA); sem correspondência, TEXTO_SIMPLES
                             AtributoDeEntidadeSimples novoAtributo = FabTiposEntidade.getAtributo(entidade,
                                     FabTipoInstanciaAtributoProjeto.ATRIBUTO_SIMPLES.getTipoPeloNome(nomeAtributo), nomeAtributo);
-                            opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO, novoAtributo, i,
-                                    FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_EDITAR.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                            opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO, novoAtributo, i,
+                                    FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_FRM_EDITAR.getRegistro().getComoFormulario(), this.getFabAcaoPreview()));
                         }
                         i++;
                     } catch (ErroPreparandoObjeto ex) {
@@ -329,8 +366,8 @@ public enum FabTipoItemProjeto implements ComoFabrica {
                     }
                 }
                 for (AtributoDeEntidadeSimples atributo : getAtributosIniciandoCom(entidade, nomeAtributo)) {
-                    opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_EDITAR, atributo, i,
-                            FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_EDITAR.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                    opcoesConsole.add(new ItemOpcaoConsole(console.getTextoDefinido(), FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_FRM_EDITAR, atributo, i,
+                            FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_FRM_EDITAR.getRegistro().getComoFormulario(), this.getFabAcaoPreview()));
                     i++;
                 }
                 return opcoesConsole;
@@ -345,7 +382,7 @@ public enum FabTipoItemProjeto implements ComoFabrica {
                         AcaoProjCRC novaAcao = (AcaoProjCRC) this.getItemByTexto(console.getProjetoSelecionado(), texto);
                         if (novaAcao != null) {
                             opcoesConsole.add(new ItemOpcaoConsole(texto, FabAcaoCarameloDevAcaoProjCRC.ACOES_CTR_SALVAR, novaAcao, i,
-                                    getFormularioDetalhesAcao(novaAcao).getRegistro().getComoFormulario(), this.getComponentePreview()));
+                                    getFormularioDetalhesAcao(novaAcao).getRegistro().getComoFormulario(), this.getFabAcaoPreview()));
                             i++;
                         }
                     } catch (ErroPreparandoObjeto ex) {
@@ -356,7 +393,7 @@ public enum FabTipoItemProjeto implements ComoFabrica {
                 for (AcaoProjCRC existente : console.getRepositorio().getAcoesIniciandoCom(texto)) {
                     FabAcaoCarameloDevAcaoProjCRC acaoEdicao = getFormularioDetalhesAcao(existente);
                     opcoesConsole.add(new ItemOpcaoConsole(texto, acaoEdicao, existente, i,
-                            acaoEdicao.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                            acaoEdicao.getRegistro().getComoFormulario(), this.getFabAcaoPreview()));
                     i++;
                 }
                 return opcoesConsole;
@@ -389,13 +426,13 @@ public enum FabTipoItemProjeto implements ComoFabrica {
      *
      * @return a próxima ordem disponível
      */
-    private static int adicionarOpcoesEntidadeExistente(List<ItemOpcaoConsole> pOpcoes, String pTextoDigitado, ObjetoProjCRC pEntidade, int pOrdem, String pComponentePreview) {
+    private static int adicionarOpcoesEntidadeExistente(List<ItemOpcaoConsole> pOpcoes, String pTextoDigitado, ObjetoProjCRC pEntidade, int pOrdem, ComoFabricaAcoes pComponentePreview) {
         int ordem = pOrdem;
-        pOpcoes.add(new ItemOpcaoConsole(pTextoDigitado, FabAcaoCarameloDevComoItemProjeto.ENTIDADE_FRM_EDITAR, pEntidade, ordem,
-                FabAcaoCarameloDevComoItemProjeto.ENTIDADE_FRM_EDITAR.getRegistro().getComoFormulario(), pComponentePreview));
+        pOpcoes.add(new ItemOpcaoConsole(pTextoDigitado, FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_FRM_EDITAR, pEntidade, ordem,
+                FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_FRM_EDITAR.getRegistro().getComoFormulario(), pComponentePreview));
         ordem++;
-        pOpcoes.add(new ItemOpcaoConsole(pTextoDigitado, FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_LISTAR, pEntidade, ordem,
-                FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_LISTAR.getRegistro().getComoFormulario(), pComponentePreview));
+        pOpcoes.add(new ItemOpcaoConsole(pTextoDigitado, FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_FRM_LISTAR, pEntidade, ordem,
+                FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_FRM_LISTAR.getRegistro().getComoFormulario(), pComponentePreview));
         ordem++;
         return ordem;
     }
@@ -511,16 +548,16 @@ public enum FabTipoItemProjeto implements ComoFabrica {
     private List<ItemOpcaoConsole> getOpcoesConsoleFabrica(ConsoleCRCProjeto console) {
         List<ItemOpcaoConsole> opcoes = new ArrayList<>();
         boolean status = this == FABRICA_STATUS;
-        FabAcaoCarameloDevComoItemProjeto salvarFabrica = status
-                ? FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_CTR_SALVAR_MERGE : FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_CTR_SALVAR_MERGE;
-        FabAcaoCarameloDevComoItemProjeto editarFabrica = status
-                ? FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_FRM_EDITAR : FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_FRM_EDITAR;
-        FabAcaoCarameloDevComoItemProjeto salvarItem = status
-                ? FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_CTR_SALVAR_MERGE : FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_CTR_SALVAR_MERGE;
-        FabAcaoCarameloDevComoItemProjeto novoItemFrm = status
-                ? FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_FRM_EDITAR : FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_FRM_EDITAR;
-        FabAcaoCarameloDevComoItemProjeto editarItem = status
-                ? FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_FRM_EDITAR : FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_FRM_EDITAR;
+        FabAcaoCarameloDevEdicaoItemProj salvarFabrica = status
+                ? FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_CTR_SALVAR_MERGE : FabAcaoCarameloDevEdicaoItemProj.FABRICA_GENERICA_CTR_SALVAR_MERGE;
+        FabAcaoCarameloDevEdicaoItemProj editarFabrica = status
+                ? FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_FRM_EDITAR : FabAcaoCarameloDevEdicaoItemProj.FABRICA_GENERICA_FRM_EDITAR;
+        FabAcaoCarameloDevEdicaoItemProj salvarItem = status
+                ? FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_CTR_SALVAR_MERGE : FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_CTR_SALVAR_MERGE;
+        FabAcaoCarameloDevEdicaoItemProj novoItemFrm = status
+                ? FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_FRM_EDITAR : FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_FRM_EDITAR;
+        FabAcaoCarameloDevEdicaoItemProj editarItem = status
+                ? FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_FRM_EDITAR : FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_FRM_EDITAR;
 
         String texto = console.getTextoDefinido();
         String nomeFabrica = UtilProjCRCNomeFabrica.getNomeFabrica(texto);
@@ -533,7 +570,7 @@ public enum FabTipoItemProjeto implements ComoFabrica {
                     try {
                         FabricaEntidadeProjCRC novaFabrica = getNovaFabrica(console.getProjetoSelecionado(), nomeFabrica);
                         opcoes.add(new ItemOpcaoConsole(texto, salvarFabrica, novaFabrica, i,
-                                editarFabrica.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                                editarFabrica.getRegistro().getComoFormulario(), this.getFabAcaoPreview()));
                         i++;
                     } catch (ErroPreparandoObjeto ex) {
                         //valor incompativel
@@ -541,12 +578,12 @@ public enum FabTipoItemProjeto implements ComoFabrica {
                 }
             } else if (fabrica.getTipoItemProjeto() == this) {
                 opcoes.add(new ItemOpcaoConsole(texto, editarFabrica, fabrica, i,
-                        editarFabrica.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                        editarFabrica.getRegistro().getComoFormulario(), this.getFabAcaoPreview()));
                 i++;
                 try {
                     ItemFabrica novoItem = getNovoItemFabrica(fabrica, null);
                     opcoes.add(new ItemOpcaoConsole(texto, novoItemFrm, novoItem, i,
-                            novoItemFrm.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                            novoItemFrm.getRegistro().getComoFormulario(), this.getFabAcaoPreview()));
                     i++;
                 } catch (ErroPreparandoObjeto ex) {
                     //valor incompativel
@@ -555,7 +592,7 @@ public enum FabTipoItemProjeto implements ComoFabrica {
             for (FabricaEntidadeProjCRC existente : console.getRepositorio().getFabricasIniciandoCom(nomeFabrica, this)) {
                 if (existente != fabrica) {
                     opcoes.add(new ItemOpcaoConsole(texto, editarFabrica, existente, i,
-                            editarFabrica.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                            editarFabrica.getRegistro().getComoFormulario(), this.getFabAcaoPreview()));
                     i++;
                 }
             }
@@ -571,7 +608,7 @@ public enum FabTipoItemProjeto implements ComoFabrica {
             try {
                 ItemFabrica novoItem = getNovoItemFabrica(fabrica, nomeItem);
                 opcoes.add(new ItemOpcaoConsole(texto, salvarItem, novoItem, i,
-                        novoItemFrm.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                        novoItemFrm.getRegistro().getComoFormulario(), this.getFabAcaoPreview()));
                 i++;
             } catch (ErroPreparandoObjeto ex) {
                 //valor incompativel
@@ -579,7 +616,7 @@ public enum FabTipoItemProjeto implements ComoFabrica {
         }
         for (ItemFabrica existente : getItensFabricaIniciandoCom(fabrica, nomeEnum)) {
             opcoes.add(new ItemOpcaoConsole(texto, editarItem, existente, i,
-                    editarItem.getRegistro().getComoFormulario(), this.getComponentePreview()));
+                    editarItem.getRegistro().getComoFormulario(), this.getFabAcaoPreview()));
             i++;
         }
         return opcoes;

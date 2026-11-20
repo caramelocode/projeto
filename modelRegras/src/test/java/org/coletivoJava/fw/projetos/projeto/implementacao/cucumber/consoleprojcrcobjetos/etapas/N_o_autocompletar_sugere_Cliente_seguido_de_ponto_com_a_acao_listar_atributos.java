@@ -1,6 +1,6 @@
 package org.coletivoJava.fw.projetos.projeto.implementacao.cucumber.consoleprojcrcobjetos.etapas;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import br.org.carameloCode.erp.modulo.projeto.console.ItemOpcaoConsole;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.FabTipoItemProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC;
@@ -21,7 +21,7 @@ public class N_o_autocompletar_sugere_Cliente_seguido_de_ponto_com_a_acao_listar
 		List<ItemOpcaoConsole> opcoes = FluxoConsoleObjetos.CONSOLE.getOpcoesDisponiveis();
 		Assert.assertEquals("Quantidade de opções disponíveis incorreta", 3, opcoes.size());
 		ItemOpcaoConsole opcaoListar = opcoes.get(2);
-		Assert.assertEquals("A terceira opção deveria ser listar atributos", FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_LISTAR, opcaoListar.getFabAcaoAssociada());
+		Assert.assertEquals("A terceira opção deveria ser listar atributos", FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_FRM_LISTAR, opcaoListar.getFabAcaoCriarItem());
 		Assert.assertTrue("A opção de listar atributos deveria estar associada a uma entidade", opcaoListar.getItemAssociado() instanceof ObjetoProjCRC);
 		Assert.assertEquals("Entidade da opção de listar atributos incorreta", FluxoConsoleObjetos.NOME_ENTIDADE_CLIENTE,
 				((ObjetoProjCRC) opcaoListar.getItemAssociado()).getNomeEntidade());

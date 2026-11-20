@@ -4,8 +4,8 @@
  */
 package br.org.carameloCode.erp.modulo.projeto.regraDeNegocio.Entidadeobjeto;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.InfoAcaoEntidadeObjetoCRCProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.InfoAcaoEntidadeObjetoCRCProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoDeEntidadeSimples;
 import com.super_bits.modulos.SBAcessosModel.controller.resposta.RespostaComGestaoEMRegraDeNegocioPadrao;
@@ -19,7 +19,7 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroRegraDeNego
  */
 public class ExecAcoesObjetosEntidadeCRC extends ControllerAbstratoSBPersistencia {
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR_NOVO)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_CTR_SALVAR_NOVO)
     public static ItfRespostaAcaoDoSistema salvarObjetoEntidade(ObjetoProjCRC pItemDeProjeto) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItemDeProjeto), pItemDeProjeto) {

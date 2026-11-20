@@ -18,11 +18,13 @@ import br.org.coletivoJava.fw.erp.implementacao.chat.atendente.AtualizacaoSalaAt
 import br.org.coletivoJava.fw.erp.implementacao.chat.atendente.FabTipoAtualizacaoSalaAtendente;
 import br.org.coletivoJava.fw.erp.implementacao.chat.atendente.JanelaChatSessaoUpdate;
 import com.super_bits.modulos.SBAcessosModel.controller.resposta.RespostaComGestaoEMRegraDeNegocioPadrao;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
 import com.super_bits.modulosSB.Persistencia.dao.ControllerAbstratoSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.ErroEmBancoDeDados;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCNumeros;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroRegraDeNegocio;
@@ -55,8 +57,10 @@ public class ExecAcoesComponenteNativo extends ControllerAbstratoSBPersistencia 
             @Override
             public void regraDeNegocio() throws ErroRegraDeNegocio {
                 // copiar pasta meta-inf
+                throw new ErroRegraDeNegocio("ainda não implementado");
                 //copiar pasta SBComp
                 //compiar faces config
+
             }
         }.getResposta();
 

@@ -86,12 +86,12 @@
                     </h:panelGroup>
                     <h:panelGroup layout="block" styleClass="Container12 crc-console-projeto-crc__selecionada" rendered="#{!empty cc.attrs.console and !empty cc.attrs.console.opcaoSelecionada}" >
                         <h:panelGroup layout="block" styleClass="crc-console-projeto-crc__selecionada-conteudo"
-                                      rendered="#{not empty cc.attrs.console.opcaoSelecionada.acaoFormularioDetalhes}"
-                                      style="#{empty cc.attrs.console.opcaoSelecionada.acaoFormularioDetalhes.cor ? '' : '--crc-console-cor: '.concat(cc.attrs.console.opcaoSelecionada.acaoAssociada.cor)}" >
+                                      rendered="#{not empty cc.attrs.console.opcaoSelecionada.acaoFormularioEditar}"
+                                      style="#{empty cc.attrs.console.opcaoSelecionada.acaoFormularioEditar.cor ? '' : '--crc-console-cor: '.concat(cc.attrs.console.opcaoSelecionada.acaoAssociada.cor)}" >
                             <c:set var="urlAcaoSelecionada"
-                                   value="#{pgUtilAcoes.getUrlAcao(cc.attrs.console.opcaoSelecionada.acaoFormularioDetalhes, cc.attrs.console.opcaoSelecionada.itemAssociado)}" />
+                                   value="#{pgUtilAcoes.getUrlAcao(cc.attrs.console.opcaoSelecionada.acaoFormularioEditar, cc.attrs.console.opcaoSelecionada.itemAssociado)}" />
                             <c:set var="urlDemonstracao"
-                                   value="#{pgUtilAcoes.getUrlAcao(acoesCarameloDev_PrevisualizacaoItemProjMbGestao.previsualizacaoItemProjFrmVisualizarAcaoGestao, cc.attrs.console.opcaoSelecionada.itemAssociado)}" />
+                                   value="#{cc.attrs.console.opcaoSelecionada.urlPreview}" />
 
                             <!-- Cabeçalho: ícone na cor da ação, nome da ação, item e atalho -->
                             <h:panelGroup layout="block" styleClass="crc-console-projeto-crc__selecionada-cabecalho" >
@@ -119,12 +119,12 @@
                                 <h:panelGroup layout="block" styleClass="d-flex flex-wrap align-items-start gap-3">
                                     <crcEnquadramento:iframeInterno src="#{urlAcaoSelecionada}"
                                                                     metodoInteracaoIframe="#{pgUtil.enviaMensagem('teste')}"/>
-                                    <crcEnquadramento:iframeInterno src="#{urlDemonstracao}" />
-                                    #{urlDemonstracao}
+                                    <crcEnquadramento:iframeInterno src="#{urlDemonstracao}" rendered="#{not empty urlDemonstracao}" />
+
                                 </h:panelGroup>
 
 
-                                #{urlAcaoSelecionada}
+
                             </h:panelGroup>
 
                         </h:panelGroup>

@@ -17,7 +17,7 @@ public class AF_a_opcao_principal_sugerida_e_editar_o_status_INADIMPLENTE {
         ItemOpcaoConsole opcao = FluxoConsoleObjetoStatus.CONSOLE.getOpcaoPrincipalSugerida();
         Assert.assertNotNull("Nenhuma opção principal sugerida para o status " + nomeEnum, opcao);
         Assert.assertEquals("A opção principal deveria ser editar o status",
-                FluxoConsoleObjetoStatus.ACAO_EDITAR_STATUS, opcao.getFabAcaoAssociada());
+                FluxoConsoleObjetoStatus.ACAO_EDITAR_STATUS, opcao.getFabAcaoCriarItem());
 
         // Item associado: o status já persistido
         Object itemAssociado = opcao.getItemAssociado();

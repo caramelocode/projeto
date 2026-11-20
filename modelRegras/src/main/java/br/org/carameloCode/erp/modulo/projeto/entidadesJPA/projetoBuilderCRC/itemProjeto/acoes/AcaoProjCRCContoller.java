@@ -12,7 +12,7 @@ import javax.persistence.Entity;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(tags = "ação controller", plural = "Ações controller", icone = "fa fa-cogs")
+@InfoObjetoSB(tags = "ação controller", plural = "Ações controller", icone = "fa fa-gears")
 public class AcaoProjCRCContoller extends AcaoCRCProjSecundaria {
 
 }

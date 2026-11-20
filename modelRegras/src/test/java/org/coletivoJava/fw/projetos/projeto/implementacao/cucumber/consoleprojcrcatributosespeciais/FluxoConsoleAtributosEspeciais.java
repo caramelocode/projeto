@@ -1,6 +1,6 @@
 package org.coletivoJava.fw.projetos.projeto.implementacao.cucumber.consoleprojcrcatributosespeciais;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import br.org.carameloCode.erp.modulo.projeto.config.ConfigPersistenciaProjetoCaramelo;
 import br.org.carameloCode.erp.modulo.projeto.console.ConsoleCRCProjeto;
 import br.org.carameloCode.erp.modulo.projeto.console.ItemOpcaoConsole;
@@ -126,11 +126,11 @@ public class FluxoConsoleAtributosEspeciais extends TesteIntegracaoFuncionalidad
      * @return o atributo a criar
      */
     public static <T extends AtributoDeEntidadeSimples> T getAtributoDaOpcaoPrincipalDeCriacao(String pNomeAtributo, Class<T> pTipoEsperado,
-            FabAcaoCarameloDevComoItemProjeto pAcaoSalvarEsperada) {
+            FabAcaoCarameloDevEdicaoItemProj pAcaoSalvarEsperada) {
         ItemOpcaoConsole opcao = CONSOLE.getOpcaoPrincipalSugerida();
         Assert.assertNotNull("Nenhuma opção principal sugerida para o atributo " + pNomeAtributo, opcao);
         Assert.assertEquals("A opção principal deveria ser criar atributo", pAcaoSalvarEsperada,
-                opcao.getFabAcaoAssociada());
+                opcao.getFabAcaoCriarItem());
         Assert.assertNotNull("A opção principal deveria ter um item associado", opcao.getItemAssociado());
         Assert.assertEquals("Tipo do item associado incorreto para o atributo " + pNomeAtributo,
                 pTipoEsperado, opcao.getItemAssociado().getClass());
@@ -146,10 +146,10 @@ public class FluxoConsoleAtributosEspeciais extends TesteIntegracaoFuncionalidad
      * Executa a opção selecionada, que deve ser criar atributo com a ação de
      * salvar esperada, e confere que o atributo retornado foi persistido.
      */
-    public static void executarCriacaoDoAtributo(String pNomeAtributo, FabAcaoCarameloDevComoItemProjeto pAcaoSalvarEsperada) {
+    public static void executarCriacaoDoAtributo(String pNomeAtributo, FabAcaoCarameloDevEdicaoItemProj pAcaoSalvarEsperada) {
         Assert.assertNotNull("Nenhuma opção selecionada para executar", CONSOLE.getOpcaoSelecionada());
         Assert.assertEquals("A opção selecionada deveria ser criar o atributo " + pNomeAtributo,
-                pAcaoSalvarEsperada, CONSOLE.getOpcaoSelecionada().getFabAcaoAssociada());
+                pAcaoSalvarEsperada, CONSOLE.getOpcaoSelecionada().getFabAcaoCriarItem());
         CONSOLE.executarOpcaoSelecionada();
         Assert.assertTrue("O item da opção executada deveria ser um atributo",
                 CONSOLE.getOpcaoSelecionada().getItemAssociado() instanceof AtributoDeEntidadeSimples);

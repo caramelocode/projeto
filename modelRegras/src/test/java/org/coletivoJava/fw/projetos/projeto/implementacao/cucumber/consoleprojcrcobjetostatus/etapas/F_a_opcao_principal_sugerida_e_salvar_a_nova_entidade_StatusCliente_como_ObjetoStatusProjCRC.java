@@ -15,7 +15,7 @@ public class F_a_opcao_principal_sugerida_e_salvar_a_nova_entidade_StatusCliente
         ItemOpcaoConsole opcao = FluxoConsoleObjetoStatus.CONSOLE.getOpcaoPrincipalSugerida();
         Assert.assertNotNull("Nenhuma opção principal sugerida para " + FluxoConsoleObjetoStatus.NOME_ENTIDADE_STATUS_CLIENTE, opcao);
         Assert.assertEquals("A opção principal deveria ser salvar a entidade",
-                FluxoConsoleObjetoStatus.ACAO_SALVAR_ENTIDADE, opcao.getFabAcaoAssociada());
+                FluxoConsoleObjetoStatus.ACAO_SALVAR_ENTIDADE, opcao.getFabAcaoCriarItem());
 
         // Item associado: entidade de status
         Object itemAssociado = opcao.getItemAssociado();

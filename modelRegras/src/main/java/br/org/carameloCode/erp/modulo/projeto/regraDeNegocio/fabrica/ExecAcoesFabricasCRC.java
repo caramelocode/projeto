@@ -4,8 +4,8 @@
  */
 package br.org.carameloCode.erp.modulo.projeto.regraDeNegocio.fabrica;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.InfoAcaoEntidadeObjetoCRCProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.InfoAcaoEntidadeObjetoCRCProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.FabricaEntidadeProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.FabricaStatusProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.ItemFabrica;
@@ -24,7 +24,7 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroRegraDeNego
  */
 public class ExecAcoesFabricasCRC extends ControllerAbstratoSBPersistencia {
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_CTR_SALVAR_MERGE)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.FABRICA_GENERICA_CTR_SALVAR_MERGE)
     public static ItfRespostaAcaoDoSistema salvarFabrica(FabricaEntidadeProjCRC pFabrica) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pFabrica), pFabrica) {
@@ -37,7 +37,7 @@ public class ExecAcoesFabricasCRC extends ControllerAbstratoSBPersistencia {
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_CTR_SALVAR_MERGE)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_CTR_SALVAR_MERGE)
     public static ItfRespostaAcaoDoSistema salvarFabricaStatus(FabricaStatusProjCRC pFabrica) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pFabrica), pFabrica) {
@@ -50,7 +50,7 @@ public class ExecAcoesFabricasCRC extends ControllerAbstratoSBPersistencia {
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_CTR_SALVAR_MERGE)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_CTR_SALVAR_MERGE)
     public static ItfRespostaAcaoDoSistema salvarItemFabrica(ItemFabrica pItem) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItem), pItem) {
@@ -63,7 +63,7 @@ public class ExecAcoesFabricasCRC extends ControllerAbstratoSBPersistencia {
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_CTR_SALVAR_MERGE)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_CTR_SALVAR_MERGE)
     public static ItfRespostaAcaoDoSistema salvarItemFabricaStatus(ItemFabricaStatus pItem) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItem), pItem) {

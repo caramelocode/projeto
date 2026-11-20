@@ -79,7 +79,8 @@
     <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.requisito.ProvasDeConceito</class>
     <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.componenteVisual.ComponenteDeProjeto</class>
     <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC</class>
-    <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.FabricaProjCRC</class>
+    <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoStatusProjCRC</class>
+    <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.FabricaEntidadeProjCRC</class>
     <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.FabricaStatusProjCRC</class>
     <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.ItemFabrica</class>
     <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.ItemFabricaStatus</class>
@@ -87,6 +88,10 @@
     <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.entidadeExemplo.EntdParticularExemplo</class>
     <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.entidadeExemplo.EntdExtendidaExemplo</class>
     <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoEntidadeLista</class>
+    <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoDeEntidadeStatus</class>
+    <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoDeEntidadeFabrica</class>
+    <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoDeEntidadeFabricaStatus</class>
+    <class>br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fluxoTeste.FluxodoProjetoCRC</class>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>
       <property name="hibernate.hbm2ddl.auto" value="create"/>

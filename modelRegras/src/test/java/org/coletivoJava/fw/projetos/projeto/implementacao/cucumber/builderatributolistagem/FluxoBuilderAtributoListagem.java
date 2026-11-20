@@ -1,6 +1,6 @@
 package org.coletivoJava.fw.projetos.projeto.implementacao.cucumber.builderatributolistagem;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import br.org.carameloCode.erp.modulo.projeto.config.ConfigPersistenciaProjetoCaramelo;
 import br.org.carameloCode.erp.modulo.projeto.console.ConsoleCRCProjeto;
 import br.org.carameloCode.erp.modulo.projeto.console.ItemOpcaoConsole;
@@ -149,8 +149,8 @@ public class FluxoBuilderAtributoListagem extends TesteIntegracaoFuncionalidadeC
         Assert.assertNotNull("Nenhum atributo selecionado no console", atributoAtual);
         Assert.assertEquals("Atributo selecionado incorreto", pNomeAtributo, atributoAtual.getNomeDeclarado());
         Assert.assertEquals("A opção de " + getTextoDigitado(pNomeAtributo) + " deveria ser salvar um atributo de listagem",
-                FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO_TP_LISTA,
-                CONSOLE.getOpcaoSelecionada().getFabAcaoAssociada());
+                FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO_TP_LISTA,
+                CONSOLE.getOpcaoSelecionada().getFabAcaoCriarItem());
     }
 
     /**
@@ -181,7 +181,7 @@ public class FluxoBuilderAtributoListagem extends TesteIntegracaoFuncionalidadeC
                 TIPO_INSTANCIA.getClasse(), opcao.getItemAssociado().getClass());
         Assert.assertFalse("O console não deveria oferecer criar o atributo " + pNomeAtributo + " de novo",
                 CONSOLE.getOpcoesDisponiveis().stream()
-                        .anyMatch(op -> op.getFabAcaoAssociada() == FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO_TP_LISTA));
+                        .anyMatch(op -> op.getFabAcaoCriarItem() == FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO_TP_LISTA));
     }
 
     /**

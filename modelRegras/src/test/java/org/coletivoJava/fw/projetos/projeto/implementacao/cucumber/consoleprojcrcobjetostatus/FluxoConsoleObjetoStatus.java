@@ -1,6 +1,6 @@
 package org.coletivoJava.fw.projetos.projeto.implementacao.cucumber.consoleprojcrcobjetostatus;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import br.org.carameloCode.erp.modulo.projeto.config.ConfigPersistenciaProjetoCaramelo;
 import br.org.carameloCode.erp.modulo.projeto.console.ConsoleCRCProjeto;
 import br.org.carameloCode.erp.modulo.projeto.console.ItemOpcaoConsole;
@@ -109,11 +109,11 @@ public class FluxoConsoleObjetoStatus extends TesteIntegracaoFuncionalidadeCucum
     public static final long ID_OBJETO_STATUS_INADIMPLENTE = 3L;
 
     // Ações esperadas nas opções do console
-    public static final FabAcaoCarameloDevComoItemProjeto ACAO_SALVAR_ENTIDADE = FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR_NOVO;
-    public static final FabAcaoCarameloDevComoItemProjeto ACAO_SALVAR_FABRICA = FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_CTR_SALVAR_MERGE;
-    public static final FabAcaoCarameloDevComoItemProjeto ACAO_EDITAR_FABRICA = FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_FRM_EDITAR;
-    public static final FabAcaoCarameloDevComoItemProjeto ACAO_SALVAR_STATUS = FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_CTR_SALVAR_MERGE;
-    public static final FabAcaoCarameloDevComoItemProjeto ACAO_EDITAR_STATUS = FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_FRM_EDITAR;
+    public static final FabAcaoCarameloDevEdicaoItemProj ACAO_SALVAR_ENTIDADE = FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_CTR_SALVAR_NOVO;
+    public static final FabAcaoCarameloDevEdicaoItemProj ACAO_SALVAR_FABRICA = FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_CTR_SALVAR_MERGE;
+    public static final FabAcaoCarameloDevEdicaoItemProj ACAO_EDITAR_FABRICA = FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_FRM_EDITAR;
+    public static final FabAcaoCarameloDevEdicaoItemProj ACAO_SALVAR_STATUS = FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_CTR_SALVAR_MERGE;
+    public static final FabAcaoCarameloDevEdicaoItemProj ACAO_EDITAR_STATUS = FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_FRM_EDITAR;
 
     // Textos digitados no console
     public static final String TEXTO_ENTIDADE_STATUS_CLIENTE = NOME_ENTIDADE_STATUS_CLIENTE;
@@ -149,9 +149,9 @@ public class FluxoConsoleObjetoStatus extends TesteIntegracaoFuncionalidadeCucum
     /**
      * Opções disponíveis no console com a ação informada.
      */
-    public static List<ItemOpcaoConsole> getOpcoesComAcao(FabAcaoCarameloDevComoItemProjeto pAcao) {
+    public static List<ItemOpcaoConsole> getOpcoesComAcao(FabAcaoCarameloDevEdicaoItemProj pAcao) {
         return CONSOLE.getOpcoesDisponiveis().stream()
-                .filter(opcao -> pAcao.equals(opcao.getFabAcaoAssociada()))
+                .filter(opcao -> pAcao.equals(opcao.getFabAcaoCriarItem()))
                 .collect(Collectors.toList());
     }
 
@@ -164,7 +164,7 @@ public class FluxoConsoleObjetoStatus extends TesteIntegracaoFuncionalidadeCucum
     public static ItemFabricaStatus getStatusDaOpcaoPrincipalDeCriacao(String pNomeEnum) {
         ItemOpcaoConsole opcao = CONSOLE.getOpcaoPrincipalSugerida();
         Assert.assertNotNull("Nenhuma opção principal sugerida para o status " + pNomeEnum, opcao);
-        Assert.assertEquals("A opção principal deveria ser salvar o status", ACAO_SALVAR_STATUS, opcao.getFabAcaoAssociada());
+        Assert.assertEquals("A opção principal deveria ser salvar o status", ACAO_SALVAR_STATUS, opcao.getFabAcaoCriarItem());
         Assert.assertTrue("O item associado deveria ser um item de status",
                 opcao.getItemAssociado() instanceof ItemFabricaStatus);
         ItemFabricaStatus status = (ItemFabricaStatus) opcao.getItemAssociado();
@@ -178,10 +178,10 @@ public class FluxoConsoleObjetoStatus extends TesteIntegracaoFuncionalidadeCucum
     /**
      * Confere que a opção selecionada é a ação esperada e a executa.
      */
-    public static void executarOpcaoSelecionada(FabAcaoCarameloDevComoItemProjeto pAcaoEsperada) {
+    public static void executarOpcaoSelecionada(FabAcaoCarameloDevEdicaoItemProj pAcaoEsperada) {
         Assert.assertNotNull("Nenhuma opção selecionada para executar", CONSOLE.getOpcaoSelecionada());
         Assert.assertEquals("A opção selecionada deveria ser " + pAcaoEsperada,
-                pAcaoEsperada, CONSOLE.getOpcaoSelecionada().getFabAcaoAssociada());
+                pAcaoEsperada, CONSOLE.getOpcaoSelecionada().getFabAcaoCriarItem());
         CONSOLE.executarOpcaoSelecionada();
     }
 

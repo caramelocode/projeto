@@ -4,9 +4,11 @@ import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.nativo.FabAcaoP
 import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.nativo.InfoAcaoProjetoCRCComponenteNativo;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.ExemploComponente;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.componentes.ExemploComponenteInput;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringFiltros;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringSlugs;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.TIPO_PARTE_URL;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilCRCArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ComoComponenteVisualSB;
 import com.super_bits.modulosSB.webPaginas.JSFManagedBeans.declarados.ConstAppFormEComponente.contantesView.LayoutInputCampo;
 import com.super_bits.modulosSB.webPaginas.JSFManagedBeans.formularios.MB_paginaCadastroEntidades;
@@ -44,6 +46,7 @@ public class PgComponentesJsf extends MB_paginaCadastroEntidades<ExemploComponen
         tiposVisualizacaoDisponivel.add(input.getSemLabel());
         tiposVisualizacaoDisponivel.add(input.getSuperior());
         tipoVisualizacaoSelecionada = input.getEsquerda();
+
     }
 
     public ComoComponenteVisualSB getTipoVisualizacaoSelecionada() {

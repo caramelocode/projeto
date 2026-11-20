@@ -12,7 +12,7 @@ public class I_o_console_nao_sugere_criar_uma_acao_sem_tipo_e_descricao {
     public void implementacaoEtapa() {
         Assert.assertTrue("O console não deveria sugerir criar uma ação sem tipo e descrição",
                 FluxoConsoleAcoes.CONSOLE.getOpcoesDisponiveis().stream()
-                        .noneMatch(op -> FabAcaoCarameloDevAcaoProjCRC.ACOES_CTR_SALVAR.equals(op.getFabAcaoAssociada())));
+                        .noneMatch(op -> FabAcaoCarameloDevAcaoProjCRC.ACOES_CTR_SALVAR.equals(op.getFabAcaoCriarItem())));
         // O projeto ainda não tem ações: também não há nada para editar
         Assert.assertTrue("O console não deveria sugerir nenhuma opção, sugeriu " + FluxoConsoleAcoes.CONSOLE.getOpcoesDisponiveis().size(),
                 FluxoConsoleAcoes.CONSOLE.getOpcoesDisponiveis().isEmpty());

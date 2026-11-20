@@ -13,6 +13,7 @@ import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.pro
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimplesORM;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampoVerdadeiroOuFalso;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoPreparacaoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
@@ -44,7 +45,7 @@ import org.coletivojava.fw.api.tratamentoErros.ErroPreparandoObjeto;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoObjetoDB")
-@InfoObjetoSB(tags = {"Entidade do Projeto"}, plural = "Entidades do Projeto")
+@InfoObjetoSB(tags = {"Entidade do Projeto"}, plural = "Entidades do Projeto", icone = "fa fa-table")
 public class ObjetoProjCRC extends EntidadeSimplesORM implements ComoEstruturaEntidadeSimples, ComoItemProjeto {
 
     @Id
@@ -52,19 +53,26 @@ public class ObjetoProjCRC extends EntidadeSimplesORM implements ComoEstruturaEn
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
+    @InfoCampo(tipo = FabTipoAtributoObjeto.NOME, label = "Nome Publicado")
     private String nome;
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.ENUM_FABRICA)
     private FabTipoItemProjeto tipoItemProjeto;
 
+    @InfoCampo(tipo = FabTipoAtributoObjeto.TEXTO_SIMPLES, descricao = "Nome da Classe de Entidade")
     private String nomeEntidade;
 
     private String descricao;
 
+    @InfoCampo(tipo = FabTipoAtributoObjeto.ICONE)
     private String icone;
 
+    @InfoCampo(tipo = FabTipoAtributoObjeto.TEXTO_SIMPLES)
     private String plural;
+
+    @InfoCampoVerdadeiroOuFalso(textoNegativo = "Masculino", textoPositivo = "Feminino", iconeNegativo = "fa fa-mars", iconePostivio = "fa fa-venus")
+    @InfoCampo(tipo = FabTipoAtributoObjeto.VERDADEIRO_FALSO, somenteLeitura = false)
+    private boolean generoFeminino;
 
     @ElementCollection
     private List<String> tags;

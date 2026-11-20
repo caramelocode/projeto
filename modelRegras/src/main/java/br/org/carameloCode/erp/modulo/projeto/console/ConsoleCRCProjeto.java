@@ -204,11 +204,11 @@ public class ConsoleCRCProjeto implements ComoConsoleCRCProjeto {
             }
         }
 
-        if (getOpcaoSelecionada() != null && getOpcaoSelecionada().getFabAcaoAssociada().getRegistro().isUmaAcaoController()) {
+        if (getOpcaoSelecionada() != null && getOpcaoSelecionada().getFabAcaoCriarItem().getRegistro().isUmaAcaoController()) {
             ItfRespostaAcaoDoSistema resposta;
             try {
-                if (getOpcaoSelecionada().getFabAcaoAssociada().getRegistro().isUmaAcaoController()) {
-                    resposta = CarameloCode.getServicoController().getResposta(getOpcaoSelecionada().getFabAcaoAssociada(), getOpcaoSelecionada().getItemAssociado());
+                if (getOpcaoSelecionada().getFabAcaoCriarItem().getRegistro().isUmaAcaoController()) {
+                    resposta = CarameloCode.getServicoController().getResposta(getOpcaoSelecionada().getFabAcaoCriarItem(), getOpcaoSelecionada().getItemAssociado());
                     UtilConsoleCRCTexto.imprimirExecucao(getOpcaoSelecionada(), resposta, null);
                     if (!resposta.isSucesso()) {
                         resposta.dispararMensagens();

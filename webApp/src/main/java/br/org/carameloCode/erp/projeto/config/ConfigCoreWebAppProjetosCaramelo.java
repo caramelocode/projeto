@@ -11,9 +11,10 @@ import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.nativo.FabAcaoP
 import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.notificacoes.FabAcaoProjetoCRCNotificacoes;
 import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.acao.FabAcaoCarameloDevAcaoProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.console.FabAcaoCarameloDevConsoleCRCProjeto;
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.projeto.FabAcaoCarameloDevProjetoCRC;
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.requisito.FabAcaoCarameloDevRequisito;
+import br.org.carameloCode.erp.modulo.projeto.acoes.cliente.FabAcaoCliente;
+
 import br.org.coletivojava.fw.utils.servico.ServicoRepositorioDeArquivos.ServicoDeArquivosWebAppS3;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
 import com.super_bits.modulos.SBAcessosModel.view.FabAcaoPaginasDoSistema;
@@ -54,11 +55,11 @@ public class ConfigCoreWebAppProjetosCaramelo extends ConfiguradorCoreDeProjetoW
             FabAcaoCarameloDevAcaoProjCRC.class,
             FabAcaoCarameloDevConsoleCRCProjeto.class,
             FabAcaoCarameloDevProjetoCRC.class,
-            FabAcaoCarameloDevRequisito.class,
+            FabAcaoCliente.class,
             FabAcaoNotificacaoPadraoSB.class,
             FabAcaoProjetoCRCNotificacoes.class,
             FabAcaoProjetoCRCCarameloFormulario.class,
-            FabAcaoCarameloDevComoItemProjeto.class
+            FabAcaoCarameloDevEdicaoItemProj.class
 
         });
 

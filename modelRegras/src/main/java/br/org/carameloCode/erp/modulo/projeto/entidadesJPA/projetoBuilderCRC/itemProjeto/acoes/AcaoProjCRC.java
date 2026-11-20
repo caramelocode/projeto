@@ -46,7 +46,7 @@ import org.coletivojava.fw.api.tratamentoErros.ErroPreparandoObjeto;
  */
 @Entity
 @DiscriminatorColumn(name = "tipoAcaoDB")
-@InfoObjetoSB(tags = {"Ação do Sistema"}, plural = "Ações do sistema")
+@InfoObjetoSB(tags = {"Ação do Sistema"}, plural = "Ações do sistema", icone = "fa fa-bolt")
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"projeto_id", "nomeUnico"}))
 public class AcaoProjCRC extends EntidadeSimples implements ComoEstruturaAcaoDoSistema, ComoItemProjeto {
 

@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(tags = "Implantação do Projeto", plural = "Implantações do Projeto", icone = "fa fa-cloud-upload")
+@InfoObjetoSB(tags = "Implantação do Projeto", plural = "Implantações do Projeto", icone = "fa fa-cloud-arrow-up")
 public class ImplantacaoProjeto {
 
     @Id

@@ -7,11 +7,7 @@ package br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.it
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.EntidadeSimples;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
@@ -20,12 +16,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 @InfoObjetoSB(tags = "Prova de Conceito", plural = "Provas de Conceito", icone = "fa fa-flask")
-public class ProvasDeConceito extends EntidadeSimples {
-
-    @Id
-    @InfoCampo(tipo = FabTipoAtributoObjeto.ID)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ProvasDeConceito extends RequisitoDeProjeto {
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.HTML)
     private String performance;
@@ -43,14 +34,6 @@ public class ProvasDeConceito extends EntidadeSimples {
 
     @ManyToOne(targetEntity = RequisitosDeProvaDeConceito.class)
     private RequisitosDeProvaDeConceito requisito;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getPerformance() {
         return performance;

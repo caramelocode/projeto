@@ -7,7 +7,7 @@ package br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC;
 import br.org.carameloCode.erp.modulo.projeto.FabModulosProjetoCaramelo;
 import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.nativo.FabAcaoProjetoCRCComponenteNativo;
 import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.projeto.FabAcaoCarameloDevProjetoCRC;
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.requisito.FabAcaoCarameloDevRequisito;
+import br.org.carameloCode.erp.modulo.projeto.acoes.cliente.FabAcaoCliente;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulosSB.Persistencia.fabrica.ComoFabricaComPersistencia;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoDaFabrica;
@@ -38,7 +38,7 @@ public enum FabGrupoUsrProjeto implements ComoFabricaComPersistencia {
                 grupo.setModuloPrincipal(FabModulosProjetoCaramelo.CARAMELO_DEV.getRegistro());
                 break;
             case CLIENTE:
-                grupo.setPaginaInicial(FabAcaoCarameloDevRequisito.REQUISITO_MB_GESTAO);
+                grupo.setPaginaInicial(FabAcaoCliente.REQUISITO_MB_GESTAO);
                 grupo.setModuloPrincipal(FabModulosProjetoCaramelo.CLIENTE.getRegistro());
                 break;
             case ADMIN_FABRICA:

@@ -94,8 +94,8 @@ public class UtilConsoleCRCTexto {
             for (ItemOpcaoConsole opcao : opcoes) {
                 tabela.add(new String[]{
                     opcao.getOrdem() + (opcao == principal ? MARCA_OPCAO_PRINCIPAL : ""),
-                    getDescricaoAcao(opcao.getFabAcaoAssociada()),
-                    getDescricaoFormulario(opcao.getAcaoFormularioDetalhes()),
+                    getDescricaoAcao(opcao.getFabAcaoCriarItem()),
+                    getDescricaoFormulario(opcao.getAcaoFormularioEditar()),
                     getDescricaoItem(opcao.getItemAssociado())});
             }
             linhas.addAll(getLinhasTabela(tabela));
@@ -108,7 +108,7 @@ public class UtilConsoleCRCTexto {
         if (pOpcao == null) {
             linhas.add(" Execução: nenhuma opção selecionada");
         } else {
-            linhas.add(" Execução: " + getDescricaoAcao(pOpcao.getFabAcaoAssociada()));
+            linhas.add(" Execução: " + getDescricaoAcao(pOpcao.getFabAcaoCriarItem()));
             linhas.add("     Item: " + getDescricaoItem(pOpcao.getItemAssociado()));
         }
         if (pResposta != null) {

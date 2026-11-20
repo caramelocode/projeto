@@ -36,7 +36,7 @@ import org.coletivojava.fw.api.tratamentoErros.ErroPreparandoObjeto;
  */
 @Entity
 @DiscriminatorColumn(name = "tipoAtributo")
-@InfoObjetoSB(tags = {"Atributo de Entidade"}, plural = "Atributos de Entidade")
+@InfoObjetoSB(tags = {"Atributo de Entidade"}, plural = "Atributos de Entidade", icone = "fa fa-tag")
 public class AtributoDeEntidadeSimples extends EntidadeSimplesORM implements ComoItemProjeto {
 
     @Id

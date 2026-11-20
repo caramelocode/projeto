@@ -1,6 +1,6 @@
 package org.coletivoJava.fw.projetos.projeto.implementacao.cucumber.consoleprojcrcobjetos.etapas;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import org.coletivoJava.fw.projetos.projeto.api.cucumber.consoleprojcrcobjetos.EtapasconsoleProjCRCObjetos;
 import cucumber.api.java.pt.Quando;
 import org.coletivoJava.fw.projetos.projeto.implementacao.cucumber.consoleprojcrcobjetos.FluxoConsoleObjetos;
@@ -12,7 +12,7 @@ public class H_Quando_o_usuario_executa_a_sugestao_principal {
     public void implementacaoEtapa() {
         Assert.assertNotNull("Nenhuma opção selecionada para executar", FluxoConsoleObjetos.CONSOLE.getOpcaoSelecionada());
         Assert.assertEquals("A opção selecionada deveria ser a sugestão principal (criar entidade)",
-                FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR_NOVO, FluxoConsoleObjetos.CONSOLE.getOpcaoSelecionada().getFabAcaoAssociada());
+                FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_CTR_SALVAR_NOVO, FluxoConsoleObjetos.CONSOLE.getOpcaoSelecionada().getFabAcaoCriarItem());
 
         FluxoConsoleObjetos.CONSOLE.executarOpcaoSelecionada();
 

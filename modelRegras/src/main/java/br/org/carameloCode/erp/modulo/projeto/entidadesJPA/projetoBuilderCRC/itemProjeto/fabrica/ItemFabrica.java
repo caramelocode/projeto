@@ -40,7 +40,7 @@ import org.coletivojava.fw.api.tratamentoErros.ErroPreparandoObjeto;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(tags = {"Item de Fábrica"}, plural = "Itens de Fábrica")
+@InfoObjetoSB(tags = {"Item de Fábrica"}, plural = "Itens de Fábrica", icone = "fa fa-hashtag")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoItemFabricaDB")
 @Table(uniqueConstraints = {

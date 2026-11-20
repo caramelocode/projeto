@@ -1,6 +1,6 @@
 package org.coletivoJava.fw.projetos.projeto.implementacao.cucumber.consoleprojcrcatributosespeciais.etapas;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import br.org.carameloCode.erp.modulo.projeto.console.ItemOpcaoConsole;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoEntidadeLista;
 import cucumber.api.java.pt.E;
@@ -17,8 +17,8 @@ public class N_o_item_associado_da_opcao_principal_e_um_AtrubutoEntidadeLista {
         Assert.assertTrue("O item associado deveria ser um AtrubutoEntidadeLista", opcao.getItemAssociado() instanceof AtributoEntidadeLista);
         AtributoEntidadeLista atributo = (AtributoEntidadeLista) opcao.getItemAssociado();
         Assert.assertNotNull("O atributo lista deveria ter a entidade dos itens", atributo.getEntidadeItemLista());
-        Assert.assertNotNull("A opção deveria ter um formulário de detalhes", opcao.getAcaoFormularioDetalhes());
-        Assert.assertEquals("Formulário de detalhes incorreto", FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_EDITAR_LISTA.getNomeUnico(),
-                opcao.getAcaoFormularioDetalhes().getNomeUnico());
+        Assert.assertNotNull("A opção deveria ter um formulário de detalhes", opcao.getAcaoFormularioEditar());
+        Assert.assertEquals("Formulário de detalhes incorreto", FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_FRM_EDITAR_LISTA.getNomeUnico(),
+                opcao.getAcaoFormularioEditar().getNomeUnico());
     }
 }

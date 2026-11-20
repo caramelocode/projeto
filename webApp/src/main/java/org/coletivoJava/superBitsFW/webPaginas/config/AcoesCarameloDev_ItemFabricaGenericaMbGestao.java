@@ -16,36 +16,31 @@ public class AcoesCarameloDev_ItemFabricaGenericaMbGestao
 
 	public ItfAcaoFormulario getItemFabricaGenericaMbGestao() {
 		return (ItfAcaoFormulario) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_MB_GESTAO");
-	}
-
-	public ItfAcaoFormularioEntidade getItemFabricaGenericaFrmNovo() {
-		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_FRM_NOVO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_MB_GESTAO");
 	}
 
 	public ItfAcaoFormularioEntidade getItemFabricaGenericaFrmEditar() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_FRM_EDITAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_FRM_EDITAR");
 	}
 
 	public ComoAcaoControllerEntidade getItemFabricaGenericaCtrSalvarNovo() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_CTR_SALVAR_NOVO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_CTR_SALVAR_NOVO");
 	}
 
 	public ComoAcaoControllerEntidade getItemFabricaGenericaCtrSalvarMerge() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_CTR_SALVAR_MERGE");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_CTR_SALVAR_MERGE");
 	}
 
 	public ComoAcaoControllerEntidade getItemFabricaGenericaCtrValidar() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_CTR_VALIDAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_CTR_VALIDAR");
 	}
 
 	public ComoAcaoControllerEntidade getItemFabricaGenericaCtrRemover() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_CTR_REMOVER");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_CTR_REMOVER");
 	}
 }

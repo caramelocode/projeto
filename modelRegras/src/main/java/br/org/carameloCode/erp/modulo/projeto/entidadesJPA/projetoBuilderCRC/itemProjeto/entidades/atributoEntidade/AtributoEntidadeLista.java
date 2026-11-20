@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(tags = {"Atributo de Entidade (Lista)"}, plural = "Atributos de Entidade (Lista)")
+@InfoObjetoSB(tags = {"Atributo de Entidade (Lista)"}, plural = "Atributos de Entidade (Lista)", icone = "fa fa-list-ul")
 public class AtributoEntidadeLista extends AtributoDeEntidadeSimples {
 
     @ManyToOne(targetEntity = ObjetoProjCRC.class)

@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(tags = "ação secundária", plural = "Ações secundárias", icone = "fa fa-share-square-o")
+@InfoObjetoSB(tags = "ação secundária", plural = "Ações secundárias", icone = "fa-regular fa-share-from-square")
 public class AcaoCRCProjSecundaria extends AcaoProjCRC {
 
     @ManyToOne(targetEntity = AcaoProjCRCGestao.class)

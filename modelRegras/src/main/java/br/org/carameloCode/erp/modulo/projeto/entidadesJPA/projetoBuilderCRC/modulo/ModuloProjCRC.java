@@ -30,7 +30,7 @@ import javax.persistence.Transient;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(tags = {"Modulo do Projeto"}, plural = "Modulos do Projeto")
+@InfoObjetoSB(tags = {"Modulo do Projeto"}, plural = "Modulos do Projeto", icone = "fa fa-cubes")
 public class ModuloProjCRC extends EntidadeSimplesORM implements ItfModuloAcaoSistema {
 
     @Id

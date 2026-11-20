@@ -13,7 +13,7 @@ public class V_Quando_o_usuario_executa_a_criacao_de_FabAcaoGerente_o_CLIENTE_MB
         String nomeUnico = FluxoConsoleAcoes.getNomeUnico(FluxoConsoleAcoes.FABRICA_GERENTE, FluxoConsoleAcoes.ACAO_CLIENTE_MB_GESTAO);
         Assert.assertNotNull("Nenhuma opção selecionada para executar", FluxoConsoleAcoes.CONSOLE.getOpcaoSelecionada());
         Assert.assertEquals("A opção selecionada deveria ser criar a ação", FabAcaoCarameloDevAcaoProjCRC.ACOES_CTR_SALVAR,
-                FluxoConsoleAcoes.CONSOLE.getOpcaoSelecionada().getFabAcaoAssociada());
+                FluxoConsoleAcoes.CONSOLE.getOpcaoSelecionada().getFabAcaoCriarItem());
 
         FluxoConsoleAcoes.CONSOLE.executarOpcaoSelecionada();
 

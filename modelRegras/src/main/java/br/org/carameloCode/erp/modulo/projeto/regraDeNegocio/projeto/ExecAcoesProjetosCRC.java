@@ -14,6 +14,9 @@ import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.ite
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.acoes.AcaoProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.projeto.ProjetoCRC;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fluxoTeste.FluxodoProjetoCRC;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.requisito.RequisitoDeProjeto;
+import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.modulo.ModuloProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.regraDeNegocio.Entidadeobjeto.ExecAcoesObjetosEntidadeCRC;
 import br.org.carameloCode.erp.modulo.projeto.regraDeNegocio.fabrica.ExecAcoesFabricasCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.FabricaEntidadeProjCRC;
@@ -30,38 +33,6 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroRegraDeNego
  * @author salvio
  */
 public class ExecAcoesProjetosCRC extends ControllerAbstratoSBPersistencia {
-
-    @InfoAcaoProjetoCRCConsole(acao = FabAcaoCarameloDevConsoleCRCProjeto.CONSOLE_ITEM_PROJ_CTR_SALVAR)
-    public static ItfRespostaAcaoDoSistema salvarItem(ComoItemProjeto pItemDeProjeto) {
-
-        if (pItemDeProjeto instanceof ObjetoProjCRC) {
-            return ExecAcoesObjetosEntidadeCRC.salvarObjetoEntidade((ObjetoProjCRC) pItemDeProjeto);
-        }
-        if (pItemDeProjeto instanceof AcaoProjCRC) {
-            return salvarAcao((AcaoProjCRC) pItemDeProjeto);
-        }
-        // subclasses antes das classes base
-        if (pItemDeProjeto instanceof FabricaStatusProjCRC) {
-            return ExecAcoesFabricasCRC.salvarFabricaStatus((FabricaStatusProjCRC) pItemDeProjeto);
-        }
-        if (pItemDeProjeto instanceof FabricaEntidadeProjCRC) {
-            return ExecAcoesFabricasCRC.salvarFabrica((FabricaEntidadeProjCRC) pItemDeProjeto);
-        }
-        if (pItemDeProjeto instanceof ItemFabricaStatus) {
-            return ExecAcoesFabricasCRC.salvarItemFabricaStatus((ItemFabricaStatus) pItemDeProjeto);
-        }
-        if (pItemDeProjeto instanceof ItemFabrica) {
-            return ExecAcoesFabricasCRC.salvarItemFabrica((ItemFabrica) pItemDeProjeto);
-        }
-        return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItemDeProjeto), null) {
-
-            @Override
-            public void regraDeNegocio() throws ErroRegraDeNegocio {
-                throw new ErroRegraDeNegocio("Não implementado");
-            }
-        }.getResposta();
-
-    }
 
     /**
      * Salva uma ação do projeto criada pelo console (gestão, formulário ou
@@ -95,6 +66,42 @@ public class ExecAcoesProjetosCRC extends ControllerAbstratoSBPersistencia {
             @Override
             public void regraDeNegocio() throws ErroRegraDeNegocio {
                 setRetorno(atualizarEntidade(pItemDeProjeto));
+            }
+        }.getResposta();
+
+    }
+
+    @InfoAcaoProjetoCRCProjeto(acao = FabAcaoCarameloDevProjetoCRC.REQUISITO_CTR_SALVAR_MERGE)
+    public static ItfRespostaAcaoDoSistema salvarRequisito(RequisitoDeProjeto pRequisito) {
+
+        return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pRequisito), pRequisito) {
+            @Override
+            public void regraDeNegocio() throws ErroRegraDeNegocio {
+                throw new ErroRegraDeNegocio("Salvar requisito ainda não implementado");
+            }
+        }.getResposta();
+
+    }
+
+    @InfoAcaoProjetoCRCProjeto(acao = FabAcaoCarameloDevProjetoCRC.MODULO_CTR_SALVAR_MERGE)
+    public static ItfRespostaAcaoDoSistema salvarModulo(ModuloProjCRC pModulo) {
+
+        return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pModulo), pModulo) {
+            @Override
+            public void regraDeNegocio() throws ErroRegraDeNegocio {
+                throw new ErroRegraDeNegocio("Salvar módulo ainda não implementado");
+            }
+        }.getResposta();
+
+    }
+
+    @InfoAcaoProjetoCRCProjeto(acao = FabAcaoCarameloDevProjetoCRC.FLUXO_TESTE_CTR_SALVAR_MERGE)
+    public static ItfRespostaAcaoDoSistema salvarFluxoTeste(FluxodoProjetoCRC pFluxo) {
+
+        return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pFluxo), pFluxo) {
+            @Override
+            public void regraDeNegocio() throws ErroRegraDeNegocio {
+                throw new ErroRegraDeNegocio("Salvar fluxo de teste ainda não implementado");
             }
         }.getResposta();
 

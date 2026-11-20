@@ -23,7 +23,7 @@ import org.coletivojava.fw.api.tratamentoErros.ErroPreparandoObjeto;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(tags = {"Item de Fábrica de Status"}, plural = "Itens de Fábrica de Status")
+@InfoObjetoSB(tags = {"Item de Fábrica de Status"}, plural = "Itens de Fábrica de Status", icone = "fa fa-circle-dot")
 public class ItemFabricaStatus extends ItemFabrica {
 
     @Override

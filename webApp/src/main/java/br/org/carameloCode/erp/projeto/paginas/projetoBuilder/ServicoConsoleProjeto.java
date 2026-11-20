@@ -5,6 +5,7 @@
 package br.org.carameloCode.erp.projeto.paginas.projetoBuilder;
 
 import br.org.carameloCode.erp.modulo.projeto.console.ConsoleCRCProjeto;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -23,4 +24,11 @@ public class ServicoConsoleProjeto implements Serializable {
         return console;
     }
 
+    public String getUrlVisualizacao() {
+        if (console.getOpcaoSelecionada() == null) {
+            return CarameloCode.getServicoVisualizacao().getEndrRemotoFormulario(console.getOpcaoSelecionada().getFabAcaoCriarItem(), console.getOpcaoSelecionada().getItemAssociado());
+
+        }
+        return null;
+    }
 }

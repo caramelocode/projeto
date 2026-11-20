@@ -33,7 +33,7 @@ import javax.persistence.OneToMany;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(tags = "Projeto Caramelo Code", plural = "Projetos Caramelo Code")
+@InfoObjetoSB(tags = "Projeto Caramelo Code", plural = "Projetos Caramelo Code", icone = "fa fa-folder-open")
 public class ProjetoCRC extends EntidadeSimples {
 
     @Id

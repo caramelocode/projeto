@@ -25,7 +25,7 @@ import javax.persistence.Transient;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(tags = "Fábrica de Software", plural = "Fábricas de software")
+@InfoObjetoSB(tags = "Fábrica de Software", plural = "Fábricas de software", icone = "fa fa-building")
 public class FabricaSoftware extends EntidadeSimplesORM {
 
     @Id

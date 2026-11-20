@@ -14,36 +14,31 @@ public class AcoesCarameloDev_ItemFabricaStatusMbGestao implements Serializable 
 
 	public ItfAcaoFormulario getItemFabricaStatusMbGestao() {
 		return (ItfAcaoFormulario) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_MB_GESTAO");
-	}
-
-	public ItfAcaoFormularioEntidade getItemFabricaStatusFrmNovo() {
-		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_FRM_NOVO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_MB_GESTAO");
 	}
 
 	public ItfAcaoFormularioEntidade getItemFabricaStatusFrmEditar() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_FRM_EDITAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_FRM_EDITAR");
 	}
 
 	public ComoAcaoControllerEntidade getItemFabricaStatusCtrSalvarNovo() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_CTR_SALVAR_NOVO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_CTR_SALVAR_NOVO");
 	}
 
 	public ComoAcaoControllerEntidade getItemFabricaStatusCtrSalvarMerge() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_CTR_SALVAR_MERGE");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_CTR_SALVAR_MERGE");
 	}
 
 	public ComoAcaoControllerEntidade getItemFabricaStatusCtrValidar() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_CTR_VALIDAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_CTR_VALIDAR");
 	}
 
 	public ComoAcaoControllerEntidade getItemFabricaStatusCtrRemover() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_CTR_REMOVER");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_CTR_REMOVER");
 	}
 }

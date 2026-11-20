@@ -14,31 +14,31 @@ public class AcoesCarameloDev_FabricaGenericaMbGestao implements Serializable {
 
 	public ItfAcaoFormulario getFabricaGenericaMbGestao() {
 		return (ItfAcaoFormulario) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_MB_GESTAO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.FABRICA_GENERICA_MB_GESTAO");
 	}
 
 	public ItfAcaoFormularioEntidade getFabricaGenericaFrmEditar() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_FRM_EDITAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.FABRICA_GENERICA_FRM_EDITAR");
 	}
 
 	public ComoAcaoControllerEntidade getFabricaGenericaCtrSalvarNovo() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_CTR_SALVAR_NOVO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.FABRICA_GENERICA_CTR_SALVAR_NOVO");
 	}
 
 	public ComoAcaoControllerEntidade getFabricaGenericaCtrSalvarMerge() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_CTR_SALVAR_MERGE");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.FABRICA_GENERICA_CTR_SALVAR_MERGE");
 	}
 
 	public ComoAcaoControllerEntidade getFabricaGenericaCtrValidar() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_CTR_VALIDAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.FABRICA_GENERICA_CTR_VALIDAR");
 	}
 
 	public ComoAcaoControllerEntidade getFabricaGenericaCtrRemover() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_CTR_REMOVER");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.FABRICA_GENERICA_CTR_REMOVER");
 	}
 }

@@ -14,31 +14,31 @@ public class AcoesCarameloDev_FabricaStatusMbGestao implements Serializable {
 
 	public ItfAcaoFormulario getFabricaStatusMbGestao() {
 		return (ItfAcaoFormulario) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_MB_GESTAO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_MB_GESTAO");
 	}
 
 	public ItfAcaoFormularioEntidade getFabricaStatusFrmEditar() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_FRM_EDITAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_FRM_EDITAR");
 	}
 
 	public ComoAcaoControllerEntidade getFabricaStatusCtrSalvarNovo() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_CTR_SALVAR_NOVO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_CTR_SALVAR_NOVO");
 	}
 
 	public ComoAcaoControllerEntidade getFabricaStatusCtrSalvarMerge() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_CTR_SALVAR_MERGE");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_CTR_SALVAR_MERGE");
 	}
 
 	public ComoAcaoControllerEntidade getFabricaStatusCtrValidar() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_CTR_VALIDAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_CTR_VALIDAR");
 	}
 
 	public ComoAcaoControllerEntidade getFabricaStatusCtrRemover() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_CTR_REMOVER");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_CTR_REMOVER");
 	}
 }

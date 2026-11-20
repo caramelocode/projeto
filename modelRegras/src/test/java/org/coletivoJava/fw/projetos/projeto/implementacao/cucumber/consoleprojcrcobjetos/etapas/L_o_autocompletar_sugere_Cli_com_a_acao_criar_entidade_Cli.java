@@ -1,6 +1,6 @@
 package org.coletivoJava.fw.projetos.projeto.implementacao.cucumber.consoleprojcrcobjetos.etapas;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC;
 import org.coletivoJava.fw.projetos.projeto.api.cucumber.consoleprojcrcobjetos.EtapasconsoleProjCRCObjetos;
 import cucumber.api.java.pt.E;
@@ -15,7 +15,7 @@ public class L_o_autocompletar_sugere_Cli_com_a_acao_criar_entidade_Cli {
                 FluxoConsoleObjetos.sugestoesAutocompletar.contains(FluxoConsoleObjetos.TEXTO_PARCIAL_CLI));
         boolean temOpcaoCriar = FluxoConsoleObjetos.CONSOLE.getOpcoesDisponiveis().stream()
                 .filter(op -> op.getItemAssociado() instanceof ObjetoProjCRC)
-                .anyMatch(op -> FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR_NOVO.equals(op.getFabAcaoAssociada())
+                .anyMatch(op -> FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_CTR_SALVAR_NOVO.equals(op.getFabAcaoCriarItem())
                 && FluxoConsoleObjetos.TEXTO_PARCIAL_CLI.equals(((ObjetoProjCRC) op.getItemAssociado()).getNomeEntidade()));
         Assert.assertTrue("Não há opção de criar a entidade " + FluxoConsoleObjetos.TEXTO_PARCIAL_CLI, temOpcaoCriar);
     }

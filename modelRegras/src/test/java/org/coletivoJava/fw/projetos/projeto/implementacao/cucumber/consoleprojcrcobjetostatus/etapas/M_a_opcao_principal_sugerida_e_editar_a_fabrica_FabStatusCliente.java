@@ -15,7 +15,7 @@ public class M_a_opcao_principal_sugerida_e_editar_a_fabrica_FabStatusCliente {
         ItemOpcaoConsole opcao = FluxoConsoleObjetoStatus.CONSOLE.getOpcaoPrincipalSugerida();
         Assert.assertNotNull("Nenhuma opção principal sugerida para a fábrica " + FluxoConsoleObjetoStatus.NOME_FABRICA_STATUS_CLIENTE, opcao);
         Assert.assertEquals("A opção principal deveria ser editar a fábrica",
-                FluxoConsoleObjetoStatus.ACAO_EDITAR_FABRICA, opcao.getFabAcaoAssociada());
+                FluxoConsoleObjetoStatus.ACAO_EDITAR_FABRICA, opcao.getFabAcaoCriarItem());
 
         // Item associado: a fábrica de status já persistida
         Object itemAssociado = opcao.getItemAssociado();

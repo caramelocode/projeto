@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(tags = "ação de formulário", plural = "Ações de formulários", icone = "fa fa-pencil-square-o")
+@InfoObjetoSB(tags = "ação de formulário", plural = "Ações de formulários", icone = "fa-regular fa-pen-to-square")
 public class AcaoProjCRCFormulario extends AcaoCRCProjSecundaria {
 
     @OneToMany(targetEntity = GrupoCamposProjCRC.class)

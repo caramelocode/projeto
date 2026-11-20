@@ -1,6 +1,6 @@
 package org.coletivoJava.fw.projetos.projeto.implementacao.cucumber.consoleprojcrcobjetos.etapas;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.FabTipoItemProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoDeEntidadeSimples;
 import org.coletivoJava.fw.projetos.projeto.api.cucumber.consoleprojcrcobjetos.EtapasconsoleProjCRCObjetos;
@@ -19,7 +19,7 @@ public class P_Entao_o_autocompletar_sugere_o_atributo_nome_de_Cliente_com_a_aca
 				.filter(op -> op.getItemAssociado() instanceof AtributoDeEntidadeSimples)
 				.anyMatch(op -> {
 					AtributoDeEntidadeSimples atributo = (AtributoDeEntidadeSimples) op.getItemAssociado();
-					return FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_EDITAR.equals(op.getFabAcaoAssociada())
+					return FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_FRM_EDITAR.equals(op.getFabAcaoCriarItem())
 							&& FluxoConsoleObjetos.NOME_ATRIBUTO_NOME.equals(atributo.getNomeDeclarado())
 							&& atributo.getId() != null
 							&& FluxoConsoleObjetos.NOME_ENTIDADE_CLIENTE.equals(atributo.getEntidade().getNomeEntidade());

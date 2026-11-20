@@ -16,7 +16,7 @@ public class E_a_opcao_principal_sugerida_e_salvar_a_nova_fabrica_FabTipoCliente
         ItemOpcaoConsole opcao = FluxoConsoleFabEntidadeEstatica.CONSOLE.getOpcaoPrincipalSugerida();
         Assert.assertNotNull("Nenhuma opção principal sugerida para a fábrica " + FluxoConsoleFabEntidadeEstatica.NOME_FABRICA_TIPO_CLIENTE, opcao);
         Assert.assertEquals("A opção principal deveria ser salvar a fábrica",
-                FluxoConsoleFabEntidadeEstatica.ACAO_SALVAR_FABRICA, opcao.getFabAcaoAssociada());
+                FluxoConsoleFabEntidadeEstatica.ACAO_SALVAR_FABRICA, opcao.getFabAcaoCriarItem());
 
         // Item associado: fábrica genérica (não de status)
         Object itemAssociado = opcao.getItemAssociado();

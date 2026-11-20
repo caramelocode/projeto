@@ -10,9 +10,10 @@ import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.nativo.FabAcaoP
 import br.org.carameloCode.erp.modulo.projeto.acoes.demonstracao.notificacoes.FabAcaoProjetoCRCNotificacoes;
 import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.acao.FabAcaoCarameloDevAcaoProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.console.FabAcaoCarameloDevConsoleCRCProjeto;
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.projeto.FabAcaoCarameloDevProjetoCRC;
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.requisito.FabAcaoCarameloDevRequisito;
+import br.org.carameloCode.erp.modulo.projeto.acoes.cliente.FabAcaoCliente;
+
 import com.super_bits.modulos.SBAcessosModel.view.FabAcaoPaginasDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 
@@ -30,8 +31,8 @@ public class UtilProjetosCRC {
             FabAcaoCarameloDevAcaoProjCRC.class,
             FabAcaoCarameloDevConsoleCRCProjeto.class,
             FabAcaoCarameloDevProjetoCRC.class,
-            FabAcaoCarameloDevRequisito.class,
-            FabAcaoCarameloDevComoItemProjeto.class,
+            FabAcaoCliente.class,
+            FabAcaoCarameloDevEdicaoItemProj.class,
             FabAcaoProjetoCRCCarameloFormulario.class,
             FabAcaoProjetoCRCNotificacoes.class,
             FabAcaoNotificacaoPadraoSB.class

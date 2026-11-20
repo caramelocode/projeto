@@ -1,0 +1,35 @@
+<!-- template conteúdo com formulario-->
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
+    xmlns:CRCCpInst="http://xmlns.jcp.org/jsf/composite/SBComp/composite/atributoEntidade"
+    xmlns:CRCInput="http://xmlns.jcp.org/jsf/composite/SBComp/composite/input"
+    xmlns:CRCFormulario="http://xmlns.jcp.org/jsf/composite/SBComp/composite/formulario"
+    xmlns:CRCPaginaAtual="http://xmlns.jcp.org/jsf/composite/SBComp/composite/paginaAtualDeEntidade"
+
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+    <h:panelGroup layout="block" styleClass="Container12"  rendered="#{not empty pgPrevItemProj.entidadeSelecionada}" style="height: 300px; top: 10px;" >
+        <h:form>
+
+            <p:fieldset>
+                <CRCInput:input campoInstanciado="#{pgPrevItemProj.entidadeSelecionada.campoInstanciado}" layout="#{layoutsComponenteSB.layoutCampo.superior}" rendered="#{not empty pgPrevItemProj.entidadeSelecionada}"
+
+                                />
+                <p:commandButton value="Validar" update="@parent" />
+
+                <p:commandButton value="Atualizar" update="@form" />
+            </p:fieldset>
+            <p:fieldset   id="detalhesCpInst">
+                <h:form >
+                    <CRCCpInst:campoInstanciadoDetalhes
+                        campoInstanciado="#{pgPrevItemProj.entidadeSelecionada.campoInstanciado}"
+                        />
+
+                </h:form>
+
+            </p:fieldset>
+        </h:form>
+    </h:panelGroup>
+</ui:composition>

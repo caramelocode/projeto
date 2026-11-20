@@ -4,8 +4,8 @@
  */
 package br.org.carameloCode.erp.modulo.projeto.regraDeNegocio.atributoEntidade;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.InfoAcaoEntidadeObjetoCRCProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.InfoAcaoEntidadeObjetoCRCProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoDeEntidadeSimples;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.atributoEntidade.AtributoEntidadeEntidade;
@@ -32,7 +32,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
     // ===================================================================
     // Entidade (ObjetoProjCRC)
     // ===================================================================
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR_NOVO)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_CTR_SALVAR_NOVO)
     public static ItfRespostaAcaoDoSistema salvarObjetoEntidade(ObjetoProjCRC pItemDeProjeto) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItemDeProjeto), pItemDeProjeto) {
@@ -44,7 +44,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR_MERGE)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_CTR_SALVAR_MERGE)
     public static ItfRespostaAcaoDoSistema salvarMergeObjetoEntidade(ObjetoProjCRC pItemDeProjeto) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItemDeProjeto), pItemDeProjeto) {
@@ -56,7 +56,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_VALIDAR)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_CTR_VALIDAR)
     public static ItfRespostaAcaoDoSistema validarObjetoEntidade(ObjetoProjCRC pItemDeProjeto) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItemDeProjeto), pItemDeProjeto) {
@@ -68,7 +68,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_REMOVER)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_CTR_REMOVER)
     public static ItfRespostaAcaoDoSistema removerObjetoEntidade(ObjetoProjCRC pItemDeProjeto) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItemDeProjeto), pItemDeProjeto) {
@@ -83,7 +83,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
     // ===================================================================
     // Atributo simples (AtributoDeEntidadeSimples)
     // ===================================================================
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO)
     public static ItfRespostaAcaoDoSistema salvarAtributoEntidade(AtributoDeEntidadeSimples pAtributo) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pAtributo), pAtributo) {
@@ -98,7 +98,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_MERGE)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_SALVAR_MERGE)
     public static ItfRespostaAcaoDoSistema salvarMergeAtributoEntidade(AtributoDeEntidadeSimples pAtributo) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pAtributo), pAtributo) {
@@ -113,7 +113,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_VALIDAR)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_VALIDAR)
     public static ItfRespostaAcaoDoSistema validarAtributoEntidade(AtributoDeEntidadeSimples pAtributo) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pAtributo), pAtributo) {
@@ -128,7 +128,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_REMOVER)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_REMOVER)
     public static ItfRespostaAcaoDoSistema removerAtributoEntidade(AtributoDeEntidadeSimples pAtributo) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pAtributo), pAtributo) {
@@ -147,7 +147,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
      * Salva um atributo do tipo objeto (Entidade.atributo.), que referencia
      * outra entidade do projeto.
      */
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO_TP_ENTIDADE)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO_TP_ENTIDADE)
     public static ItfRespostaAcaoDoSistema salvarAtributoTipoEntidade(AtributoEntidadeEntidade pAtributo) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pAtributo), pAtributo) {
@@ -166,7 +166,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_MERGE_TP_ENTIDADE)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_SALVAR_MERGE_TP_ENTIDADE)
     public static ItfRespostaAcaoDoSistema salvarMergeAtributoTipoEntidade(AtributoEntidadeEntidade pAtributo) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pAtributo), pAtributo) {
@@ -185,7 +185,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_VALIDAR_TP_ENTIDADE)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_VALIDAR_TP_ENTIDADE)
     public static ItfRespostaAcaoDoSistema validarAtributoTipoEntidade(AtributoEntidadeEntidade pAtributo) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pAtributo), pAtributo) {
@@ -204,7 +204,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_REMOVER_TP_ENTIDADE)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_REMOVER_TP_ENTIDADE)
     public static ItfRespostaAcaoDoSistema removerAtributoTipoEntidade(AtributoEntidadeEntidade pAtributo) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pAtributo), pAtributo) {
@@ -223,7 +223,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
      * Salva um atributo do tipo lista (Entidade.atributo[]), cujos itens são de
      * uma entidade do projeto.
      */
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO_TP_LISTA)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO_TP_LISTA)
     public static ItfRespostaAcaoDoSistema salvarAtributoTipoLista(AtributoEntidadeLista pAtributo) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pAtributo), pAtributo) {
@@ -242,7 +242,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_MERGE_TP_LISTA)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_SALVAR_MERGE_TP_LISTA)
     public static ItfRespostaAcaoDoSistema salvarMergeAtributoTipoLista(AtributoEntidadeLista pAtributo) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pAtributo), pAtributo) {
@@ -261,7 +261,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_VALIDAR_TP_LISTA)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_VALIDAR_TP_LISTA)
     public static ItfRespostaAcaoDoSistema validarAtributoTipoLista(AtributoEntidadeLista pAtributo) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pAtributo), pAtributo) {
@@ -280,7 +280,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_REMOVER_TP_LISTA)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_REMOVER_TP_LISTA)
     public static ItfRespostaAcaoDoSistema removerAtributoTipoLista(AtributoEntidadeLista pAtributo) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pAtributo), pAtributo) {
@@ -295,7 +295,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
     // ===================================================================
     // Fábrica genérica (FabricaEntidadeProjCRC)
     // ===================================================================
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_CTR_SALVAR_NOVO)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.FABRICA_GENERICA_CTR_SALVAR_NOVO)
     public static ItfRespostaAcaoDoSistema salvarFabrica(FabricaEntidadeProjCRC pFabrica) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pFabrica), pFabrica) {
@@ -308,7 +308,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_CTR_SALVAR_MERGE)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.FABRICA_GENERICA_CTR_SALVAR_MERGE)
     public static ItfRespostaAcaoDoSistema salvarMergeFabrica(FabricaEntidadeProjCRC pFabrica) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pFabrica), pFabrica) {
@@ -321,7 +321,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_CTR_VALIDAR)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.FABRICA_GENERICA_CTR_VALIDAR)
     public static ItfRespostaAcaoDoSistema validarFabricaGenerica(FabricaEntidadeProjCRC pFabrica) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pFabrica), pFabrica) {
@@ -334,7 +334,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.FABRICA_GENERICA_CTR_REMOVER)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.FABRICA_GENERICA_CTR_REMOVER)
     public static ItfRespostaAcaoDoSistema removerFabrica(FabricaEntidadeProjCRC pFabrica) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pFabrica), pFabrica) {
@@ -349,7 +349,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
     // ===================================================================
     // Fábrica de status (FabricaStatusProjCRC)
     // ===================================================================
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_CTR_SALVAR_NOVO)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_CTR_SALVAR_NOVO)
     public static ItfRespostaAcaoDoSistema salvarFabricaStatus(FabricaStatusProjCRC pFabrica) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pFabrica), pFabrica) {
@@ -362,7 +362,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_CTR_SALVAR_MERGE)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_CTR_SALVAR_MERGE)
     public static ItfRespostaAcaoDoSistema salvarMergeFabricaStatus(FabricaStatusProjCRC pFabrica) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pFabrica), pFabrica) {
@@ -375,7 +375,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_CTR_VALIDAR)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_CTR_VALIDAR)
     public static ItfRespostaAcaoDoSistema validarFabricaStatus(FabricaStatusProjCRC pFabrica) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pFabrica), pFabrica) {
@@ -388,7 +388,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.FABRICA_STATUS_CTR_REMOVER)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.FABRICA_STATUS_CTR_REMOVER)
     public static ItfRespostaAcaoDoSistema removerFabricaStatus(FabricaStatusProjCRC pFabrica) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pFabrica), pFabrica) {
@@ -403,7 +403,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
     // ===================================================================
     // Item de fábrica genérica (ItemFabrica)
     // ===================================================================
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_CTR_SALVAR_NOVO)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_CTR_SALVAR_NOVO)
     public static ItfRespostaAcaoDoSistema salvarItemFabrica(ItemFabrica pItem) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItem), pItem) {
@@ -416,7 +416,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_CTR_SALVAR_MERGE)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_CTR_SALVAR_MERGE)
     public static ItfRespostaAcaoDoSistema salvarMergeItemFabrica(ItemFabrica pItem) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItem), pItem) {
@@ -429,7 +429,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_CTR_VALIDAR)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_CTR_VALIDAR)
     public static ItfRespostaAcaoDoSistema validarItemFabrica(ItemFabrica pItem) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItem), pItem) {
@@ -442,7 +442,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_GENERICA_CTR_REMOVER)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_GENERICA_CTR_REMOVER)
     public static ItfRespostaAcaoDoSistema removerItemFabrica(ItemFabrica pItem) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItem), pItem) {
@@ -457,7 +457,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
     // ===================================================================
     // Item de fábrica de status (ItemFabricaStatus)
     // ===================================================================
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_CTR_SALVAR_NOVO)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_CTR_SALVAR_NOVO)
     public static ItfRespostaAcaoDoSistema salvarItemFabricaStatus(ItemFabricaStatus pItem) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItem), pItem) {
@@ -473,7 +473,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_CTR_SALVAR_MERGE)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_CTR_SALVAR_MERGE)
     public static ItfRespostaAcaoDoSistema salvarMergeItemFabricaStatus(ItemFabricaStatus pItem) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItem), pItem) {
@@ -489,7 +489,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_CTR_VALIDAR)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_CTR_VALIDAR)
     public static ItfRespostaAcaoDoSistema validarItemFabricaStatus(ItemFabricaStatus pItem) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItem), pItem) {
@@ -505,7 +505,7 @@ public class ExecAcoesObjetosEntidadeAtributosCRC extends ControllerAbstratoSBPe
 
     }
 
-    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevComoItemProjeto.ITEM_FABRICA_STATUS_CTR_REMOVER)
+    @InfoAcaoEntidadeObjetoCRCProjeto(acao = FabAcaoCarameloDevEdicaoItemProj.ITEM_FABRICA_STATUS_CTR_REMOVER)
     public static ItfRespostaAcaoDoSistema removerItemFabricaStatus(ItemFabricaStatus pItem) {
 
         return new RespostaComGestaoEMRegraDeNegocioPadrao(getNovaRespostaAutorizaChecaNulo(pItem), pItem) {

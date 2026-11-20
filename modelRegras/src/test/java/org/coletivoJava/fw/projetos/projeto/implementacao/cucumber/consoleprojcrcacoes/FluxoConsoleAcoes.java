@@ -145,8 +145,8 @@ public class FluxoConsoleAcoes extends TesteIntegracaoFuncionalidadeCucumber {
     public static Set<String> getNomesUnicosDasOpcoesDeEdicao() {
         Set<String> nomesUnicos = new HashSet<>();
         for (ItemOpcaoConsole opcao : CONSOLE.getOpcoesDisponiveis()) {
-            Assert.assertTrue("A opção " + opcao.getFabAcaoAssociada() + " não é uma opção de edição",
-                    ACOES_DE_EDICAO.contains(opcao.getFabAcaoAssociada()));
+            Assert.assertTrue("A opção " + opcao.getFabAcaoCriarItem() + " não é uma opção de edição",
+                    ACOES_DE_EDICAO.contains(opcao.getFabAcaoCriarItem()));
             Assert.assertTrue("A opção de edição deveria estar associada a uma ação", opcao.getItemAssociado() instanceof AcaoProjCRC);
             AcaoProjCRC acao = (AcaoProjCRC) opcao.getItemAssociado();
             Assert.assertNotNull("A ação sugerida para edição deveria estar salva: " + acao.getNomeUnico(), acao.getId());
@@ -208,7 +208,7 @@ public class FluxoConsoleAcoes extends TesteIntegracaoFuncionalidadeCucumber {
         Assert.assertNotNull("O autocompletar não retornou sugestões", sugestoesAutocompletar);
         getAcaoDaOpcaoPrincipalDeCriacao(pFabrica, pAcao);
         Assert.assertEquals("A opção selecionada deveria ser criar a ação", FabAcaoCarameloDevAcaoProjCRC.ACOES_CTR_SALVAR,
-                CONSOLE.getOpcaoSelecionada().getFabAcaoAssociada());
+                CONSOLE.getOpcaoSelecionada().getFabAcaoCriarItem());
 
         CONSOLE.executarOpcaoSelecionada();
 
@@ -265,7 +265,7 @@ public class FluxoConsoleAcoes extends TesteIntegracaoFuncionalidadeCucumber {
         String pTextoDigitado = getTextoFabricaAcao(pFabrica, pAcao);
         ItemOpcaoConsole opcao = CONSOLE.getOpcaoPrincipalSugerida();
         Assert.assertNotNull("Nenhuma opção principal sugerida para " + pTextoDigitado, opcao);
-        Assert.assertEquals("A opção principal deveria ser criar a ação", FabAcaoCarameloDevAcaoProjCRC.ACOES_CTR_SALVAR, opcao.getFabAcaoAssociada());
+        Assert.assertEquals("A opção principal deveria ser criar a ação", FabAcaoCarameloDevAcaoProjCRC.ACOES_CTR_SALVAR, opcao.getFabAcaoCriarItem());
         Assert.assertTrue("A opção principal deveria estar associada a uma ação", opcao.getItemAssociado() instanceof AcaoProjCRC);
         AcaoProjCRC acao = (AcaoProjCRC) opcao.getItemAssociado();
         Assert.assertNull("A ação a criar não deveria estar persistida", acao.getId());

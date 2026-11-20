@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(tags = "Repositório Git", plural = "Repositórios Git", icone = "fa fa-git")
+@InfoObjetoSB(tags = "Repositório Git", plural = "Repositórios Git", icone = "fa-brands fa-git-alt")
 public class RepositorioGit {
 
     @Id

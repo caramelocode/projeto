@@ -1,6 +1,6 @@
 package org.coletivoJava.fw.projetos.projeto.implementacao.cucumber.consoleprojcrcobjetos.etapas;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC;
 import org.coletivoJava.fw.projetos.projeto.api.cucumber.consoleprojcrcobjetos.EtapasconsoleProjCRCObjetos;
 import cucumber.api.java.pt.E;
@@ -15,7 +15,7 @@ public class M_o_autocompletar_sugere_Cliente_com_a_acao_editar_entidade_Cliente
 				FluxoConsoleObjetos.sugestoesAutocompletar.contains(FluxoConsoleObjetos.NOME_ENTIDADE_CLIENTE));
 		boolean temOpcaoEditar = FluxoConsoleObjetos.CONSOLE.getOpcoesDisponiveis().stream()
 				.filter(op -> op.getItemAssociado() instanceof ObjetoProjCRC)
-				.anyMatch(op -> FabAcaoCarameloDevComoItemProjeto.ENTIDADE_FRM_EDITAR.equals(op.getFabAcaoAssociada())
+				.anyMatch(op -> FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_FRM_EDITAR.equals(op.getFabAcaoCriarItem())
 				&& FluxoConsoleObjetos.NOME_ENTIDADE_CLIENTE.equals(((ObjetoProjCRC) op.getItemAssociado()).getNomeEntidade()));
 		Assert.assertTrue("Não há opção de editar a entidade " + FluxoConsoleObjetos.NOME_ENTIDADE_CLIENTE, temOpcaoEditar);
 	}

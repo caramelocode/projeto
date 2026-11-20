@@ -2,7 +2,7 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade;
+package br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -24,6 +24,6 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface InfoAcaoEntidadeObjetoCRCProjeto {
 
-    public FabAcaoCarameloDevComoItemProjeto acao();
+    public FabAcaoCarameloDevEdicaoItemProj acao();
 
 }

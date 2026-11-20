@@ -1,6 +1,6 @@
 package org.coletivoJava.fw.projetos.projeto.implementacao.cucumber.builderatributosimples;
 
-import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade.FabAcaoCarameloDevComoItemProjeto;
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto.FabAcaoCarameloDevEdicaoItemProj;
 import br.org.carameloCode.erp.modulo.projeto.api.model.atributodeentidadesimples.CPAtributoDeEntidadeSimples;
 import br.org.carameloCode.erp.modulo.projeto.config.ConfigPersistenciaProjetoCaramelo;
 import br.org.carameloCode.erp.modulo.projeto.console.ConsoleCRCProjeto;
@@ -352,13 +352,13 @@ public class FluxoBuilderAtributoSimples extends TesteIntegracaoFuncionalidadeCu
 
         if (ATRIBUTOS_DO_FLUXO_ANTERIOR.contains(pNomeAtributo)) {
             Assert.assertEquals("Para o atributo existente " + textoDigitado + " a opção deveria ser editar",
-                    FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_FRM_EDITAR, opcao.getFabAcaoAssociada());
+                    FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_FRM_EDITAR, opcao.getFabAcaoCriarItem());
             Assert.assertNotNull("O atributo existente " + pNomeAtributo + " deveria ter id", atributo.getId());
         } else {
             Assert.assertSame("A opção de criar " + textoDigitado + " deveria ser a primeira opção sugerida",
                     CONSOLE.getOpcoesDisponiveis().get(0), opcao);
             Assert.assertEquals("A opção principal de " + textoDigitado + " deveria ser criar o atributo",
-                    FabAcaoCarameloDevComoItemProjeto.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO, opcao.getFabAcaoAssociada());
+                    FabAcaoCarameloDevEdicaoItemProj.ATRIBUTO_ENTIDADE_CTR_SALVAR_NOVO, opcao.getFabAcaoCriarItem());
             Assert.assertNull("O atributo " + pNomeAtributo + " ainda não deveria estar salvo", atributo.getId());
         }
         CONSOLE.setOpcaoSelecionada(opcao);

@@ -4,7 +4,9 @@
  */
 package br.org.carameloCode.erp.modulo.projeto.console;
 
+import br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.console.FabAcaoCarameloDevConsoleCRCProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.ComoItemProjeto;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
@@ -20,22 +22,29 @@ public class ItemOpcaoConsole extends EntidadeSimples {
 
     private String nomeDigitado;
 
-    private ComoFabricaAcoes fabAcaoAssociada;
+    private ComoFabricaAcoes fabAcaoCriarItem;
+    private ComoFabricaAcoes fabAcaoPreview;
     private ComoItemProjeto itemAssociado;
-    private ItfAcaoFormulario acaoFormularioDetalhes;
+    private ItfAcaoFormulario acaoFormularioEditar;
     private ComoAcaoDoSistema acaoAssociada;
-    private String componenteIncludePreview;
+    private String urlPreview = null;
+
     private int ordem;
 
-    public ItemOpcaoConsole(String nomeDigitado, ComoFabricaAcoes acaoassociada, ComoItemProjeto itemAssociado, int ordem, ItfAcaoFormulario acaoFormularioDetalhes, String componenteIncludePreview) {
+    public ItemOpcaoConsole(String nomeDigitado, ComoFabricaAcoes pAcaoCriarItem, ComoItemProjeto itemAssociado, int ordem, ItfAcaoFormulario pAcaoEdicao, ComoFabricaAcoes pacaoPreview) {
         this.nomeDigitado = nomeDigitado;
-        this.fabAcaoAssociada = acaoassociada;
+        this.fabAcaoCriarItem = pAcaoCriarItem;
         this.itemAssociado = itemAssociado;
         this.ordem = ordem;
-        this.acaoFormularioDetalhes = acaoFormularioDetalhes;
-        this.componenteIncludePreview = componenteIncludePreview;
-        if (acaoassociada != null) {
-            this.acaoAssociada = acaoassociada.getRegistro();
+        this.acaoFormularioEditar = pAcaoEdicao;
+        this.fabAcaoPreview = pacaoPreview;
+        if (pacaoPreview != null) {
+
+            urlPreview = CarameloCode.getServicoVisualizacao().getEndrRemotoFormulario(pacaoPreview, itemAssociado);
+        }
+
+        if (pAcaoCriarItem != null) {
+            this.acaoAssociada = pAcaoCriarItem.getRegistro();
         }
 
     }
@@ -48,28 +57,16 @@ public class ItemOpcaoConsole extends EntidadeSimples {
         this.nomeDigitado = nomeDigitado;
     }
 
-    public ComoFabricaAcoes getFabAcaoAssociada() {
-        return fabAcaoAssociada;
+    public ComoFabricaAcoes getFabAcaoCriarItem() {
+        return fabAcaoCriarItem;
     }
 
-    public void setFabAcaoAssociada(ComoFabricaAcoes fabAcaoAssociada) {
-        this.fabAcaoAssociada = fabAcaoAssociada;
+    public void setFabAcaoCriarItem(ComoFabricaAcoes fabAcaoCriarItem) {
+        this.fabAcaoCriarItem = fabAcaoCriarItem;
     }
 
-    public ItfAcaoFormulario getAcaoFormularioDetalhes() {
-        return acaoFormularioDetalhes;
-    }
-
-    public void setAcaoFormularioDetalhes(ItfAcaoFormulario acaoFormularioDetalhes) {
-        this.acaoFormularioDetalhes = acaoFormularioDetalhes;
-    }
-
-    public String getComponenteIncludePreview() {
-        return componenteIncludePreview;
-    }
-
-    public void setComponenteIncludePreview(String componenteIncludePreview) {
-        this.componenteIncludePreview = componenteIncludePreview;
+    public ItfAcaoFormulario getAcaoFormularioEditar() {
+        return acaoFormularioEditar;
     }
 
     public ComoItemProjeto getItemAssociado() {
@@ -94,6 +91,10 @@ public class ItemOpcaoConsole extends EntidadeSimples {
 
     public void setAcaoAssociada(ComoAcaoDoSistema acaoAssociada) {
         this.acaoAssociada = acaoAssociada;
+    }
+
+    public String getUrlPreview() {
+        return urlPreview;
     }
 
 }

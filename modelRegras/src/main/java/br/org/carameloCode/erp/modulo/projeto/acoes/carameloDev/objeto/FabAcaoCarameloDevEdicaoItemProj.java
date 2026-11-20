@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
  */
-package br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.entidade;
+package br.org.carameloCode.erp.modulo.projeto.acoes.carameloDev.objeto;
 
 import br.org.carameloCode.erp.modulo.projeto.FabModulosProjetoCaramelo;
 import br.org.carameloCode.erp.modulo.projeto.InfoModuloProjetoCaraelo;
 import br.org.carameloCode.erp.modulo.projeto.api.model.atributodeentidadesimples.CPAtributoDeEntidadeSimples;
 import br.org.carameloCode.erp.modulo.projeto.api.model.atributoentidadeentidade.CPAtributoEntidadeEntidade;
 import br.org.carameloCode.erp.modulo.projeto.api.model.atrubutoentidadelista.CPAtrubutoEntidadeLista;
+import br.org.carameloCode.erp.modulo.projeto.api.model.fabricaentidadeprojcrc.CPFabricaEntidadeProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.FabTipoItemProjeto;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.entidades.ObjetoProjCRC;
 import br.org.carameloCode.erp.modulo.projeto.entidadesJPA.projetoBuilderCRC.itemProjeto.fabrica.FabricaEntidadeProjCRC;
@@ -30,13 +31,13 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcao
  * @author salvio
  */
 @InfoModuloProjetoCaraelo(modulo = FabModulosProjetoCaramelo.CARAMELO_DEV)
-public enum FabAcaoCarameloDevComoItemProjeto implements ComoFabricaDeAcoesPersistencia {
+public enum FabAcaoCarameloDevEdicaoItemProj implements ComoFabricaDeAcoesPersistencia {
 
     @InfoTipoAcaoGestaoEntidade(entidade = ObjetoProjCRC.class, icone = "fa fa-database", nomeAcao = "Gestão de entidades")
     ENTIDADE_MB_GESTAO,
     @InfoTipoAcaoFormulario(icone = "fa fa-list")
     ENTIDADE_FRM_LISTAR,
-    @InfoTipoAcaoFormulario(icone = "fa fa-pencil")
+    @InfoTipoAcaoFormulario(icone = "fa fa-pencil", campos = {"nome", "nomeEntidade", "icone", "plural", "generoFeminino", "descricao"})
     ENTIDADE_FRM_EDITAR,
     @InfoTipoAcaoController(icone = "fa fa-floppy-o", entidade = ObjetoProjCRC.class, nomeAcao = "Nova Entidade do Projeto")
     ENTIDADE_CTR_SALVAR_NOVO,
@@ -85,19 +86,10 @@ public enum FabAcaoCarameloDevComoItemProjeto implements ComoFabricaDeAcoesPersi
     ATRIBUTO_ENTIDADE_CTR_VALIDAR_TP_LISTA,
     @InfoTipoAcaoController(icone = "fa fa-trash", entidade = AtributoEntidadeLista.class, nomeAcao = "Remover atributo lista")
     ATRIBUTO_ENTIDADE_CTR_REMOVER_TP_LISTA,
-    @InfoTipoAcaoGestaoEntidade(entidade = TipoDadoDinamico.class, icone = "fa fa-eye")
-    PREVISUALIZACAO_ITEM_PROJ_MB_GESTAO,
-    @InfoTipoAcaoFormulario(icone = "fa fa-eye")
-    PREVISUALIZACAO_ITEM_PROJ_FRM_VISUALIZAR_ATRIBUTO,
-    @InfoTipoAcaoFormulario(icone = "fa fa-eye")
-    PREVISUALIZACAO_ITEM_PROJ_FRM_VISUALIZAR_ENTIDADE,
-    @InfoTipoAcaoFormulario(icone = "fa fa-eye")
-    PREVISUALIZACAO_ITEM_PROJ_FRM_VISUALIZAR_ACAO_GESTAO,
-    @InfoTipoAcaoFormulario(icone = "fa fa-eye")
-    PREVISUALIZACAO_ITEM_PROJ_FRM_VISUALIZAR_ACAO_CONTROLLER,
+    @InfoTipoAcaoFormulario(icone = "fa fa-eye", entidade = AtributoEntidadeEntidade.class)
     @InfoTipoAcaoGestaoEntidade(entidade = FabricaEntidadeProjCRC.class, icone = "fa fa-industry", nomeAcao = "Fábricas de objetos")
     FABRICA_GENERICA_MB_GESTAO,
-    @InfoTipoAcaoFormulario(icone = "fa fa-pencil")
+    @InfoTipoAcaoFormulario(icone = "fa fa-pencil", campos = {CPFabricaEntidadeProjCRC.modulo, CPFabricaEntidadeProjCRC.nomefabrica, "tipoObjetoPadrao", CPFabricaEntidadeProjCRC.descricao})
     FABRICA_GENERICA_FRM_EDITAR,
     @InfoTipoAcaoController(icone = "fa fa-floppy-o", entidade = FabricaEntidadeProjCRC.class, nomeAcao = "Nova Fábrica do Projeto")
     FABRICA_GENERICA_CTR_SALVAR_NOVO,
@@ -167,6 +159,7 @@ public enum FabAcaoCarameloDevComoItemProjeto implements ComoFabricaDeAcoesPersi
     }
 
     @Override
+
     public AcaoDoSistema getRegistro() {
         AcaoDoSistema acao = ComoFabricaDeAcoesPersistencia.super.getRegistro();
         FabTipoItemProjeto tipoItem = getTipoItemProjeto();

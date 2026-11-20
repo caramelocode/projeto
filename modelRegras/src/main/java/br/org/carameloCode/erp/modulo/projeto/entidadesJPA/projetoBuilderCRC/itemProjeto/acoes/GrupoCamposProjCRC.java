@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
  * @author salvio
  */
 @Entity
-@InfoObjetoSB(tags = "Grupo de Campos", plural = "Grupos de Campos", icone = "fa fa-columns")
+@InfoObjetoSB(tags = "Grupo de Campos", plural = "Grupos de Campos", icone = "fa fa-table-columns")
 public class GrupoCamposProjCRC extends EntidadeSimples {
 
     @Id

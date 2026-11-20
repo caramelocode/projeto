@@ -14,41 +14,36 @@ public class AcoesCarameloDev_EntidadeMbGestao implements Serializable {
 
 	public ItfAcaoFormulario getEntidadeMbGestao() {
 		return (ItfAcaoFormulario) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ENTIDADE_MB_GESTAO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_MB_GESTAO");
 	}
 
 	public ItfAcaoFormularioEntidade getEntidadeFrmListar() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ENTIDADE_FRM_LISTAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_FRM_LISTAR");
 	}
 
 	public ItfAcaoFormularioEntidade getEntidadeFrmEditar() {
 		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ENTIDADE_FRM_EDITAR");
-	}
-
-	public ItfAcaoFormularioEntidade getEntidadeFrmNovo() {
-		return (ItfAcaoFormularioEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ENTIDADE_FRM_NOVO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_FRM_EDITAR");
 	}
 
 	public ComoAcaoControllerEntidade getEntidadeCtrSalvarNovo() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR_NOVO");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_CTR_SALVAR_NOVO");
 	}
 
 	public ComoAcaoControllerEntidade getEntidadeCtrSalvarMerge() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_SALVAR_MERGE");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_CTR_SALVAR_MERGE");
 	}
 
 	public ComoAcaoControllerEntidade getEntidadeCtrValidar() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_VALIDAR");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_CTR_VALIDAR");
 	}
 
 	public ComoAcaoControllerEntidade getEntidadeCtrRemover() {
 		return (ComoAcaoControllerEntidade) MapaAcoesSistema
-				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevComoItemProjeto.ENTIDADE_CTR_REMOVER");
+				.getAcaoDoSistemaByNomeUnico("FabAcaoCarameloDevEdicaoItemProj.ENTIDADE_CTR_REMOVER");
 	}
 }
